@@ -131,6 +131,7 @@ function setupProfileListeners() {
       const reader = new FileReader()
       reader.onload = (e) => {
         const dataURL = e.target.result
+        dataURL = canvas.toDataURL("image/jpeg", 0.4);
 
         // Update avatar preview
         document.getElementById("editProfileAvatar").src = dataURL
