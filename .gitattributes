@@ -1,2 +1,4 @@
 public/* linguist-vendored=false
 routes/* linguist-vendored=false
+models/* linguist-vendored=false
+data/* linguist-vendored=false
