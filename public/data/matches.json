@@ -147,12 +147,35 @@
     "id": "866ad110-a987-4d16-9dba-a4f14ee1aa2f",
     "matchCode": "U8RYTL",
     "status": "waiting",
-    "players": [
-    ],
+    "players": [],
     "currentRound": 0,
     "maxRounds": 25,
     "currentTurn": "4cdc4456-93a7-4fc0-9a25-0c3dc7d21c40",
     "createdAt": "2025-03-23T18:01:30.949Z",
     "updatedAt": "2025-03-23T18:01:30.949Z"
+  },
+  {
+    "id": "71a5b693-391d-4389-9fbe-32286d58aa5b",
+    "matchCode": "SWEDX0",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 25,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-03-23T19:24:36.555Z",
+    "updatedAt": "2025-03-23T19:25:31.750Z"
   }
 ]

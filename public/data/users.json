@@ -121,5 +121,46 @@
         }
       }
     }
+  },
+  {
+    "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "username": "dd",
+    "email": "dd@gmail.com",
+    "password": "$2a$10$7v8ADiBoclKvaYdJtQiF5O5HDp88DU5y.gzGAIU/vlPEEoCNUF2aa",
+    "createdAt": "2025-03-23T19:22:39.855Z",
+    "profile": {
+      "avatar": "/img/default-avatar.png",
+      "stats": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "correctAnswers": 0
+      },
+      "categoryPerformance": {
+        "science": {
+          "correct": 0,
+          "total": 0
+        },
+        "entertainment": {
+          "correct": 0,
+          "total": 0
+        },
+        "sports": {
+          "correct": 0,
+          "total": 0
+        },
+        "art": {
+          "correct": 0,
+          "total": 0
+        },
+        "geography": {
+          "correct": 0,
+          "total": 0
+        },
+        "history": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    }
   }
 ]
