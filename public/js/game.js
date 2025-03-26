@@ -26,36 +26,193 @@ function initGame() {
 
   console.log("Game code:", gameCode)
 
-  // Update player info
-  updatePlayerInfo()
+  
 
-  // Initialize game state
-  // This would typically fetch game data from the server
-  // For now, we'll just set up a basic game state
+
+
+
+  // Fetch match data from server and update it
+fetch(`../data/matches.json`)
+.then(response => {
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  return response.json();
+})
+.then(matchData => {
+  if (!Array.isArray(matchData)) {
+    throw new Error("Invalid match data format received.");
+  }
+
+  console.log("Match data:", matchData);
+
+  // Verifica se gameCode è valido
+  if (!gameCode) {
+    console.error("Game code is missing.");
+    alert("Invalid game code. Redirecting to home page.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  // Trova la partita corrispondente
+  const match = matchData.find(m => m.matchCode === gameCode.toString());
+
+  if (!match) {
+    console.error("Match not found.");
+    alert("Match not found. Redirecting to home page.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  // Assicuriamoci che la proprietà players esista
+  if (!match.players) {
+    match.players = [];
+  }
+
+  // Retrieve current user
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    console.error("No authenticated user found.");
+    alert("You must be logged in to join a match.");
+    return;
+  }
+
+  // Se entrambi gli slot sono occupati, l'utente non può unirsi
+  let playerAssigned = false;
+
+  if (match.players.length == 0) {
+    match.players[0] = {
+      id: currentUser.id,
+      username: currentUser.username,
+      points: 0,
+      categoryPoints: { category1: 0, category2: 0, category3: 0 }
+    };
+    playerAssigned = true;
+  } else if (match.players.length == 1) {
+    match.players[1] = {
+      id: currentUser.id,
+      username: currentUser.username,
+      points: 0,
+      categoryPoints: { category1: 0, category2: 0, category3: 0 }
+    };
+    playerAssigned = true;
+  }
+
+  // Se entrambi gli slot sono occupati, l'utente non può unirsi
+  if (!playerAssigned) {
+    if(match.players[0].id != currentUser.id && match.players[1].id != currentUser.id){
+      alert("This match has already started with two players. You cannot join.");
+    
+      window.location.href = "index.html";
+    
+      return;
+    }
+  }
+
+
+
+  console.log("Dati inviati normalizzati:", JSON.stringify(match, null, 2));
+
+  // Aggiorna il match nel server
+  fetch(`/api/games/update/${match.matchCode}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ currentUser: { id: currentUser.id, username: currentUser.username } })
+  })
+  .then(response => response.json())
+  .then(data => console.log("Match aggiornato con successo:", data))
+  .catch(error => console.error("Errore nell'aggiornamento della partita:", error));
+
+
+
+  // Update player info
+  updatePlayerInfo(gameCode)
+})
+.catch(error => {
+  console.error("Error fetching match data:", error);
+});
+
 }
 
 // Update player info
-function updatePlayerInfo() {
+function updatePlayerInfo(gameCode) {
   try {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"))
-
-    // Update player 1 info (current user)
-    const player1Name = document.querySelector("#player1Info .player-name")
-    if (player1Name) {
-      player1Name.textContent = `@${currentUser.username}`
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) {
+      console.error("No authenticated user found.");
+      return;
     }
+    console.log("trovando " + gameCode);
 
-    const player1Avatar = document.querySelector("#player1Info .player-avatar")
-    if (player1Avatar && currentUser.profile && currentUser.profile.avatar) {
-      player1Avatar.src = currentUser.profile.avatar
-    }
+    // Fetch match data from server
+    fetch('../data/matches.json')
+      .then(response => response.json())
+      .then(matchData => {
+        matchData.forEach(m => console.log(`Checking match code: ${m.matchCode} e confronto con ` + gameCode));
+        const match = matchData.find(m => m.matchCode === gameCode);
+        if (!match) {
+          console.error("Match not found.");
+          return;
+        }else{
+          console.log(match);
+        }
 
-    // Player 2 would typically be fetched from the server
-    // For now, we'll just use a placeholder
+        // Identify players
+        const player1 = match.players[0] || null;
+        const player2 = match.players[1] || null;
+
+        console.log("Player 1:", player1);
+        console.log("Player 2:", player2);
+
+        // Determine if current user is Player 1 or Player 2
+        let currentPlayer = player1;
+        let opponentPlayer = player2;
+
+        if (player2 && currentUser && player2.id === currentUser.id) {
+          currentPlayer = player2;
+          opponentPlayer = player1;
+        }
+
+        // Update current player (Player 1 in UI)
+        const player1Name = document.querySelector("#player1Info .player-name");
+        if (player1Name && currentPlayer) {
+          player1Name.textContent = `@${currentPlayer.username || "Waiting..."}`;
+        } else if (player1Name) {
+          player1Name.textContent = "Waiting for player...";
+        }
+
+        const player1Avatar = document.querySelector("#player1Info .player-avatar");
+        if (player1Avatar && currentPlayer?.profile?.avatar) {
+          player1Avatar.src = currentPlayer.profile.avatar;
+        } else if (player1Avatar) {
+          player1Avatar.src = "../img/default-avatar.png"; // Avatar di default se non disponibile
+        }
+
+        // Update opponent player (Player 2 in UI)
+        const player2Name = document.querySelector("#player2Info .player-name");
+        if (player2Name && opponentPlayer) {
+          player2Name.textContent = `@${opponentPlayer.username || "Waiting..."}`;
+        } else if (player2Name) {
+          player2Name.textContent = "Waiting for player...";
+        }
+
+        const player2Avatar = document.querySelector("#player2Info .player-avatar");
+        if (player2Avatar && opponentPlayer?.profile?.avatar) {
+          player2Avatar.src = opponentPlayer.profile.avatar;
+        } else if (player2Avatar) {
+          player2Avatar.src = "../img/default-avatar.png"; // Avatar di default se non disponibile
+        }
+
+      })
+      .catch(error => {
+        console.error("Error fetching match data:", error);
+      });
+
   } catch (error) {
-    console.error("Error updating player info:", error)
+    console.error("Error updating player info:", error);
   }
 }
+
 
 // Set up game event listeners
 function setupGameListeners() {
