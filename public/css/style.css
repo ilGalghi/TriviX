@@ -1,6 +1,6 @@
 /* Global Styles */
 :root {
-  --primary-color: #150659;
+  --primary-color: rgb(21, 6, 89);
   --secondary-color: #4a4a4a;
   --accent-color: #ff5252;
   --light-color: #f8f9fa;
@@ -11,6 +11,9 @@
   --art-color: #e91e63;
   --geography-color: #2196f3;
   --history-color: #9c27b0;
+  --accent-color-light: #ff5252;
+  --badge-bg-light: #ff5252;
+  --badge-text-light: white;
 }
 
 body {
@@ -133,11 +136,12 @@ body {
   border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #f8f9fa;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  border: 2px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
-
 
 .player-avatar {
   width: 50px;
@@ -187,50 +191,82 @@ body {
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transition: transform 3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  background: conic-gradient(
+    from 0deg,
+    var(--science-color) 0deg 60deg,
+    var(--entertainment-color) 60deg 120deg,
+    var(--sports-color) 120deg 180deg,
+    var(--art-color) 180deg 240deg,
+    var(--geography-color) 240deg 300deg,
+    var(--history-color) 300deg 360deg
+  );
 }
 
 .wheel-section {
   position: absolute;
   width: 50%;
   height: 50%;
-  top: 0;
-  left: 0;
-  transform-origin: bottom right;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   font-size: 1.5rem;
+  transform-origin: bottom right;
+}
+
+.wheel-section i {
+  position: absolute;
+  left: 110%;
+  top: 40%;
+  font-size: 1.8rem;
 }
 
 .wheel-section.science {
-  background-color: var(--science-color);
   transform: rotate(0deg);
 }
 
+.wheel-section.science i {
+  transform: translate(50%, -0%) rotate(+30deg);
+}
+
 .wheel-section.entertainment {
-  background-color: var(--entertainment-color);
   transform: rotate(60deg);
 }
 
+.wheel-section.entertainment i {
+  transform: translate(50%, -0%) rotate(-90deg);
+}
+
 .wheel-section.sports {
-  background-color: var(--sports-color);
   transform: rotate(120deg);
 }
 
+.wheel-section.sports i {
+  transform: translate(50%, -0%) rotate(-150deg);
+}
+
 .wheel-section.art {
-  background-color: var(--art-color);
   transform: rotate(180deg);
 }
 
+.wheel-section.art i {
+  transform: translate(50%, -0%) rotate(-210deg);
+}
+
 .wheel-section.geography {
-  background-color: var(--geography-color);
   transform: rotate(240deg);
 }
 
+.wheel-section.geography i {
+  transform: translate(50%, -0%) rotate(-270deg);
+}
+
 .wheel-section.history {
-  background-color: var(--history-color);
   transform: rotate(300deg);
+}
+
+.wheel-section.history i {
+  transform: translate(50%, -0%) rotate(-330deg);
 }
 
 .spin-button {
@@ -454,12 +490,12 @@ body {
   right: -300px;
   width: 300px;
   height: 100vh;
-  background-color: white;
+  background-color: #fff;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
   transition: right 0.3s ease;
   display: flex;
   flex-direction: column;
+  z-index: 1000;
 }
 
 .chat-sidebar.open {
@@ -467,9 +503,9 @@ body {
 }
 
 .chat-header {
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -484,67 +520,90 @@ body {
 .close-button {
   background: none;
   border: none;
-  color: white;
+  color: var(--secondary-color);
   font-size: 1.2rem;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: var(--accent-color);
 }
 
 .chat-messages {
-  flex: 1;
-  padding: 15px;
+  flex-grow: 1;
   overflow-y: auto;
-}
-
-.chat-message {
-  margin-bottom: 15px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  background-color: #f5f5f5;
+}
+
+.message {
+  padding: 10px;
+  border-radius: 15px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.message.sent {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end;
+  margin-left: 20%;
+}
+
+.message.received {
+  background-color: white;
+  color: #212529;
+  align-self: flex-start;
+  margin-right: 20%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .message-sender {
-  font-weight: bold;
-  font-size: 0.9rem;
-  margin-bottom: 3px;
+  font-size: 0.8em;
+  margin-bottom: 4px;
+  opacity: 0.8;
 }
 
-.message-bubble {
-  background-color: #f1f1f1;
-  padding: 10px;
-  border-radius: 10px;
-  max-width: 80%;
-  align-self: flex-start;
-}
-
-.message-bubble.own {
-  background-color: #d1f7f0;
-  align-self: flex-end;
+.message-content {
+  font-size: 1em;
 }
 
 .chat-input {
-  padding: 10px;
+  padding: 15px;
+  background-color: white;
+  border-top: 1px solid #dee2e6;
   display: flex;
-  border-top: 1px solid #e9ecef;
+  gap: 10px;
 }
 
 .chat-input input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ced4da;
+  flex-grow: 1;
+  padding: 8px 15px;
+  border: 1px solid #dee2e6;
   border-radius: 20px;
-  margin-right: 10px;
+  outline: none;
 }
 
 .chat-input button {
-  background-color: var(--primary-color);
+  background-color: #007bff;
   color: white;
   border: none;
-  width: 40px;
-  height: 40px;
   border-radius: 50%;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.chat-input button:hover {
+  background-color: #0056b3;
 }
 
 /* Profile Page Styles */
@@ -851,11 +910,7 @@ body {
   opacity: 0.7;
 }
 
-.players-container {
-  background-color: #343a40;
-  color: white;
-  padding: 15px 0;
-}
+
 
 .player-vs-container {
   display: flex;
@@ -917,64 +972,7 @@ body {
   transition: transform 3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
 }
 
-.wheel-section {
-  position: absolute;
-  width: 50%;
-  height: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 2rem;
-}
 
-.science {
-  top: 0;
-  left: 0;
-  background-color: #3498db;
-  border-radius: 100% 0 0 0;
-}
-
-.entertainment {
-  top: 0;
-  right: 0;
-  background-color: #9b59b6;
-  border-radius: 0 100% 0 0;
-}
-
-.sports {
-  bottom: 0;
-  left: 0;
-  background-color: #2ecc71;
-  border-radius: 0 0 0 100%;
-}
-
-.art {
-  bottom: 0;
-  right: 0;
-  background-color: #f1c40f;
-  border-radius: 0 0 100% 0;
-}
-
-.geography {
-  top: 25%;
-  left: 25%;
-  width: 50%;
-  height: 50%;
-  background-color: #e67e22;
-  border-radius: 50%;
-  z-index: 1;
-}
-
-.history {
-  top: 37.5%;
-  left: 37.5%;
-  width: 25%;
-  height: 25%;
-  background-color: #e74c3c;
-  border-radius: 50%;
-  z-index: 2;
-}
 
 .spin-button {
   position: absolute;
@@ -1000,11 +998,11 @@ body {
 }
 
 @keyframes spin {
-  0% {
+  from {
     transform: rotate(0deg);
   }
-  100% {
-    transform: rotate(1080deg);
+  to {
+    transform: rotate(1800deg);
   }
 }
 
@@ -1151,14 +1149,17 @@ body {
   right: 0;
 }
 
-
-
 .close-button {
   background: none;
   border: none;
-  color: white;
+  color: var(--secondary-color);
   font-size: 1.2rem;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: var(--accent-color);
 }
 
 .chat-messages {
@@ -1208,5 +1209,50 @@ body {
   text-align: center;
   margin: 10px 0;
   letter-spacing: 3px;
+}
+
+/* Indicatore messaggi non letti */
+.chat-button {
+  position: relative;
+}
+
+.chat-button .unread-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: var(--badge-bg-light);
+  color: var(--badge-text-light);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s 3;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* Hover effect */
+.chat-button .unread-badge:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 

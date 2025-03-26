@@ -1,9 +1,20 @@
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
+const http = require('http');
+const socketIo = require('socket.io');
+const Message = require('./models/Message');
 const authRoutes = require("./routes/auth");
 const gameRoutes = require("./routes/game");
+const chatRoutes = require("./routes/chat");
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
 const PORT = process.env.PORT || 3000;
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -48,7 +59,46 @@ if (!isProduction) {
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/games", gameRoutes); 
+app.use("/api/games", gameRoutes);
+app.use("/api/chat", chatRoutes);
+
+// Gestione delle connessioni Socket.IO
+io.on('connection', (socket) => {
+    console.log('Nuovo utente connesso:', socket.id);
+
+    socket.on('join-room', (roomId) => {
+        socket.join(roomId);
+        console.log(`Utente ${socket.id} entrato nella stanza ${roomId}`);
+    });
+
+    socket.on('leave-room', (roomId) => {
+        socket.leave(roomId);
+        console.log(`Utente ${socket.id} uscito dalla stanza ${roomId}`);
+    });
+
+    
+    socket.on('send-message', (message) => {
+      try {
+        console.log('Messaggio ricevuto:', message);
+        
+        // Invia il messaggio a TUTTI gli utenti nella stanza, incluso il mittente
+        io.to(message.roomId).emit('new-message', {
+            sender: message.sender,
+            content: message.content,
+            timestamp: new Date()
+        });
+        
+        console.log(`Messaggio inviato alla stanza ${message.roomId}, incluso il mittente`);
+      } catch (error) {
+        console.error('Errore nell\'invio del messaggio:', error);
+        socket.emit('error', { message: 'Errore nell\'invio del messaggio' });
+      }
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Utente disconnesso:', socket.id);
+    });
+});
 
 // API health check
 app.get("/api/health", (req, res) => {
@@ -67,6 +117,6 @@ app.get("*", (req, res) => {
 });
 
 // Avvia il server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server in esecuzione sulla porta ${PORT} in modalità ${process.env.NODE_ENV || "development"}`);
 });
