@@ -1,3 +1,8 @@
+// Dichiarazione globale del gameState
+let gameState = {
+  pollingInterval: null
+};
+
 // Game functionality
 document.addEventListener("DOMContentLoaded", () => {
   // Check if user is logged in
@@ -32,27 +37,27 @@ function initGame() {
 
 
   // Fetch match data from server and update it
-fetch(`../data/matches.json`)
-.then(response => {
-  if (!response.ok) {
-    throw new Error(`HTTP error! Status: ${response.status}`);
-  }
-  return response.json();
-})
-.then(matchData => {
-  if (!Array.isArray(matchData)) {
-    throw new Error("Invalid match data format received.");
-  }
+  fetch(`../data/matches.json`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(matchData => {
+    if (!Array.isArray(matchData)) {
+      throw new Error("Invalid match data format received.");
+    }
 
-  console.log("Match data:", matchData);
+    console.log("Match data:", matchData);
 
-  // Verifica se gameCode è valido
-  if (!gameCode) {
-    console.error("Game code is missing.");
-    alert("Invalid game code. Redirecting to home page.");
-    window.location.href = "index.html";
-    return;
-  }
+    // Verifica se gameCode è valido
+    if (!gameCode) {
+      console.error("Game code is missing.");
+      alert("Invalid game code. Redirecting to home page.");
+      window.location.href = "index.html";
+      return;
+    }
 
   // Trova la partita corrispondente
   const match = matchData.find(m => m.matchCode === gameCode.toString());
@@ -106,6 +111,44 @@ fetch(`../data/matches.json`)
       window.location.href = "index.html";
     
       return;
+    }
+  }
+
+  // Controlla se il turno esiste e se è quello dell'utente corrente
+  if (match.currentTurn) {
+    const gameStatusElement = document.getElementById("gameStatus");
+    
+    // Verifica se è il turno dell'utente corrente
+    if (match.currentTurn === currentUser.id) {
+      // Aggiorna lo stato della partita
+      gameStatusElement.textContent = "È il tuo turno";
+      
+      // Abilita il pulsante di spin se era disabilitato
+      const spinButton = document.getElementById("spinButton");
+      if (spinButton) {
+        spinButton.disabled = false;
+      }
+    } else {
+      // Non è il turno dell'utente corrente
+      gameStatusElement.textContent = "In attesa del turno dell'avversario";
+      
+      // Disabilita il pulsante di spin
+      const spinButton = document.getElementById("spinButton");
+      if (spinButton) {
+        console.log("spinButton disabled");
+        spinButton.disabled = true;
+      }
+    }
+  } else {
+    // Se il turno non è definito, imposta il turno al primo giocatore
+    match.currentTurn = match.players[0].id;
+    
+    // Aggiorna lo stato della partita in base a chi è il primo giocatore
+    const gameStatusElement = document.getElementById("gameStatus");
+    if (match.currentTurn === currentUser.id) {
+      gameStatusElement.textContent = "È il tuo turno";
+    } else {
+      gameStatusElement.textContent = "In attesa del turno dell'avversario";
     }
   }
 
@@ -173,35 +216,51 @@ function updatePlayerInfo(gameCode) {
           opponentPlayer = player1;
         }
 
-        // Update current player (Player 1 in UI)
-        const player1Name = document.querySelector("#player1Info .player-name");
-        if (player1Name && currentPlayer) {
-          player1Name.textContent = `@${currentPlayer.username || "Waiting..."}`;
-        } else if (player1Name) {
-          player1Name.textContent = "Waiting for player...";
-        }
+       // Update current player (Player 1 in UI)
+      const player1Name = document.querySelector("#player1Info .player-name");
+      if (player1Name && currentPlayer) {
+        player1Name.textContent = `@${currentPlayer.username || "Waiting..."}`;
+      } else if (player1Name) {
+        player1Name.textContent = "Waiting for player...";
+      }
 
-        const player1Avatar = document.querySelector("#player1Info .player-avatar");
-        if (player1Avatar && currentPlayer?.profile?.avatar) {
-          player1Avatar.src = currentPlayer.profile.avatar;
-        } else if (player1Avatar) {
-          player1Avatar.src = "../img/default-avatar.png"; // Avatar di default se non disponibile
-        }
+      const player1Avatar = document.querySelector("#player1Info .player-avatar");
+      if (player1Avatar && currentPlayer?.profile?.avatar) {
+        player1Avatar.src = currentPlayer.profile.avatar;
+      } else if (player1Avatar) {
+        player1Avatar.src = "../img/default-avatar.png"; // Avatar di default se non disponibile
+      }
 
-        // Update opponent player (Player 2 in UI)
-        const player2Name = document.querySelector("#player2Info .player-name");
-        if (player2Name && opponentPlayer) {
-          player2Name.textContent = `@${opponentPlayer.username || "Waiting..."}`;
-        } else if (player2Name) {
-          player2Name.textContent = "Waiting for player...";
-        }
+      // Aggiorna il punteggio del giocatore corrente
+      const player1Score = document.querySelector("#player1Info .player-score");
+      if (player1Score && currentPlayer) {
+        player1Score.textContent = currentPlayer.score || 0;
+      } else if (player1Score) {
+        player1Score.textContent = "0";
+      }
 
-        const player2Avatar = document.querySelector("#player2Info .player-avatar");
-        if (player2Avatar && opponentPlayer?.profile?.avatar) {
-          player2Avatar.src = opponentPlayer.profile.avatar;
-        } else if (player2Avatar) {
-          player2Avatar.src = "../img/default-avatar.png"; // Avatar di default se non disponibile
-        }
+      // Update opponent player (Player 2 in UI)
+      const player2Name = document.querySelector("#player2Info .player-name");
+      if (player2Name && opponentPlayer) {
+        player2Name.textContent = `@${opponentPlayer.username || "Waiting..."}`;
+      } else if (player2Name) {
+        player2Name.textContent = "Waiting for player...";
+      }
+
+      const player2Avatar = document.querySelector("#player2Info .player-avatar");
+      if (player2Avatar && opponentPlayer?.profile?.avatar) {
+        player2Avatar.src = opponentPlayer.profile.avatar;
+      } else if (player2Avatar) {
+        player2Avatar.src = "../img/default-avatar.png"; // Avatar di default se non disponibile
+      }
+
+      // Aggiorna il punteggio dell'avversario
+      const player2Score = document.querySelector("#player2Info .player-score");
+      if (player2Score && opponentPlayer) {
+        player2Score.textContent = opponentPlayer.score || 0;
+      } else if (player2Score) {
+        player2Score.textContent = "0";
+      }
 
       })
       .catch(error => {
@@ -301,6 +360,7 @@ function spinWheel() {
 // Show question for category
 function showQuestion(category) {
   // Hide spinner section and show question section
+  // adding d-none to class list make it hidden
   document.getElementById("spinnerSection").classList.add("d-none")
   document.getElementById("questionSection").classList.remove("d-none")
 
@@ -362,6 +422,7 @@ function showQuestion(category) {
   answersContainer.innerHTML = ""
 
   question.answers.forEach((answer, index) => {
+
     const answerElement = document.createElement("div")
     answerElement.className = "answer-option"
     answerElement.textContent = answer
@@ -369,6 +430,7 @@ function showQuestion(category) {
 
     answerElement.addEventListener("click", () => {
       // Check if answer is correct
+      stopTimer();
       checkAnswer(index, question.correctIndex, question.explanation)
     })
 
@@ -401,16 +463,207 @@ function startTimer() {
   window.questionTimer = timer
 }
 
+// Funzione per fermare il timer
+function stopTimer() {
+  if (window.questionTimer) {
+    clearInterval(window.questionTimer)
+    window.questionTimer = null
+  }
+}
+
 // Check answer
-function checkAnswer(selectedIndex, correctIndex, explanation) {
-  // Clear timer
-  clearInterval(window.questionTimer)
+function checkAnswer(index, correctIndex, explanation) {
+  
+  // Check if selected option is correct
+  const isCorrect = index === correctIndex;
+  
+  // Update UI to show result
+  showResult(isCorrect, explanation || "");
+  
+  // Update game state
+  if (isCorrect) {
+    // Increment score for current player
+    
+    // Update score display
+    const playerScore = document.querySelector("#player1Info .player-score");
+    playerScore.textContent = parseInt(playerScore.textContent) + 1;
+    
+    // Save score to matches.json
+    saveScoreToDatabase(isCorrect);
+  }
+  
+  // Disable spin button until opponent's turn is complete
+  document.getElementById("spinButton").disabled = true;
+  
+  // Switch turn to opponent
+  switchTurn();
+}
 
-  // Check if answer is correct
-  const isCorrect = selectedIndex === correctIndex
+// Save score to database
+function saveScoreToDatabase(isCorrect) {
+  // Get current user and match data
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const urlParams = new URLSearchParams(window.location.search);
+  const gameCode = urlParams.get("code");
+  
+  if (!currentUser || !gameCode) {
+    console.error("Missing user or game code");
+    return;
+  }
+  
+  // Prepare data to send to server
+  const scoreData = {
+    userId: currentUser.id,
+    gameCode: gameCode,
+    isCorrect: isCorrect
+  };
+  
+  // Send score update to server
+  fetch('/api/games/update-score', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(scoreData),
+    credentials: 'include'
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Score updated successfully:', data);
+    
+    // Update local game state with new match data if returned
+    if (data.match) {
+      updateGameStateFromMatch(data.match);
+    }
+  })
+  .catch(error => {
+    console.error('Error updating score:', error);
+  });
+}
 
-  // Show result
-  showResult(isCorrect, explanation)
+// Switch turn to opponent
+function switchTurn() {
+  // Get current user and match data
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const urlParams = new URLSearchParams(window.location.search);
+  const gameCode = urlParams.get("code");
+  
+  if (!currentUser || !gameCode) {
+    console.error("Missing user or game code");
+    return;
+  }
+  
+  // Prepare data to send to server
+  const turnData = {
+    userId: currentUser.id,
+    gameCode: gameCode
+  };
+  
+  // Send turn switch to server
+  fetch('/api/games/switch-turn', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(turnData),
+    credentials: 'include'
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Turn switched successfully:', data);
+    
+    // Update UI to show waiting for opponent
+    document.getElementById("gameStatus").textContent = "Waiting for opponent's turn";
+    
+    // Start polling for opponent's move
+    startPollingForOpponentMove();
+  })
+  .catch(error => {
+    alert("Other player still not playing, please wait...")
+    console.error('Error switching turn:', error);
+  });
+}
+
+// Start polling for opponent's move
+function startPollingForOpponentMove() {
+  // Clear any existing polling interval
+  gameState.pollingInterval = setInterval(() => {
+    checkForOpponentMove();
+  }, 5000); // Check every 5 seconds
+}
+
+// Check if opponent has made their move
+function checkForOpponentMove() {
+  // Get current user and match data
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const urlParams = new URLSearchParams(window.location.search);
+  const gameCode = urlParams.get("code");
+  
+  if (!currentUser || !gameCode) {
+    console.error("Missing user or game code");
+    return;
+  }
+  
+  // Fetch current match state
+  fetch(`/api/games/match/${gameCode}`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Check if it's our turn again
+    console.log("data.match.currentTurn" + data.match.currentTurn + " currentUser.id" + currentUser.id);
+    if (data.match && data.match.currentTurn === currentUser.id) {
+      // Stop polling
+      clearInterval(gameState.pollingInterval);
+      console.log("polling stopped");
+      
+      // Update game state
+      updateGameStateFromMatch(data.match);
+      
+      // Enable spin button
+      document.getElementById("spinButton").disabled = false;
+      
+      // Update UI to show it's our turn
+      document.getElementById("gameStatus").textContent = "Your turn!";
+    }
+  })
+  .catch(error => {
+    console.error('Error checking for opponent move:', error);
+  });
+}
+
+// Update game state from match data
+function updateGameStateFromMatch(match) {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  
+  // Find current player in match
+  const currentPlayer = match.players.find(player => player.id === currentUser.id);
+  const opponent = match.players.find(player => player.id !== currentUser.id);
+  
+  // Update scores
+  if (currentPlayer) {
+    document.querySelector("#player1Info .player-score").textContent = currentPlayer.score;
+  }
+  
+  if (opponent) {
+    document.querySelector("#player2Info .player-score").textContent = opponent.score;
+  }
+  
+  // Update round info
+  document.getElementById("roundInfo").textContent = `ROUND ${match.currentRound}/${match.maxRounds}`;
 }
 
 // Show result

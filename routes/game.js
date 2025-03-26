@@ -25,8 +25,14 @@ const readMatches = () => {
 
 // Funzione per scrivere i dati delle partite nel file JSON
 const writeMatches = (matches) => {
-  fs.writeFileSync(matchesFilePath, JSON.stringify(matches, null, 2));
-  console.log("salvo "  + JSON.stringify(matches, null, 2));
+  try {
+    fs.writeFileSync(matchesFilePath, JSON.stringify(matches, null, 2));
+    console.log("salvo " + JSON.stringify(matches, null, 2));
+    return true;
+  } catch (error) {
+    console.error("Errore durante il salvataggio delle partite:", error);
+    return false;
+  }
 };
 
 
@@ -240,6 +246,121 @@ router.put("/update/:matchCode", (req, res) => {
   writeMatches(matches);
 
   res.json({ game });
+});
+
+// Update score
+router.post('/update-score', (req, res) => {
+  const { userId, gameCode, isCorrect } = req.body;
+  
+  if (!userId || !gameCode) {
+    return res.status(400).json({ success: false, message: 'Missing required fields' });
+  }
+  
+  // Read matches
+  const matches = readMatches();
+  
+  // Find match by game code
+  const matchIndex = matches.findIndex(match => match.matchCode === gameCode);
+  
+  if (matchIndex === -1) {
+    return res.status(404).json({ success: false, message: 'Match not found' });
+  }
+  
+  const match = matches[matchIndex];
+  
+  // Find player in match
+  const playerIndex = match.players.findIndex(player => player.id === userId);
+  
+  if (playerIndex === -1) {
+    return res.status(404).json({ success: false, message: 'Player not found in match' });
+  }
+  
+  // Update player score if answer was correct
+  if (isCorrect) {
+    match.players[playerIndex].score += 1;
+  }
+  
+  // Update match
+  match.updatedAt = new Date().toISOString();
+  matches[matchIndex] = match;
+  
+  // Write updated matches
+  if (writeMatches(matches)) {
+    return res.json({ success: true, match });
+  } else {
+    return res.status(500).json({ success: false, message: 'Failed to update match' });
+  }
+});
+
+// Switch turn
+router.post('/switch-turn', (req, res) => {
+  const { userId, gameCode } = req.body;
+  
+  if (!userId || !gameCode) {
+    return res.status(400).json({ success: false, message: 'Missing required fields' });
+  }
+  
+  // Read matches
+  const matches = readMatches();
+  
+  // Find match by game code
+  const matchIndex = matches.findIndex(match => match.matchCode === gameCode);
+  
+  if (matchIndex === -1) {
+    console.log("match not found in db");
+    return res.status(404).json({ success: false, message: 'Match not found' });
+  }
+  
+  const match = matches[matchIndex];
+  
+  // Find opponent
+  const opponent = match.players.find(player => player.id !== userId);
+  
+  if (!opponent) {
+    console.log("opponent not found in db");
+    return res.status(404).json({ success: false, message: 'Opponent not found' });
+  }
+  
+  // Switch turn to opponent
+  match.currentTurn = opponent.id;
+  
+  // Increment round if needed (when both players have played)
+  if (match.currentRound === 0 || (match.players.length === 2 && match.currentTurn === match.players[0].id)) {
+    match.currentRound += 1;
+  }
+  
+  // Update match
+  match.updatedAt = new Date().toISOString();
+  matches[matchIndex] = match;
+  
+  // Write updated matches
+  if (writeMatches(matches)) {
+    return res.json({ success: true, match });
+  } else {
+    return res.status(500).json({ success: false, message: 'Failed to update match' });
+  }
+});
+
+
+// Get match by code
+router.get('/match/:code', (req, res) => {
+  const gameCode = req.params.code;
+  
+  if (!gameCode) {
+    return res.status(400).json({ success: false, message: 'Missing game code' });
+  }
+  
+  // Read matches
+  const matches = readMatches();
+  
+  // Find match by game code
+  const match = matches.find(match => match.matchCode === gameCode);
+  
+  if (!match) {
+    return res.status(404).json({ success: false, message: 'Match not found' });
+  }
+  
+  return res.json({ success: true, match });
 });
 
 
