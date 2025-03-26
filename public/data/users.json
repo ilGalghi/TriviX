@@ -162,5 +162,46 @@
         }
       }
     }
+  },
+  {
+    "id": "d12c0516-a6bb-4ed5-bb9f-49f9e1a736b6",
+    "username": "gg",
+    "email": "gg@gmail.com",
+    "password": "$2a$10$bXh/7.mC0kmVmzI2hztkCe31f53v5wCm7XABIBNqunFsJp5K0Qp7K",
+    "createdAt": "2025-03-26T09:41:49.651Z",
+    "profile": {
+      "avatar": "/img/default-avatar.png",
+      "stats": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "correctAnswers": 0
+      },
+      "categoryPerformance": {
+        "science": {
+          "correct": 0,
+          "total": 0
+        },
+        "entertainment": {
+          "correct": 0,
+          "total": 0
+        },
+        "sports": {
+          "correct": 0,
+          "total": 0
+        },
+        "art": {
+          "correct": 0,
+          "total": 0
+        },
+        "geography": {
+          "correct": 0,
+          "total": 0
+        },
+        "history": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    }
   }
 ]
