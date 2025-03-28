@@ -177,6 +177,10 @@ function initGame() {
 
 }
 
+
+
+
+
 // Update player info
 function updatePlayerInfo(gameCode) {
   try {
@@ -216,7 +220,36 @@ function updatePlayerInfo(gameCode) {
           opponentPlayer = player1;
         }
 
-       // Update current player (Player 1 in UI)
+        // Fetch match data from server
+    fetch('../data/matches.json')
+    .then(response => response.json())
+    .then(matchData => {
+      matchData.forEach(m => console.log(`Checking match code: ${m.matchCode} e confronto con ` + gameCode));
+      const match = matchData.find(m => m.matchCode === gameCode);
+      if (!match) {
+        console.error("Match not found.");
+        return;
+      }else{
+        console.log(match);
+      }
+
+      // Identify players
+      const player1 = match.players[0] || null;
+      const player2 = match.players[1] || null;
+
+      console.log("Player 1:", player1);
+      console.log("Player 2:", player2);
+
+      // Determine if current user is Player 1 or Player 2
+      let currentPlayer = player1;
+      let opponentPlayer = player2;
+
+      if (player2 && currentUser && player2.id === currentUser.id) {
+        currentPlayer = player2;
+        opponentPlayer = player1;
+      }
+
+      // Update current player (Player 1 in UI)
       const player1Name = document.querySelector("#player1Info .player-name");
       if (player1Name && currentPlayer) {
         player1Name.textContent = `@${currentPlayer.username || "Waiting..."}`;
@@ -267,30 +300,103 @@ function updatePlayerInfo(gameCode) {
         console.error("Error fetching match data:", error);
       });
 
+
+
+
+        // Fetch users data to get avatar information
+        fetch('../data/users.json')
+          .then(response => response.json())
+          .then(usersData => {
+            // Update current player (Player 1 in UI)
+            const player1Name = document.querySelector("#player1Info .player-name");
+            if (player1Name && currentPlayer) {
+              player1Name.textContent = `@${currentPlayer.username || "Waiting..."}`;
+            } else if (player1Name) {
+              player1Name.textContent = "Waiting for player...";
+            }
+
+            const player1Avatar = document.querySelector("#player1Info .player-avatar");
+            if (player1Avatar && currentPlayer) {
+              const userData = usersData.find(u => u.id === currentPlayer.id);
+              if (userData && userData.profile && userData.profile.avatar) {
+                player1Avatar.src = userData.profile.avatar;
+              } else {
+                player1Avatar.src = "../img/default-avatar.png";
+              }
+            }
+
+            // Update opponent player (Player 2 in UI)
+            const player2Name = document.querySelector("#player2Info .player-name");
+            if (player2Name && opponentPlayer) {
+              player2Name.textContent = `@${opponentPlayer.username || "Waiting..."}`;
+            } else if (player2Name) {
+              player2Name.textContent = "Waiting for player...";
+            }
+
+            const player2Avatar = document.querySelector("#player2Info .player-avatar");
+            if (player2Avatar && opponentPlayer) {
+              const userData = usersData.find(u => u.id === opponentPlayer.id);
+              if (userData && userData.profile && userData.profile.avatar) {
+                player2Avatar.src = userData.profile.avatar;
+              } else {
+                player2Avatar.src = "../img/default-avatar.png";
+              }
+            }
+
+            // Aggiorna i punteggi
+            const player1Score = document.querySelector("#player1Info .player-score");
+            if (player1Score && currentPlayer) {
+              player1Score.textContent = currentPlayer.score || 0;
+            } else if (player1Score) {
+              player1Score.textContent = "0";
+            }
+
+            const player2Score = document.querySelector("#player2Info .player-score");
+            if (player2Score && opponentPlayer) {
+              player2Score.textContent = opponentPlayer.score || 0;
+            } else if (player2Score) {
+              player2Score.textContent = "0";
+            }
+          })
+          .catch(error => {
+            console.error("Error fetching users data:", error);
+          });
+      })
+      .catch(error => {
+        console.error("Error fetching match data:", error);
+      });
+
   } catch (error) {
     console.error("Error updating player info:", error);
   }
 }
 
-
 // Set up game event listeners
 function setupGameListeners() {
   // Spin button
-  const spinButton = document.getElementById("spinButton")
+  const spinButton = document.getElementById("spinButton");
   if (spinButton) {
     spinButton.addEventListener("click", () => {
       // Simulate spinning the wheel
-      spinWheel()
-    })
+      spinWheel();
+    });
   }
 
   // Chat button
-  const chatButton = document.getElementById("chatButton")
+  const chatButton = document.getElementById("chatButton");
   if (chatButton) {
     chatButton.addEventListener("click", () => {
       // Toggle chat sidebar
-      document.getElementById("chatSidebar").classList.toggle("active")
-    })
+      const chatSidebar = document.getElementById("chatSidebar");
+      if (chatSidebar) {
+        chatSidebar.classList.toggle("active");
+      }
+    });
+  }
+
+  // Inizializza la chat una sola volta, subito dopo il caricamento della pagina
+  if (!window.chatManager) {
+    window.chatManager = new ChatManager();
   }
 
   // Close chat button
@@ -298,24 +404,9 @@ function setupGameListeners() {
   if (closeChatButton) {
     closeChatButton.addEventListener("click", () => {
       // Hide chat sidebar
-      document.getElementById("chatSidebar").classList.remove("active")
-    })
-  }
-
-  // Send message button
-  const sendMessageButton = document.getElementById("sendMessageButton")
-  if (sendMessageButton) {
-    sendMessageButton.addEventListener("click", () => {
-      sendChatMessage()
-    })
-  }
-
-  // Message input enter key
-  const messageInput = document.getElementById("messageInput")
-  if (messageInput) {
-    messageInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        sendChatMessage()
+      const chatSidebar = document.getElementById("chatSidebar")
+      if (chatSidebar) {
+        chatSidebar.classList.remove("active")
       }
     })
   }
@@ -329,6 +420,10 @@ function setupGameListeners() {
       document.getElementById("spinnerSection").classList.remove("d-none")
     })
   }
+
+
+  // Start polling for opponent's move
+  startPollingForOpponentMove();
 }
 
 // Spin the wheel
@@ -585,8 +680,7 @@ function switchTurn() {
     // Update UI to show waiting for opponent
     document.getElementById("gameStatus").textContent = "Waiting for opponent's turn";
     
-    // Start polling for opponent's move
-    startPollingForOpponentMove();
+    
   })
   .catch(error => {
     alert("Other player still not playing, please wait...")
@@ -601,6 +695,9 @@ function startPollingForOpponentMove() {
     checkForOpponentMove();
   }, 5000); // Check every 5 seconds
 }
+
+// Check if opponent has made their move
+// ... existing code ...
 
 // Check if opponent has made their move
 function checkForOpponentMove() {
@@ -623,12 +720,55 @@ function checkForOpponentMove() {
     return response.json();
   })
   .then(data => {
+    // Controlla se c'è un secondo giocatore e aggiorna le sue informazioni
+    if (data.match && data.match.players && data.match.players.length > 1) {
+      const opponent = data.match.players.find(player => player.id !== currentUser.id);
+      
+      if (opponent) {
+        // Aggiorna il nome dell'avversario
+        const player2Name = document.querySelector("#player2Info .player-name");
+        if (player2Name) {
+          player2Name.textContent = `@${opponent.username || "Waiting..."}`;
+        }
+        
+        // Aggiorna l'avatar dell'avversario
+        const player2Avatar = document.querySelector("#player2Info .player-avatar");
+        if (player2Avatar) {
+          if (opponent.profile && opponent.profile.avatar) {
+            player2Avatar.src = opponent.profile.avatar;
+          } else {
+            // Prova a ottenere l'avatar dagli utenti
+            fetch('../data/users.json')
+              .then(response => response.json())
+              .then(usersData => {
+                const userData = usersData.find(u => u.id === opponent.id);
+                if (userData && userData.profile && userData.profile.avatar) {
+                  player2Avatar.src = userData.profile.avatar;
+                } else {
+                  player2Avatar.src = "../img/default-avatar.png";
+                }
+              })
+              .catch(error => {
+                console.error("Error fetching users data:", error);
+                player2Avatar.src = "../img/default-avatar.png";
+              });
+          }
+        }
+        
+        // Aggiorna il punteggio dell'avversario
+        const player2Score = document.querySelector("#player2Info .player-score");
+        if (player2Score) {
+          player2Score.textContent = opponent.score || 0;
+        }
+      }
+    }
+    
     // Check if it's our turn again
     console.log("data.match.currentTurn" + data.match.currentTurn + " currentUser.id" + currentUser.id);
     if (data.match && data.match.currentTurn === currentUser.id) {
       // Stop polling
-      clearInterval(gameState.pollingInterval);
-      console.log("polling stopped");
+      //clearInterval(gameState.pollingInterval);
+      //console.log("polling stopped");
       
       // Update game state
       updateGameStateFromMatch(data.match);
@@ -644,6 +784,8 @@ function checkForOpponentMove() {
     console.error('Error checking for opponent move:', error);
   });
 }
+
+// ... existing code ...
 
 // Update game state from match data
 function updateGameStateFromMatch(match) {
@@ -683,35 +825,3 @@ function showResult(isCorrect, explanation) {
   // Update explanation
   document.getElementById("resultExplanation").textContent = explanation
 }
-
-// Send chat message
-function sendChatMessage() {
-  const messageInput = document.getElementById("messageInput")
-  const message = messageInput.value.trim()
-
-  if (!message) return
-
-  // Clear input
-  messageInput.value = ""
-
-  // Get current user
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"))
-
-  // Create message element
-  const messageElement = document.createElement("div")
-  messageElement.className = "chat-message"
-  messageElement.innerHTML = `
-    <div class="message-sender">${currentUser.username}</div>
-    <div class="message-text">${message}</div>
-  `
-
-  // Add message to chat
-  document.getElementById("chatMessages").appendChild(messageElement)
-
-  // Scroll to bottom of chat
-  document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight
-
-  // This would typically send the message to the server
-  // For now, we'll just add it to the chat locally
-}
-
