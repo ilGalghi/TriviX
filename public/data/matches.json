@@ -1273,25 +1273,25 @@
   {
     "id": "b3685e5c-9c8d-4e9e-af1a-3c5327899fe5",
     "matchCode": "W3XCI0",
-    "status": "waiting",
+    "status": "completed",
     "players": [
       {
         "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
         "username": "gigi",
-        "score": 0,
+        "score": 5,
         "characters": []
       },
       {
         "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
         "username": "ronaldo",
-        "score": 0,
+        "score": 7,
         "characters": []
       }
     ],
-    "currentRound": 2,
-    "maxRounds": 25,
+    "currentRound": 13,
+    "maxRounds": 13,
     "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
     "createdAt": "2025-03-29T18:31:18.119Z",
-    "updatedAt": "2025-03-29T18:32:32.054Z"
+    "updatedAt": "2025-03-29T19:31:42.968Z"
   }
 ]
