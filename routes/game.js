@@ -14,7 +14,6 @@ const matchesFilePath = path.join(__dirname, '../public/data/matches.json');
 // Funzione per leggere i dati delle partite dal file JSON
 const readMatches = () => {
   try {
-    console.log("tento di leggere matches in " + matchesFilePath);
     const data = fs.readFileSync(matchesFilePath);
     return JSON.parse(data);
   } catch (error) {
@@ -67,7 +66,7 @@ router.post("/create", (req, res) => {
     players: [
     ],
     currentRound: 0,
-    maxRounds: 25,
+    maxRounds: 10,
     currentTurn: userId,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -167,40 +166,6 @@ router.put("/:gameCode", (req, res) => {
     return res.status(404).json({ error: "Game not found" });
   }
 
-  switch (action) {
-    case "answer":
-      // Aggiornamento del punteggio del giocatore
-      const player = game.players.find((player) => player.id === userId);
-      if (player) {
-        if (data.isCorrect) {
-          player.score += 1;
-        }
-      }
-
-      game.currentRound += 1;
-
-      const opponent = game.players.find((player) => player.id !== userId);
-      if (opponent) {
-        game.currentTurn = opponent.id;
-      }
-
-      game.updatedAt = new Date();
-      
-      if (game.currentRound >= game.maxRounds) {
-        game.status = "completed";
-        // Update user stats logic
-      }
-      break;
-
-    case "forfeit":
-      game.status = "completed";
-      game.updatedAt = new Date();
-      // Update user stats logic
-      break;
-
-    default:
-      return res.status(400).json({ error: "Invalid action" });
-  }
 
   writeMatches(matches);
   res.json({ game });
@@ -325,9 +290,16 @@ router.post('/switch-turn', (req, res) => {
   match.currentTurn = opponent.id;
   
   // Increment round if needed (when both players have played)
-  if (match.currentRound === 0 || (match.players.length === 2 && match.currentTurn === match.players[0].id)) {
-    match.currentRound += 1;
-  }
+  
+    if (match.currentRound === 0 || (match.players.length === 2 && match.currentTurn === match.players[0].id)) {
+      if(match.currentRound + 1 <= match.maxRounds){
+
+        match.currentRound += 1;
+      }else{
+        match.status = "completed";
+      }
+    }
+  
   
   // Update match
   match.updatedAt = new Date().toISOString();

@@ -286,10 +286,27 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   z-index: 10;
   transition: all 0.3s ease;
+  border: none;
 }
 
 .spin-button:hover {
   transform: translate(-50%, -50%) scale(1.1);
+}
+
+.spin-button[disabled] {
+  background-color: #cccccc !important;
+  cursor: not-allowed !important;
+  transform: translate(-50%, -50%) scale(0.95) !important;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) !important;
+  opacity: 0.7 !important;
+  color: #666666 !important;
+  border: 2px solid #999999 !important;
+}
+
+.spin-button[disabled]:hover {
+  transform: translate(-50%, -50%) scale(0.95) !important;
+  background-color: #cccccc !important;
+  cursor: not-allowed !important;
 }
 
 .game-controls {
@@ -1254,5 +1271,25 @@ body {
 .chat-button .unread-badge:hover {
   transform: scale(1.1);
   cursor: pointer;
+}
+
+.powerup-message {
+    text-align: center;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    min-height: 30px;
+}
+
+.powerup-message.active {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.powerup-message.warning {
+    background-color: #ffebee;
+    color: #c62828;
 }
 
