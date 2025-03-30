@@ -393,8 +393,8 @@ function spinWheel() {
   const wheel = document.getElementById("categoryWheel")
   wheel.classList.add("spinning")
 
-  // Randomly select a category
-  const categories = ["science", "entertainment", "sports", "art", "geography", "history"]
+  // Elenco completo di tutte le categorie, incluse quelle in italiano
+  const categories = ["science", "entertainment", "sports", "art", "geography", "history", "literature", "technology"];
   const randomCategory = categories[Math.floor(Math.random() * categories.length)]
 
   // After a delay, stop spinning and show question
@@ -425,80 +425,47 @@ function showQuestion(category) {
   // Update question category
   document.getElementById("questionCategory").textContent = category.toUpperCase()
 
-  // This would typically fetch a question from the server
-  // For now, we'll just use a placeholder question
-  const questions = {
-    science: {
-      text: "Which type of rock forms in layers, is often found near water, and contains fossils?",
-      answers: ["Igneous", "Sedimentary", "Metamorphic", "Granite"],
-      correctIndex: 1,
-      explanation:
-        "Sedimentary rocks form in layers (strata) as sediment is deposited, often in bodies of water, and may contain fossils of plants and animals that were buried in the sediment.",
-    },
-    entertainment: {
-      text: "Which actor played Iron Man in the Marvel Cinematic Universe?",
-      answers: ["Chris Evans", "Chris Hemsworth", "Robert Downey Jr.", "Mark Ruffalo"],
-      correctIndex: 2,
-      explanation: "Robert Downey Jr. played Tony Stark / Iron Man in the Marvel Cinematic Universe from 2008 to 2019.",
-    },
-    sports: {
-      text: "In which sport would you perform a slam dunk?",
-      answers: ["Football", "Basketball", "Tennis", "Golf"],
-      correctIndex: 1,
-      explanation:
-        "A slam dunk is a basketball move in which a player jumps high and forcefully puts the ball through the hoop with one or both hands.",
-    },
-    art: {
-      text: "Who painted the Mona Lisa?",
-      answers: ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
-      correctIndex: 2,
-      explanation: "The Mona Lisa was painted by Leonardo da Vinci between 1503 and 1519.",
-    },
-    geography: {
-      text: "Which is the largest ocean on Earth?",
-      answers: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
-      correctIndex: 3,
-      explanation:
-        "The Pacific Ocean is the largest and deepest ocean on Earth, covering more than 30% of the Earth's surface.",
-    },
-    history: {
-      text: "In which year did World War II end?",
-      answers: ["1943", "1945", "1947", "1950"],
-      correctIndex: 1,
-      explanation: "World War II ended in 1945 with the surrender of Germany in May and Japan in September.",
-    },
-  }
-
-  // Get question for selected category
-  const question = questions[category]
-  
-  // Salva la domanda corrente globalmente
-  window.currentQuestion = question;
-
-  // Update question text
-  document.getElementById("questionText").textContent = question.text
-
-  // Update answers
-  const answersContainer = document.getElementById("answersContainer")
-  answersContainer.innerHTML = ""
-
-  question.answers.forEach((answer, index) => {
-    const answerElement = document.createElement("div")
-    answerElement.className = "answer-option"
-    answerElement.textContent = answer
-    answerElement.dataset.index = index
-
-    answerElement.addEventListener("click", () => {
-      // Check if answer is correct
-      stopTimer();
-      checkAnswer(index, question.correctIndex, question.explanation)
+  // Richiedi la domanda al server
+  fetch(`/api/questions/${category}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Errore nel recupero della domanda');
+      }
+      return response.json();
     })
+    .then(question => {
+      // Salva la domanda corrente globalmente
+      window.currentQuestion = question;
 
-    answersContainer.appendChild(answerElement)
-  })
+      // Update question text
+      document.getElementById("questionText").textContent = question.text;
 
-  // Start timer
-  startTimer()
+      // Update answers
+      const answersContainer = document.getElementById("answersContainer");
+      answersContainer.innerHTML = "";
+
+      question.answers.forEach((answer, index) => {
+        const answerElement = document.createElement("div");
+        answerElement.className = "answer-option";
+        answerElement.textContent = answer;
+        answerElement.dataset.index = index;
+
+        answerElement.addEventListener("click", () => {
+          // Check if answer is correct
+          stopTimer();
+          checkAnswer(index, question.correctIndex, question.explanation);
+        });
+
+        answersContainer.appendChild(answerElement);
+      });
+
+      // Start timer
+      startTimer();
+    })
+    .catch(error => {
+      console.error("Errore nel caricamento della domanda:", error);
+      document.getElementById("questionText").textContent = "Errore nel caricamento della domanda. Riprova più tardi.";
+    });
 }
 
 // Start timer
@@ -512,6 +479,15 @@ function startTimer() {
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       showResult(false, "Time's up!");
+      
+      // Disabilita il pulsante spin fino al turno dell'avversario
+      document.getElementById("spinButton").disabled = true;
+      
+      // Salva il punteggio (0 punti per timeout)
+      saveScoreToDatabase(false);
+      
+      // Passa il turno all'avversario
+      switchTurn();
     }
   }
 
@@ -799,7 +775,6 @@ function checkForOpponentMove() {
   });
 }
 
-// ... existing code ...
 
 // Update game state from match data
 function updateGameStateFromMatch(match) {

@@ -1,0 +1,115 @@
+{
+    "science": [
+      {
+        "text": "Which type of rock forms in layers, is often found near water, and contains fossils?",
+        "answers": ["Igneous", "Sedimentary", "Metamorphic", "Granite"],
+        "correctIndex": 1,
+        "explanation": "Sedimentary rocks form in layers (strata) as sediment is deposited, often in bodies of water, and may contain fossils of plants and animals that were buried in the sediment."
+      },
+      {
+        "text": "Qual è l'elemento chimico più abbondante nell'universo?",
+        "answers": ["Ossigeno", "Carbonio", "Idrogeno", "Elio"],
+        "correctIndex": 2,
+        "explanation": "L'idrogeno è l'elemento più abbondante nell'universo, costituendo circa il 75% della massa barionica."
+      }
+    ],
+    "entertainment": [
+      {
+        "text": "Which actor played Iron Man in the Marvel Cinematic Universe?",
+        "answers": ["Chris Evans", "Chris Hemsworth", "Robert Downey Jr.", "Mark Ruffalo"],
+        "correctIndex": 2,
+        "explanation": "Robert Downey Jr. played Tony Stark / Iron Man in the Marvel Cinematic Universe from 2008 to 2019."
+      },
+      {
+        "text": "Chi è il regista del film 'La vita è bella'?",
+        "answers": ["Federico Fellini", "Roberto Benigni", "Giuseppe Tornatore", "Paolo Sorrentino"],
+        "correctIndex": 1,
+        "explanation": "Roberto Benigni ha diretto e interpretato il film 'La vita è bella' nel 1997, vincendo tre premi Oscar."
+      }
+    ],
+    "sports": [
+      {
+        "text": "In which sport would you perform a slam dunk?",
+        "answers": ["Football", "Basketball", "Tennis", "Golf"],
+        "correctIndex": 1,
+        "explanation": "A slam dunk is a basketball move in which a player jumps high and forcefully puts the ball through the hoop with one or both hands."
+      },
+      {
+        "text": "In quale città si sono svolte le Olimpiadi del 2020 (tenutesi nel 2021)?",
+        "answers": ["Pechino", "Parigi", "Tokyo", "Rio de Janeiro"],
+        "correctIndex": 2,
+        "explanation": "Le Olimpiadi del 2020 si sono svolte a Tokyo, Giappone, ma sono state posticipate al 2021 a causa della pandemia di COVID-19."
+      }
+    ],
+    "art": [
+      {
+        "text": "Who painted the Mona Lisa?",
+        "answers": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
+        "correctIndex": 2,
+        "explanation": "The Mona Lisa was painted by Leonardo da Vinci between 1503 and 1519."
+      },
+      {
+        "text": "Chi ha scolpito il David conservato nella Galleria dell'Accademia a Firenze?",
+        "answers": ["Donatello", "Leonardo da Vinci", "Michelangelo", "Raffaello"],
+        "correctIndex": 2,
+        "explanation": "Il David è una scultura realizzata da Michelangelo Buonarroti tra il 1501 e il 1504."
+      }
+    ],
+    "geography": [
+      {
+        "text": "Which is the largest ocean on Earth?",
+        "answers": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+        "correctIndex": 3,
+        "explanation": "The Pacific Ocean is the largest and deepest ocean on Earth, covering more than 30% of the Earth's surface."
+      },
+      {
+        "text": "Qual è la capitale dell'Australia?",
+        "answers": ["Sydney", "Melbourne", "Canberra", "Perth"],
+        "correctIndex": 2,
+        "explanation": "Canberra è la capitale dell'Australia, non Sydney o Melbourne come molti credono erroneamente."
+      }
+    ],
+    "history": [
+      {
+        "text": "In which year did World War II end?",
+        "answers": ["1943", "1945", "1947", "1950"],
+        "correctIndex": 1,
+        "explanation": "World War II ended in 1945 with the surrender of Germany in May and Japan in September."
+      },
+      {
+        "text": "In che anno è caduto il Muro di Berlino?",
+        "answers": ["1987", "1989", "1991", "1993"],
+        "correctIndex": 1,
+        "explanation": "Il Muro di Berlino è caduto il 9 novembre 1989, segnando la fine della divisione della Germania."
+      }
+    ],
+    "literature": [
+      {
+        "text": "Chi è l'autore del romanzo 'I promessi sposi'?",
+        "answers": ["Giacomo Leopardi", "Alessandro Manzoni", "Giovanni Verga", "Italo Calvino"],
+        "correctIndex": 1,
+        "explanation": "Alessandro Manzoni scrisse 'I promessi sposi', considerato il più importante romanzo della letteratura italiana."
+      },
+      {
+        "text": "Who wrote 'Romeo and Juliet'?",
+        "answers": ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
+        "correctIndex": 1,
+        "explanation": "'Romeo and Juliet' was written by William Shakespeare, one of the most famous playwrights in history."
+      }
+    ],
+    "technology": [
+      {
+        "text": "Chi ha fondato Apple insieme a Steve Jobs?",
+        "answers": ["Bill Gates", "Mark Zuckerberg", "Steve Wozniak", "Elon Musk"],
+        "correctIndex": 2,
+        "explanation": "Steve Wozniak ha co-fondato Apple Computer (ora Apple Inc.) con Steve Jobs nel 1976."
+      },
+      {
+        "text": "What does 'HTTP' stand for?",
+        "answers": ["Hyper Transfer Text Protocol", "HyperText Transfer Protocol", "High-Tech Text Processing", "Hyperlink Text Protocol"],
+        "correctIndex": 1,
+        "explanation": "HTTP stands for HyperText Transfer Protocol, which is the foundation of data communication on the web."
+      }
+    ]
+  }
+  

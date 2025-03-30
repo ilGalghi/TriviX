@@ -52,9 +52,15 @@ class PowerupManager {
 
         const answersContainer = document.getElementById('answersContainer');
         const answers = answersContainer.querySelectorAll('.answer-option');
-        let incorrectAnswers = Array.from(answers).filter(answer => 
-            !answer.classList.contains('correct') && !answer.classList.contains('selected')
-        );
+        
+        // Ottieni l'indice della risposta corretta dalla domanda corrente
+        const correctIndex = window.currentQuestion.correctIndex;
+        
+        // Filtra solo le risposte sbagliate (quelle con indice diverso da correctIndex)
+        let incorrectAnswers = Array.from(answers).filter(answer => {
+            const answerIndex = parseInt(answer.dataset.index);
+            return answerIndex !== correctIndex && !answer.classList.contains('selected');
+        });
 
         // Elimina due risposte sbagliate casuali
         for (let i = 0; i < 2 && incorrectAnswers.length > 0; i++) {
