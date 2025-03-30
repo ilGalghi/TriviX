@@ -82,34 +82,6 @@
         "correctIndex": 1,
         "explanation": "Il Muro di Berlino è caduto il 9 novembre 1989, segnando la fine della divisione della Germania."
       }
-    ],
-    "literature": [
-      {
-        "text": "Chi è l'autore del romanzo 'I promessi sposi'?",
-        "answers": ["Giacomo Leopardi", "Alessandro Manzoni", "Giovanni Verga", "Italo Calvino"],
-        "correctIndex": 1,
-        "explanation": "Alessandro Manzoni scrisse 'I promessi sposi', considerato il più importante romanzo della letteratura italiana."
-      },
-      {
-        "text": "Who wrote 'Romeo and Juliet'?",
-        "answers": ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
-        "correctIndex": 1,
-        "explanation": "'Romeo and Juliet' was written by William Shakespeare, one of the most famous playwrights in history."
-      }
-    ],
-    "technology": [
-      {
-        "text": "Chi ha fondato Apple insieme a Steve Jobs?",
-        "answers": ["Bill Gates", "Mark Zuckerberg", "Steve Wozniak", "Elon Musk"],
-        "correctIndex": 2,
-        "explanation": "Steve Wozniak ha co-fondato Apple Computer (ora Apple Inc.) con Steve Jobs nel 1976."
-      },
-      {
-        "text": "What does 'HTTP' stand for?",
-        "answers": ["Hyper Transfer Text Protocol", "HyperText Transfer Protocol", "High-Tech Text Processing", "Hyperlink Text Protocol"],
-        "correctIndex": 1,
-        "explanation": "HTTP stands for HyperText Transfer Protocol, which is the foundation of data communication on the web."
-      }
     ]
   }
   

@@ -123,7 +123,13 @@ function initGame() {
       // Abilita il pulsante di spin se era disabilitato
       const spinButton = document.getElementById("spinButton");
       if (spinButton) {
-        spinButton.disabled = false;
+        // Disabilita il pulsante se l'utente è il creatore (primo giocatore) e non c'è ancora un avversario
+        if (match.players.length < 2 && match.players[0].id === currentUser.id) {
+          spinButton.disabled = true;
+          gameStatusElement.textContent = "In attesa dell'avversario...";
+        } else {
+          spinButton.disabled = false;
+        }
       }
     } else {
       // Non è il turno dell'utente corrente
@@ -143,7 +149,16 @@ function initGame() {
     // Aggiorna lo stato della partita in base a chi è il primo giocatore
     const gameStatusElement = document.getElementById("gameStatus");
     if (match.currentTurn === currentUser.id) {
-      gameStatusElement.textContent = "È il tuo turno";
+      // Controlla se l'utente è il creatore e non c'è ancora un avversario
+      if (match.players.length < 2 && match.players[0].id === currentUser.id) {
+        gameStatusElement.textContent = "In attesa dell'avversario...";
+        const spinButton = document.getElementById("spinButton");
+        if (spinButton) {
+          spinButton.disabled = true;
+        }
+      } else {
+        gameStatusElement.textContent = "È il tuo turno";
+      }
     } else {
       gameStatusElement.textContent = "In attesa del turno dell'avversario";
     }
@@ -394,7 +409,7 @@ function spinWheel() {
   wheel.classList.add("spinning")
 
   // Elenco completo di tutte le categorie, incluse quelle in italiano
-  const categories = ["science", "entertainment", "sports", "art", "geography", "history", "literature", "technology"];
+  const categories = ["science", "entertainment", "sports", "art", "geography", "history"];
   const randomCategory = categories[Math.floor(Math.random() * categories.length)]
 
   // After a delay, stop spinning and show question
@@ -534,23 +549,69 @@ function checkAnswer(index, correctIndex, explanation) {
   // Update UI to show result
   showResult(isCorrect, explanation || "");
   
-  // Update game state
+  // Ottieni la categoria corrente dalla UI
+  const currentCategory = document.getElementById("questionCategory").textContent.toLowerCase();
+  
+  // Aggiorna le prestazioni dell'utente per categoria
+  updateUserCategoryPerformance(currentCategory, isCorrect);
+  
+  // Update game state and save score to database
   if (isCorrect) {
     // Increment score for current player
     
     // Update score display
     const playerScore = document.querySelector("#player1Info .player-score");
     playerScore.textContent = parseInt(playerScore.textContent) + 1;
-    
-    // Save score to matches.json
-    saveScoreToDatabase(isCorrect);
   }
+  
+  // Save score to matches.json (sia per risposte corrette che errate)
+  saveScoreToDatabase(isCorrect);
   
   // Disable spin button until opponent's turn is complete
   document.getElementById("spinButton").disabled = true;
   
   // Switch turn to opponent
   switchTurn();
+}
+
+// Nuova funzione per aggiornare le prestazioni dell'utente per categoria
+function updateUserCategoryPerformance(category, isCorrect) {
+  // Ottieni l'utente corrente
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  
+  if (!currentUser) {
+    console.error("Utente non autenticato");
+    return;
+  }
+  
+  // Prepara i dati da inviare al server
+  const performanceData = {
+    userId: currentUser.id,
+    category: category,
+    isCorrect: isCorrect
+  };
+  
+  // Invia la richiesta al server
+  fetch('/api/users/update-category-performance', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(performanceData),
+    credentials: 'include'
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Errore nell\'aggiornamento delle prestazioni');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Prestazioni per categoria aggiornate:', data);
+  })
+  .catch(error => {
+    console.error('Errore nell\'aggiornamento delle prestazioni per categoria:', error);
+  });
 }
 
 // Save score to database
@@ -739,8 +800,18 @@ function checkForOpponentMove() {
       
       // Update UI to show it's our turn
       if (data.match.status != "completed"){
-        document.getElementById("gameStatus").textContent = "Your turn!!!!!";
-        document.getElementById("spinButton").disabled = false;
+        // Controlla se ci sono due giocatori nella partita
+        if (data.match.players.length >= 2) {
+          document.getElementById("gameStatus").textContent = "Your turn!";
+          document.getElementById("spinButton").disabled = false;
+        } else if (data.match.players[0] && data.match.players[0].id === currentUser.id) {
+          // Se l'utente è il creatore e non c'è ancora un avversario, mantieni il pulsante disabilitato
+          document.getElementById("gameStatus").textContent = "In attesa dell'avversario...";
+          document.getElementById("spinButton").disabled = true;
+        } else {
+          document.getElementById("gameStatus").textContent = "Your turn!";
+          document.getElementById("spinButton").disabled = false;
+        }
       }
       else if(data.match.status == "completed"){
         document.getElementById("gameStatus").textContent = "Spinning the wheel...";
@@ -778,23 +849,38 @@ function checkForOpponentMove() {
 
 // Update game state from match data
 function updateGameStateFromMatch(match) {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  
-  // Find current player in match
-  const currentPlayer = match.players.find(player => player.id === currentUser.id);
-  const opponent = match.players.find(player => player.id !== currentUser.id);
-  
-  // Update scores
-  if (currentPlayer) {
-    document.querySelector("#player1Info .player-score").textContent = currentPlayer.score;
+  try {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    
+    // Find current player in match
+    if (match && match.players) {
+      const currentPlayer = match.players.find(player => player && player.id === currentUser.id);
+      const opponent = match.players.find(player => player && player.id !== currentUser.id);
+      
+      // Update scores
+      if (currentPlayer) {
+        const player1ScoreElement = document.querySelector("#player1Info .player-score");
+        if (player1ScoreElement) {
+          player1ScoreElement.textContent = currentPlayer.score || 0;
+        }
+      }
+      
+      if (opponent) {
+        const player2ScoreElement = document.querySelector("#player2Info .player-score");
+        if (player2ScoreElement) {
+          player2ScoreElement.textContent = opponent.score || 0;
+        }
+      }
+      
+      // Update round info
+      const roundInfoElement = document.getElementById("roundInfo");
+      if (roundInfoElement && match.currentRound !== undefined && match.maxRounds !== undefined) {
+        roundInfoElement.textContent = `ROUND ${match.currentRound}/${match.maxRounds}`;
+      }
+    }
+  } catch (error) {
+    console.error("Error updating game state:", error);
   }
-  
-  if (opponent) {
-    document.querySelector("#player2Info .player-score").textContent = opponent.score;
-  }
-  
-  // Update round info
-  document.getElementById("roundInfo").textContent = `ROUND ${match.currentRound}/${match.maxRounds}`;
 }
 
 // Show result

@@ -2,9 +2,19 @@
 
 const express = require("express")
 const router = express.Router()
+const userModel = require("../models/userModel")
 
 // Import users array from auth routes
 const { users } = require("./auth")
+
+// Middleware per verificare se l'utente è autenticato
+const isAuthenticated = (req, res, next) => {
+  console.log("Checking authentication:", req.session)
+  if (req.session && req.session.userId) {
+    return next()
+  }
+  return res.status(401).json({ success: false, message: "Non autenticato" })
+}
 
 // Get user profile route
 router.get("/:userId", (req, res) => {
@@ -99,6 +109,37 @@ router.put("/:userId/stats", (req, res) => {
     },
   })
 })
+
+// Aggiorna le prestazioni dell'utente per una categoria specifica
+router.post("/update-category-performance", async (req, res) => {
+  try {
+    const { userId, category, isCorrect } = req.body;
+
+    console.log("Aggiornamento prestazioni per categoria:", { userId, category, isCorrect });
+
+    if (!userId || !category) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "UserId e categoria sono richiesti" 
+      });
+    }
+
+    // Aggiorna le prestazioni per la categoria
+    const result = await userModel.updateCategoryPerformance(userId, category, isCorrect);
+
+    if (result.success) {
+      return res.status(200).json(result);
+    } else {
+      return res.status(400).json(result);
+    }
+  } catch (error) {
+    console.error("Errore nell'aggiornamento delle prestazioni per categoria:", error);
+    return res.status(500).json({ 
+      success: false, 
+      message: "Errore del server" 
+    });
+  }
+});
 
 module.exports = router
 
