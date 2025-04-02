@@ -115,7 +115,7 @@ function initGame() {
           // Disabilita il pulsante se l'utente è il creatore (primo giocatore) e non c'è ancora un avversario
           if (match.players.length < 2 && match.players[0].id === currentUser.id) {
             spinButton.disabled = true;
-            gameStatusElement.textContent = "In attesa dell'avversario...";
+            gameStatusElement.textContent = "Waiting for opponent's turn...";
           } else {
             spinButton.disabled = false;
           }
@@ -140,16 +140,16 @@ function initGame() {
       if (match.currentTurn === currentUser.id) {
         // Controlla se l'utente è il creatore e non c'è ancora un avversario
         if (match.players.length < 2 && match.players[0].id === currentUser.id) {
-          gameStatusElement.textContent = "In attesa dell'avversario...";
+          gameStatusElement.textContent = "Waiting for opponent's turn...";
           const spinButton = document.getElementById("spinButton");
           if (spinButton) {
             spinButton.disabled = true;
           }
         } else {
-          gameStatusElement.textContent = "È il tuo turno";
+          gameStatusElement.textContent = "Your turn!";
         }
       } else {
-        gameStatusElement.textContent = "In attesa del turno dell'avversario";
+        gameStatusElement.textContent = "Waiting for opponent's turn";
       }
     }
 
@@ -736,21 +736,21 @@ function checkForOpponentMove() {
         if (data.match.status !== "completed") {
           // Controlla se ci sono due giocatori nella partita
           if (data.match.players.length >= 2) {
-            document.getElementById("gameStatus").textContent = "È il tuo turno!!";
+            document.getElementById("gameStatus").textContent = "Your turn!";
             document.getElementById("spinButton").disabled = false;
           } else if (data.match.players[0] && data.match.players[0].id === currentUser.id) {
             // Se l'utente è il creatore e non c'è ancora un avversario, mantieni il pulsante disabilitato
-            document.getElementById("gameStatus").textContent = "In attesa dell'avversario...";
+            document.getElementById("gameStatus").textContent = "Waiting for opponent's turn...";
             document.getElementById("spinButton").disabled = true;
           } else {
-            document.getElementById("gameStatus").textContent = "È il tuo turno!!!";
+            document.getElementById("gameStatus").textContent = "Your turn!";
             document.getElementById("spinButton").disabled = false;
           }
         }
       } else {
         // Non è il turno dell'utente corrente
         if (data.match.status !== "completed") {
-          document.getElementById("gameStatus").textContent = "In attesa del turno dell'avversario";
+          document.getElementById("gameStatus").textContent = "Waiting for opponent's turn...";
           document.getElementById("spinButton").disabled = true;
         }
       }
