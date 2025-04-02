@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentUser = localStorage.getItem("currentUser")
   if (!currentUser) {
     console.error("User not authenticated, redirecting to home page")
-    alert("You must be logged in to play the game.")
     window.location.href = "index.html"
     return
   }
@@ -64,14 +63,21 @@ function initGame() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser) {
       console.error("No authenticated user found.");
-      alert("You must be logged in to join a match.");
       return;
     }
 
     // Se entrambi gli slot sono occupati, l'utente non può unirsi
     let playerAssigned = false;
-
-    if (match.players.length == 0) {
+    
+    // Verifica se l'utente è già presente nel match
+    const isUserAlreadyInMatch = match.players.some(player => player && player.id === currentUser.id);
+    console.log("isUserAlreadyInMatch:", isUserAlreadyInMatch);
+    
+    if (isUserAlreadyInMatch) {
+      // L'utente è già nel match, non serve riassegnarlo
+      playerAssigned = true;
+      console.log("Utente già presente nel match, skip assegnazione");
+    } else if (match.players.length === 0) {
       match.players[0] = {
         id: currentUser.id,
         username: currentUser.username,
@@ -79,7 +85,17 @@ function initGame() {
         categoryPoints: { category1: 0, category2: 0, category3: 0 }
       };
       playerAssigned = true;
-    } else if (match.players.length == 1) {
+      console.log("Utente assegnato come player 1");
+    } else if (match.players.length === 1 && !match.players[0].id) {
+      match.players[0] = {
+        id: currentUser.id,
+        username: currentUser.username,
+        points: 0,
+        categoryPoints: { category1: 0, category2: 0, category3: 0 }
+      };
+      playerAssigned = true;
+      console.log("Utente assegnato come player 1 (slot 0 vuoto)");
+    } else if (match.players.length === 1 && match.players[0].id) {
       match.players[1] = {
         id: currentUser.id,
         username: currentUser.username,
@@ -87,17 +103,15 @@ function initGame() {
         categoryPoints: { category1: 0, category2: 0, category3: 0 }
       };
       playerAssigned = true;
+      console.log("Utente assegnato come player 2");
     }
 
-    // Se entrambi gli slot sono occupati, l'utente non può unirsi
-    if (!playerAssigned) {
-      if(match.players[0].id != currentUser.id && match.players[1].id != currentUser.id){
-        alert("This match has already started with two players. You cannot join.");
-      
-        window.location.href = "index.html";
-      
-        return;
-      }
+    // Se l'utente non è stato assegnato e non è già nel match, non può unirsi
+    if (!playerAssigned && !isUserAlreadyInMatch) {
+      console.log("Utente non assegnato e non presente nel match, redirect alla home");
+      alert("Questa partita ha già due giocatori. Non puoi unirti.");
+      window.location.href = "index.html";
+      return;
     }
 
     // Controlla se il turno esiste e se è quello dell'utente corrente
@@ -115,7 +129,7 @@ function initGame() {
           // Disabilita il pulsante se l'utente è il creatore (primo giocatore) e non c'è ancora un avversario
           if (match.players.length < 2 && match.players[0].id === currentUser.id) {
             spinButton.disabled = true;
-            gameStatusElement.textContent = "Waiting for opponent's turn...";
+            gameStatusElement.textContent = "Waiting for other player to join...";
           } else {
             spinButton.disabled = false;
           }
@@ -140,7 +154,7 @@ function initGame() {
       if (match.currentTurn === currentUser.id) {
         // Controlla se l'utente è il creatore e non c'è ancora un avversario
         if (match.players.length < 2 && match.players[0].id === currentUser.id) {
-          gameStatusElement.textContent = "Waiting for opponent's turn...";
+          gameStatusElement.textContent = "Waiting for opponent to join...";
           const spinButton = document.getElementById("spinButton");
           if (spinButton) {
             spinButton.disabled = true;
@@ -167,6 +181,7 @@ function initGame() {
 
     // Update player info
     updatePlayerInfo(gameCode)
+    updateGameStateFromMatch(match)
   })
   .catch(error => {
     console.error("Error fetching match data:", error);
@@ -373,6 +388,7 @@ function setupGameListeners() {
 
   // Start polling for opponent's move
   startPollingForOpponentMove();
+  
 }
 
 // Spin the wheel
@@ -724,8 +740,12 @@ function checkForOpponentMove() {
   .then(data => {
     // Controlla se c'è un secondo giocatore e aggiorna le sue informazioni
     if (data.match && data.match.players) {
-      const opponent = data.match.players.find(player => player.id !== currentUser.id);
-      const currentPlayer = data.match.players.find(player => player.id === currentUser.id);
+      // Verifica se l'utente è già presente nel match
+      
+      const opponent = data.match.players.find(player => player && player.id !== currentUser.id);
+      const currentPlayer = data.match.players.find(player => player && player.id === currentUser.id);
+      
+     
       
       // Aggiorniamo lo stato completo della partita, inclusi nomi utente e avatar
       updateGameStateFromMatch(data.match);
@@ -736,13 +756,6 @@ function checkForOpponentMove() {
         if (data.match.status !== "completed") {
           // Controlla se ci sono due giocatori nella partita
           if (data.match.players.length >= 2) {
-            document.getElementById("gameStatus").textContent = "Your turn!";
-            document.getElementById("spinButton").disabled = false;
-          } else if (data.match.players[0] && data.match.players[0].id === currentUser.id) {
-            // Se l'utente è il creatore e non c'è ancora un avversario, mantieni il pulsante disabilitato
-            document.getElementById("gameStatus").textContent = "Waiting for opponent's turn...";
-            document.getElementById("spinButton").disabled = true;
-          } else {
             document.getElementById("gameStatus").textContent = "Your turn!";
             document.getElementById("spinButton").disabled = false;
           }

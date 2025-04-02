@@ -183,24 +183,30 @@ router.put("/update/:matchCode", (req, res) => {
     return res.status(404).json({ error: "Match not found" });
   }
 
+
+ const isUserAlreadyInMatch = game.players.some(player => player && player.id === currentUser.id);
+console.log("isUserAlreadyInMatch:", isUserAlreadyInMatch);
+
   // Controlla se Player 1 o Player 2 sono già assegnati
   let playerAssigned = false;
-  if (game.players.length == 0) {
-    game.players[0] = {
-      id: currentUser.id,
-      username: currentUser.username,
-      score: 0,
-      characters: [],
-    };
-    playerAssigned = true;
-  } else if (game.players.length == 1) {
-    game.players[1] = {
-      id: currentUser.id,
-      username: currentUser.username,
-      score: 0,
-      characters: [],
-    };
-    playerAssigned = true;
+  if(!isUserAlreadyInMatch){
+    if (game.players.length == 0) {
+      game.players[0] = {
+        id: currentUser.id,
+        username: currentUser.username,
+        score: 0,
+        characters: [],
+      };
+      playerAssigned = true;
+    } else if (game.players.length == 1) {
+      game.players[1] = {
+        id: currentUser.id,
+        username: currentUser.username,
+        score: 0,
+        characters: [],
+      };
+      playerAssigned = true;
+    }
   }
 
   if (!playerAssigned) {
