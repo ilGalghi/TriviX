@@ -3446,5 +3446,78 @@
     "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
     "createdAt": "2025-04-02T19:43:05.167Z",
     "updatedAt": "2025-04-02T19:44:39.916Z"
+  },
+  {
+    "id": "c86c2cb1-c4f1-4467-9ddc-ba0936b1bc08",
+    "matchCode": "HTXEGX",
+    "status": "completed",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T20:08:12.523Z",
+    "updatedAt": "2025-04-02T20:10:56.831Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "0125736e-0222-42ce-be4f-886c8b66810c",
+    "matchCode": "COEJSN",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T20:12:58.976Z",
+    "updatedAt": "2025-04-02T20:13:03.204Z"
+  },
+  {
+    "id": "55a8321b-0b58-43a2-95f4-a035b9a655c4",
+    "matchCode": "6U2MF1",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 2,
+    "maxRounds": 10,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-04-02T20:27:53.608Z",
+    "updatedAt": "2025-04-02T20:29:30.159Z"
   }
 ]

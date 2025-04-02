@@ -1,20 +1,22 @@
 # progetto-tsw-trivia
 
-## to do
-- [x] domande su server
-- [x] aggiornamento statistiche profilo
-- [ ] spin corretto per categoria di domanda
+## To do
+- [x] Domande su server
+- [x] Aggiornamento statistiche profilo
+- [x] Configurare i powerup in modo che non siano tutti per ogni domanda
+- [x] Chat duratura per la partita, poi eliminata
+- [x] Quando si aggiorna la pagina, non deve permettere di rigenerare la domanda / rigenerare powerups
+- [ ] Spin corretto per categoria di domanda
 - [ ] Domanda AI
-- [ ] Non far uscire la stessa domanda, almeno durante il match
+- [ ] Non far uscire la stessa domanda, almeno durante il match (localStorage(?))
 - [ ] Opzione per scegliere quante domande per partita (?)
-- [ ] Configurare i powerup in modo che non siano tutti per ogni domanda
 - [ ] Suggerimento (powerup) AI
 - [ ] Creare classifica punti vinti per match. aggiungere campo
 - [ ] Correggere "My matches"
 - [ ] Bottone arrenditi
-- [ ] Chat duratura per la partita, poi eliminata
-- [ ] Quando si aggiorna la pagina, non deve permettere di rigenerare la domanda / rigenerare powerups
 - [ ] Fare che non si può uscire dalla pagina (per cercare la risposta)
+- [ ] Alert "inizia nuova partita" quando finisce partita
+- [ ] Separare il file game.js per renderlo più leggero
 
 #### CSS
 - [ ] CSS spin indicatore corrisponde materia domanda indicata dall'aghetto
