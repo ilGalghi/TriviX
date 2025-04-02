@@ -65,7 +65,7 @@ router.post("/create", (req, res) => {
     status: "waiting", // stati possibili: "waiting", "active", "completed"
     players: [
     ],
-    currentRound: 1,
+    currentRound: 0,
     maxRounds: 3,
     currentTurn: userId,
     createdAt: new Date(),

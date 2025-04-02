@@ -2948,5 +2948,29 @@
     "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
     "createdAt": "2025-04-02T14:08:52.916Z",
     "updatedAt": "2025-04-02T14:10:13.026Z"
+  },
+  {
+    "id": "59d0c86e-8eb3-4b3e-a8a8-52b3deadea60",
+    "matchCode": "P5938E",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 3,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-02T14:17:12.793Z",
+    "updatedAt": "2025-04-02T14:17:42.760Z"
   }
 ]
