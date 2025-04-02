@@ -1,6 +1,6 @@
 class ChatManager {
     constructor() {
-        this.hasJoinedRoom = false; // Flag per evitare join multipli
+        this.hasJoinedRoom = false;
         this.socket = io('http://localhost:3000', {
             transports: ['websocket'],
             upgrade: false
@@ -8,11 +8,9 @@ class ChatManager {
         this.unreadMessages = 0;
         this.chatButton = document.querySelector('.chat-button');
         this.initializeWhenGameDataAvailable();
-
     }
 
     async initializeWhenGameDataAvailable() {
-        // Attendi che i dati del gioco siano disponibili
         let attempts = 0;
         const maxAttempts = 10;
         const checkInterval = setInterval(async () => {
@@ -25,7 +23,7 @@ class ChatManager {
                 
                 // Inizializza la chat
                 this.messageInput = document.querySelector('.chat-input input');
-                this.sendButton = document.querySelector('.chat-input button');
+                this.sendButton = document.querySelector('.chat-input .send-button');
                 this.chatMessages = document.querySelector('.chat-messages');
                 
                 this.setupSocketListeners();
@@ -35,46 +33,18 @@ class ChatManager {
                 clearInterval(checkInterval);
                 console.error('Game ID non trovato dopo diversi tentativi');
             }
-        }, 500); // Controlla ogni 500ms
+        }, 500);
     }
 
     async getGameId() {
         try {
-            // Prima prova a ottenere il codice partita dall'URL
             const urlParams = new URLSearchParams(window.location.search);
-            let gameId = urlParams.get('matchCode');
+            let gameId = urlParams.get('code');
 
-            // Se non è nell'URL, prova a ottenerlo dall'elemento HTML
             if (!gameId) {
                 const matchCodeElement = document.querySelector('[data-match-code]');
                 if (matchCodeElement) {
                     gameId = matchCodeElement.dataset.matchCode;
-                }
-            }
-
-            // Se ancora non lo troviamo, cerca nell'URL il pattern della partita
-            if (!gameId) {
-                const pathParts = window.location.pathname.split('/');
-                const lastPart = pathParts[pathParts.length - 1];
-                if (lastPart && lastPart.length === 6) {
-                    gameId = lastPart;
-                }
-            }
-
-            // Se ancora non lo troviamo, prova a ottenerlo dai dati del gioco
-            if (!gameId) {
-                const matchDataElement = document.querySelector('#matchData');
-                if (matchDataElement && matchDataElement.dataset.matchCode) {
-                    gameId = matchDataElement.dataset.matchCode;
-                }
-            }
-
-            // Come ultima risorsa, prova a cercarlo nel localStorage
-            if (!gameId) {
-                const currentMatch = localStorage.getItem('currentMatch');
-                if (currentMatch) {
-                    const matchData = JSON.parse(currentMatch);
-                    gameId = matchData.matchCode;
                 }
             }
 
@@ -86,7 +56,6 @@ class ChatManager {
     }
 
     setupSocketListeners() {
-        // Rimuovi tutti i listener relativi agli eventi che ti interessano
         this.socket.off('new-message');
         this.socket.off('connect');
         this.socket.off('disconnect');
@@ -112,7 +81,6 @@ class ChatManager {
     }
 
     setupEventListeners() {
-        // Gestisci l'invio dei messaggi
         if (this.sendButton) {
             this.sendButton.addEventListener('click', () => this.sendMessage());
         }
@@ -125,14 +93,13 @@ class ChatManager {
             });
         }
 
-        // Gestisci l'apertura/chiusura della chat
         const chatSidebar = document.querySelector('.chat-sidebar');
-        const closeButton = document.querySelector('.close-button');
+        const closeButton = document.getElementById('closeChatButton');
         
         if (closeButton) {
             closeButton.addEventListener('click', () => {
                 if (chatSidebar) {
-                    chatSidebar.classList.remove('open');
+                    chatSidebar.classList.remove('active');
                     this.resetUnreadMessages();
                 }
             });
@@ -140,12 +107,10 @@ class ChatManager {
     }
 
     joinRoom() {
-        console.log('Flag hasJoinedRoom prima del join:', this.hasJoinedRoom);
         if (this.gameId && !this.hasJoinedRoom) {
             console.log('Entrando nella stanza:', this.gameId);
             this.socket.emit('join-room', this.gameId);
             this.hasJoinedRoom = true;
-            console.log('Flag hasJoinedRoom impostato a:', this.hasJoinedRoom);
         }
     }
 
@@ -155,23 +120,14 @@ class ChatManager {
         const content = this.messageInput.value.trim();
         if (!content) return;
     
-        let username = '';
-        const usernameElement = document.querySelector('.username') || 
-                              document.querySelector('.player-name') ||
-                              document.querySelector('[data-username]');
-        
-        if (usernameElement) {
-            username = usernameElement.textContent.trim() || 
-                      usernameElement.dataset.username;
-        }
-    
-        if (!username) {
-            console.error('Username non trovato');
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        if (!currentUser) {
+            console.error('Utente non autenticato');
             return;
         }
     
         const message = {
-            sender: username,
+            sender: currentUser.username,
             content: content,
             roomId: this.gameId
         };
@@ -180,25 +136,15 @@ class ChatManager {
         this.socket.emit('send-message', message);
         this.messageInput.value = '';
     }
-    
 
     addMessageToChat(message) {
         if (!this.chatMessages) return;
     
-        let username = '';
-        const usernameElement = document.querySelector('.username') || 
-                              document.querySelector('.player-name') ||
-                              document.querySelector('[data-username]');
-        
-        if (usernameElement) {
-            username = usernameElement.textContent.trim() || 
-                      usernameElement.dataset.username;
-        }
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        if (!currentUser) return;
     
         const messageElement = document.createElement('div');
-        messageElement.className = `message ${message.sender === username ? 'sent' : 'received'}`;
-        messageElement.dataset.sender = message.sender;
-        messageElement.dataset.content = message.content;
+        messageElement.className = `message ${message.sender === currentUser.username ? 'sent' : 'received'}`;
     
         const senderElement = document.createElement('div');
         senderElement.className = 'message-sender';
@@ -245,5 +191,8 @@ class ChatManager {
 
 // Inizializza il gestore della chat quando il documento è pronto
 document.addEventListener('DOMContentLoaded', () => {
-  });
+    if (!window.chatManager) {
+        window.chatManager = new ChatManager();
+    }
+});
   

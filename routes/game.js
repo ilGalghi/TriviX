@@ -9,7 +9,7 @@ const userModel = require("../models/userModel");
 // In a real app, you would import this from a shared module
 const users = [];
 
-const matchesFilePath = path.join(__dirname, '../public/data/matches.json');
+const matchesFilePath = path.join(__dirname, '../data/matches.json');
 
 // Funzione per leggere i dati delle partite dal file JSON
 const readMatches = () => {
@@ -65,8 +65,8 @@ router.post("/create", (req, res) => {
     status: "waiting", // stati possibili: "waiting", "active", "completed"
     players: [
     ],
-    currentRound: 0,
-    maxRounds: 10,
+    currentRound: 1,
+    maxRounds: 3,
     currentTurn: userId,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -183,24 +183,30 @@ router.put("/update/:matchCode", (req, res) => {
     return res.status(404).json({ error: "Match not found" });
   }
 
+
+ const isUserAlreadyInMatch = game.players.some(player => player && player.id === currentUser.id);
+console.log("isUserAlreadyInMatch:", isUserAlreadyInMatch);
+
   // Controlla se Player 1 o Player 2 sono già assegnati
   let playerAssigned = false;
-  if (game.players.length == 0) {
-    game.players[0] = {
-      id: currentUser.id,
-      username: currentUser.username,
-      score: 0,
-      characters: [],
-    };
-    playerAssigned = true;
-  } else if (game.players.length == 1) {
-    game.players[1] = {
-      id: currentUser.id,
-      username: currentUser.username,
-      score: 0,
-      characters: [],
-    };
-    playerAssigned = true;
+  if(!isUserAlreadyInMatch){
+    if (game.players.length == 0) {
+      game.players[0] = {
+        id: currentUser.id,
+        username: currentUser.username,
+        score: 0,
+        characters: [],
+      };
+      playerAssigned = true;
+    } else if (game.players.length == 1) {
+      game.players[1] = {
+        id: currentUser.id,
+        username: currentUser.username,
+        score: 0,
+        characters: [],
+      };
+      playerAssigned = true;
+    }
   }
 
   if (!playerAssigned) {
@@ -262,7 +268,7 @@ router.post('/switch-turn', (req, res) => {
   const { userId, gameCode } = req.body;
   
   if (!userId || !gameCode) {
-    return res.status(400).json({ success: false, message: 'Missing required fields' });
+    return res.status(400).json({ success: false, message: 'Missing user ID or game code' });
   }
   
   // Read matches
@@ -272,21 +278,26 @@ router.post('/switch-turn', (req, res) => {
   const matchIndex = matches.findIndex(match => match.matchCode === gameCode);
   
   if (matchIndex === -1) {
-    console.log("match not found in db");
     return res.status(404).json({ success: false, message: 'Match not found' });
   }
   
   const match = matches[matchIndex];
   
-  // Find opponent
-  const opponent = match.players.find(player => player.id !== userId);
-  
-  if (!opponent) {
-    console.log("opponent not found in db");
-    return res.status(404).json({ success: false, message: 'Opponent not found' });
+  // Verify user is in match
+  const currentPlayerIndex = match.players.findIndex(player => player.id === userId);
+  if (currentPlayerIndex === -1) {
+    return res.status(403).json({ success: false, message: 'User not in match' });
   }
   
-  // Switch turn to opponent
+  // Find opponent
+  const opponentIndex = match.players.findIndex(player => player.id !== userId);
+  if (opponentIndex === -1) {
+    return res.status(400).json({ success: false, message: 'No opponent found' });
+  }
+  
+  const opponent = match.players[opponentIndex];
+  
+  // Switch turn
   match.currentTurn = opponent.id;
   
   // Increment round if needed (when both players have played)
@@ -297,6 +308,10 @@ router.post('/switch-turn', (req, res) => {
         match.currentRound += 1;
       }else{
         match.status = "completed";
+        // Ora che la partita è completata, aggiorniamo le statistiche degli utenti
+        updateUserStats(match);
+        // Marca la partita come aggiornata
+        match.statsUpdated = true;
       }
     }
   
@@ -332,13 +347,29 @@ router.get('/match/:code', (req, res) => {
     return res.status(404).json({ success: false, message: 'Match not found' });
   }
   
+  // Verifica se la partita è completata ma le statistiche non sono state aggiornate
+  if (match.status === "completed" && !match.statsUpdated) {
+    // Aggiorna le statistiche
+    updateUserStats(match);
+    
+    // Marca la partita come aggiornata
+    match.statsUpdated = true;
+    
+    // Salva le modifiche
+    const matchIndex = matches.findIndex(m => m.matchCode === gameCode);
+    matches[matchIndex] = match;
+    writeMatches(matches);
+  }
+  
   return res.json({ success: true, match });
 });
 
 
 // Update user stats based on game results
-function updateUserStats(game) {
+async function updateUserStats(game) {
   if (game.status !== "completed") return;
+
+  const userModel = require('../models/userModel');
 
   // Determine winner
   let winner = null;
@@ -353,30 +384,24 @@ function updateUserStats(game) {
     }
   }
 
-  // Update stats for each player
-  game.players.forEach((player) => {
-    const user = users.find((u) => u.id === player.id);
-    if (user) {
-      // Initialize stats if needed
-      if (!user.stats) {
-        user.stats = {
-          gamesPlayed: 0,
-          gamesWon: 0,
-          correctAnswers: 0,
-          categoryStats: {},
-        };
-      }
+  // Aggiorna le statistiche per ogni giocatore
+  for(const player of game.players) {
+    try {
+      // Prepara i dati per l'aggiornamento
+      const statsData = {
+        gamesPlayed: 1,
+        gamesWon: (winner && winner.id === player.id) ? 1 : 0,
+        correctAnswers: player.score || 0
+      };
 
-      // Update stats
-      user.stats.gamesPlayed += 1;
-
-      if (winner && winner.id === player.id) {
-        user.stats.gamesWon += 1;
-      }
-
-      user.stats.correctAnswers += player.score;
+      // Aggiorna le statistiche dell'utente
+      await userModel.updateGameStats(player.id, statsData);
+      
+      console.log(`Statistiche aggiornate per giocatore ${player.id}:`, statsData);
+    } catch (error) {
+      console.error(`Errore nell'aggiornamento delle statistiche per il giocatore ${player.id}:`, error);
     }
-  });
+  }
 }
 
 // Generate a random game code

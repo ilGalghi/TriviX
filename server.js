@@ -7,6 +7,8 @@ const Message = require('./models/Message');
 const authRoutes = require("./routes/auth");
 const gameRoutes = require("./routes/game");
 const chatRoutes = require("./routes/chat");
+const questionsRoutes = require("./routes/questions");
+const userRoutes = require("./routes/user");
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
@@ -61,6 +63,8 @@ if (!isProduction) {
 app.use("/api/auth", authRoutes);
 app.use("/api/games", gameRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/questions", questionsRoutes);
+app.use("/api/users", userRoutes);
 
 // Gestione delle connessioni Socket.IO
 io.on('connection', (socket) => {

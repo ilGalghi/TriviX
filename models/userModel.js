@@ -4,11 +4,11 @@ const bcrypt = require("bcryptjs")
 const { v4: uuidv4 } = require("uuid")
 
 // Percorso al file JSON
-const usersFilePath = path.join(__dirname, "../public/data/users.json")
+const usersFilePath = path.join(__dirname, "../data/users.json")
 
 // Assicurati che la directory data esista
 async function ensureDataDirectory() {
-  const dataDir = path.join(__dirname, "../public/data")
+  const dataDir = path.join(__dirname, "../data")
   try {
     await fs.access(dataDir)
   } catch (error) {
@@ -210,7 +210,6 @@ async function updateGameStats(userId, gameStats) {
   const userStats = users[userIndex].profile.stats
   userStats.gamesPlayed = (userStats.gamesPlayed || 0) + (gameStats.gamesPlayed || 0)
   userStats.gamesWon = (userStats.gamesWon || 0) + (gameStats.gamesWon || 0)
-  userStats.correctAnswers = (userStats.correctAnswers || 0) + (gameStats.correctAnswers || 0)
 
   // Aggiorna le prestazioni per categoria se fornite
   if (gameStats.categoryPerformance) {
@@ -231,6 +230,53 @@ async function updateGameStats(userId, gameStats) {
   return { success: true }
 }
 
+// Aggiorna le prestazioni dell'utente per una singola categoria
+async function updateCategoryPerformance(userId, category, isCorrect) {
+  try {
+    const users = await readUsers();
+    const userIndex = users.findIndex((user) => user.id === userId);
+
+    if (userIndex === -1) {
+      return { success: false, message: "Utente non trovato" };
+    }
+
+    // Assicurati che l'oggetto categoryPerformance esista
+    if (!users[userIndex].profile.categoryPerformance) {
+      users[userIndex].profile.categoryPerformance = {};
+    }
+
+    // Assicurati che la categoria esista nell'oggetto categoryPerformance
+    if (!users[userIndex].profile.categoryPerformance[category]) {
+      users[userIndex].profile.categoryPerformance[category] = { correct: 0, total: 0 };
+    }
+
+    // Incrementa il contatore delle risposte totali
+    users[userIndex].profile.categoryPerformance[category].total += 1;
+
+    // Se la risposta è corretta, incrementa anche il contatore delle risposte corrette
+    if (isCorrect) {
+      users[userIndex].profile.categoryPerformance[category].correct += 1;
+      
+      // Aggiorna anche il contatore globale delle risposte corrette
+      users[userIndex].profile.stats.correctAnswers = (users[userIndex].profile.stats.correctAnswers || 0) + 1;
+    }
+
+    // Salva le modifiche
+    await writeUsers(users);
+
+    console.log(`Prestazioni aggiornate per utente ${userId}, categoria ${category}, risposta corretta: ${isCorrect}`);
+    console.log("Nuovi valori:", users[userIndex].profile.categoryPerformance[category]);
+
+    return { 
+      success: true, 
+      categoryPerformance: users[userIndex].profile.categoryPerformance[category]
+    };
+  } catch (error) {
+    console.error("Errore nell'aggiornamento delle prestazioni per categoria:", error);
+    return { success: false, message: "Errore del server" };
+  }
+}
+
 module.exports = {
   readUsers,
   writeUsers,
@@ -241,5 +287,6 @@ module.exports = {
   authenticateUser,
   updateUserProfile,
   updateGameStats,
+  updateCategoryPerformance,
 }
 
