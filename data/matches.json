@@ -3046,5 +3046,405 @@
     "createdAt": "2025-04-02T17:42:01.334Z",
     "updatedAt": "2025-04-02T17:42:45.038Z",
     "statsUpdated": true
+  },
+  {
+    "id": "a7b78b31-2d68-4f1c-aa1f-369dc1cd597a",
+    "matchCode": "TF40CZ",
+    "status": "waiting",
+    "players": [],
+    "currentRound": 0,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T18:07:02.229Z",
+    "updatedAt": "2025-04-02T18:07:02.229Z"
+  },
+  {
+    "id": "b763e63f-6e4b-4890-a6d6-26e9ef8200a2",
+    "matchCode": "BX0329",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T18:07:02.413Z",
+    "updatedAt": "2025-04-02T18:08:12.995Z"
+  },
+  {
+    "id": "6871923d-5ccd-4195-8b89-75667ad0cd0e",
+    "matchCode": "N9VTLM",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 2,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-04-02T18:09:16.679Z",
+    "updatedAt": "2025-04-02T18:10:27.773Z"
+  },
+  {
+    "id": "63063f01-b245-4ab1-ad5a-3df45ff1e0b1",
+    "matchCode": "ALNABM",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 3,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-04-02T18:10:32.748Z",
+    "updatedAt": "2025-04-02T18:11:01.613Z"
+  },
+  {
+    "id": "b0bcb30a-a757-4519-b329-ed938d8293e4",
+    "matchCode": "EIXJS8",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T18:13:25.563Z",
+    "updatedAt": "2025-04-02T18:15:17.478Z"
+  },
+  {
+    "id": "d707fcf0-1414-4a5d-9551-a2ce27e517d6",
+    "matchCode": "Q1CXQS",
+    "status": "completed",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 2,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T18:17:22.489Z",
+    "updatedAt": "2025-04-02T18:18:57.063Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "55f1702e-a24d-40a3-8ada-ea1bfac90b48",
+    "matchCode": "F6LXYQ",
+    "status": "completed",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T18:19:14.950Z",
+    "updatedAt": "2025-04-02T18:21:07.744Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "95b91590-195b-4299-a7df-aa5b27b1fb74",
+    "matchCode": "A44J7F",
+    "status": "completed",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T18:22:34.247Z",
+    "updatedAt": "2025-04-02T18:28:48.088Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "c55c1ce5-8185-492c-ab59-853fb0755495",
+    "matchCode": "CQ7CLY",
+    "status": "completed",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T18:28:56.057Z",
+    "updatedAt": "2025-04-02T19:14:45.240Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "2b08fd32-bfcd-49a7-bf6c-cef2e3a33a84",
+    "matchCode": "99OF87",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 2,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T19:14:51.193Z",
+    "updatedAt": "2025-04-02T19:15:14.831Z"
+  },
+  {
+    "id": "a24ad0c3-9201-46e0-9967-b08cfff0453b",
+    "matchCode": "VKDIYQ",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-04-02T19:19:12.004Z",
+    "updatedAt": "2025-04-02T19:20:16.851Z"
+  },
+  {
+    "id": "2fa924fa-c9e6-44d8-b8de-5893e13a55af",
+    "matchCode": "95QUHH",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 2,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T19:20:52.789Z",
+    "updatedAt": "2025-04-02T19:21:12.949Z"
+  },
+  {
+    "id": "00eeafe6-1606-48ef-af65-6b0480437593",
+    "matchCode": "EI84MX",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-04-02T19:23:39.400Z",
+    "updatedAt": "2025-04-02T19:24:55.749Z"
+  },
+  {
+    "id": "3998f5ec-7591-4ecd-88c6-4e9040fd78a1",
+    "matchCode": "H2G9S1",
+    "status": "completed",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T19:30:27.972Z",
+    "updatedAt": "2025-04-02T19:33:16.993Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "2ce2df41-c3b9-47b0-835c-a56254cdb8a7",
+    "matchCode": "EK3NXD",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-02T19:35:38.516Z",
+    "updatedAt": "2025-04-02T19:36:47.873Z"
+  },
+  {
+    "id": "24e086fb-0683-40ec-bbd9-07d45c48ba36",
+    "matchCode": "YRLLQK",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 2,
+    "maxRounds": 3,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-04-02T19:39:22.315Z",
+    "updatedAt": "2025-04-02T19:41:32.689Z"
+  },
+  {
+    "id": "7f905f88-6320-4aa7-82f8-960789f086b9",
+    "matchCode": "SBC70E",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 3,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-04-02T19:43:05.167Z",
+    "updatedAt": "2025-04-02T19:44:39.916Z"
   }
 ]

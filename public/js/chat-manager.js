@@ -7,6 +7,7 @@ class ChatManager {
         });
         this.unreadMessages = 0;
         this.chatButton = document.querySelector('.chat-button');
+        this.messages = []; // Array per mantenere i messaggi
         this.initializeWhenGameDataAvailable();
     }
 
@@ -25,6 +26,9 @@ class ChatManager {
                 this.messageInput = document.querySelector('.chat-input input');
                 this.sendButton = document.querySelector('.chat-input .send-button');
                 this.chatMessages = document.querySelector('.chat-messages');
+                
+                // Carica i messaggi salvati
+                this.loadSavedMessages();
                 
                 this.setupSocketListeners();
                 this.setupEventListeners();
@@ -72,6 +76,8 @@ class ChatManager {
         this.socket.on('new-message', (message) => {
             console.log('Nuovo messaggio ricevuto:', message);
             this.addMessageToChat(message);
+            // Salva il messaggio
+            this.saveMessage(message);
             this.incrementUnreadMessages();
         });
     
@@ -129,11 +135,15 @@ class ChatManager {
         const message = {
             sender: currentUser.username,
             content: content,
-            roomId: this.gameId
+            roomId: this.gameId,
+            timestamp: new Date().toISOString() // Aggiungi timestamp per ordinare i messaggi
         };
     
         console.log('Invio messaggio:', message);
         this.socket.emit('send-message', message);
+        // Non aggiungiamo più il messaggio qui, perché sarà ricevuto dall'evento 'new-message'
+        // this.addMessageToChat(message);
+        // this.saveMessage(message);
         this.messageInput.value = '';
     }
 
@@ -161,6 +171,50 @@ class ChatManager {
         this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     }
     
+    // Salva un messaggio nel localStorage
+    saveMessage(message) {
+        if (!this.gameId) return;
+        
+        // Aggiungi il messaggio all'array
+        this.messages.push(message);
+        
+        // Salva l'array aggiornato nel localStorage
+        localStorage.setItem(`chat_messages_${this.gameId}`, JSON.stringify(this.messages));
+    }
+    
+    // Carica i messaggi dal localStorage
+    loadSavedMessages() {
+        if (!this.gameId || !this.chatMessages) return;
+        
+        try {
+            // Recupera i messaggi salvati
+            const savedMessages = localStorage.getItem(`chat_messages_${this.gameId}`);
+            if (savedMessages) {
+                this.messages = JSON.parse(savedMessages);
+                
+                // Ordina i messaggi per timestamp (se presente)
+                this.messages.sort((a, b) => {
+                    if (a.timestamp && b.timestamp) {
+                        return new Date(a.timestamp) - new Date(b.timestamp);
+                    }
+                    return 0;
+                });
+                
+                // Pulisci il contenitore dei messaggi
+                this.chatMessages.innerHTML = '';
+                
+                // Aggiungi i messaggi alla UI
+                this.messages.forEach(message => {
+                    this.addMessageToChat(message);
+                });
+                
+                console.log(`Caricati ${this.messages.length} messaggi salvati per la partita ${this.gameId}`);
+            }
+        } catch (error) {
+            console.error('Errore nel caricamento dei messaggi salvati:', error);
+        }
+    }
+    
     incrementUnreadMessages() {
         this.unreadMessages++;
         this.updateUnreadBadge();
@@ -185,6 +239,17 @@ class ChatManager {
             badge.textContent = this.unreadMessages;
         } else if (badge) {
             badge.remove();
+        }
+    }
+    
+    // Metodo per pulire la chat (da chiamare quando la partita termina)
+    clearChat() {
+        if (this.gameId) {
+            localStorage.removeItem(`chat_messages_${this.gameId}`);
+            this.messages = [];
+            if (this.chatMessages) {
+                this.chatMessages.innerHTML = '';
+            }
         }
     }
 }

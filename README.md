@@ -13,7 +13,10 @@
 - [ ] Correggere "My matches"
 - [ ] Bottone arrenditi
 - [ ] Chat duratura per la partita, poi eliminata
+- [ ] Quando si aggiorna la pagina, non deve permettere di rigenerare la domanda / rigenerare powerups
+- [ ] Fare che non si può uscire dalla pagina (per cercare la risposta)
 
 #### CSS
 - [ ] CSS spin indicatore corrisponde materia domanda indicata dall'aghetto
 - [ ] Abbellire CSS quando partita finisce (vittoria, pareggio, sconfitta)
+- [ ] Animazioni +1 per domanda giusta
