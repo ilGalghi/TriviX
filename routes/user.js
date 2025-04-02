@@ -141,5 +141,23 @@ router.post("/update-category-performance", async (req, res) => {
   }
 });
 
+// Get all users route for avatar and other public info
+router.get("/all/public", async (req, res) => {
+  try {
+    const users = await userModel.readUsers();
+    
+    // Filter only public information (removing passwords and sensitive data)
+    const publicUsers = users.map(user => {
+      const { password, ...userWithoutPassword } = user;
+      return userWithoutPassword;
+    });
+    
+    res.json(publicUsers);
+  } catch (error) {
+    console.error("Errore nel recupero degli utenti:", error);
+    res.status(500).json({ success: false, message: "Errore del server" });
+  }
+});
+
 module.exports = router
 

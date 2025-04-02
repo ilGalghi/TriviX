@@ -4,11 +4,11 @@ const bcrypt = require("bcryptjs")
 const { v4: uuidv4 } = require("uuid")
 
 // Percorso al file JSON
-const usersFilePath = path.join(__dirname, "../public/data/users.json")
+const usersFilePath = path.join(__dirname, "../data/users.json")
 
 // Assicurati che la directory data esista
 async function ensureDataDirectory() {
-  const dataDir = path.join(__dirname, "../public/data")
+  const dataDir = path.join(__dirname, "../data")
   try {
     await fs.access(dataDir)
   } catch (error) {

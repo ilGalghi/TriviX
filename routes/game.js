@@ -9,7 +9,7 @@ const userModel = require("../models/userModel");
 // In a real app, you would import this from a shared module
 const users = [];
 
-const matchesFilePath = path.join(__dirname, '../public/data/matches.json');
+const matchesFilePath = path.join(__dirname, '../data/matches.json');
 
 // Funzione per leggere i dati delle partite dal file JSON
 const readMatches = () => {

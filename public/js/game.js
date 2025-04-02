@@ -31,168 +31,147 @@ function initGame() {
 
   console.log("Game code:", gameCode)
 
-  
+  // Verifica se gameCode è valido
+  if (!gameCode) {
+    console.error("Game code is missing.");
+    alert("Invalid game code. Redirecting to home page.");
+    window.location.href = "index.html";
+    return;
+  }
 
   // Fetch match data from server and update it
-  fetch(`../data/matches.json`)
+  fetch(`/api/games/match/${gameCode}`)
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     return response.json();
   })
-  .then(matchData => {
-    if (!Array.isArray(matchData)) {
-      throw new Error("Invalid match data format received.");
+  .then(data => {
+    if (!data.success || !data.match) {
+      throw new Error("Match not found or invalid data format received.");
     }
 
-    console.log("Match data:", matchData);
+    const match = data.match;
+    console.log("Match data:", match);
 
-    // Verifica se gameCode è valido
-    if (!gameCode) {
-      console.error("Game code is missing.");
-      alert("Invalid game code. Redirecting to home page.");
-      window.location.href = "index.html";
+    // Assicuriamoci che la proprietà players esista
+    if (!match.players) {
+      match.players = [];
+    }
+
+    // Retrieve current user
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) {
+      console.error("No authenticated user found.");
+      alert("You must be logged in to join a match.");
       return;
     }
 
-  // Trova la partita corrispondente
-  const match = matchData.find(m => m.matchCode === gameCode.toString());
+    // Se entrambi gli slot sono occupati, l'utente non può unirsi
+    let playerAssigned = false;
 
-  if (!match) {
-    console.error("Match not found.");
-    alert("Match not found. Redirecting to home page.");
-    window.location.href = "index.html";
-    return;
-  }
-
-  // Assicuriamoci che la proprietà players esista
-  if (!match.players) {
-    match.players = [];
-  }
-
-  // Retrieve current user
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (!currentUser) {
-    console.error("No authenticated user found.");
-    alert("You must be logged in to join a match.");
-    return;
-  }
-
-  // Se entrambi gli slot sono occupati, l'utente non può unirsi
-  let playerAssigned = false;
-
-  if (match.players.length == 0) {
-    match.players[0] = {
-      id: currentUser.id,
-      username: currentUser.username,
-      points: 0,
-      categoryPoints: { category1: 0, category2: 0, category3: 0 }
-    };
-    playerAssigned = true;
-  } else if (match.players.length == 1) {
-    match.players[1] = {
-      id: currentUser.id,
-      username: currentUser.username,
-      points: 0,
-      categoryPoints: { category1: 0, category2: 0, category3: 0 }
-    };
-    playerAssigned = true;
-  }
-
-  // Se entrambi gli slot sono occupati, l'utente non può unirsi
-  if (!playerAssigned) {
-    if(match.players[0].id != currentUser.id && match.players[1].id != currentUser.id){
-      alert("This match has already started with two players. You cannot join.");
-    
-      window.location.href = "index.html";
-    
-      return;
+    if (match.players.length == 0) {
+      match.players[0] = {
+        id: currentUser.id,
+        username: currentUser.username,
+        points: 0,
+        categoryPoints: { category1: 0, category2: 0, category3: 0 }
+      };
+      playerAssigned = true;
+    } else if (match.players.length == 1) {
+      match.players[1] = {
+        id: currentUser.id,
+        username: currentUser.username,
+        points: 0,
+        categoryPoints: { category1: 0, category2: 0, category3: 0 }
+      };
+      playerAssigned = true;
     }
-  }
 
-  // Controlla se il turno esiste e se è quello dell'utente corrente
-  if (match.currentTurn) {
-    const gameStatusElement = document.getElementById("gameStatus");
-    
-    // Verifica se è il turno dell'utente corrente
-    if (match.currentTurn === currentUser.id) {
-      // Aggiorna lo stato della partita
-      gameStatusElement.textContent = "Your turn!";
+    // Se entrambi gli slot sono occupati, l'utente non può unirsi
+    if (!playerAssigned) {
+      if(match.players[0].id != currentUser.id && match.players[1].id != currentUser.id){
+        alert("This match has already started with two players. You cannot join.");
       
-      // Abilita il pulsante di spin se era disabilitato
-      const spinButton = document.getElementById("spinButton");
-      if (spinButton) {
-        // Disabilita il pulsante se l'utente è il creatore (primo giocatore) e non c'è ancora un avversario
-        if (match.players.length < 2 && match.players[0].id === currentUser.id) {
-          spinButton.disabled = true;
-          gameStatusElement.textContent = "In attesa dell'avversario...";
-        } else {
-          spinButton.disabled = false;
-        }
-      }
-    } else {
-      // Non è il turno dell'utente corrente
-      gameStatusElement.textContent = "Waiting for opponent's turn";
+        window.location.href = "index.html";
       
-      // Disabilita il pulsante di spin
-      const spinButton = document.getElementById("spinButton");
-      if (spinButton) {
-        console.log("spinButton disabled");
-        spinButton.disabled = true;
+        return;
       }
     }
-  } else {
-    // Se il turno non è definito, imposta il turno al primo giocatore
-    match.currentTurn = match.players[0].id;
-    
-    // Aggiorna lo stato della partita in base a chi è il primo giocatore
-    const gameStatusElement = document.getElementById("gameStatus");
-    if (match.currentTurn === currentUser.id) {
-      // Controlla se l'utente è il creatore e non c'è ancora un avversario
-      if (match.players.length < 2 && match.players[0].id === currentUser.id) {
-        gameStatusElement.textContent = "In attesa dell'avversario...";
+
+    // Controlla se il turno esiste e se è quello dell'utente corrente
+    if (match.currentTurn) {
+      const gameStatusElement = document.getElementById("gameStatus");
+      
+      // Verifica se è il turno dell'utente corrente
+      if (match.currentTurn === currentUser.id) {
+        // Aggiorna lo stato della partita
+        gameStatusElement.textContent = "Your turn!";
+        
+        // Abilita il pulsante di spin se era disabilitato
         const spinButton = document.getElementById("spinButton");
         if (spinButton) {
-          spinButton.disabled = true;
+          // Disabilita il pulsante se l'utente è il creatore (primo giocatore) e non c'è ancora un avversario
+          if (match.players.length < 2 && match.players[0].id === currentUser.id) {
+            spinButton.disabled = true;
+            gameStatusElement.textContent = "In attesa dell'avversario...";
+          } else {
+            spinButton.disabled = false;
+          }
         }
       } else {
-        gameStatusElement.textContent = "È il tuo turno";
+        // Non è il turno dell'utente corrente
+        gameStatusElement.textContent = "Waiting for opponent's turn";
+        
+        // Disabilita il pulsante di spin
+        const spinButton = document.getElementById("spinButton");
+        if (spinButton) {
+          console.log("spinButton disabled");
+          spinButton.disabled = true;
+        }
       }
     } else {
-      gameStatusElement.textContent = "In attesa del turno dell'avversario";
+      // Se il turno non è definito, imposta il turno al primo giocatore
+      match.currentTurn = match.players[0].id;
+      
+      // Aggiorna lo stato della partita in base a chi è il primo giocatore
+      const gameStatusElement = document.getElementById("gameStatus");
+      if (match.currentTurn === currentUser.id) {
+        // Controlla se l'utente è il creatore e non c'è ancora un avversario
+        if (match.players.length < 2 && match.players[0].id === currentUser.id) {
+          gameStatusElement.textContent = "In attesa dell'avversario...";
+          const spinButton = document.getElementById("spinButton");
+          if (spinButton) {
+            spinButton.disabled = true;
+          }
+        } else {
+          gameStatusElement.textContent = "È il tuo turno";
+        }
+      } else {
+        gameStatusElement.textContent = "In attesa del turno dell'avversario";
+      }
     }
-  }
 
+    console.log("Dati inviati normalizzati:", JSON.stringify(match, null, 2));
 
+    // Aggiorna il match nel server
+    fetch(`/api/games/update/${match.matchCode}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ currentUser: { id: currentUser.id, username: currentUser.username } })
+    })
+    .then(response => response.json())
+    .then(data => console.log("Match aggiornato con successo:", data))
+    .catch(error => console.error("Errore nell'aggiornamento della partita:", error));
 
-  console.log("Dati inviati normalizzati:", JSON.stringify(match, null, 2));
-
-  // Aggiorna il match nel server
-  fetch(`/api/games/update/${match.matchCode}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ currentUser: { id: currentUser.id, username: currentUser.username } })
+    // Update player info
+    updatePlayerInfo(gameCode)
   })
-  .then(response => response.json())
-  .then(data => console.log("Match aggiornato con successo:", data))
-  .catch(error => console.error("Errore nell'aggiornamento della partita:", error));
-
-
-
-  // Update player info
-  updatePlayerInfo(gameCode)
-  
-})
-.catch(error => {
-  console.error("Error fetching match data:", error);
-});
-
+  .catch(error => {
+    console.error("Error fetching match data:", error);
+  });
 }
-
-
-
-
 
 // Update player info
 function updatePlayerInfo(gameCode) {
@@ -204,20 +183,22 @@ function updatePlayerInfo(gameCode) {
     }
     console.log("trovando " + gameCode);
 
-    
-
-        // Fetch match data from server
-    fetch('../data/matches.json')
-    .then(response => response.json())
-    .then(matchData => {
-      matchData.forEach(m => console.log(`Checking match code: ${m.matchCode} e confronto con ` + gameCode));
-      const match = matchData.find(m => m.matchCode === gameCode);
-      if (!match) {
+    // Fetch match data from server
+    fetch(`/api/games/match/${gameCode}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (!data.match) {
         console.error("Match not found.");
         return;
-      }else{
-        console.log(match);
       }
+      
+      const match = data.match;
+      console.log("Match trovata:", match);
 
       // Identify players
       const player1 = match.players[0] || null;
@@ -258,7 +239,6 @@ function updatePlayerInfo(gameCode) {
         player1Name.textContent = "Waiting for player...";
       }
 
-
       // Aggiorna il punteggio del giocatore corrente
       const player1Score = document.querySelector("#player1Info .player-score");
       if (player1Score && currentPlayer) {
@@ -283,53 +263,55 @@ function updatePlayerInfo(gameCode) {
         player2Score.textContent = "0";
       }
 
-
       // Fetch users data to get avatar information
-      fetch('../data/users.json')
+      fetch('/api/users/all/public')
       .then(response => response.json())
       .then(usersData => {
         // Update current player (Player 1 in UI)
         
         console.log("currentPlayer: ", currentPlayer);
+        console.log("Tutti gli utenti:", usersData);
+        
         const player1Avatar = document.querySelector("#player1Info .player-avatar");
         if (player1Avatar && currentPlayer) {
+          // Log per debug
+          console.log("Cerco utente con ID:", currentPlayer.id);
+          
+          // Verifica se l'utente esiste nei dati
           const userData = usersData.find(u => u.id === currentPlayer.id);
+          console.log("Utente trovato:", userData);
+          
           if (userData && userData.profile && userData.profile.avatar) {
+            console.log("Avatar trovato:", userData.profile.avatar.substring(0, 30) + "...");
             player1Avatar.src = userData.profile.avatar;
             console.log("avatar trovato");
           } else {
-            player1Avatar.src = "../img/default-avatar.png";
+            player1Avatar.src = "/img/default-avatar.png";
             console.log("avatar non trovato");
           }
         }
 
-
         const player2Avatar = document.querySelector("#player2Info .player-avatar");
         if (player2Avatar && opponentPlayer) {
           const userData = usersData.find(u => u.id === opponentPlayer.id);
+          console.log("Opponent trovato:", userData ? userData.username : "non trovato");
+          
           if (userData && userData.profile && userData.profile.avatar) {
             player2Avatar.src = userData.profile.avatar;
           } else {
-            player2Avatar.src = "../img/default-avatar.png";
+            player2Avatar.src = "/img/default-avatar.png";
           }
         }
 
-        
       })
       .catch(error => {
         console.error("Error fetching users data:", error);
       });
 
-      })
-      .catch(error => {
-        console.error("Error fetching match data:", error);
-      });
-
-
-
-
-        
-     
+    })
+    .catch(error => {
+      console.error("Error fetching match data:", error);
+    });
 
   } catch (error) {
     console.error("Error updating player info:", error);
@@ -389,7 +371,6 @@ function setupGameListeners() {
     })
   }
 
-
   // Start polling for opponent's move
   startPollingForOpponentMove();
 }
@@ -399,8 +380,8 @@ function spinWheel() {
   // Disable spin button
   document.getElementById("spinButton").disabled = true
 
+  clearInterval(gameState.pollingInterval);
   // Update game status to show spinning state
-  
   document.getElementById("gameStatus").textContent = "Spinning the wheel...";
   
 
@@ -419,6 +400,7 @@ function spinWheel() {
 
     // Show question for selected category
     showQuestion(randomCategory)
+    startPollingForOpponentMove();
     document.getElementById("gameStatus").textContent = "Your turn!";
 
     // Enable spin button
@@ -719,7 +701,6 @@ function startPollingForOpponentMove() {
   }, 2000); // Check every 5 seconds
 }
 
-
 // Check if opponent has made their move
 function checkForOpponentMove() {
   // Get current user and match data
@@ -742,110 +723,58 @@ function checkForOpponentMove() {
   })
   .then(data => {
     // Controlla se c'è un secondo giocatore e aggiorna le sue informazioni
-    if (data.match && data.match.players && data.match.players.length > 1) {
+    if (data.match && data.match.players) {
       const opponent = data.match.players.find(player => player.id !== currentUser.id);
       const currentPlayer = data.match.players.find(player => player.id === currentUser.id);
       
-      if (opponent) {
-
+      // Aggiorniamo lo stato completo della partita, inclusi nomi utente e avatar
+      updateGameStateFromMatch(data.match);
       
-          console.log("Status partita " + data.match.status); // Aggiorna il nome dell'avversario
-          const player2Name = document.querySelector("#player2Info .player-name");
-          if (player2Name) {
-            player2Name.textContent = `@${opponent.username || "Waiting..."}`;
+      // Gestione del turno corrente
+      if (data.match.currentTurn === currentUser.id) {
+        // È il turno dell'utente corrente
+        if (data.match.status !== "completed") {
+          // Controlla se ci sono due giocatori nella partita
+          if (data.match.players.length >= 2) {
+            document.getElementById("gameStatus").textContent = "È il tuo turno!!";
+            document.getElementById("spinButton").disabled = false;
+          } else if (data.match.players[0] && data.match.players[0].id === currentUser.id) {
+            // Se l'utente è il creatore e non c'è ancora un avversario, mantieni il pulsante disabilitato
+            document.getElementById("gameStatus").textContent = "In attesa dell'avversario...";
+            document.getElementById("spinButton").disabled = true;
+          } else {
+            document.getElementById("gameStatus").textContent = "È il tuo turno!!!";
+            document.getElementById("spinButton").disabled = false;
           }
-          
-          // Aggiorna l'avatar dell'avversario
-          const player2Avatar = document.querySelector("#player2Info .player-avatar");
-          if (player2Avatar) {
-            if (opponent.profile && opponent.profile.avatar) {
-              player2Avatar.src = opponent.profile.avatar;
-            } else {
-              // Prova a ottenere l'avatar dagli utenti
-              fetch('../data/users.json')
-                .then(response => response.json())
-                .then(usersData => {
-                  const userData = usersData.find(u => u.id === opponent.id);
-                  if (userData && userData.profile && userData.profile.avatar) {
-                    player2Avatar.src = userData.profile.avatar;
-                  } else {
-                    player2Avatar.src = "../img/default-avatar.png";
-                  }
-                })
-                .catch(error => {
-                  console.error("Error fetching users data:", error);
-                  player2Avatar.src = "../img/default-avatar.png";
-                });
-            }
-          }
-          
-          // Aggiorna il punteggio dell'avversario
-          const player2Score = document.querySelector("#player2Info .player-score");
-          if (player2Score) {
-            player2Score.textContent = opponent.score || 0;
-          }
-      
-    }
-    
-  
-    if (data.match && data.match.currentTurn === currentUser.id) {
-      // Stop polling
-      //clearInterval(gameState.pollingInterval);
-      //console.log("polling stopped");
-      
-      
-      
-      // Enable spin button
-      //document.getElementById("spinButton").disabled = false;
-      
-      // Update UI to show it's our turn
-      if (data.match.status != "completed"){
-        // Controlla se ci sono due giocatori nella partita
-        if (data.match.players.length >= 2) {
-          document.getElementById("gameStatus").textContent = "Your turn!";
-          document.getElementById("spinButton").disabled = false;
-        } else if (data.match.players[0] && data.match.players[0].id === currentUser.id) {
-          // Se l'utente è il creatore e non c'è ancora un avversario, mantieni il pulsante disabilitato
-          document.getElementById("gameStatus").textContent = "In attesa dell'avversario...";
+        }
+      } else {
+        // Non è il turno dell'utente corrente
+        if (data.match.status !== "completed") {
+          document.getElementById("gameStatus").textContent = "In attesa del turno dell'avversario";
           document.getElementById("spinButton").disabled = true;
-        } else {
-          document.getElementById("gameStatus").textContent = "Your turn!";
-          document.getElementById("spinButton").disabled = false;
         }
       }
-      else if(data.match.status == "completed"){
-        document.getElementById("gameStatus").textContent = "Spinning the wheel...";
+      
+      // Gestione stato partita completata
+      if (data.match.status === "completed") {
         document.getElementById("spinButton").disabled = true;
-      } else{
         
-        if(currentPlayer.score > opponent.score){
-          document.getElementById("gameStatus").textContent = "You won!";
-        }else if(currentPlayer.score < opponent.score){
-          document.getElementById("gameStatus").textContent = "You lost!";
-        }else{
-          document.getElementById("gameStatus").textContent = "It's a draw!";
+        if (!opponent) {
+          document.getElementById("gameStatus").textContent = "Partita terminata";
+        } else if (currentPlayer.score > opponent.score) {
+          document.getElementById("gameStatus").textContent = "Hai vinto!";
+        } else if (currentPlayer.score < opponent.score) {
+          document.getElementById("gameStatus").textContent = "Hai perso!";
+        } else {
+          document.getElementById("gameStatus").textContent = "È un pareggio!";
         }
       }
     }
-    if (data.match.status === "completed"){
-      document.getElementById("spinButton").disabled = true;
-      if(currentPlayer.score > opponent.score){
-        document.getElementById("gameStatus").textContent = "You won!";
-      }else if(currentPlayer.score < opponent.score){
-        document.getElementById("gameStatus").textContent = "You lost!";
-      }else{
-        document.getElementById("gameStatus").textContent = "It's a draw!";
-      }
-    }
-    // Update game state
-    updateGameStateFromMatch(data.match);
-  }
   })
   .catch(error => {
     console.error('Error checking for opponent move:', error);
   });
 }
-
 
 // Update game state from match data
 function updateGameStateFromMatch(match) {
@@ -856,6 +785,21 @@ function updateGameStateFromMatch(match) {
     if (match && match.players) {
       const currentPlayer = match.players.find(player => player && player.id === currentUser.id);
       const opponent = match.players.find(player => player && player.id !== currentUser.id);
+      
+      // Update player names
+      if (currentPlayer) {
+        const player1NameElement = document.querySelector("#player1Info .player-name");
+        if (player1NameElement) {
+          player1NameElement.textContent = `@${currentPlayer.username || "player1"}`;
+        }
+      }
+      
+      if (opponent) {
+        const player2NameElement = document.querySelector("#player2Info .player-name");
+        if (player2NameElement) {
+          player2NameElement.textContent = `@${opponent.username || "player2"}`;
+        }
+      }
       
       // Update scores
       if (currentPlayer) {
@@ -871,6 +815,41 @@ function updateGameStateFromMatch(match) {
           player2ScoreElement.textContent = opponent.score || 0;
         }
       }
+      
+      // Get avatars
+      fetch('/api/users/all/public')
+        .then(response => response.json())
+        .then(usersData => {
+          console.log("updateGameStateFromMatch - Tutti gli utenti:", usersData.map(u => u.username));
+          
+          if (currentPlayer) {
+            console.log("updateGameStateFromMatch - Cerco ID:", currentPlayer.id);
+            const userData = usersData.find(u => u.id === currentPlayer.id);
+            console.log("updateGameStateFromMatch - Utente trovato:", userData ? userData.username : "non trovato");
+            
+            const player1Avatar = document.querySelector("#player1Info .player-avatar");
+            if (player1Avatar && userData && userData.profile && userData.profile.avatar) {
+              console.log("updateGameStateFromMatch - Avatar trovato per:", userData.username);
+              player1Avatar.src = userData.profile.avatar;
+            } else if (player1Avatar) {
+              console.log("updateGameStateFromMatch - Avatar NON trovato");
+              player1Avatar.src = "/img/default-avatar.png";
+            }
+          }
+          
+          if (opponent) {
+            const userData = usersData.find(u => u.id === opponent.id);
+            const player2Avatar = document.querySelector("#player2Info .player-avatar");
+            if (player2Avatar && userData && userData.profile && userData.profile.avatar) {
+              player2Avatar.src = userData.profile.avatar;
+            } else if (player2Avatar) {
+              player2Avatar.src = "/img/default-avatar.png";
+            }
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching users data:", error);
+        });
       
       // Update round info
       const roundInfoElement = document.getElementById("roundInfo");
