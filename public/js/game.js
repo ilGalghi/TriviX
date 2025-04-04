@@ -1,6 +1,6 @@
 // Dichiarazione globale del gameState
 let gameState = {
-  pollingInterval: null
+  pollingInterval: null,
 };
 
 // Game functionality
@@ -36,6 +36,33 @@ function initGame() {
     alert("Invalid game code. Redirecting to home page.");
     window.location.href = "index.html";
     return;
+  }
+
+  // Controlla se è la prima visita a questa partita
+  const isFirstVisit = !localStorage.getItem(`visited_game_${gameCode}`);
+  
+  // Se è la prima visita, resetta i powerup e gli indici usati e segna come visitato
+  if (isFirstVisit) {
+    console.log("Prima visita a questa partita, reset dei powerup e degli indici usati");
+    if (window.powerupManager) {
+      window.powerupManager.resetPowerups();
+    }
+    
+    // Pulisci gli indici usati per tutte le categorie
+    const categories = ["science", "entertainment", "sports", "art", "geography", "history"];
+    categories.forEach(category => {
+      localStorage.removeItem(`usedIndices_${category}`);
+      console.log(`Reset indici usati per la categoria: ${category}`);
+    });
+    
+    localStorage.setItem(`visited_game_${gameCode}`, "true");
+  } else {
+    console.log("Partita già visitata, mantengo lo stato dei powerup");
+    
+    // Controlla se c'è una domanda salvata da ripristinare
+    if (checkForSavedQuestion()) {
+      console.log("Domanda ripristinata con successo");
+    }
   }
 
   // Fetch match data from server and update it
@@ -383,6 +410,15 @@ function setupGameListeners() {
       // Hide result section and show spinner section
       document.getElementById("resultSection").classList.add("d-none")
       document.getElementById("spinnerSection").classList.remove("d-none")
+      
+      // Rimuovi i dati della domanda precedente
+      const gameCode = new URLSearchParams(window.location.search).get("code");
+      if (gameCode) {
+        localStorage.removeItem(`currentQuestion_${gameCode}`);
+        localStorage.removeItem(`resultData_${gameCode}`);
+        localStorage.removeItem(`timer_${gameCode}`);
+        localStorage.setItem(`gamePhase_${gameCode}`, 'spinner');
+      }
     })
   }
 
@@ -399,29 +435,77 @@ function spinWheel() {
   clearInterval(gameState.pollingInterval);
   // Update game status to show spinning state
   document.getElementById("gameStatus").textContent = "Spinning the wheel...";
-  
 
   // Add spinning animation to wheel
   const wheel = document.getElementById("categoryWheel")
-  wheel.classList.add("spinning")
-
+  
   // Elenco completo di tutte le categorie, incluse quelle in italiano
   const categories = ["science", "entertainment", "sports", "art", "geography", "history"];
   const randomCategory = categories[Math.floor(Math.random() * categories.length)]
 
+  // Calcola l'angolo di rotazione in base alla categoria
+  const categoryAngles = {
+    'science': 30,        // Rotazione 0° come definito in CSS
+    'entertainment': 90,  // Rotazione 60° come definito in CSS
+    'sports': 150,       // Rotazione 120° come definito in CSS
+    'art': 210,         // Rotazione 180° come definito in CSS
+    'geography': 270,    // Rotazione 240° come definito in CSS
+    'history': 330      // Rotazione 300° come definito in CSS
+  };
+
+  // Calcola rotazioni complete (2 giri completi) più l'angolo della categoria
+  const rotations = 2 * 360; // 2 giri completi
+  let finalAngle = rotations + (360 - categoryAngles[randomCategory]); // Invertiamo l'angolo per la rotazione corretta
+  
+  // Applica la rotazione con CSS - uso una curva di decelerazione più uniforme
+  wheel.style.transition = 'transform 2s cubic-bezier(0.2, 0, 0.1, 1)';
+  wheel.style.transform = `rotate(${finalAngle}deg)`;
+
   // After a delay, stop spinning and show question
   setTimeout(() => {
     // Remove spinning animation
-    wheel.classList.remove("spinning")
+    wheel.style.transition = 'none';
+    wheel.style.transform = `rotate(${360 - categoryAngles[randomCategory]}deg)`;
+    
+    // Aggiungi l'animazione all'indicatore
+    const indicator = document.querySelector('.wheel-indicator');
+    indicator.classList.add('pulse');
+    
+    // Rimuovi la classe dopo l'animazione
+    setTimeout(() => {
+      indicator.classList.remove('pulse');
+    }, 1500);
+  }, 2000);
 
-    // Show question for selected category
-    showQuestion(randomCategory)
+  setTimeout(() => {
+    console.log("categoria: ", randomCategory);
+    console.log("angolo finale: ", 360 - categoryAngles[randomCategory]);
+    showQuestion(randomCategory);
     startPollingForOpponentMove();
     document.getElementById("gameStatus").textContent = "Your turn!";
+    document.getElementById("spinButton").disabled = true;
 
-    // Enable spin button
-    document.getElementById("spinButton").disabled = true
-  }, 3000)
+    // Reset istantaneo dello spinner
+    wheel.style.transition = 'none';
+    wheel.style.transform = 'rotate(0deg)';
+  }, 3000);
+}
+
+// Funzione per ottenere gli indici usati per una categoria
+function getUsedIndices(category) {
+  const storedIndices = localStorage.getItem(`usedIndices_${category}`);
+  
+  console.log(category + ", indici gia usati:", storedIndices);
+  return storedIndices ? JSON.parse(storedIndices) : [];
+}
+
+// Funzione per salvare un nuovo indice usato
+function saveUsedIndex(category, index) {
+  const usedIndices = getUsedIndices(category);
+  if (!usedIndices.includes(index)) {
+    usedIndices.push(index);
+    localStorage.setItem(`usedIndices_${category}`, JSON.stringify(usedIndices));
+  }
 }
 
 // Show question for category
@@ -429,35 +513,53 @@ function showQuestion(category) {
   // Hide spinner section and show question section
   document.getElementById("spinnerSection").classList.add("d-none")
   document.getElementById("questionSection").classList.remove("d-none")
+  document.getElementById("questionCategory").textContent = category.toUpperCase();
 
-  // Reset dei powerup per la nuova domanda
-  if (window.powerupManager) {
-    window.powerupManager.resetPowerups();
+  // Reset solo del messaggio di stato dei powerup
+  const powerupMessage = document.getElementById('powerupMessage');
+  if (powerupMessage) {
+    powerupMessage.textContent = '';
+    powerupMessage.className = 'powerup-message';
   }
 
-  // Update question category
-  document.getElementById("questionCategory").textContent = category.toUpperCase()
+  // Ottieni gli indici già usati dal localStorage
+  const usedIndices = getUsedIndices(category);
 
-  // Richiedi la domanda al server
-  fetch(`/api/questions/${category}`)
+  // Richiedi la domanda al server con gli indici già usati
+  fetch(`/api/questions/${category}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      usedIndices: usedIndices
+    })
+  })
     .then(response => {
       if (!response.ok) {
         throw new Error('Errore nel recupero della domanda');
       }
       return response.json();
     })
-    .then(question => {
+    .then(data => {
+      console.log("Indice ricevuto:", data.index);
       // Salva la domanda corrente globalmente
-      window.currentQuestion = question;
+      window.currentQuestion = data.question;
+
+      // Salva il nuovo indice nel localStorage
+      saveUsedIndex(category, data.index);
+
+      // Salva la domanda nel localStorage
+      saveCurrentQuestion(data.question, category);
 
       // Update question text
-      document.getElementById("questionText").textContent = question.text;
+      document.getElementById("questionText").textContent = data.question.text;
 
       // Update answers
       const answersContainer = document.getElementById("answersContainer");
       answersContainer.innerHTML = "";
 
-      question.answers.forEach((answer, index) => {
+      data.question.answers.forEach((answer, index) => {
         const answerElement = document.createElement("div");
         answerElement.className = "answer-option";
         answerElement.textContent = answer;
@@ -466,7 +568,7 @@ function showQuestion(category) {
         answerElement.addEventListener("click", () => {
           // Check if answer is correct
           stopTimer();
-          checkAnswer(index, question.correctIndex, question.explanation);
+          checkAnswer(index, data.question.correctIndex, data.question.explanation);
         });
 
         answersContainer.appendChild(answerElement);
@@ -482,13 +584,20 @@ function showQuestion(category) {
 }
 
 // Start timer
-function startTimer() {
-  let timeLeft = 30;
+function startTimer(initialTime = 30) {
+  let timeLeft = initialTime;
   let timerInterval;
   
   // Funzione per aggiornare il timer
   function updateTimer() {
     document.getElementById("timerValue").textContent = timeLeft;
+    
+    // Salva lo stato attuale del timer
+    const gameCode = new URLSearchParams(window.location.search).get("code");
+    if (gameCode) {
+      localStorage.setItem(`timer_${gameCode}`, timeLeft.toString());
+    }
+    
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       showResult(false, "Time's up!");
@@ -695,18 +804,46 @@ function switchTurn() {
   .then(data => {
     console.log('Turn switched successfully:', data);
     
+    if (data.match.status == "completed") {
+      // Se la partita è completata, pulisci i dati salvati
+      cleanupGameData(gameCode);
+    }
+    
     if (data.match.status != "completed"){
       document.getElementById("gameStatus").textContent = "Waiting for opponent's turn";
     }
-    // Update UI to show waiting for opponent
-   
-    
-    
   })
   .catch(error => {
     alert("Other player still not playing, please wait...")
     console.error('Error switching turn:', error);
   });
+}
+
+// Pulisce tutti i dati salvati relativi alla partita quando questa termina
+function cleanupGameData(gameCode) {
+  if (!gameCode) return;
+  
+  console.log("Partita completata, pulizia dei dati salvati");
+  
+  // Rimuovi i dati della domanda
+  localStorage.removeItem(`currentQuestion_${gameCode}`);
+  localStorage.removeItem(`resultData_${gameCode}`);
+  localStorage.removeItem(`timer_${gameCode}`);
+  localStorage.removeItem(`gamePhase_${gameCode}`);
+  
+  // Rimuovi il flag di visita della partita per permettere un nuovo inizio in futuro
+  localStorage.removeItem(`visited_game_${gameCode}`);
+  
+  // Pulisci gli indici usati per tutte le categorie
+  const categories = ["science", "entertainment", "sports", "art", "geography", "history"];
+  categories.forEach(category => {
+    localStorage.removeItem(`usedIndices_${category}`);
+  });
+  
+  // Pulisci la chat se esiste il manager
+  if (window.chatManager) {
+    window.chatManager.clearChat();
+  }
 }
 
 // Start polling for opponent's move
@@ -891,4 +1028,125 @@ function showResult(isCorrect, explanation) {
 
   // Update explanation
   document.getElementById("resultExplanation").textContent = explanation
+  
+  // Salva il risultato nel localStorage
+  saveQuestionResult(isCorrect, explanation);
+}
+
+// Mostra la domanda precedente se si ricarica la pagina
+function checkForSavedQuestion() {
+  const gameCode = new URLSearchParams(window.location.search).get("code");
+  if (!gameCode) return;
+
+  const savedQuestionData = localStorage.getItem(`currentQuestion_${gameCode}`);
+  const savedGamePhase = localStorage.getItem(`gamePhase_${gameCode}`);
+  
+  if (savedQuestionData && savedGamePhase === 'question') {
+    try {
+      const questionData = JSON.parse(savedQuestionData);
+      console.log("Ripristino domanda salvata:", questionData);
+      
+      // Nascondi la sezione spinner e mostra la sezione domanda
+      document.getElementById("spinnerSection").classList.add("d-none");
+      document.getElementById("questionSection").classList.remove("d-none");
+      document.getElementById("resultSection").classList.add("d-none");
+      
+      // Imposta la categoria
+      document.getElementById("questionCategory").textContent = questionData.category.toUpperCase();
+      
+      // Imposta la domanda corrente
+      window.currentQuestion = questionData.question;
+      
+      // Aggiorna il testo della domanda
+      document.getElementById("questionText").textContent = questionData.question.text;
+      
+      // Aggiorna le risposte
+      const answersContainer = document.getElementById("answersContainer");
+      answersContainer.innerHTML = "";
+      
+      questionData.question.answers.forEach((answer, index) => {
+        const answerElement = document.createElement("div");
+        answerElement.className = "answer-option";
+        answerElement.textContent = answer;
+        answerElement.dataset.index = index;
+        
+        // Se c'era già una risposta selezionata, marca quella risposta
+        if (questionData.selectedIndex !== undefined && questionData.selectedIndex === index) {
+          answerElement.classList.add('selected');
+        }
+        
+        // Aggiungi event listener per la selezione
+        answerElement.addEventListener("click", () => {
+          // Check if answer is correct
+          stopTimer();
+          checkAnswer(index, questionData.question.correctIndex, questionData.question.explanation);
+        });
+        
+        answersContainer.appendChild(answerElement);
+      });
+      
+      // Ripristina il timer con il tempo rimanente salvato
+      const savedTimeLeft = parseInt(localStorage.getItem(`timer_${gameCode}`)) || 30;
+      startTimer(savedTimeLeft);
+      
+      return true;
+    } catch (error) {
+      console.error("Errore nel ripristino della domanda:", error);
+    }
+  } else if (savedGamePhase === 'result') {
+    // Se l'utente aveva già risposto, mostra il risultato
+    try {
+      const resultData = JSON.parse(localStorage.getItem(`resultData_${gameCode}`));
+      if (resultData) {
+        // Nascondi le altre sezioni e mostra la sezione risultato
+        document.getElementById("spinnerSection").classList.add("d-none");
+        document.getElementById("questionSection").classList.add("d-none");
+        document.getElementById("resultSection").classList.remove("d-none");
+        
+        // Aggiorna il testo e l'icona del risultato
+        document.getElementById("resultText").textContent = resultData.isCorrect ? "Correct!" : "Incorrect!";
+        const resultIcon = document.getElementById("resultIcon");
+        resultIcon.innerHTML = resultData.isCorrect
+          ? '<i class="fas fa-check-circle text-success"></i>'
+          : '<i class="fas fa-times-circle text-danger"></i>';
+        
+        // Aggiorna la spiegazione
+        document.getElementById("resultExplanation").textContent = resultData.explanation || "";
+        
+        return true;
+      }
+    } catch (error) {
+      console.error("Errore nel ripristino del risultato:", error);
+    }
+  }
+  
+  return false;
+}
+
+// Salva lo stato corrente della domanda
+function saveCurrentQuestion(question, category) {
+  const gameCode = new URLSearchParams(window.location.search).get("code");
+  if (!gameCode) return;
+  
+  const questionData = {
+    question: question,
+    category: category
+  };
+  
+  localStorage.setItem(`currentQuestion_${gameCode}`, JSON.stringify(questionData));
+  localStorage.setItem(`gamePhase_${gameCode}`, 'question');
+}
+
+// Salva il risultato della risposta
+function saveQuestionResult(isCorrect, explanation) {
+  const gameCode = new URLSearchParams(window.location.search).get("code");
+  if (!gameCode) return;
+  
+  const resultData = {
+    isCorrect: isCorrect,
+    explanation: explanation
+  };
+  
+  localStorage.setItem(`resultData_${gameCode}`, JSON.stringify(resultData));
+  localStorage.setItem(`gamePhase_${gameCode}`, 'result');
 }

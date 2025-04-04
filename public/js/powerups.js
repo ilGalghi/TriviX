@@ -1,11 +1,62 @@
 // Classe per gestire i powerup del gioco
+// Ogni powerup può essere utilizzato una sola volta per partita
 class PowerupManager {
     constructor() {
         this.extraTimeUsed = false;
         this.bombUsed = false;
         this.doubleChanceUsed = false;
         this.skipUsed = false;
+        
+        // Recupera lo stato salvato dei powerup per questa partita
+        this.gameCode = this.getGameCode();
+        this.loadPowerupState();
+        
         this.initializePowerups();
+    }
+
+    // Ottieni il codice della partita attuale dall'URL
+    getGameCode() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get("code");
+    }
+    
+    // Salva lo stato dei powerup nel localStorage
+    savePowerupState() {
+        if (!this.gameCode) return;
+        
+        const state = {
+            extraTimeUsed: this.extraTimeUsed,
+            bombUsed: this.bombUsed,
+            doubleChanceUsed: this.doubleChanceUsed,
+            skipUsed: this.skipUsed
+        };
+        
+        localStorage.setItem(`powerupState_${this.gameCode}`, JSON.stringify(state));
+    }
+    
+    // Carica lo stato dei powerup dal localStorage
+    loadPowerupState() {
+        if (!this.gameCode) return;
+        
+        const savedState = localStorage.getItem(`powerupState_${this.gameCode}`);
+        if (savedState) {
+            const state = JSON.parse(savedState);
+            this.extraTimeUsed = state.extraTimeUsed;
+            this.bombUsed = state.bombUsed;
+            this.doubleChanceUsed = state.doubleChanceUsed;
+            this.skipUsed = state.skipUsed;
+            
+            // Dopo aver caricato lo stato, aggiorna visivamente i powerup
+            setTimeout(() => this.updatePowerupVisuals(), 100);
+        }
+    }
+    
+    // Aggiorna visivamente lo stato dei powerup
+    updatePowerupVisuals() {
+        if (this.extraTimeUsed) this.disablePowerup('extraTimePowerup');
+        if (this.bombUsed) this.disablePowerup('bombPowerup');
+        if (this.doubleChanceUsed) this.disablePowerup('doubleChancePowerup');
+        if (this.skipUsed) this.disablePowerup('skipPowerup');
     }
 
     initializePowerups() {
@@ -45,6 +96,7 @@ class PowerupManager {
         
         this.extraTimeUsed = true;
         this.disablePowerup('extraTimePowerup');
+        this.savePowerupState();
     }
 
     useBomb() {
@@ -71,6 +123,7 @@ class PowerupManager {
 
         this.bombUsed = true;
         this.disablePowerup('bombPowerup');
+        this.savePowerupState();
     }
 
     useDoubleChance() {
@@ -131,6 +184,7 @@ class PowerupManager {
 
         this.doubleChanceUsed = true;
         this.disablePowerup('doubleChancePowerup');
+        this.savePowerupState();
     }
 
     useSkip() {
@@ -147,13 +201,18 @@ class PowerupManager {
 
         this.skipUsed = true;
         this.disablePowerup('skipPowerup');
+        this.savePowerupState();
     }
 
     disablePowerup(powerupId) {
         const powerup = document.getElementById(powerupId);
         if (powerup) {
-            powerup.style.opacity = '0.5';
+            powerup.style.opacity = '0.35';
             powerup.style.pointerEvents = 'none';
+            powerup.style.position = 'relative';
+            powerup.style.backgroundColor = '#444';
+            powerup.style.filter = 'grayscale(100%)';
+            powerup.style.border = '1px solid #666';
         }
     }
 
@@ -174,10 +233,15 @@ class PowerupManager {
         ['extraTimePowerup', 'bombPowerup', 'doubleChancePowerup', 'skipPowerup'].forEach(id => {
             const powerup = document.getElementById(id);
             if (powerup) {
-                powerup.style.opacity = '1';
-                powerup.style.pointerEvents = 'auto';
+                // Rimuove gli stili inline
+                powerup.style = '';
             }
         });
+        
+        // Cancella lo stato salvato nel localStorage
+        if (this.gameCode) {
+            localStorage.removeItem(`powerupState_${this.gameCode}`);
+        }
     }
 }
 

@@ -6,7 +6,6 @@ const path = require("path");
 const userModel = require("../models/userModel");
 
 // In-memory user storage reference
-// In a real app, you would import this from a shared module
 const users = [];
 
 const matchesFilePath = path.join(__dirname, '../data/matches.json');
@@ -62,11 +61,11 @@ router.post("/create", (req, res) => {
   const newGame = {
     id: uuidv4(),
     matchCode: gameCode,
-    status: "waiting", // stati possibili: "waiting", "active", "completed"
+    status: "waiting",      // stati possibili: "waiting", "active", "completed"
     players: [
     ],
     currentRound: 0,
-    maxRounds: 3,
+    maxRounds: 10,          // SETTARE NUMERO DI ROUND PER OGNI PARTITA
     currentTurn: userId,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -174,7 +173,7 @@ router.put("/:gameCode", (req, res) => {
 // Nuova route PUT per aggiornare un match specifico, ad esempio per assegnare giocatori
 router.put("/update/:matchCode", (req, res) => {
   const { matchCode } = req.params;
-  const { currentUser } = req.body; // supponiamo che tu stia passando i dettagli del giocatore
+  const { currentUser } = req.body;
 
   const matches = readMatches();
   const game = matches.find((game) => game.matchCode === matchCode);

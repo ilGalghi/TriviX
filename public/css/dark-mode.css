@@ -101,6 +101,21 @@ body.dark-mode {
     border-color: #444;
   }
   
+  body.dark-mode .wheel-indicator {
+    background-color: #2d2d2d;
+    border-color: #444;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  
+  body.dark-mode .wheel-indicator::before {
+    border-top-color: var(--accent-color);
+  }
+  
+  body.dark-mode .wheel-indicator::after {
+    background-color: #2d2d2d;
+    border-color: #444;
+  }
+  
   body.dark-mode .question-card {
     background-color: #2d2d2d;
   }
@@ -174,6 +189,23 @@ body.dark-mode .powerups-container {
   gap: 10px;
 }
 
+body.dark-mode .powerup {
+  width: 120px; /* Stessa larghezza del tema chiaro */
+  height: 60px;
+}
+
+body.dark-mode .powerup:hover {
+  background-color: #3d3d3d;
+}
+
+body.dark-mode .profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #191919;
+}
+
 body.dark-mode .chat-message {
   margin-bottom: 10px;
   padding: 10px;
@@ -188,18 +220,6 @@ body.dark-mode .player-score {
 
 body.dark-mode .recent-matches {
   background-color: #2d2d2d;
-}
-
-body.dark-mode .powerup:hover {
-  background-color: #3d3d3d;
-}
-
-body.dark-mode .profile-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #191919;
 }
 
 body.dark-mode .welcome-section,
@@ -233,14 +253,6 @@ body.dark-mode .answer-option.correct {
 body.dark-mode .answer-option.incorrect {
   background-color: #4d1b1b;
   border-color: #8a2d2d;
-}
-
-body.dark-mode .powerups-container {
-  background-color: #2d2d2d;
-}
-
-body.dark-mode .powerup:hover {
-  background-color: #3d3d3d;
 }
 
 /* Chat Dark Mode Styles */
@@ -358,4 +370,31 @@ body.dark-mode .stat-item h3 {
 body.dark-mode .notification {
   background-color: #2d2d2d;
   color: #ffffff;
+}
+
+/* Stili aggiuntivi per powerup nella modalità scura */
+body.dark-mode .powerup[style*="pointer-events: none"] {
+  background-color: #500 !important;
+  border: 2px solid #300 !important;
+  box-shadow: inset 0 0 5px #200 !important;
+}
+
+body.dark-mode .powerup[style*="pointer-events: none"]::before {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(100, 0, 0, 0.4),
+    rgba(100, 0, 0, 0.4) 10px,
+    rgba(150, 0, 0, 0.6) 10px,
+    rgba(150, 0, 0, 0.6) 20px
+  ) !important;
+}
+
+body.dark-mode .powerup[style*="pointer-events: none"] img,
+body.dark-mode .powerup[style*="pointer-events: none"] i {
+  filter: grayscale(100%) brightness(0.8) sepia(1) hue-rotate(-50deg) saturate(3) !important;
+  opacity: 0.8 !important;
+}
+
+body.dark-mode .powerup[style*="pointer-events: none"] span {
+  color: #fcc !important;
 }

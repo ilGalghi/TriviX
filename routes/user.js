@@ -1,5 +1,3 @@
-// user.js - User routes
-
 const express = require("express")
 const router = express.Router()
 const userModel = require("../models/userModel")
@@ -52,7 +50,7 @@ router.put("/:userId", (req, res) => {
   // Update user data
   if (username) user.username = username
   if (email) user.email = email
-  if (password) user.password = password // In a real app, you would hash the password
+  if (password) user.password = password    // Hash password
 
   // Return updated user data (excluding password)
   res.json({

@@ -41,47 +41,6 @@
     }
   },
   {
-    "id": "9cd7b9c8-687d-494d-acaf-c13287418a2e",
-    "username": "gigi2",
-    "email": "gigi2@gmail.com",
-    "password": "$2a$10$ZtTsUnfWuXCUr8nKZmeh.egI1bb8D5dnfKTUw8MmNZxDaRHR3yiNm",
-    "createdAt": "2025-03-21T20:45:52.422Z",
-    "profile": {
-      "avatar": "/img/default-avatar.png",
-      "stats": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "correctAnswers": 0
-      },
-      "categoryPerformance": {
-        "science": {
-          "correct": 0,
-          "total": 0
-        },
-        "entertainment": {
-          "correct": 0,
-          "total": 0
-        },
-        "sports": {
-          "correct": 0,
-          "total": 0
-        },
-        "art": {
-          "correct": 0,
-          "total": 0
-        },
-        "geography": {
-          "correct": 0,
-          "total": 0
-        },
-        "history": {
-          "correct": 0,
-          "total": 0
-        }
-      }
-    }
-  },
-  {
     "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
     "username": "ronaldo",
     "email": "ronaldo@gmail.com",
@@ -90,34 +49,35 @@
     "profile": {
       "avatar": "data:image/jpeg;base64,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",
       "stats": {
-        "gamesPlayed": 7,
-        "gamesWon": 2,
-        "correctAnswers": 11
+        "gamesPlayed": 17,
+        "gamesWon": 3,
+        "correctAnswers": 38,
+        "points": 30
       },
       "categoryPerformance": {
         "science": {
-          "correct": 2,
-          "total": 3
+          "correct": 7,
+          "total": 19
         },
         "entertainment": {
-          "correct": 2,
-          "total": 3
+          "correct": 4,
+          "total": 7
         },
         "sports": {
-          "correct": 3,
-          "total": 5
+          "correct": 5,
+          "total": 13
         },
         "art": {
-          "correct": 0,
-          "total": 2
+          "correct": 3,
+          "total": 11
         },
         "geography": {
-          "correct": 1,
-          "total": 5
+          "correct": 6,
+          "total": 18
         },
         "history": {
-          "correct": 3,
-          "total": 6
+          "correct": 10,
+          "total": 18
         },
         "literature": {
           "correct": 0,
@@ -135,75 +95,34 @@
     "profile": {
       "avatar": "/img/default-avatar.png",
       "stats": {
-        "gamesPlayed": 0,
+        "gamesPlayed": 2,
         "gamesWon": 0,
-        "correctAnswers": 2
+        "correctAnswers": 12
       },
       "categoryPerformance": {
         "science": {
-          "correct": 1,
-          "total": 1
+          "correct": 3,
+          "total": 10
         },
         "entertainment": {
-          "correct": 0,
-          "total": 0
+          "correct": 2,
+          "total": 3
         },
         "sports": {
-          "correct": 0,
-          "total": 0
-        },
-        "art": {
-          "correct": 0,
-          "total": 1
-        },
-        "geography": {
-          "correct": 0,
-          "total": 1
-        },
-        "history": {
           "correct": 1,
-          "total": 1
-        }
-      }
-    }
-  },
-  {
-    "id": "d12c0516-a6bb-4ed5-bb9f-49f9e1a736b6",
-    "username": "gg",
-    "email": "gg@gmail.com",
-    "password": "$2a$10$bXh/7.mC0kmVmzI2hztkCe31f53v5wCm7XABIBNqunFsJp5K0Qp7K",
-    "createdAt": "2025-03-26T09:41:49.651Z",
-    "profile": {
-      "avatar": "/img/default-avatar.png",
-      "stats": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "correctAnswers": 0
-      },
-      "categoryPerformance": {
-        "science": {
-          "correct": 0,
-          "total": 0
-        },
-        "entertainment": {
-          "correct": 0,
-          "total": 0
-        },
-        "sports": {
-          "correct": 0,
-          "total": 0
+          "total": 4
         },
         "art": {
-          "correct": 0,
-          "total": 0
+          "correct": 1,
+          "total": 8
         },
         "geography": {
-          "correct": 0,
-          "total": 0
+          "correct": 1,
+          "total": 6
         },
         "history": {
-          "correct": 0,
-          "total": 0
+          "correct": 4,
+          "total": 5
         }
       }
     }
@@ -217,34 +136,35 @@
     "profile": {
       "avatar": "data:image/jpeg;base64,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",
       "stats": {
-        "gamesPlayed": 6,
-        "gamesWon": 4,
-        "correctAnswers": 18
+        "gamesPlayed": 12,
+        "gamesWon": 9,
+        "correctAnswers": 53,
+        "points": 60
       },
       "categoryPerformance": {
         "science": {
-          "correct": 1,
-          "total": 3
+          "correct": 4,
+          "total": 6
         },
         "entertainment": {
-          "correct": 2,
-          "total": 2
+          "correct": 9,
+          "total": 10
         },
         "sports": {
-          "correct": 3,
-          "total": 4
+          "correct": 7,
+          "total": 9
         },
         "art": {
-          "correct": 3,
-          "total": 4
+          "correct": 8,
+          "total": 11
         },
         "geography": {
-          "correct": 2,
-          "total": 2
+          "correct": 7,
+          "total": 9
         },
         "history": {
-          "correct": 7,
-          "total": 10
+          "correct": 14,
+          "total": 17
         },
         "literature": {
           "correct": 0,
