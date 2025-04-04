@@ -21,6 +21,6 @@
 - [ ] Sicurezza HTTPS
 
 #### CSS
-- [ ] CSS spin indicatore corrisponde materia domanda indicata dall'aghetto
+- [x] CSS spin indicatore corrisponde materia domanda indicata dall'aghetto
 - [ ] Abbellire CSS quando partita finisce (vittoria, pareggio, sconfitta)
 - [ ] Animazioni +1 per domanda giusta
