@@ -8,8 +8,8 @@
 - [x] Quando si aggiorna la pagina, non deve permettere di rigenerare la domanda / rigenerare powerups
 - [x] Suggerimento (powerup) AI
 - [x] Bottone arrenditi
-- [ ] Spin corretto per categoria di domanda
-- [ ] Non far uscire la stessa domanda, almeno durante il match (localStorage(?))
+- [x] Spin corretto per categoria di domanda
+- [x] Non far uscire la stessa domanda, almeno durante il match (localStorage)
 - [ ] Opzione per scegliere quante domande per partita (?)
 - [ ] Creare classifica punti vinti per match. aggiungere campo
 - [ ] Correggere "My matches"
