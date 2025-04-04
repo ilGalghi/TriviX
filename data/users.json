@@ -51,7 +51,7 @@
       "stats": {
         "gamesPlayed": 14,
         "gamesWon": 2,
-        "correctAnswers": 29,
+        "correctAnswers": 30,
         "points": 30
       },
       "categoryPerformance": {
@@ -61,7 +61,7 @@
         },
         "entertainment": {
           "correct": 4,
-          "total": 7
+          "total": 8
         },
         "sports": {
           "correct": 4,
@@ -76,8 +76,8 @@
           "total": 12
         },
         "history": {
-          "correct": 7,
-          "total": 13
+          "correct": 8,
+          "total": 14
         },
         "literature": {
           "correct": 0,
@@ -138,13 +138,13 @@
       "stats": {
         "gamesPlayed": 12,
         "gamesWon": 9,
-        "correctAnswers": 53,
+        "correctAnswers": 54,
         "points": 60
       },
       "categoryPerformance": {
         "science": {
-          "correct": 4,
-          "total": 6
+          "correct": 5,
+          "total": 7
         },
         "entertainment": {
           "correct": 9,
@@ -156,7 +156,7 @@
         },
         "art": {
           "correct": 8,
-          "total": 11
+          "total": 12
         },
         "geography": {
           "correct": 7,

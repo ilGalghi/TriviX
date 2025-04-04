@@ -3519,5 +3519,29 @@
     "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
     "createdAt": "2025-04-02T20:27:53.608Z",
     "updatedAt": "2025-04-02T20:29:30.159Z"
+  },
+  {
+    "id": "703bfbe4-9c50-411c-b361-105ebaf38b00",
+    "matchCode": "TJOJ63",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 10,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-03T15:49:38.610Z",
+    "updatedAt": "2025-04-03T15:50:35.766Z"
   }
 ]
