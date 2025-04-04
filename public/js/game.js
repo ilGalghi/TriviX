@@ -366,6 +366,18 @@ function setupGameListeners() {
     });
   }
 
+  // Flag button (surrender)
+  const flagButton = document.getElementById("flagButton");
+  if (flagButton) {
+    flagButton.addEventListener("click", () => {
+      // Chiedi conferma prima di arrendersi
+      const conferma = confirm("Sei sicuro di volerti arrendere? Perderai automaticamente la partita.");
+      if (conferma) {
+        surrenderGame();
+      }
+    });
+  }
+
   // Chat button
   const chatButton = document.getElementById("chatButton");
   if (chatButton) {
@@ -812,20 +824,28 @@ function checkForOpponentMove() {
       // Aggiorniamo lo stato completo della partita, inclusi nomi utente e avatar
       updateGameStateFromMatch(data.match);
       
+      // Ottieni l'elemento gameStatus
+      const gameStatusElement = document.getElementById("gameStatus");
+      
+      // Rimuovi eventuali classi precedenti
+      gameStatusElement.classList.remove("game-status-win", "game-status-lose");
+      
       // Gestione del turno corrente
       if (data.match.currentTurn === currentUser.id) {
         // È il turno dell'utente corrente
         if (data.match.status !== "completed") {
           // Controlla se ci sono due giocatori nella partita
           if (data.match.players.length >= 2) {
-            document.getElementById("gameStatus").textContent = "Your turn!";
+            gameStatusElement.textContent = "Your turn!";
+            gameStatusElement.className = ""; // Rimuovi tutte le classi
             document.getElementById("spinButton").disabled = false;
           }
         }
       } else {
         // Non è il turno dell'utente corrente
         if (data.match.status !== "completed") {
-          document.getElementById("gameStatus").textContent = "Waiting for opponent's turn...";
+          gameStatusElement.textContent = "Waiting for opponent's turn...";
+          gameStatusElement.className = ""; // Rimuovi tutte le classi
           document.getElementById("spinButton").disabled = true;
         }
       }
@@ -834,14 +854,35 @@ function checkForOpponentMove() {
       if (data.match.status === "completed") {
         document.getElementById("spinButton").disabled = true;
         
+        // Disabilita il pulsante flag quando la partita è completata
+        const flagButton = document.getElementById("flagButton");
+        if (flagButton) {
+          flagButton.disabled = true;
+          flagButton.style.opacity = "0.5";
+          flagButton.style.cursor = "not-allowed";
+        }
+        
         if (!opponent) {
-          document.getElementById("gameStatus").textContent = "Partita terminata";
+          gameStatusElement.textContent = "Partita terminata";
+          gameStatusElement.className = ""; // Nessuna classe speciale
+        } else if (data.match.surrenderedBy) {
+          // Verifica se l'avversario si è arreso
+          if (data.match.surrenderedBy !== currentUser.id) {
+            gameStatusElement.textContent = "Hai vinto! (L'avversario si è arreso)";
+            gameStatusElement.className = "game-status-win";
+          } else {
+            gameStatusElement.textContent = "Ti sei arreso! Hai perso la partita.";
+            gameStatusElement.className = "game-status-lose";
+          }
         } else if (currentPlayer.score > opponent.score) {
-          document.getElementById("gameStatus").textContent = "Hai vinto!";
+          gameStatusElement.textContent = "Hai vinto!";
+          gameStatusElement.className = "game-status-win";
         } else if (currentPlayer.score < opponent.score) {
-          document.getElementById("gameStatus").textContent = "Hai perso!";
+          gameStatusElement.textContent = "Hai perso!";
+          gameStatusElement.className = "game-status-lose";
         } else {
-          document.getElementById("gameStatus").textContent = "È un pareggio!";
+          gameStatusElement.textContent = "È un pareggio!";
+          gameStatusElement.className = "game-status-draw"; // Classe per il pareggio
         }
       }
     }
@@ -1074,4 +1115,71 @@ function saveQuestionResult(isCorrect, explanation) {
   
   localStorage.setItem(`resultData_${gameCode}`, JSON.stringify(resultData));
   localStorage.setItem(`gamePhase_${gameCode}`, 'result');
+}
+
+// Funzione per arrendersi durante la partita
+function surrenderGame() {
+  // Get current user and match data
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const urlParams = new URLSearchParams(window.location.search);
+  const gameCode = urlParams.get("code");
+  
+  if (!currentUser || !gameCode) {
+    console.error("Missing user or game code");
+    return;
+  }
+  
+  // Prepare data to send to server
+  const surrenderData = {
+    userId: currentUser.id,
+    gameCode: gameCode,
+    surrender: true
+  };
+  
+  // Send surrender request to server
+  fetch('/api/games/surrender', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(surrenderData),
+    credentials: 'include'
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Surrender processed successfully:', data);
+    
+    // Update UI to show surrender
+    const gameStatusElement = document.getElementById("gameStatus");
+    gameStatusElement.textContent = "Ti sei arreso! Hai perso la partita.";
+    gameStatusElement.className = "game-status-lose";
+    
+    // Disabilita i pulsanti di gioco
+    document.getElementById("spinButton").disabled = true;
+    
+    // Disabilita il pulsante flag
+    const flagButton = document.getElementById("flagButton");
+    if (flagButton) {
+      flagButton.disabled = true;
+      flagButton.style.opacity = "0.5";
+      flagButton.style.cursor = "not-allowed";
+    }
+    
+    // Se la partita è completata, pulisci i dati salvati
+    if (data.match && data.match.status === "completed") {
+      cleanupGameData(gameCode);
+    }
+    
+    // Notifica l'utente
+    alert("Ti sei arreso. Hai perso la partita.");
+  })
+  .catch(error => {
+    console.error('Error processing surrender:', error);
+    alert("Si è verificato un errore durante l'elaborazione della resa. Riprova.");
+  });
 }

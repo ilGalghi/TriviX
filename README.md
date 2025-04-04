@@ -6,13 +6,14 @@
 - [x] Configurare i powerup in modo che non siano tutti per ogni domanda
 - [x] Chat duratura per la partita, poi eliminata
 - [x] Quando si aggiorna la pagina, non deve permettere di rigenerare la domanda / rigenerare powerups
+- [x] Suggerimento (powerup) AI
+- [x] Bottone arrenditi
 - [ ] Spin corretto per categoria di domanda
 - [ ] Non far uscire la stessa domanda, almeno durante il match (localStorage(?))
 - [ ] Opzione per scegliere quante domande per partita (?)
-- [ ] Suggerimento (powerup) AI
 - [ ] Creare classifica punti vinti per match. aggiungere campo
 - [ ] Correggere "My matches"
-- [ ] Bottone arrenditi
+- [ ] Login direttamente da "Join game"
 - [ ] Fare che non si può uscire dalla pagina (per cercare la risposta)
 - [ ] Alert "inizia nuova partita" quando finisce partita
 - [ ] Separare il file game.js per renderlo più leggero

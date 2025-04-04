@@ -6,6 +6,7 @@ class PowerupManager {
         this.bombUsed = false;
         this.doubleChanceUsed = false;
         this.skipUsed = false;
+        this.aiHintUsed = false;
         
         // Recupera lo stato salvato dei powerup per questa partita
         this.gameCode = this.getGameCode();
@@ -28,7 +29,8 @@ class PowerupManager {
             extraTimeUsed: this.extraTimeUsed,
             bombUsed: this.bombUsed,
             doubleChanceUsed: this.doubleChanceUsed,
-            skipUsed: this.skipUsed
+            skipUsed: this.skipUsed,
+            aiHintUsed: this.aiHintUsed
         };
         
         localStorage.setItem(`powerupState_${this.gameCode}`, JSON.stringify(state));
@@ -45,6 +47,7 @@ class PowerupManager {
             this.bombUsed = state.bombUsed;
             this.doubleChanceUsed = state.doubleChanceUsed;
             this.skipUsed = state.skipUsed;
+            this.aiHintUsed = state.aiHintUsed || false;
             
             // Dopo aver caricato lo stato, aggiorna visivamente i powerup
             setTimeout(() => this.updatePowerupVisuals(), 100);
@@ -57,6 +60,7 @@ class PowerupManager {
         if (this.bombUsed) this.disablePowerup('bombPowerup');
         if (this.doubleChanceUsed) this.disablePowerup('doubleChancePowerup');
         if (this.skipUsed) this.disablePowerup('skipPowerup');
+        if (this.aiHintUsed) this.disablePowerup('aiHintPowerup');
     }
 
     initializePowerups() {
@@ -82,6 +86,12 @@ class PowerupManager {
         const skipBtn = document.getElementById('skipPowerup');
         if (skipBtn) {
             skipBtn.addEventListener('click', () => this.useSkip());
+        }
+
+        // AI Hint Powerup
+        const aiHintBtn = document.getElementById('aiHintPowerup');
+        if (aiHintBtn) {
+            aiHintBtn.addEventListener('click', () => this.useAiHint());
         }
     }
 
@@ -204,6 +214,64 @@ class PowerupManager {
         this.savePowerupState();
     }
 
+    useAiHint() {
+        if (this.aiHintUsed) return;
+
+        // Ottieni la domanda corrente
+        const questionText = document.getElementById('questionText').textContent.trim();
+        
+        // Mostra un messaggio di caricamento
+        const powerupMessage = document.getElementById('powerupMessage');
+        powerupMessage.textContent = "Sto chiedendo all'AI un suggerimento...";
+        powerupMessage.className = 'powerup-message hint-active';
+        
+        // Richiesta all'API di Gemini
+        // L'API genererà un suggerimento utile senza rivelare la risposta esatta
+        // Il server formatta il prompt per assicurarsi che il suggerimento sia utile ma non diretto
+        this.getAiHint(questionText)
+            .then(hint => {
+                // Aggiorna il messaggio con il suggerimento
+                powerupMessage.innerHTML = `<strong>Suggerimento AI:</strong> ${hint}`;
+                powerupMessage.className = 'powerup-message hint-active';
+            })
+            .catch(error => {
+                console.error('Errore nel recupero del suggerimento AI:', error);
+                powerupMessage.textContent = "Errore nel recupero del suggerimento. Riprova più tardi.";
+                powerupMessage.className = 'powerup-message warning';
+                
+                // Ripristina il powerup (solo in caso di errore)
+                return;
+            });
+        
+        this.aiHintUsed = true;
+        this.disablePowerup('aiHintPowerup');
+        this.savePowerupState();
+    }
+    
+    async getAiHint(question) {
+        try {
+            const response = await fetch('/api/ai/hint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    question: question
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error('Errore nella risposta del server');
+            }
+            
+            const data = await response.json();
+            return data.hint;
+        } catch (error) {
+            console.error('Errore nella richiesta AI hint:', error);
+            throw error;
+        }
+    }
+
     disablePowerup(powerupId) {
         const powerup = document.getElementById(powerupId);
         if (powerup) {
@@ -221,6 +289,7 @@ class PowerupManager {
         this.bombUsed = false;
         this.doubleChanceUsed = false;
         this.skipUsed = false;
+        this.aiHintUsed = false;
 
         // Reset del messaggio del powerup
         const powerupMessage = document.getElementById('powerupMessage');
@@ -230,7 +299,7 @@ class PowerupManager {
         }
 
         // Riabilita tutti i powerup
-        ['extraTimePowerup', 'bombPowerup', 'doubleChancePowerup', 'skipPowerup'].forEach(id => {
+        ['extraTimePowerup', 'bombPowerup', 'doubleChancePowerup', 'skipPowerup', 'aiHintPowerup'].forEach(id => {
             const powerup = document.getElementById(id);
             if (powerup) {
                 // Rimuove gli stili inline

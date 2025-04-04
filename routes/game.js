@@ -65,7 +65,7 @@ router.post("/create", (req, res) => {
     players: [
     ],
     currentRound: 0,
-    maxRounds: 10,          // SETTARE NUMERO DI ROUND PER OGNI PARTITA
+    maxRounds: 3,          // SETTARE NUMERO DI ROUND PER OGNI PARTITA
     currentTurn: userId,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -363,6 +363,58 @@ router.get('/match/:code', (req, res) => {
   return res.json({ success: true, match });
 });
 
+// Route per gestire la resa di un giocatore
+router.post('/surrender', (req, res) => {
+  try {
+    const { userId, gameCode } = req.body;
+    
+    if (!userId || !gameCode) {
+      return res.status(400).json({ success: false, message: 'Dati mancanti.' });
+    }
+    
+    // Leggi i match esistenti
+    const matchesData = readMatches();
+    
+    // Trova la partita corrispondente
+    const matchIndex = matchesData.findIndex(match => match.matchCode === gameCode);
+    
+    if (matchIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Partita non trovata.' });
+    }
+    
+    const match = matchesData[matchIndex];
+    
+    // Trova i giocatori
+    const surrenderingPlayer = match.players.find(player => player.id === userId);
+    const opponentPlayer = match.players.find(player => player.id !== userId);
+    
+    if (!surrenderingPlayer || !opponentPlayer) {
+      return res.status(404).json({ success: false, message: 'Giocatore non trovato nella partita.' });
+    }
+    
+    // Aggiorna lo stato della partita
+    match.status = "completed";
+    match.winner = opponentPlayer.id;
+    match.surrenderedBy = userId; // Aggiungi un campo per tenere traccia di chi si è arreso
+    
+    // Aggiorna le statistiche di gioco
+    updateUserStats(match);
+    match.statsUpdated = true;
+    
+    // Salva il file aggiornato
+    matchesData[matchIndex] = match;
+    writeMatches(matchesData);
+    
+    return res.json({
+      success: true,
+      message: 'Partita terminata per resa.',
+      match: match
+    });
+  } catch (error) {
+    console.error('Errore durante la gestione della resa:', error);
+    return res.status(500).json({ success: false, message: 'Errore interno del server.' });
+  }
+});
 
 // Update user stats based on game results
 async function updateUserStats(game) {

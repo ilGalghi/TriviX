@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
@@ -9,6 +10,7 @@ const gameRoutes = require("./routes/game");
 const chatRoutes = require("./routes/chat");
 const questionsRoutes = require("./routes/questions");
 const userRoutes = require("./routes/user");
+const aiRoutes = require("./routes/ai");
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
@@ -65,6 +67,7 @@ app.use("/api/games", gameRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/questions", questionsRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/ai", aiRoutes);
 
 // Gestione delle connessioni Socket.IO
 io.on('connection', (socket) => {

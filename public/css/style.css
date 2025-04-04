@@ -104,6 +104,53 @@ body {
   font-weight: bold;
 }
 
+/* Status indicators for win/lose */
+@keyframes modernPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px 15px rgba(40, 167, 69, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+
+.game-status-win {
+  background-color: #28a745; /* Colore verde di successo */
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 5px;
+  animation: modernPulse 1.5s ease-in-out 3;
+}
+
+.game-status-lose {
+  background-color: #dc3545; /* Danger red color */
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.game-status-draw {
+  background-color: #00a1ff; /* Info blue color */
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 5px;
+}
+
 .back-button,
 .chat-button {
   background: none;
@@ -334,6 +381,19 @@ body {
 .control-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.control-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  opacity: 0.5;
+}
+
+.control-button:disabled:hover {
+  transform: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Question Styles */
@@ -596,7 +656,6 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-
 
 .chat-header h3 {
   margin: 0;
@@ -999,8 +1058,6 @@ body {
   opacity: 0.7;
 }
 
-
-
 .player-vs-container {
   display: flex;
   justify-content: space-around;
@@ -1060,8 +1117,6 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: transform 3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
 }
-
-
 
 .spin-button {
   position: absolute;
@@ -1356,12 +1411,40 @@ body {
 }
 
 .powerup-message.active {
-    background-color: #e8f5e9;
-    color: #2e7d32;
+    background-color: #fff3e0;
+    color: #e65100;
+    border: 1px solid #ffe0b2;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
 }
 
 .powerup-message.warning {
     background-color: #ffebee;
     color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+/* Aggiungo gli stili per il powerup AI Hint e i messaggi */
+.powerup-message.hint-active {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #bbdefb;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Stile per l'icona del powerup AI Hint */
+#aiHintPowerup i {
+    color: #4fc3f7;
 }
 
