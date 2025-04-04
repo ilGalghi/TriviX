@@ -196,9 +196,9 @@ function setupMainListeners() {
     joinGameForm.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const gameCode = document.getElementById("gameCode").value.trim();
+      const gameCodeInput = document.getElementById("gameCode").value.trim();
 
-      if (!gameCode) {
+      if (!gameCodeInput) {
         // Show error
         const joinGameError = document.getElementById("joinGameError");
         if (joinGameError) {
@@ -207,6 +207,21 @@ function setupMainListeners() {
         }
         return;
       }
+
+      // Verifica se l'input è un URL o un codice
+      let gameCode = gameCodeInput;
+      
+      // Regex per controllare se è un URL con parametro code
+      const urlRegex = /^(?:https?:\/\/)?(?:[^\/]+)\/game\.html\?code=([A-Z0-9]+)$/i;
+      const match = gameCodeInput.match(urlRegex);
+      
+      if (match && match[1]) {
+        // Se è un URL, estrai solo il codice
+        gameCode = match[1];
+      }
+
+      // Forza il codice in maiuscolo
+      gameCode = gameCode.toUpperCase();
 
       // Redirect to game page with code
       window.location.href = `game.html?code=${gameCode}`;
