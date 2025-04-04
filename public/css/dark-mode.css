@@ -101,6 +101,21 @@ body.dark-mode {
     border-color: #444;
   }
   
+  body.dark-mode .wheel-indicator {
+    background-color: #2d2d2d;
+    border-color: #444;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  
+  body.dark-mode .wheel-indicator::before {
+    border-top-color: var(--accent-color);
+  }
+  
+  body.dark-mode .wheel-indicator::after {
+    background-color: #2d2d2d;
+    border-color: #444;
+  }
+  
   body.dark-mode .question-card {
     background-color: #2d2d2d;
   }

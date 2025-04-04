@@ -1,152 +1,375 @@
 {
-  "science": [
-    {
-      "text": "Which type of rock forms in layers, is often found near water, and contains fossils?",
-      "answers": ["Igneous", "Sedimentary", "Metamorphic", "Granite"],
-      "correctIndex": 1,
-      "explanation": "Sedimentary rocks form in layers (strata) as sediment is deposited, often in bodies of water, and may contain fossils of plants and animals that were buried in the sediment."
-    },
-    {
-      "text": "Qual è l'elemento chimico più abbondante nell'universo?",
-      "answers": ["Ossigeno", "Carbonio", "Idrogeno", "Elio"],
-      "correctIndex": 2,
-      "explanation": "L'idrogeno è l'elemento più abbondante nell'universo, costituendo circa il 75% della massa barionica."
-    },
-    {
-      "text": "What is the chemical symbol for gold?",
-      "answers": ["Ag", "Au", "Fe", "Pb"],
-      "correctIndex": 1,
-      "explanation": "The chemical symbol for gold is Au, which comes from the Latin word 'aurum'."
-    },
-    {
-      "text": "Quale scienziato ha sviluppato la teoria della relatività?",
-      "answers": ["Isaac Newton", "Galileo Galilei", "Albert Einstein", "Stephen Hawking"],
-      "correctIndex": 2,
-      "explanation": "Albert Einstein è noto per aver sviluppato la teoria della relatività, che ha rivoluzionato la nostra comprensione dello spazio, del tempo, della gravità e dell'universo."
-    }
-  ],
-  "entertainment": [
-    {
-      "text": "Which actor played Iron Man in the Marvel Cinematic Universe?",
-      "answers": ["Chris Evans", "Chris Hemsworth", "Robert Downey Jr.", "Mark Ruffalo"],
-      "correctIndex": 2,
-      "explanation": "Robert Downey Jr. played Tony Stark / Iron Man in the Marvel Cinematic Universe from 2008 to 2019."
-    },
-    {
-      "text": "Chi è il regista del film 'La vita è bella'?",
-      "answers": ["Federico Fellini", "Roberto Benigni", "Giuseppe Tornatore", "Paolo Sorrentino"],
-      "correctIndex": 1,
-      "explanation": "Roberto Benigni ha diretto e interpretato il film 'La vita è bella' nel 1997, vincendo tre premi Oscar."
-    },
-    {
-      "text": "What is the name of Luke Skywalker's sister in Star Wars?",
-      "answers": ["Leia Organa", "Padmé Amidala", "Rey", "Ahsoka Tano"],
-      "correctIndex": 0,
-      "explanation": "Luke Skywalker's sister is Leia Organa, later revealed to be Leia Skywalker."
-    },
-    {
-      "text": "Quale famoso attore italiano ha recitato nel film 'Il buono, il brutto e il cattivo'?",
-      "answers": ["Marcello Mastroianni", "Vittorio Gassman", "Alberto Sordi", "Clint Eastwood"],
-      "correctIndex": 3,
-      "explanation": "Anche se è americano, Clint Eastwood è diventato famoso in Italia recitando in 'Il buono, il brutto e il cattivo', diretto da Sergio Leone."
-    }
-  ],
-  "sports": [
-    {
-      "text": "In which sport would you perform a slam dunk?",
-      "answers": ["Football", "Basketball", "Tennis", "Golf"],
-      "correctIndex": 1,
-      "explanation": "A slam dunk is a basketball move in which a player jumps high and forcefully puts the ball through the hoop with one or both hands."
-    },
-    {
-      "text": "In quale città si sono svolte le Olimpiadi del 2020 (tenutesi nel 2021)?",
-      "answers": ["Pechino", "Parigi", "Tokyo", "Rio de Janeiro"],
-      "correctIndex": 2,
-      "explanation": "Le Olimpiadi del 2020 si sono svolte a Tokyo, Giappone, ma sono state posticipate al 2021 a causa della pandemia di COVID-19."
-    },
-     {
-      "text": "How many players are on a baseball team?",
-      "answers": ["9", "10", "11", "12"],
-      "correctIndex": 0,
-      "explanation": "A baseball team has 9 players."
-    },
-    {
-      "text": "Qual è il nome del famoso pilota italiano di Formula 1 che ha corso per la Ferrari?",
-      "answers": ["Valentino Rossi", "Giacomo Agostini", "Alberto Ascari", "Marco Simoncelli"],
-      "correctIndex": 2,
-      "explanation": "Alberto Ascari è stato un famoso pilota italiano che ha vinto due campionati mondiali di Formula 1 con la Ferrari."
-    }
-  ],
-  "art": [
-    {
-      "text": "Who painted the Mona Lisa?",
-      "answers": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
-      "correctIndex": 2,
-      "explanation": "The Mona Lisa was painted by Leonardo da Vinci between 1503 and 1519."
-    },
-    {
-      "text": "Chi ha scolpito il David conservato nella Galleria dell'Accademia a Firenze?",
-      "answers": ["Donatello", "Leonardo da Vinci", "Michelangelo", "Raffaello"],
-      "correctIndex": 2,
-      "explanation": "Il David è una scultura realizzata da Michelangelo Buonarroti tra il 1501 e il 1504."
-    },
-    {
-      "text": "Which art movement is known for its dream-like and illogical imagery?",
-      "answers": ["Impressionism", "Realism", "Surrealism", "Abstract Expressionism"],
-      "correctIndex": 2,
-      "explanation": "Surrealism is characterized by its dream-like, bizarre, and illogical imagery, aiming to unlock the creative potential of the unconscious mind."
-    }
-  ],
-  "geography": [
-    {
-      "text": "Which is the largest ocean on Earth?",
-      "answers": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
-      "correctIndex": 3,
-      "explanation": "The Pacific Ocean is the largest and deepest ocean on Earth, covering more than 30% of the Earth's surface."
-    },
-    {
-      "text": "Qual è la capitale dell'Australia?",
-      "answers": ["Sydney", "Melbourne", "Canberra", "Perth"],
-      "correctIndex": 2,
-      "explanation": "Canberra è la capitale dell'Australia, non Sydney o Melbourne come molti credono erroneamente."
-    },
-    {
-      "text": "What is the longest river in the world?",
-      "answers": ["Amazon River", "Nile River", "Yangtze River", "Mississippi River"],
-      "correctIndex": 1,
-      "explanation": "The Nile River is traditionally considered the longest river in the world."
-    },
-    {
-      "text": "Quale catena montuosa separa l'Europa dall'Asia?",
-      "answers": ["Alpi", "Appennini", "Ande", "Urali"],
-      "correctIndex": 3,
-      "explanation": "I monti Urali segnano il confine convenzionale tra Europa e Asia."
-    }
-  ],
-  "history": [
-    {
-      "text": "In which year did World War II end?",
-      "answers": ["1943", "1945", "1947", "1950"],
-      "correctIndex": 1,
-      "explanation": "World War II ended in 1945 with the surrender of Germany in May and Japan in September."
-    },
-    {
-      "text": "In che anno è caduto il Muro di Berlino?",
-      "answers": ["1987", "1989", "1991", "1993"],
-      "correctIndex": 1,
-      "explanation": "Il Muro di Berlino è caduto il 9 novembre 1989, segnando la fine della divisione della Germania."
-    },
-    {
-      "text": "Who was the first President of the United States?",
-      "answers": ["Thomas Jefferson", "Abraham Lincoln", "George Washington", "John Adams"],
-      "correctIndex": 2,
-      "explanation": "George Washington was the first President of the United States, serving from 1789 to 1797."
-    },
-    {
-      "text": "Quale imperatore romano ha legalizzato il cristianesimo nell'Impero Romano?",
-      "answers": ["Nerone", "Augusto", "Costantino", "Giulio Cesare"],
-      "correctIndex": 2,
-      "explanation": "L'imperatore Costantino legalizzò il cristianesimo con l'Editto di Milano nel 313 d.C."
-    }
-  ]
-}
+    "science": [
+      {
+        "text": "Which type of rock forms in layers, is often found near water, and contains fossils?",
+        "answers": ["Igneous", "Sedimentary", "Metamorphic", "Granite"],
+        "correctIndex": 1,
+        "explanation": "Sedimentary rocks form in layers (strata) as sediment is deposited, often in bodies of water, and may contain fossils of plants and animals that were buried in the sediment."
+      },
+      {
+        "text": "Qual è l'elemento chimico più abbondante nell'universo?",
+        "answers": ["Ossigeno", "Carbonio", "Idrogeno", "Elio"],
+        "correctIndex": 2,
+        "explanation": "L'idrogeno è l'elemento più abbondante nell'universo, costituendo circa il 75% della massa barionica."
+      },
+      {
+        "text": "Quale pianeta è noto come il 'pianeta rosso'?",
+        "answers": ["Venere", "Giove", "Marte", "Saturno"],
+        "correctIndex": 2,
+        "explanation": "Marte è conosciuto come il 'pianeta rosso' per il suo caratteristico colore rossastro dovuto all'ossido di ferro sulla sua superficie."
+      },
+      {
+        "text": "Qual è l'organo più grande del corpo umano?",
+        "answers": ["Cuore", "Cervello", "Pelle", "Fegato"],
+        "correctIndex": 2,
+        "explanation": "La pelle è l'organo più grande del corpo umano, con una superficie media di circa 2 metri quadrati e un peso che rappresenta circa il 16% del peso corporeo."
+      },
+      {
+        "text": "Quale gas è responsabile del buco nell'ozono?",
+        "answers": ["Anidride carbonica", "Metano", "CFC", "Ossigeno"],
+        "correctIndex": 2,
+        "explanation": "I clorofluorocarburi (CFC) sono i principali responsabili del buco nell'ozono, poiché rilasciano cloro che distrugge le molecole di ozono."
+      },
+      {
+        "text": "Qual è la velocità della luce nel vuoto?",
+        "answers": ["299.792 km/s", "300.000 km/s", "299.792 m/s", "300.000 m/s"],
+        "correctIndex": 0,
+        "explanation": "La velocità della luce nel vuoto è esattamente 299.792.458 metri al secondo, spesso arrotondata a 300.000 km/s."
+      },
+      {
+        "text": "Quale scienziato ha formulato la teoria della relatività?",
+        "answers": ["Isaac Newton", "Albert Einstein", "Niels Bohr", "Galileo Galilei"],
+        "correctIndex": 1,
+        "explanation": "Albert Einstein ha formulato la teoria della relatività, pubblicando la teoria della relatività ristretta nel 1905 e quella generale nel 1915."
+      },
+      {
+        "text": "Qual è il simbolo chimico dell'oro?",
+        "answers": ["Ag", "Fe", "Au", "Cu"],
+        "correctIndex": 2,
+        "explanation": "Il simbolo chimico dell'oro è Au, derivante dal latino 'aurum'."
+      },
+      {
+        "text": "Quale malattia è causata dalla carenza di vitamina C?",
+        "answers": ["Rachitismo", "Scorbuto", "Beriberi", "Pellagra"],
+        "correctIndex": 1,
+        "explanation": "Lo scorbuto è causato dalla carenza di vitamina C e provoca sintomi come affaticamento, gengive sanguinanti e dolori articolari."
+      },
+      {
+        "text": "Qual è il nome del processo di divisione cellulare che produce gameti?",
+        "answers": ["Mitosi", "Meiosi", "Fotosintesi", "Osmosi"],
+        "correctIndex": 1,
+        "explanation": "La meiosi è il processo di divisione cellulare che produce gameti (cellule sessuali) con metà del numero di cromosomi rispetto alle cellule somatiche."
+      }
+    ],
+    "entertainment": [
+      {
+        "text": "Which actor played Iron Man in the Marvel Cinematic Universe?",
+        "answers": ["Chris Evans", "Chris Hemsworth", "Robert Downey Jr.", "Mark Ruffalo"],
+        "correctIndex": 2,
+        "explanation": "Robert Downey Jr. played Tony Stark / Iron Man in the Marvel Cinematic Universe from 2008 to 2019."
+      },
+      {
+        "text": "Chi è il regista del film 'La vita è bella'?",
+        "answers": ["Federico Fellini", "Roberto Benigni", "Giuseppe Tornatore", "Paolo Sorrentino"],
+        "correctIndex": 1,
+        "explanation": "Roberto Benigni ha diretto e interpretato il film 'La vita è bella' nel 1997, vincendo tre premi Oscar."
+      },
+      {
+        "text": "Quale film ha vinto l'Oscar come miglior film nel 2020?",
+        "answers": ["Joker", "Parasite", "Once Upon a Time in Hollywood", "The Irishman"],
+        "correctIndex": 1,
+        "explanation": "Parasite ha vinto l'Oscar come miglior film nel 2020, diventando il primo film in lingua non inglese a ricevere questo riconoscimento."
+      },
+      {
+        "text": "Chi ha interpretato il ruolo di Jack Dawson in Titanic?",
+        "answers": ["Brad Pitt", "Leonardo DiCaprio", "Matt Damon", "Johnny Depp"],
+        "correctIndex": 1,
+        "explanation": "Leonardo DiCaprio ha interpretato il ruolo di Jack Dawson nel film Titanic del 1997."
+      },
+      {
+        "text": "Quale serie TV ha vinto il maggior numero di Emmy Awards?",
+        "answers": ["Game of Thrones", "Friends", "Breaking Bad", "The Sopranos"],
+        "correctIndex": 0,
+        "explanation": "Game of Thrones ha vinto 59 Emmy Awards, più di qualsiasi altra serie TV nella storia."
+      },
+      {
+        "text": "Chi ha diretto il film 'Il Padrino'?",
+        "answers": ["Martin Scorsese", "Francis Ford Coppola", "Steven Spielberg", "Quentin Tarantino"],
+        "correctIndex": 1,
+        "explanation": "Francis Ford Coppola ha diretto il film 'Il Padrino' nel 1972, basato sul romanzo di Mario Puzo."
+      },
+      {
+        "text": "Quale cantante è soprannominata 'The Queen of Pop'?",
+        "answers": ["Beyoncé", "Madonna", "Lady Gaga", "Britney Spears"],
+        "correctIndex": 1,
+        "explanation": "Madonna è soprannominata 'The Queen of Pop' per il suo impatto sulla musica popolare e la sua longevità nella carriera musicale."
+      },
+      {
+        "text": "Quale film ha vinto il maggior numero di Oscar nella storia?",
+        "answers": ["Titanic", "Ben-Hur", "Il Signore degli Anelli: Il Ritorno del Re", "La La Land"],
+        "correctIndex": 2,
+        "explanation": "Il Signore degli Anelli: Il Ritorno del Re ha vinto 11 Oscar nel 2004, eguagliando il record di Ben-Hur e Titanic."
+      },
+      {
+        "text": "Chi ha interpretato il ruolo di Harry Potter nei film?",
+        "answers": ["Rupert Grint", "Daniel Radcliffe", "Tom Felton", "Emma Watson"],
+        "correctIndex": 1,
+        "explanation": "Daniel Radcliffe ha interpretato il ruolo di Harry Potter in tutti gli otto film della serie."
+      },
+      {
+        "text": "Quale gruppo musicale ha pubblicato l'album 'Abbey Road'?",
+        "answers": ["The Rolling Stones", "The Beatles", "Led Zeppelin", "Pink Floyd"],
+        "correctIndex": 1,
+        "explanation": "The Beatles hanno pubblicato l'album 'Abbey Road' nel 1969, il loro undicesimo album in studio."
+      }
+    ],
+    "sports": [
+      {
+        "text": "In which sport would you perform a slam dunk?",
+        "answers": ["Football", "Basketball", "Tennis", "Golf"],
+        "correctIndex": 1,
+        "explanation": "A slam dunk is a basketball move in which a player jumps high and forcefully puts the ball through the hoop with one or both hands."
+      },
+      {
+        "text": "In quale città si sono svolte le Olimpiadi del 2020 (tenutesi nel 2021)?",
+        "answers": ["Pechino", "Parigi", "Tokyo", "Rio de Janeiro"],
+        "correctIndex": 2,
+        "explanation": "Le Olimpiadi del 2020 si sono svolte a Tokyo, Giappone, ma sono state posticipate al 2021 a causa della pandemia di COVID-19."
+      },
+      {
+        "text": "Quale squadra ha vinto il maggior numero di Champions League?",
+        "answers": ["Barcelona", "Real Madrid", "AC Milan", "Liverpool"],
+        "correctIndex": 1,
+        "explanation": "Il Real Madrid ha vinto 14 Champions League, più di qualsiasi altra squadra nella storia della competizione."
+      },
+      {
+        "text": "In quale anno l'Italia ha vinto il suo quarto titolo mondiale di calcio?",
+        "answers": ["1990", "1994", "2006", "2010"],
+        "correctIndex": 2,
+        "explanation": "L'Italia ha vinto il suo quarto titolo mondiale di calcio nel 2006, battendo la Francia ai rigori nella finale."
+      },
+      {
+        "text": "Quale tennista ha vinto il maggior numero di titoli del Grande Slam in singolare maschile?",
+        "answers": ["Roger Federer", "Rafael Nadal", "Novak Djokovic", "Pete Sampras"],
+        "correctIndex": 2,
+        "explanation": "Novak Djokovic ha vinto 24 titoli del Grande Slam in singolare maschile, più di qualsiasi altro tennista nella storia."
+      },
+      {
+        "text": "Quale paese ha vinto il maggior numero di medaglie d'oro alle Olimpiadi estive?",
+        "answers": ["Cina", "Regno Unito", "Germania", "Stati Uniti"],
+        "correctIndex": 3,
+        "explanation": "Gli Stati Uniti hanno vinto il maggior numero di medaglie d'oro alle Olimpiadi estive, con oltre 1.000 medaglie d'oro."
+      },
+      {
+        "text": "Quale pilota ha vinto il maggior numero di titoli mondiali di Formula 1?",
+        "answers": ["Ayrton Senna", "Michael Schumacher", "Lewis Hamilton", "Sebastian Vettel"],
+        "correctIndex": 2,
+        "explanation": "Lewis Hamilton ha vinto 7 titoli mondiali di Formula 1, eguagliando il record di Michael Schumacher."
+      },
+      {
+        "text": "Quale squadra NBA ha vinto il maggior numero di campionati?",
+        "answers": ["Los Angeles Lakers", "Boston Celtics", "Chicago Bulls", "Golden State Warriors"],
+        "correctIndex": 1,
+        "explanation": "I Boston Celtics hanno vinto 17 campionati NBA, più di qualsiasi altra squadra nella storia della lega."
+      },
+      {
+        "text": "Quale atleta è soprannominato 'The Greatest'?",
+        "answers": ["Muhammad Ali", "Michael Jordan", "Pelé", "Usain Bolt"],
+        "correctIndex": 0,
+        "explanation": "Muhammad Ali è soprannominato 'The Greatest' ed è considerato uno dei più grandi pugili di tutti i tempi."
+      },
+      {
+        "text": "Quale paese ha vinto il maggior numero di titoli mondiali di calcio?",
+        "answers": ["Germania", "Argentina", "Brasile", "Italia"],
+        "correctIndex": 2,
+        "explanation": "Il Brasile ha vinto 5 titoli mondiali di calcio, più di qualsiasi altro paese nella storia della competizione."
+      }
+    ],
+    "art": [
+      {
+        "text": "Who painted the Mona Lisa?",
+        "answers": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
+        "correctIndex": 2,
+        "explanation": "The Mona Lisa was painted by Leonardo da Vinci between 1503 and 1519."
+      },
+      {
+        "text": "Chi ha scolpito il David conservato nella Galleria dell'Accademia a Firenze?",
+        "answers": ["Donatello", "Leonardo da Vinci", "Michelangelo", "Raffaello"],
+        "correctIndex": 2,
+        "explanation": "Il David è una scultura realizzata da Michelangelo Buonarroti tra il 1501 e il 1504."
+      },
+      {
+        "text": "Quale artista ha dipinto la Cappella Sistina?",
+        "answers": ["Leonardo da Vinci", "Raffaello", "Michelangelo", "Tiziano"],
+        "correctIndex": 2,
+        "explanation": "Michelangelo ha dipinto la Cappella Sistina tra il 1508 e il 1512, creando uno dei capolavori più famosi della storia dell'arte."
+      },
+      {
+        "text": "Chi ha dipinto 'La notte stellata'?",
+        "answers": ["Pablo Picasso", "Vincent van Gogh", "Claude Monet", "Edvard Munch"],
+        "correctIndex": 1,
+        "explanation": "Vincent van Gogh ha dipinto 'La notte stellata' nel 1889, durante il suo soggiorno nell'ospedale psichiatrico di Saint-Rémy."
+      },
+      {
+        "text": "Quale movimento artistico è associato a Salvador Dalí?",
+        "answers": ["Impressionismo", "Cubismo", "Surrealismo", "Pop Art"],
+        "correctIndex": 2,
+        "explanation": "Salvador Dalí è uno dei principali esponenti del Surrealismo, movimento artistico che esplora l'inconscio e il sogno."
+      },
+      {
+        "text": "Chi ha dipinto 'L'ultima cena'?",
+        "answers": ["Raffaello", "Leonardo da Vinci", "Michelangelo", "Tiziano"],
+        "correctIndex": 1,
+        "explanation": "Leonardo da Vinci ha dipinto 'L'ultima cena' tra il 1495 e il 1498 nel refettorio del convento di Santa Maria delle Grazie a Milano."
+      },
+      {
+        "text": "Quale artista ha creato la scultura 'Il pensatore'?",
+        "answers": ["Auguste Rodin", "Edgar Degas", "Henry Moore", "Constantin Brancusi"],
+        "correctIndex": 0,
+        "explanation": "Auguste Rodin ha creato la scultura 'Il pensatore' tra il 1880 e il 1902, originariamente concepita come parte della 'Porta dell'Inferno'."
+      },
+      {
+        "text": "Chi ha dipinto 'Guernica'?",
+        "answers": ["Pablo Picasso", "Henri Matisse", "Joan Miró", "Georges Braque"],
+        "correctIndex": 0,
+        "explanation": "Pablo Picasso ha dipinto 'Guernica' nel 1937 come risposta al bombardamento della città basca di Guernica durante la guerra civile spagnola."
+      },
+      {
+        "text": "Quale artista ha creato la Fontana di Trevi a Roma?",
+        "answers": ["Gian Lorenzo Bernini", "Michelangelo", "Nicola Salvi", "Donatello"],
+        "correctIndex": 2,
+        "explanation": "Nicola Salvi ha progettato la Fontana di Trevi, completata nel 1762, sebbene il progetto originale risalga a Bernini."
+      },
+      {
+        "text": "Chi ha dipinto 'La persistenza della memoria' con gli orologi che si sciolgono?",
+        "answers": ["René Magritte", "Salvador Dalí", "Max Ernst", "Joan Miró"],
+        "correctIndex": 1,
+        "explanation": "Salvador Dalí ha dipinto 'La persistenza della memoria' nel 1931, uno dei suoi dipinti più famosi con gli orologi che si sciolgono."
+      }
+    ],
+    "geography": [
+      {
+        "text": "Which is the largest ocean on Earth?",
+        "answers": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+        "correctIndex": 3,
+        "explanation": "The Pacific Ocean is the largest and deepest ocean on Earth, covering more than 30% of the Earth's surface."
+      },
+      {
+        "text": "Qual è la capitale dell'Australia?",
+        "answers": ["Sydney", "Melbourne", "Canberra", "Perth"],
+        "correctIndex": 2,
+        "explanation": "Canberra è la capitale dell'Australia, non Sydney o Melbourne come molti credono erroneamente."
+      },
+      {
+        "text": "Quale è il fiume più lungo del mondo?",
+        "answers": ["Rio delle Amazzoni", "Nilo", "Mississippi", "Yangtze"],
+        "correctIndex": 1,
+        "explanation": "Il Nilo è il fiume più lungo del mondo, con una lunghezza di circa 6.650 km, anche se il Rio delle Amazzoni ha un volume d'acqua maggiore."
+      },
+      {
+        "text": "Quale paese ha la popolazione più numerosa al mondo?",
+        "answers": ["India", "Stati Uniti", "Indonesia", "Cina"],
+        "correctIndex": 0,
+        "explanation": "L'India ha superato la Cina come paese più popoloso al mondo nel 2023, con una popolazione di oltre 1,4 miliardi di persone."
+      },
+      {
+        "text": "Quale deserto è il più grande del mondo?",
+        "answers": ["Deserto del Sahara", "Deserto del Gobi", "Deserto di Atacama", "Deserto Arabico"],
+        "correctIndex": 0,
+        "explanation": "Il Deserto del Sahara è il più grande deserto caldo del mondo, coprendo un'area di circa 9.200.000 km² nell'Africa settentrionale."
+      },
+      {
+        "text": "Quale catena montuosa attraversa l'Italia da nord a sud?",
+        "answers": ["Pirenei", "Alpi", "Appennini", "Carpazi"],
+        "correctIndex": 2,
+        "explanation": "Gli Appennini attraversano l'Italia da nord a sud, formando la spina dorsale della penisola italiana."
+      },
+      {
+        "text": "Quale paese ha il maggior numero di confini con altri paesi?",
+        "answers": ["Russia", "Cina", "Francia", "Brasile"],
+        "correctIndex": 1,
+        "explanation": "La Cina ha il maggior numero di confini con altri paesi, confinando con 14 nazioni diverse."
+      },
+      {
+        "text": "Quale isola è la più grande del Mediterraneo?",
+        "answers": ["Cipro", "Creta", "Sicilia", "Sardegna"],
+        "correctIndex": 2,
+        "explanation": "La Sicilia è l'isola più grande del Mediterraneo, con una superficie di circa 25.700 km²."
+      },
+      {
+        "text": "Quale paese ha la superficie più grande al mondo?",
+        "answers": ["Canada", "Cina", "Stati Uniti", "Russia"],
+        "correctIndex": 3,
+        "explanation": "La Russia è il paese più grande del mondo, con una superficie di circa 17.1 milioni di km²."
+      },
+      {
+        "text": "Quale città è conosciuta come 'La città eterna'?",
+        "answers": ["Parigi", "Atene", "Roma", "Gerusalemme"],
+        "correctIndex": 2,
+        "explanation": "Roma è conosciuta come 'La città eterna' per la sua lunga storia e il suo ruolo fondamentale nella civiltà occidentale."
+      }
+    ],
+    "history": [
+      {
+        "text": "In which year did World War II end?",
+        "answers": ["1943", "1945", "1947", "1950"],
+        "correctIndex": 1,
+        "explanation": "World War II ended in 1945 with the surrender of Germany in May and Japan in September."
+      },
+      {
+        "text": "In che anno è caduto il Muro di Berlino?",
+        "answers": ["1987", "1989", "1991", "1993"],
+        "correctIndex": 1,
+        "explanation": "Il Muro di Berlino è caduto il 9 novembre 1989, segnando la fine della divisione della Germania."
+      },
+      {
+        "text": "Chi è stato il primo presidente degli Stati Uniti d'America?",
+        "answers": ["Thomas Jefferson", "John Adams", "Benjamin Franklin", "George Washington"],
+        "correctIndex": 3,
+        "explanation": "George Washington è stato il primo presidente degli Stati Uniti d'America, in carica dal 1789 al 1797."
+      },
+      {
+        "text": "In quale anno è stata scoperta l'America da Cristoforo Colombo?",
+        "answers": ["1490", "1492", "1495", "1500"],
+        "correctIndex": 1,
+        "explanation": "Cristoforo Colombo ha scoperto l'America il 12 ottobre 1492, sbarcando sull'isola di San Salvador nelle Bahamas."
+      },
+      {
+        "text": "Quale imperatore romano ha dato fuoco a Roma nel 64 d.C.?",
+        "answers": ["Augusto", "Caligola", "Nerone", "Tiberio"],
+        "correctIndex": 2,
+        "explanation": "Secondo la tradizione, l'imperatore Nerone ha dato fuoco a Roma nel 64 d.C., anche se questa accusa è stata messa in discussione dagli storici moderni."
+      },
+      {
+        "text": "In quale anno è iniziata la Rivoluzione Francese?",
+        "answers": ["1769", "1776", "1789", "1799"],
+        "correctIndex": 2,
+        "explanation": "La Rivoluzione Francese è iniziata il 14 luglio 1789 con la presa della Bastiglia."
+      },
+      {
+        "text": "Chi ha dipinto la Cappella Sistina?",
+        "answers": ["Leonardo da Vinci", "Raffaello", "Michelangelo", "Tiziano"],
+        "correctIndex": 2,
+        "explanation": "Michelangelo ha dipinto la Cappella Sistina tra il 1508 e il 1512, creando uno dei capolavori più famosi della storia dell'arte."
+      },
+      {
+        "text": "In quale anno è stato assassinato John F. Kennedy?",
+        "answers": ["1960", "1961", "1962", "1963"],
+        "correctIndex": 3,
+        "explanation": "John F. Kennedy è stato assassinato il 22 novembre 1963 a Dallas, Texas."
+      },
+      {
+        "text": "Quale dinastia ha governato la Cina dal 1368 al 1644?",
+        "answers": ["Tang", "Song", "Ming", "Qing"],
+        "correctIndex": 2,
+        "explanation": "La dinastia Ming ha governato la Cina dal 1368 al 1644, un periodo di stabilità e prosperità culturale."
+      },
+      {
+        "text": "In quale anno è caduto l'Impero Romano d'Occidente?",
+        "answers": ["410 d.C.", "455 d.C.", "476 d.C.", "500 d.C."],
+        "correctIndex": 2,
+        "explanation": "L'Impero Romano d'Occidente è caduto nel 476 d.C. quando l'ultimo imperatore, Romolo Augusto, fu deposto da Odoacre."
+      }
+    ]
+  }
+  
