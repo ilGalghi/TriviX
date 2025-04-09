@@ -9,18 +9,26 @@
 - [x] Suggerimento (powerup) AI
 - [x] Bottone arrenditi
 - [x] Spin corretto per categoria di domanda
-- [x] Non far uscire la stessa domanda, almeno durante il match (localStorage)
+- [x] Non far uscire la stessa domanda, almeno durante il match (localStorage(?))
+- [x] Fixare pulsante join game
+- [ ] Fixare My matches (stats): passati, classifica, amici
+- [ ] Match attivi nella home
+- [ ] Domande con immagini: cartella e campo
+
 - [ ] Opzione per scegliere quante domande per partita (?)
 - [ ] Creare classifica punti vinti per match. aggiungere campo
-- [ ] Correggere "My matches"
 - [ ] Login direttamente da "Join game"
 - [ ] Fare che non si può uscire dalla pagina (per cercare la risposta)
 - [ ] Alert "inizia nuova partita" quando finisce partita
 - [ ] Separare il file game.js per renderlo più leggero
-- [ ] Domande con immagini
 - [ ] Sicurezza HTTPS
+- [ ] Abbandono quando un giocatore sta facendo domanda -> porta ruota spin
+
+
 
 #### CSS
 - [x] CSS spin indicatore corrisponde materia domanda indicata dall'aghetto
 - [ ] Abbellire CSS quando partita finisce (vittoria, pareggio, sconfitta)
 - [ ] Animazioni +1 per domanda giusta
+- [ ] Icona logout
+- [ ] Icone

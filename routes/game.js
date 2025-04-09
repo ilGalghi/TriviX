@@ -65,7 +65,7 @@ router.post("/create", (req, res) => {
     players: [
     ],
     currentRound: 0,
-    maxRounds: 3,          // SETTARE NUMERO DI ROUND PER OGNI PARTITA
+    maxRounds: 10,          // SETTARE NUMERO DI ROUND PER OGNI PARTITA
     currentTurn: userId,
     createdAt: new Date(),
     updatedAt: new Date(),
