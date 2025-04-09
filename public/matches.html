@@ -10,11 +10,6 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- Dark Mode CSS -->
   <link rel="stylesheet" href="css/dark-mode.css">
-  <style>
-    .text-bronze {
-      color: #CD7F32;
-    }
-  </style>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Favicon -->
@@ -65,10 +60,10 @@
               <!-- Matches Tabs -->
               <ul class="nav nav-tabs mb-4" id="matchesTabs">
                   <li class="nav-item">
-                      <a class="nav-link active" id="completed-tab" data-bs-toggle="tab" href="#completedMatches">Match Completati</a>
+                      <a class="nav-link active" id="completed-tab" data-bs-toggle="tab" href="#completedMatches">My ended matches</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" id="leaderboard-tab" data-bs-toggle="tab" href="#leaderboard">Classifica Globale</a>
+                      <a class="nav-link" id="leaderboard-tab" data-bs-toggle="tab" href="#leaderboard">Global Leaderboard</a>
                   </li>
               </ul>
               
@@ -80,17 +75,17 @@
                       <div class="card">
                           <div class="card-body">
                               <div class="table-responsive">
-                                  <table class="table table-hover table-striped align-middle border">
-                                      <thead class="table-dark text-white">
-                                          <tr class="align-middle">
-                                              <th class="text-center border-end px-4">Risultato</th>
-                                              <th class="text-center border-end px-4">Giocatori</th>
-                                              <th class="text-center border-end px-4">Punteggio</th>
-                                              <th class="text-center border-end px-4">Round</th>
-                                              <th class="text-center px-4">Data</th>
+                                  <table class="table table-hover">
+                                      <thead class="table-dark">
+                                          <tr>
+                                              <th class="text-center">Risultato</th>
+                                              <th class="text-center">Giocatori</th>
+                                              <th class="text-center">Punteggio</th>
+                                              <th class="text-center">Round</th>
+                                              <th class="text-center">Data</th>
                                           </tr>
                                       </thead>
-                                      <tbody id="completedMatchesList" class="border-top-0">
+                                      <tbody id="completedMatchesList">
                                           <!-- Completed matches will be loaded here dynamically -->
                                       </tbody>
                                   </table>

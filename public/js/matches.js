@@ -39,7 +39,16 @@ async function loadMatches() {
     }
 
     const matches = data.games || [];
-    displayMatches("completedMatchesList", "noCompletedMatches", matches);
+
+    // Split matches into active and completed
+    const activeMatches = matches.filter((match) => match.status !== "completed");
+    const completedMatches = matches.filter((match) => match.status === "completed");
+
+    // Display active matches
+    displayMatches("activeMatchesList", "noActiveMatches", activeMatches);
+
+    // Display completed matches
+    displayMatches("completedMatchesList", "noCompletedMatches", completedMatches);
 
     // Carica la classifica globale
     await loadLeaderboard();
