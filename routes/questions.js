@@ -43,20 +43,57 @@ router.post("/:category", (req, res) => {
       const randomAvailableIndex = Math.floor(Math.random() * availableIndices.length);
       const selectedIndex = availableIndices[randomAvailableIndex];
       
+      // Se la domanda ha un'immagine, crea l'URL per accedervi
+      const question = questions[selectedIndex];
+      if (question.image) {
+        question.hasImage = true;
+        question.imageUrl = `/api/questions/image/${question.image}`;
+      } else {
+        question.hasImage = false;
+      }
+      
       res.json({
-        question: questions[selectedIndex],
+        question: question,
         index: selectedIndex
       });
     } else {
       // Restituisci la domanda (vecchio formato) con indice 0
+      // Verifica se la domanda ha un'immagine
+      const question = qaData[category];
+      if (question.image) {
+        question.hasImage = true;
+        question.imageUrl = `/api/questions/image/${question.image}`;
+      } else {
+        question.hasImage = false;
+      }
+      
       res.json({
-        question: qaData[category],
+        question: question,
         index: 0
       });
     }
   } catch (error) {
     console.error("Errore nel recupero della domanda:", error);
     res.status(500).json({ error: "Errore nel recupero della domanda" });
+  }
+});
+
+// Route per servire le immagini delle domande
+router.get("/image/:filename", (req, res) => {
+  try {
+    const filename = req.params.filename;
+    const imagePath = path.join(__dirname, "..", "question_images", filename);
+    
+    // Verifica se il file esiste
+    if (!fs.existsSync(imagePath)) {
+      return res.status(404).json({ error: "Immagine non trovata" });
+    }
+    
+    // Invia il file
+    res.sendFile(imagePath);
+  } catch (error) {
+    console.error("Errore nel recupero dell'immagine:", error);
+    res.status(500).json({ error: "Errore nel recupero dell'immagine" });
   }
 });
 

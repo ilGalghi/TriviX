@@ -566,6 +566,25 @@ function showQuestion(category) {
 
       // Update question text
       document.getElementById("questionText").textContent = data.question.text;
+      
+      // Gestisci l'immagine della domanda
+      const questionCard = document.querySelector('.question-card');
+      // Rimuovi eventuali immagini precedenti
+      const oldImg = questionCard.querySelector('.question-image');
+      if (oldImg) {
+        oldImg.remove();
+      }
+      
+      // Se la domanda ha un'immagine, visualizzala
+      if (data.question.hasImage && data.question.imageUrl) {
+        const imgElement = document.createElement('img');
+        imgElement.src = data.question.imageUrl;
+        imgElement.alt = 'Question image';
+        imgElement.className = 'question-image';
+        // Inserisci l'immagine dopo il testo della domanda
+        const questionText = document.getElementById("questionText");
+        questionText.parentNode.insertBefore(imgElement, questionText.nextSibling);
+      }
 
       // Update answers
       const answersContainer = document.getElementById("answersContainer");
@@ -1100,6 +1119,25 @@ function checkForSavedQuestion() {
       
       // Aggiorna il testo della domanda
       document.getElementById("questionText").textContent = questionData.question.text;
+      
+      // Gestisci l'immagine della domanda
+      const questionCard = document.querySelector('.question-card');
+      // Rimuovi eventuali immagini precedenti
+      const oldImg = questionCard.querySelector('.question-image');
+      if (oldImg) {
+        oldImg.remove();
+      }
+      
+      // Se la domanda ha un'immagine, visualizzala
+      if (questionData.question.hasImage && questionData.question.imageUrl) {
+        const imgElement = document.createElement('img');
+        imgElement.src = questionData.question.imageUrl;
+        imgElement.alt = 'Question image';
+        imgElement.className = 'question-image';
+        // Inserisci l'immagine dopo il testo della domanda
+        const questionText = document.getElementById("questionText");
+        questionText.parentNode.insertBefore(imgElement, questionText.nextSibling);
+      }
       
       // Aggiorna le risposte
       const answersContainer = document.getElementById("answersContainer");
