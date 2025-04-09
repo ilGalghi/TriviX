@@ -46,8 +46,8 @@ app.use(
 // Middleware per il logging delle richieste (per debug)
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
-  console.log("Session ID:", req.session.id);
-  console.log("User ID:", req.session.userId);
+  //console.log("Session ID:", req.session.id);
+  //console.log("User ID:", req.session.userId);
   next();
 });
 

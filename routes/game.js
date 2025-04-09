@@ -38,7 +38,7 @@ const writeMatches = (matches) => {
 
 // Crea un nuovo gioco
 router.post("/create", (req, res) => {
-  const { userId, gameCode } = req.body;
+  const { userId, gameCode, maxRounds } = req.body;
   console.log("api trovata. body :" + req.body);
 
   
@@ -49,7 +49,8 @@ router.post("/create", (req, res) => {
     console.log("user id preso");
   }
 
-  
+  // Imposta il numero di round predefinito se non specificato
+  const rounds = maxRounds || 5;
 
   console.log("codice generato");
   // Trova l'utente
@@ -65,7 +66,7 @@ router.post("/create", (req, res) => {
     players: [
     ],
     currentRound: 0,
-    maxRounds: 10,          // SETTARE NUMERO DI ROUND PER OGNI PARTITA
+    maxRounds: rounds,          // Usa il numero di round specificato
     currentTurn: userId,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -309,6 +310,7 @@ router.post('/switch-turn', (req, res) => {
         match.status = "completed";
         // Ora che la partita è completata, aggiorniamo le statistiche degli utenti
         updateUserStats(match);
+       
         // Marca la partita come aggiornata
         match.statsUpdated = true;
       }
@@ -424,6 +426,8 @@ async function updateUserStats(game) {
 
   // Determine winner
   let winner = null;
+  let isDraw = false;
+  
   if (game.players.length === 2) {
     const player1 = game.players[0];
     const player2 = game.players[1];
@@ -432,18 +436,31 @@ async function updateUserStats(game) {
       winner = player1;
     } else if (player2.score > player1.score) {
       winner = player2;
+    } else {
+      isDraw = true;
     }
   }
 
   // Aggiorna le statistiche per ogni giocatore
   for(const player of game.players) {
     try {
+      // Recupera le statistiche attuali dell'utente
+      const currentUser = await userModel.findUserById(player.id);
+      if (!currentUser || !currentUser.profile || !currentUser.profile.stats) {
+        console.error(`Statistiche non trovate per l'utente ${player.id}`);
+        continue;
+      }
+
+      const currentStats = currentUser.profile.stats;
+      
       // Prepara i dati per l'aggiornamento
       const statsData = {
-        gamesPlayed: 1,
-        gamesWon: (winner && winner.id === player.id) ? 1 : 0,
-        correctAnswers: player.score || 0
+        gamesPlayed: (currentStats.gamesPlayed || 0) + 1,
+        gamesWon: (currentStats.gamesWon || 0) + ((winner && winner.id === player.id) ? 1 : 0),
+        correctAnswers: (currentStats.correctAnswers || 0) + (player.score || 0),
+        points: (currentStats.points || 0) + (isDraw ? 15 : (winner && winner.id === player.id ? 30 : 0))
       };
+      console.log("aggiorno statistiche per ", player.id, "con dati", statsData);
 
       // Aggiorna le statistiche dell'utente
       await userModel.updateGameStats(player.id, statsData);
@@ -464,5 +481,133 @@ function generateGameCode() {
   }
   return code;
 }
+
+
+// Route per il cleanup della partita
+router.post('/cleanup/:gameCode', async (req, res) => {
+  try {
+    const { gameCode } = req.params;
+    
+    // Leggi le partite esistenti
+    const matches = readMatches();
+    
+    // Trova la partita corrispondente
+    const matchIndex = matches.findIndex(match => match.matchCode === gameCode);
+    
+    if (matchIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Partita non trovata' });
+    }
+    
+    const match = matches[matchIndex];
+    
+    // Se la partita è completata e le statistiche non sono state ancora aggiornate
+    if (match.status === "completed" && !match.statsUpdated) {
+      // Aggiorna le statistiche degli utenti
+      await updateUserStats(match);
+      
+      // Marca la partita come aggiornata
+      match.statsUpdated = true;
+      
+      // Salva le modifiche
+      matches[matchIndex] = match;
+      writeMatches(matches);
+    }
+    
+    // Rimuovi la partita dal file
+    matches.splice(matchIndex, 1);
+    writeMatches(matches);
+    
+    return res.json({ success: true, message: 'Dati della partita puliti con successo' });
+  } catch (error) {
+    console.error('Errore durante il cleanup dei dati della partita:', error);
+    return res.status(500).json({ success: false, message: 'Errore interno del server' });
+  }
+});
+
+// Route per aggiornare le statistiche dell'utente
+router.post('/update-stats', async (req, res) => {
+  try {
+    const { userId, gameCode } = req.body;
+
+    if (!userId || !gameCode) {
+      return res.status(400).json({ success: false, message: 'Dati mancanti' });
+    }
+
+    // Leggi le partite esistenti
+    const matches = readMatches();
+    
+    // Trova la partita corrispondente
+    const match = matches.find(match => match.matchCode === gameCode);
+    
+    if (!match) {
+      return res.status(404).json({ success: false, message: 'Partita non trovata' });
+    }
+
+    // Verifica se la partita è completata
+    if (match.status !== "completed") {
+      return res.status(400).json({ success: false, message: 'La partita non è ancora completata' });
+    }
+
+    // Verifica se le statistiche sono già state aggiornate
+    if (match.statsUpdated) {
+      return res.status(400).json({ success: false, message: 'Le statistiche sono già state aggiornate' });
+    }
+
+    // Aggiorna le statistiche degli utenti
+    await updateUserStats(match);
+    
+    // Marca la partita come aggiornata
+    match.statsUpdated = true;
+    
+    // Salva le modifiche
+    const matchIndex = matches.findIndex(m => m.matchCode === gameCode);
+    matches[matchIndex] = match;
+    writeMatches(matches);
+
+    // Recupera l'utente aggiornato per restituirlo al client
+    const updatedUser = await userModel.findUserById(userId);
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: 'Utente non trovato' });
+    }
+
+    return res.json({ 
+      success: true, 
+      message: 'Statistiche aggiornate con successo',
+      user: updatedUser
+    });
+  } catch (error) {
+    console.error('Errore durante l\'aggiornamento delle statistiche:', error);
+    return res.status(500).json({ success: false, message: 'Errore interno del server' });
+  }
+});
+
+// Get matches for a specific user
+router.get("/user/:userId", (req, res) => {
+  const { userId } = req.params;
+  const matches = readMatches();
+  const userMatches = matches.filter(match => match.players.some(player => player.id === userId)).map(match => {
+    const player = match.players.find(p => p.id === userId);
+    const opponent = match.players.find(p => p.id !== userId);
+    return {
+      status: match.status,
+      id: match.id,
+      players: match.players,
+      currentRound: match.currentRound,
+      maxRounds: match.maxRounds,
+      updatedAt: match.updatedAt,
+      result: player.score > (opponent ? opponent.score : 0) ? "Vinto" : player.score < (opponent ? opponent.score : 0) ? "Perso" : "Pareggio",
+      opponent: opponent ? opponent.username : "N/A",
+      round: `${match.currentRound}/${match.maxRounds}`,
+      correctAnswers: player.score,
+      date: new Date(match.updatedAt).toLocaleDateString()
+    };
+  });
+
+  if (userMatches.length === 0) {
+    return res.status(404).json({ success: false, message: "No matches found for this user" });
+  }
+
+  res.json({ success: true, games: userMatches });
+});
 
 module.exports = router;

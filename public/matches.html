@@ -32,7 +32,7 @@
                       <a class="nav-link" href="index.html">Home</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link active" href="matches.html">My Matches</a>
+                      <a class="nav-link active" href="matches.html">Stats</a>
                   </li>
                   <li class="nav-item" id="loginNavItem">
                       <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
@@ -55,42 +55,72 @@
   <div class="container main-container">
       <div class="row justify-content-center">
           <div class="col-md-10">
-              <h1 class="mb-4">My Matches</h1>
+              <h1 class="mb-4">Stats</h1>
               
               <!-- Matches Tabs -->
               <ul class="nav nav-tabs mb-4" id="matchesTabs">
                   <li class="nav-item">
-                      <a class="nav-link active" id="active-tab" data-bs-toggle="tab" href="#activeMatches">Active Matches</a>
+                      <a class="nav-link active" id="completed-tab" data-bs-toggle="tab" href="#completedMatches">My ended matches</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" id="completed-tab" data-bs-toggle="tab" href="#completedMatches">Completed Matches</a>
+                      <a class="nav-link" id="leaderboard-tab" data-bs-toggle="tab" href="#leaderboard">Global Leaderboard</a>
                   </li>
               </ul>
               
               <!-- Tab Content -->
               <div class="tab-content">
-                  <!-- Active Matches -->
-                  <div class="tab-pane fade show active" id="activeMatches">
+                  
+                  <!-- Completed Matches -->
+                  <div class="tab-pane fade show active" id="completedMatches">
                       <div class="card">
-                          <div class="card-body" id="activeMatchesList">
-                              <!-- Active matches will be loaded here dynamically -->
-                              <div class="text-center py-5" id="noActiveMatches">
-                                  <i class="fas fa-gamepad fa-3x mb-3 text-muted"></i>
-                                  <p class="lead text-muted">No active matches found.</p>
-                                  <a href="index.html" class="btn btn-primary mt-2">Start a New Game</a>
+                          <div class="card-body">
+                              <div class="table-responsive">
+                                  <table class="table table-hover">
+                                      <thead class="table-dark">
+                                          <tr>
+                                              <th class="text-center">Risultato</th>
+                                              <th class="text-center">Giocatori</th>
+                                              <th class="text-center">Punteggio</th>
+                                              <th class="text-center">Round</th>
+                                              <th class="text-center">Data</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody id="completedMatchesList">
+                                          <!-- Completed matches will be loaded here dynamically -->
+                                      </tbody>
+                                  </table>
+                              </div>
+                              <div class="text-center py-5 d-none" id="noCompletedMatches">
+                                  <i class="fas fa-trophy fa-3x mb-3 text-muted"></i>
+                                  <p class="lead text-muted">Nessun match completato trovato.</p>
                               </div>
                           </div>
                       </div>
                   </div>
-                  
-                  <!-- Completed Matches -->
-                  <div class="tab-pane fade" id="completedMatches">
+
+                  <!-- Leaderboard -->
+                  <div class="tab-pane fade" id="leaderboard">
                       <div class="card">
-                          <div class="card-body" id="completedMatchesList">
-                              <!-- Completed matches will be loaded here dynamically -->
-                              <div class="text-center py-5" id="noCompletedMatches">
+                          <div class="card-body">
+                              <div class="table-responsive">
+                                  <table class="table table-hover table-striped align-middle border">
+                                      <thead class="table-dark text-white">
+                                          <tr class="align-middle">
+                                              <th class="text-center border-end px-4">#</th>
+                                              <th class="text-center border-end px-4">Giocatore</th>
+                                              <th class="text-center border-end px-4">Punti</th>
+                                              <th class="text-center border-end px-4">Partite Vinte</th>
+                                              <th class="text-center px-4">Partite Giocate</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody id="leaderboardList" class="border-top-0">
+                                          <!-- Leaderboard will be loaded here dynamically -->
+                                      </tbody>
+                                  </table>
+                              </div>
+                              <div class="text-center py-5 d-none" id="noLeaderboardData">
                                   <i class="fas fa-trophy fa-3x mb-3 text-muted"></i>
-                                  <p class="lead text-muted">No completed matches found.</p>
+                                  <p class="lead text-muted">Nessun dato disponibile per la classifica.</p>
                               </div>
                           </div>
                       </div>
@@ -181,7 +211,7 @@
   <script src="js/db.js"></script>
   <!-- Custom JS -->
   <script src="js/auth.js"></script>
-  <script src="js/matches.js"></script>
+  <script src="js/matches.js" type="module"></script>
   <!-- Dark Mode JS -->
   <script src="js/dark-mode.js"></script>
 </body>

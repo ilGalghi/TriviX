@@ -830,6 +830,7 @@ function switchTurn() {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
+    
     return response.json();
   })
   .then(data => {
@@ -977,6 +978,39 @@ function checkForOpponentMove() {
         } else {
           gameStatusElement.textContent = "È un pareggio!";
           gameStatusElement.className = "game-status-draw"; // Classe per il pareggio
+        }
+
+        // Aggiorna le statistiche dell'utente
+        if (!data.match.statsUpdated) {
+          fetch('/api/games/update-stats', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: currentUser.id,
+              gameCode: gameCode
+            }),
+            credentials: 'include'
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Errore nell\'aggiornamento delle statistiche');
+            }
+            return response.json();
+          })
+          .then(data => {
+         
+            // Aggiorna i dati dell'utente nel localStorage
+            const updatedUser = JSON.parse(localStorage.getItem("currentUser"));
+            if (updatedUser && data.user) {
+              updatedUser.profile = data.user.profile;
+              localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+            }
+          })
+          .catch(error => {
+            console.error('Errore nell\'aggiornamento delle statistiche:', error);
+          });
         }
       }
     }

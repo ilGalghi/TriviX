@@ -83,6 +83,10 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.text-bronze {
+  color: #CD7F32;
+}
+
 /* Game Page Styles */
 .game-body {
   background-color: var(--secondary-color);
@@ -1530,5 +1534,45 @@ body {
   .question-image {
     max-height: 180px;
   }
+/* Table Styles */
+.table {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
+.table thead.table-dark {
+  background-color: var(--primary-color);
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #eef0f2;
+}
+
+.table td, .table th {
+  border-color: #e9ecef;
+  vertical-align: middle;
+}
+
+/* Leaderboard specific styles */
+#leaderboardList tr:nth-child(-n+3) {
+  background-color: #f3f6f9;
+}
+
+#leaderboardList tr:first-child {
+  background-color: #fff9e6;
+}
+
+#leaderboardList tr:nth-child(2) {
+  background-color: #f5f5f5;
+}
+
+#leaderboardList tr:nth-child(3) {
+  background-color: #fff0e6;
+}
+
+}

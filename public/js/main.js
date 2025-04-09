@@ -138,11 +138,26 @@ function setupMainListeners() {
   const createGameBtn = document.getElementById("createGameBtn");
   if (createGameBtn) {
     createGameBtn.addEventListener("click", async () => {
-      // This would typically create a game on the server
-      // For now, we'll just simulate it
+      // Get selected match type
+      const matchType = document.getElementById("matchType").value;
+      let maxRounds;
+      
+      // Set max rounds based on match type
+      switch(matchType) {
+        case 'fast':
+          maxRounds = 3;
+          break;
+        case 'normal':
+          maxRounds = 5;
+          break;
+        case 'long':
+          maxRounds = 10;
+          break;
+        default:
+          maxRounds = 5;
+      }
 
       // Hide game creation section and show game link section
-      //document.getElementById("gameCreationSection").classList.add("d-none");
       document.getElementById("gameLinkSection").classList.remove("d-none");
       // show go to game button
       document.getElementById("goToGameBtn").classList.remove("d-none");
@@ -160,11 +175,9 @@ function setupMainListeners() {
       const gameLink = `${window.location.origin}/game.html?code=${gameCode}`;
       document.getElementById("gameLink").value = gameLink;
 
-      
-
       // Send match data to server
       try {
-        const data = await API.games.createGame(currentUser.id, gameCode);
+        const data = await API.games.createGame(currentUser.id, gameCode, maxRounds);
         console.log('Game created:', data);
       } catch (error) {
         console.error('Error:', error);

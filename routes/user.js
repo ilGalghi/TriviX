@@ -23,7 +23,7 @@ router.get("/:userId", (req, res) => {
   if (!user) {
     return res.status(404).json({ error: "User not found" })
   }
-
+  console.log("rispondo con user", user);
   // Return user data (excluding password)
   res.json({
     user: {
@@ -156,6 +156,8 @@ router.get("/all/public", async (req, res) => {
     res.status(500).json({ success: false, message: "Errore del server" });
   }
 });
+
+
 
 module.exports = router
 

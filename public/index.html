@@ -32,7 +32,7 @@
                       <a class="nav-link active" href="index.html">Home</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="matches.html">My Matches</a>
+                      <a class="nav-link" href="matches.html">Stats</a>
                   </li>
                   <li class="nav-item" id="loginNavItem">
                       <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
@@ -187,6 +187,14 @@
               <div class="modal-body">
                   <div id="gameCreationSection">
                       <p>Create a new game and invite a friend to play!</p>
+                      <div class="mb-3">
+                          <label for="matchType" class="form-label">Select Match Type</label>
+                          <select class="form-select" id="matchType">
+                              <option value="fast">Fast (3 rounds)</option>
+                              <option value="normal" selected>Normal (5 rounds)</option>
+                              <option value="long">Long (10 rounds)</option>
+                          </select>
+                      </div>
                       <button type="button" class="btn btn-primary w-100" id="createGameBtn">Create Game</button>
                   </div>
                   <div id="gameLinkSection" class="d-none">
