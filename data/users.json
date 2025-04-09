@@ -77,7 +77,7 @@
         },
         "history": {
           "correct": 11,
-          "total": 17
+          "total": 18
         },
         "literature": {
           "correct": 0,
@@ -118,11 +118,11 @@
         },
         "geography": {
           "correct": 0,
-          "total": 1
+          "total": 2
         },
         "history": {
           "correct": 1,
-          "total": 1
+          "total": 2
         }
       }
     }
