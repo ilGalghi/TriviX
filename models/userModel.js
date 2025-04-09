@@ -209,11 +209,11 @@ async function updateGameStats(userId, gameStats) {
 
   // Aggiorna le statistiche di gioco
   const userStats = users[userIndex].profile.stats
-  // Assegna direttamente i nuovi valori invece di sommarli di nuovo
-  userStats.gamesPlayed = gameStats.gamesPlayed || userStats.gamesPlayed || 0
-  userStats.gamesWon = gameStats.gamesWon || userStats.gamesWon || 0
-  userStats.correctAnswers = gameStats.correctAnswers || userStats.correctAnswers || 0
-  userStats.points = gameStats.points || userStats.points || 0
+  // Assegna direttamente i nuovi valori forniti in gameStats
+  userStats.gamesPlayed = gameStats.gamesPlayed !== undefined ? gameStats.gamesPlayed : (userStats.gamesPlayed || 0)
+  userStats.gamesWon = gameStats.gamesWon !== undefined ? gameStats.gamesWon : (userStats.gamesWon || 0)
+  userStats.correctAnswers = gameStats.correctAnswers !== undefined ? gameStats.correctAnswers : (userStats.correctAnswers || 0)
+  userStats.points = gameStats.points !== undefined ? gameStats.points : (userStats.points || 0)
   
   // Aggiorna le prestazioni per categoria se fornite
   if (gameStats.categoryPerformance) {
@@ -261,7 +261,7 @@ async function updateCategoryPerformance(userId, category, isCorrect) {
     if (isCorrect) {
       users[userIndex].profile.categoryPerformance[category].correct += 1;
       
-      // Aggiorna anche il contatore globale delle risposte corrette
+      // Aggiorna immediatamente il contatore globale delle risposte corrette
       users[userIndex].profile.stats.correctAnswers = (users[userIndex].profile.stats.correctAnswers || 0) + 1;
     }
 

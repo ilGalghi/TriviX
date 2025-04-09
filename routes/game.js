@@ -454,11 +454,32 @@ async function updateUserStats(game) {
       const currentStats = currentUser.profile.stats;
       
       // Prepara i dati per l'aggiornamento
+      let pointsToAdd = 0;
+      
+      // Assegna punti in base all'esito della partita
+      if (game.surrenderedBy) {
+        // Caso di resa: chi si è arreso prende 0 punti, l'avversario ne prende 30
+        if (player.id === game.surrenderedBy) {
+          pointsToAdd = 0; // Chi si è arreso prende 0 punti
+        } else {
+          pointsToAdd = 30; // Chi ha vinto per resa prende 30 punti
+        }
+      } else {
+        // Caso normale senza resa
+        if (isDraw) {
+          pointsToAdd = 15; // Pareggio
+        } else if (winner && winner.id === player.id) {
+          pointsToAdd = 30; // Vittoria
+        } else {
+          pointsToAdd = 0; // Sconfitta
+        }
+      }
+      
       const statsData = {
         gamesPlayed: (currentStats.gamesPlayed || 0) + 1,
         gamesWon: (currentStats.gamesWon || 0) + ((winner && winner.id === player.id) ? 1 : 0),
-        correctAnswers: (currentStats.correctAnswers || 0) + (player.score || 0),
-        points: (currentStats.points || 0) + (isDraw ? 15 : (winner && winner.id === player.id ? 30 : 0))
+        correctAnswers: currentStats.correctAnswers || 0,
+        points: (currentStats.points || 0) + pointsToAdd
       };
       console.log("aggiorno statistiche per ", player.id, "con dati", statsData);
 

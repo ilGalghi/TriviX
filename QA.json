@@ -241,10 +241,10 @@
         "image": "salvador_dali.webp"
       },
       {
-        "text": "Who painted 'The Last Supper'?",
+        "text": "Who painted 'L'ultima cena'?",
         "answers": ["Raphael", "Leonardo da Vinci", "Michelangelo", "Titian"],
         "correctIndex": 1,
-        "explanation": "Leonardo da Vinci painted 'The Last Supper' between 1495 and 1498 in the refectory of the convent of Santa Maria delle Grazie in Milan.",
+        "explanation": "Leonardo da Vinci painted 'L'ultima cena' between 1495 and 1498 in the refectory of the convent of Santa Maria delle Grazie in Milan.",
         "image": "ultima_cena.webp"
       },
       {
@@ -265,7 +265,8 @@
         "text": "Which artist created the Trevi Fountain in Rome?",
         "answers": ["Gian Lorenzo Bernini", "Michelangelo", "Nicola Salvi", "Donatello"],
         "correctIndex": 2,
-        "explanation": "Nicola Salvi designed the Trevi Fountain, completed in 1762, although the original design dates back to Bernini."
+        "explanation": "Nicola Salvi designed the Trevi Fountain, completed in 1762, although the original design dates back to Bernini.",
+        "image": "fontana_trevi.webp"
       },
       {
         "text": "Who painted 'The Persistence of Memory' with the melting clocks?",

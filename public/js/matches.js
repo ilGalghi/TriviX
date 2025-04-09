@@ -44,6 +44,9 @@ async function loadMatches() {
     // Filtra solo i match completati
     const completedMatches = matches.filter((match) => match.status === "completed");
 
+    // Ordino i match completati per data (più recenti in alto)
+    completedMatches.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
     // Visualizza i match completati
     displayMatches("completedMatchesList", "noCompletedMatches", completedMatches);
 
