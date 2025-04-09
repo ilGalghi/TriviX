@@ -82,12 +82,12 @@ const API = {
   // Game methods
   games: {
     // Create a new game
-    async createGame(userId, gameCode) {
+    async createGame(userId, gameCode, maxRounds) {
       console.log("Creating game for user:", userId);
       try {
         const response = await API.request("games/create", {
           method: "POST",
-          body: JSON.stringify({ userId, gameCode }),
+          body: JSON.stringify({ userId, gameCode, maxRounds }),
         });
         console.log("Game created successfully:", response);
         return response;

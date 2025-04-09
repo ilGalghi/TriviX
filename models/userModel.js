@@ -111,6 +111,7 @@ async function addUser(userData) {
         gamesPlayed: 0,
         gamesWon: 0,
         correctAnswers: 0,
+        points: 0,
       },
       categoryPerformance: {
         science: { correct: 0, total: 0 },

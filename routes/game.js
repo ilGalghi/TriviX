@@ -38,7 +38,7 @@ const writeMatches = (matches) => {
 
 // Crea un nuovo gioco
 router.post("/create", (req, res) => {
-  const { userId, gameCode } = req.body;
+  const { userId, gameCode, maxRounds } = req.body;
   console.log("api trovata. body :" + req.body);
 
   
@@ -49,7 +49,8 @@ router.post("/create", (req, res) => {
     console.log("user id preso");
   }
 
-  
+  // Imposta il numero di round predefinito se non specificato
+  const rounds = maxRounds || 5;
 
   console.log("codice generato");
   // Trova l'utente
@@ -65,7 +66,7 @@ router.post("/create", (req, res) => {
     players: [
     ],
     currentRound: 0,
-    maxRounds: 10,          // SETTARE NUMERO DI ROUND PER OGNI PARTITA
+    maxRounds: rounds,          // Usa il numero di round specificato
     currentTurn: userId,
     createdAt: new Date(),
     updatedAt: new Date(),

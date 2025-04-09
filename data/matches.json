@@ -4668,5 +4668,229 @@
     "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
     "createdAt": "2025-04-09T08:27:05.926Z",
     "updatedAt": "2025-04-09T08:28:16.730Z"
+  },
+  {
+    "id": "dda47945-f915-4b2c-b93c-ef991c430d51",
+    "matchCode": "GH11LX",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 10,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-09T09:44:59.997Z",
+    "updatedAt": "2025-04-09T09:45:02.131Z"
+  },
+  {
+    "id": "3260825b-4b97-405e-9663-850e5e23ed9f",
+    "matchCode": "DB3VZB",
+    "status": "waiting",
+    "players": [],
+    "currentRound": 0,
+    "maxRounds": 10,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-09T09:46:54.679Z",
+    "updatedAt": "2025-04-09T09:46:54.679Z"
+  },
+  {
+    "id": "6fcace73-28b8-4e57-97a4-fb7a1651ab83",
+    "matchCode": "SFKK2K",
+    "status": "completed",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-09T09:51:35.002Z",
+    "updatedAt": "2025-04-09T09:52:45.081Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "5216591d-5e8b-47c3-8b4d-8484de077c08",
+    "matchCode": "TKO9OU",
+    "status": "completed",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-09T09:59:26.435Z",
+    "updatedAt": "2025-04-09T10:00:14.000Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "42c16ad8-4344-4441-a4d7-35213081e0a2",
+    "matchCode": "JDN5O4",
+    "status": "completed",
+    "players": [
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-04-09T10:01:38.675Z",
+    "updatedAt": "2025-04-09T10:22:51.232Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "545d5a1c-4187-4bc2-ad41-39bfeb234388",
+    "matchCode": "CJJWOI",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 3,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-09T10:24:49.232Z",
+    "updatedAt": "2025-04-09T10:25:16.706Z"
+  },
+  {
+    "id": "91616f89-bcd4-417b-9cdd-f165f973f935",
+    "matchCode": "XSRF7T",
+    "status": "waiting",
+    "players": [],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-04-09T10:34:07.918Z",
+    "updatedAt": "2025-04-09T10:34:07.918Z"
+  },
+  {
+    "id": "2e5cd7e9-fbc4-42ce-9e00-dd44d96740ef",
+    "matchCode": "9RD9Y0",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-09T10:56:06.648Z",
+    "updatedAt": "2025-04-09T10:56:09.309Z"
+  },
+  {
+    "id": "58464db2-9e2b-4b7c-b3a3-0ad4749f72f5",
+    "matchCode": "H4EEY6",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-09T10:56:20.610Z",
+    "updatedAt": "2025-04-09T10:56:22.646Z"
+  },
+  {
+    "id": "be6f533b-cbd9-4a1d-9de2-58a0616f7186",
+    "matchCode": "3CN0CU",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 3,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-09T10:59:13.882Z",
+    "updatedAt": "2025-04-09T10:59:39.709Z"
+  },
+  {
+    "id": "36f50b25-d1e8-4ca2-89b1-12f5fa84b31d",
+    "matchCode": "MAJA9U",
+    "status": "completed",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-09T11:07:47.175Z",
+    "updatedAt": "2025-04-09T11:08:52.423Z",
+    "statsUpdated": true
   }
 ]
