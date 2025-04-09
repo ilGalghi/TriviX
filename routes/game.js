@@ -580,4 +580,28 @@ router.post('/update-stats', async (req, res) => {
   }
 });
 
+// Get matches for a specific user
+router.get("/user/:userId", (req, res) => {
+  const { userId } = req.params;
+  const matches = readMatches();
+  const userMatches = matches.filter(match => match.players.some(player => player.id === userId)).map(match => {
+    const player = match.players.find(p => p.id === userId);
+    const opponent = match.players.find(p => p.id !== userId);
+    return {
+      id: match.id,
+      result: player.score > (opponent ? opponent.score : 0) ? "Vinto" : player.score < (opponent ? opponent.score : 0) ? "Perso" : "Pareggio",
+      opponent: opponent ? opponent.username : "N/A",
+      round: `${match.currentRound}/${match.maxRounds}`,
+      correctAnswers: player.score,
+      date: new Date(match.updatedAt).toLocaleDateString()
+    };
+  });
+
+  if (userMatches.length === 0) {
+    return res.status(404).json({ success: false, message: "No matches found for this user" });
+  }
+
+  res.json({ success: true, games: userMatches });
+});
+
 module.exports = router;
