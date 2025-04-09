@@ -460,6 +460,7 @@ async function updateUserStats(game) {
         correctAnswers: (currentStats.correctAnswers || 0) + (player.score || 0),
         points: (currentStats.points || 0) + (isDraw ? 15 : (winner && winner.id === player.id ? 30 : 0))
       };
+      console.log("aggiorno statistiche per ", player.id, "con dati", statsData);
 
       // Aggiorna le statistiche dell'utente
       await userModel.updateGameStats(player.id, statsData);
@@ -588,7 +589,12 @@ router.get("/user/:userId", (req, res) => {
     const player = match.players.find(p => p.id === userId);
     const opponent = match.players.find(p => p.id !== userId);
     return {
+      status: match.status,
       id: match.id,
+      players: match.players,
+      currentRound: match.currentRound,
+      maxRounds: match.maxRounds,
+      updatedAt: match.updatedAt,
       result: player.score > (opponent ? opponent.score : 0) ? "Vinto" : player.score < (opponent ? opponent.score : 0) ? "Perso" : "Pareggio",
       opponent: opponent ? opponent.username : "N/A",
       round: `${match.currentRound}/${match.maxRounds}`,

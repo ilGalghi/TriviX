@@ -28,6 +28,7 @@ async function loadMatches() {
     window.location.href = "index.html";
     return;
   }
+  console.log("carico matches");
 
   try {
     // Fetch user's games from the server
@@ -39,15 +40,11 @@ async function loadMatches() {
     }
 
     const matches = data.games || [];
-
-    // Split matches into active and completed
-    const activeMatches = matches.filter((match) => match.status !== "completed");
+    console.log("matches ricevuto: ", matches);
+    // Filtra solo i match completati
     const completedMatches = matches.filter((match) => match.status === "completed");
 
-    // Display active matches
-    displayMatches("activeMatchesList", "noActiveMatches", activeMatches);
-
-    // Display completed matches
+    // Visualizza i match completati
     displayMatches("completedMatchesList", "noCompletedMatches", completedMatches);
 
     // Carica la classifica globale
@@ -134,7 +131,7 @@ function displayMatches(listId, noMatchesId, matches) {
   matchesList.innerHTML = "";
 
   if (matches.length === 0) {
-    // Show no matches message
+    console.log("no matches");
     if (noMatches) {
       noMatches.classList.remove("d-none");
     }
@@ -143,11 +140,13 @@ function displayMatches(listId, noMatchesId, matches) {
 
   // Hide no matches message
   if (noMatches) {
+    console.log("no matches");
     noMatches.classList.add("d-none");
   }
 
   // Add matches to the list
   matches.forEach((match) => {
+    console.log("creo entry", match);
     const matchElement = createMatchElement(match);
     matchesList.appendChild(matchElement);
   });
