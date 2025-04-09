@@ -211,7 +211,9 @@ async function updateGameStats(userId, gameStats) {
   const userStats = users[userIndex].profile.stats
   userStats.gamesPlayed = (userStats.gamesPlayed || 0) + (gameStats.gamesPlayed || 0)
   userStats.gamesWon = (userStats.gamesWon || 0) + (gameStats.gamesWon || 0)
-
+  userStats.correctAnswers = (userStats.correctAnswers || 0) + (gameStats.correctAnswers || 0)
+  userStats.points = (userStats.points || 0) + (gameStats.points || 0)
+  
   // Aggiorna le prestazioni per categoria se fornite
   if (gameStats.categoryPerformance) {
     Object.keys(gameStats.categoryPerformance).forEach((category) => {

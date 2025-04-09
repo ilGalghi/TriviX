@@ -50,23 +50,23 @@
     "profile": {
       "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCABwAMgDASIAAhEBAxEB/8QAGgAAAQUBAAAAAAAAAAAAAAAABAABAgMFBv/EADcQAAICAQMDAgQCCAYDAAAAAAECAAMRBBIhBTFBUXETIjJhBoEUFSNCUmKCoSQzcpHR8EOSsf/EABgBAQEBAQEAAAAAAAAAAAAAAAABAgME/8QAHREBAQEBAQEBAQEBAAAAAAAAAAERAiESMQNBUf/aAAwDAQACEQMRAD8AJsARiC+0juCYJfq0pYDG4nypEt/E+iau9NTTWWFnDBR2MwxVqD/4GGPOZzz1vR7dQJ7Vj8zKzrrj4UflB15GRHxN5E2rW1Nzfv49hIF7D3dj+cbEfEYmhrWcNjJxLKWuYfIqnnvxJWp8hYiNSyjuWH+kygoae+6t3vKgouVAHeB4mjUGsofZWzEcAuZT+rtSVyKsj3EAIiRIl9lTVEi0FGHgjmVM6eFJ++YRURGlp2FQVbnyDKyIBfTqH1VppW34fGe2cza0vSf0a5XN1jt2we3M5/R3GjVV2Zxg8+06w2FGG85B5DTn1+tz8NSSrYMPrPEAs4t3A8MMwulsiICIowjzTJRo8aEKBWjbe4/iw0Mg2qGHrb3WFctqqHq1NgUYGTj2imj1SrJZgDuIBB/+xSpjpdVQNTp3qPcjg+hnNOWQlWGGHBnVZ5mL1fTbLxeo+V+/vM9RvmuevT4dx4wG5EjDdUnxKjgfMvIgIORxLzdidRNFDHBOISBWowqAn1PMF2kjIPaXVN8ROe80yk9fxAMngQ7S9Lot0fxXqDPzgbiMwDcVM6TSLs01anwozCsClgd1DL8Jx+6OI9GobTu1VpK5+loT1rSH/PrHzL3xMbUOb6haPrThhjv94EdZVYbN5JfPkmKj5qyv7MeqnzHose3C/DZh9gTD10VbjLae7d64xIBloo+IpTG77dpVboNQu5ggKjnKsDL7NLalua8Vj+ewZjH9IUDOpVv9L5jYZWbOl6dqq9Xo66mcfFUYI9phsmnssYtYUPpt8wnRPptLcHFp3D17TPVlb5ljcCkVlcg7Dke3/cQihoAmqrsbNZyMc4hmnznsZIUevaSkEBxJzTJoo8aENKdUuaGPleZdGIBBB7GBl6kAmlifl3jdnsRFJWKWoZeMrxz9opRtSF9Qvoas+Rx7yRMQOIRzjIUYg8EcYgf6s1D2M1SDYTkEnE6LUaJbLzaPPg+sb4Fv8SAe0xJZ+OmysROlagj53Rf++0nV0ZkYk6jv4CzaGnbzYfyAj/ogz8zufzxNep4zF6XXkFnY49OIfv2jBYD3lw0tfkZ9zJrRUvZFH5RlNgJnVxgsGHp3kFrrH0U49kxNMKo7ASjWXJptM9jttAH5yYaz7dStQPGMevEx9X1oNlaic+o5EGssu1lhx9J7CE0dGZ0BfCzNyfrUlv4yrb7HJYk5PPEpR2LfM2B6zoH6KgH1tKD0dOwciT65a+OmLZe1j5PtH+Jg4H95qnpCA/WYv1VX6mX65T46Z9Ooep8rkEHgg4nUdG62NUfg6jaHA4ftumK3S02kBiPSDNpL9Mwes5wcgiWWJeb/AK7+KYvQOq2a3fTqAPiIMgjjIm1NOZRooswEY0RMaEB2ri5x4PMUnqR+0RvByDFCj4xMiTGzKiRMaNmNmBKLMhmLMCeYsyGYt0CeZz/4hta2+vTg/Ko3EfczcawIpY9gMzE1tT262rUBflsKjGcyWtSWodO0Fij4hXA9TDPjoh2lhmaWqAZQhOFA5AmVcunKlU03Ydzx/ecuptd+bkSazcOCJQ2Zjs6PYdtNiY/mh+gq+McB3X7HmY+MbnWre5jMCJK9G07c8zN1OrsY7VJA+0SLbgpzjzKmbPGZnBlNm2z4jNn1hNdVTEqoZWH3mvnHP61Gm1tH1Gq1M/UMgeR5nbZnJadEOroW5gFVtxY+gnVggjInSVy6iUbMbMbM0weLMbMbMCGpBakkd15ik+CCO4MUBy0bdKi0bdKi7dI7pXujboFu6LdKt0bdAt3RbpQ1qL9TqPcys6uhe91Y/qEAvIPB5B7ylKWrt3uwZd2VHpBW6ppFPN6n2yYydV01li1pYSWOBxJ1za6cd540NSC53KYDYGAPOIS1pUYBgVzGxyM4A/vPPf16YpNYdvUwqqv4eCB29JGtNgypXPvJtqbEGc5x4j1fFOs+cc95nGsZ5EI1Goewk7VEG3t+9zES4kKV/hElsVfAEZbREzgy6mRBgu4O+Qo7kek0X/EOmQYSt2x64E5zXap/iNXnCj0gZtPrPR/PiZteb+nXuR0r/iV+dlKj3JMEs6/q2PDhfsAJh/EMYvO2cxy9adnVNTZ9V9h/qMGbV2E8ux/OCbosxsBQ1dqnKOQfsYoLmKTR0j/iJs/LSo9zmUP+INQfpCD8ph7o26PP+HrYfrurI4cD2AlJ6rq2OTe/5HEzcztekdCoTpKvqqFa+0bjvHKjwBFsg5pup6k8C5/95U2tsPd2P3JzOg1f4bpZS9DNUfA7iZGp6FrKeUAtX+U8/wC0k7i/NBHUufJkTcx8yD12o+x0ZW7YI5m1oPwr1LVgPYq6dD2Nnc/l/wAy/SYE6Ro36nrk0y2CvIJLEeBOg/U2l02vStRYxU53M3pzNLo/4dp6S5vNrXXbcZIwB7CA3ao0dRYuMg5nPvux0452i2UE9+ZTbVuGcciRa9G5VgYk1S9mM8r1Gp01QtFqDZZ5I8x7ntrIOypwCT27x2KnlDyYPdYcYhdD22uQwFCAnzBGSx2yW2geFhDsw7niUtbLqeHOAMSMYHJ5hiCt1CWoMeGXgy5rFobK9iqn3EiyVMP8mv8A9RL79HZSu8fPX/EPHvBmswpI8R7E8qLUaYfXUnPgDEkug0jDPwcf1H/mD8mxSx5+owuu0MoIl2pkVnpWlPYOPZpU/R6iP2djj3wYSbsHA7+kib2OQveJ10fPIM9Hx2vGfusU0EG0ZJyYpfvpPiOazFmXro7m8Ae5llegc2KHdQueSOZ6HBqfhfo/6dqRqdQv+GqPY/vt6TuHYH2mf0mojR1pVW1VKDALDk/eaaaevGSSx+5kqhmwSD2lT0l8lVJ/KaS1VqcgDMaxcDImMXQGk0Za4WWJjYcjK95qQPeT2ODELmB5jSizyJzXWNIz79gy6nInQV3hu8H6hTuUOI6mxrm5XGhnQ7XBVh4Mlvz5m7dpatSm2xefB8iYes0dujbJ+avw0447zrUkuK+ZI3bu8ED5j7pFXOM+ZVgZjcnuZCx8cL3gQ1FxUYXGRD9E3xK1OcqZjOScwrpOoCWGlzgN295uRztdPoiCpQ8j0gGv6W4ctpk3I3dR4h2gH7SHsvea/WNxxOqrsowroysT5EkjbFAHpOzZQU+ZQR6EQSzpuku+b4KgnyvEmLrlA/7UD/cywEVDnzNa38OAtmi8jnOHGf7we3oWryDurYDxnEmGhlfIJJ4ikLa7tOdl9bIc8ZHBikxrX//Z",
       "stats": {
-        "gamesPlayed": 34,
-        "gamesWon": 10,
-        "correctAnswers": 46,
-        "points": 0
+        "gamesPlayed": 2239,
+        "gamesWon": 641,
+        "correctAnswers": 1487,
+        "points": 30
       },
       "categoryPerformance": {
         "science": {
-          "correct": 7,
-          "total": 10
+          "correct": 8,
+          "total": 13
         },
         "entertainment": {
-          "correct": 5,
-          "total": 13
+          "correct": 6,
+          "total": 15
         },
         "sports": {
           "correct": 5,
-          "total": 11
+          "total": 12
         },
         "art": {
           "correct": 6,
@@ -74,7 +74,7 @@
         },
         "geography": {
           "correct": 8,
-          "total": 20
+          "total": 22
         },
         "history": {
           "correct": 12,
@@ -96,35 +96,35 @@
     "profile": {
       "avatar": "/img/default-avatar.png",
       "stats": {
-        "gamesPlayed": 5,
-        "gamesWon": 1,
-        "correctAnswers": 4,
+        "gamesPlayed": 23,
+        "gamesWon": 6,
+        "correctAnswers": 12,
         "points": 0
       },
       "categoryPerformance": {
         "science": {
           "correct": 1,
-          "total": 1
+          "total": 3
         },
         "entertainment": {
-          "correct": 1,
-          "total": 2
+          "correct": 2,
+          "total": 4
         },
         "sports": {
           "correct": 0,
           "total": 3
         },
         "art": {
-          "correct": 1,
-          "total": 2
+          "correct": 2,
+          "total": 4
         },
         "geography": {
           "correct": 0,
-          "total": 2
+          "total": 3
         },
         "history": {
           "correct": 1,
-          "total": 4
+          "total": 5
         }
       }
     }
