@@ -27,7 +27,7 @@
 - [ ] Separare il file game.js per renderlo più leggero
 - [ ] Sicurezza HTTPS
 - [ ] tradurre tutto in inglese
-- [ ] Quando si crea nuovo account in matches dà errore
+- [x] Quando si crea nuovo account in matches dà errore
 
 
 #### CSS
@@ -37,4 +37,4 @@
 - [ ] Icona logout
 - [ ] Icone
 - [ ] Colore rettangolo domanda corrisponde colore della materia.
-- [ ] CSS classifica e partite recenti
+- [x] CSS classifica e partite recenti
