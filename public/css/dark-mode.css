@@ -401,40 +401,161 @@ body.dark-mode .powerup[style*="pointer-events: none"] span {
 
 /* Table Dark Mode */
 body.dark-mode .table {
-  background-color: #2d2d2d;
+  background-color: #1e1e1e;
   color: #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #404040;
+  --bs-table-color: #e0e0e0;
+  --bs-table-bg: #2d2d2d;
+  --bs-table-accent-bg: transparent;
+}
+
+body.dark-mode .table>:not(caption)>*>* {
+  padding: 12px 15px;
+  color: #e0e0e0;
+  background-color: transparent;
+  border-bottom-width: 1px;
+  border-bottom-color: #404040;
+  box-shadow: none;
 }
 
 body.dark-mode .table thead.table-dark {
   background-color: #1a1a1a;
+  
+  border-bottom: 2px solid #505050;
+  --bs-table-bg: #1a1a1a;
+}
+
+body.dark-mode .table thead.table-dark th {
+  color: #ffffff;
+  
+  background-color: #1a1a1a;
+  border-color: #505050;
 }
 
 body.dark-mode .table tbody tr {
   border-color: #404040;
+  transition: all 0.3s ease;
 }
 
 body.dark-mode .table tbody tr:hover {
   background-color: #363636;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  --bs-table-accent-bg: #363636;
+}
+
+body.dark-mode .table tbody tr:hover>* {
+  background-color: #363636;
+  box-shadow: none;
 }
 
 body.dark-mode .table td, 
 body.dark-mode .table th {
   border-color: #404040;
+  padding: 12px 15px;
 }
 
 /* Leaderboard Dark Mode */
 body.dark-mode #leaderboardList tr:nth-child(-n+3) {
+  position: relative;
   background-color: #333333;
+  --bs-table-accent-bg: #333333;
+}
+
+body.dark-mode #leaderboardList tr:nth-child(-n+3)>* {
+  background-color: transparent;
 }
 
 body.dark-mode #leaderboardList tr:first-child {
-  background-color: #403000;
+  background-color: #3a2800;
+  position: relative;
+  --bs-table-accent-bg: #3a2800;
+}
+
+body.dark-mode #leaderboardList tr:first-child>* {
+  background-color: transparent;
+}
+
+body.dark-mode #leaderboardList tr:first-child td:first-child::before {
+  content: "🥇";
+  margin-right: 8px;
 }
 
 body.dark-mode #leaderboardList tr:nth-child(2) {
   background-color: #383838;
+  position: relative;
+  --bs-table-accent-bg: #383838;
+}
+
+body.dark-mode #leaderboardList tr:nth-child(2)>* {
+  background-color: transparent;
+}
+
+body.dark-mode #leaderboardList tr:nth-child(2) td:first-child::before {
+  content: "🥈";
+  margin-right: 8px;
 }
 
 body.dark-mode #leaderboardList tr:nth-child(3) {
-  background-color: #402b1a;
+  background-color: #3a2519;
+  position: relative;
+  --bs-table-accent-bg: #3a2519;
+}
+
+body.dark-mode #leaderboardList tr:nth-child(3)>* {
+  background-color: transparent;
+}
+
+body.dark-mode #leaderboardList tr:nth-child(3) td:first-child::before {
+  content: "🥉";
+  margin-right: 8px;
+}
+
+body.dark-mode #completedMatchesList tr {
+  transition: all 0.3s ease;
+}
+
+body.dark-mode #completedMatchesList tr:hover {
+  background-color: #363636;
+  transform: translateY(-2px);
+  --bs-table-accent-bg: #363636;
+}
+
+body.dark-mode #completedMatchesList tr:hover>* {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Styling per il risultato della partita in dark mode */
+body.dark-mode .match-result-win {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+body.dark-mode .match-result-loss {
+  color: #f44336;
+  font-weight: bold;
+}
+
+body.dark-mode .match-result-draw {
+  color: #2196f3;
+  font-weight: bold;
+}
+
+/* Evidenziare la riga quando è relativa all'utente corrente */
+body.dark-mode .user-row {
+  background-color: rgba(25, 118, 210, 0.15) !important;
+  border-left: 3px solid #2196f3;
+  --bs-table-accent-bg: rgba(25, 118, 210, 0.15) !important;
+}
+
+body.dark-mode .user-row>* {
+  background-color: transparent !important;
+}
+
+/* Override per text-secondary in dark mode */
+body.dark-mode .text-secondary {
+  --bs-text-opacity: 1;
+  color: rgb(211, 211, 211) !important;
 }

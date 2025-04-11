@@ -5438,5 +5438,84 @@
     "winner": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
     "surrenderedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
     "statsUpdated": true
+  },
+  {
+    "id": "3622d4e0-090b-4425-9b6e-3abc0125d93f",
+    "matchCode": "NHK48G",
+    "status": "completed",
+    "players": [
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "createdAt": "2025-04-11T19:53:37.291Z",
+    "updatedAt": "2025-04-11T19:54:56.873Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "efca52ea-dd34-49d3-9af4-2e159f76d93a",
+    "matchCode": "BBGHKV",
+    "status": "completed",
+    "players": [
+      {
+        "id": "98d6d08d-5203-4803-afb4-38e29783390e",
+        "username": "lee",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "98d6d08d-5203-4803-afb4-38e29783390e",
+    "createdAt": "2025-04-11T20:32:46.169Z",
+    "updatedAt": "2025-04-11T20:32:51.937Z",
+    "winner": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "surrenderedBy": "98d6d08d-5203-4803-afb4-38e29783390e",
+    "statsUpdated": true
+  },
+  {
+    "id": "d67d6ea9-f57c-46b6-a611-0aa1cca26f29",
+    "matchCode": "8ZQCRU",
+    "status": "completed",
+    "players": [
+      {
+        "id": "98d6d08d-5203-4803-afb4-38e29783390e",
+        "username": "lee",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 3,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-11T20:44:18.530Z",
+    "updatedAt": "2025-04-11T20:44:39.157Z",
+    "winner": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "surrenderedBy": "98d6d08d-5203-4803-afb4-38e29783390e",
+    "statsUpdated": true
   }
 ]

@@ -33,12 +33,24 @@ async function loadMatches() {
   try {
     // Fetch user's games from the server
     const response = await fetch(`/api/games/user/${currentUser.id}`);
-    const data = await response.json();
-
+    
     if (!response.ok) {
+      // Se il server risponde con un errore perché non ci sono partite
+      if (response.status === 404) {
+        // Mostra il messaggio "nessuna partita" invece di un errore
+        document.getElementById("noCompletedMatches").classList.remove("d-none");
+        // Nascondi la tabella o il contenitore delle partite
+        document.getElementById("completedMatchesList").innerHTML = "";
+        // Carica comunque la classifica
+        await loadLeaderboard();
+        return;
+      }
+      
+      const data = await response.json();
       throw new Error(data.error || "Failed to load matches");
     }
 
+    const data = await response.json();
     const matches = data.games || [];
     console.log("matches ricevuto: ", matches);
     // Filtra solo i match completati
@@ -54,7 +66,11 @@ async function loadMatches() {
     await loadLeaderboard();
   } catch (error) {
     console.error("Error loading matches:", error);
-    alert("Failed to load matches: " + error.message);
+    // Invece di mostrare un alert, mostra il messaggio "nessuna partita"
+    document.getElementById("noCompletedMatches").classList.remove("d-none");
+    document.getElementById("completedMatchesList").innerHTML = "";
+    // Carica comunque la classifica
+    await loadLeaderboard();
   }
 }
 
@@ -172,7 +188,7 @@ function createMatchElement(match) {
   if (match.status === "completed") {
     const userScore = player ? player.score : 0;
     const opponentScore = opponent ? opponent.score : 0;
-    statusText = userScore > opponentScore ? "Vittoria" : userScore < opponentScore ? "Sconfitta" : "Pareggio";
+    statusText = userScore > opponentScore ? "Win" : userScore < opponentScore ? "Lose" : "Draw";
     statusClass = userScore > opponentScore ? "text-success" : userScore < opponentScore ? "text-danger" : "text-warning";
   } else {
     statusText = isUserTurn ? "Il tuo turno" : "In attesa dell'avversario";
