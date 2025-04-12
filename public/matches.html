@@ -91,8 +91,9 @@
                                   </table>
                               </div>
                               <div class="text-center py-5 d-none" id="noCompletedMatches">
-                                  <i class="fas fa-trophy fa-3x mb-3 text-muted"></i>
-                                  <p class="lead text-muted">Nessun match completato trovato.</p>
+                                  <i class="fas fa-gamepad fa-3x mb-3 text-muted"></i>
+                                  <p class="lead text-muted">Non hai ancora giocato nessuna partita.</p>
+                                  <p class="text-muted">Torna alla home page per iniziare a giocare!</p>
                               </div>
                           </div>
                       </div>
@@ -103,17 +104,17 @@
                       <div class="card">
                           <div class="card-body">
                               <div class="table-responsive">
-                                  <table class="table table-hover table-striped align-middle border">
-                                      <thead class="table-dark text-white">
-                                          <tr class="align-middle">
-                                              <th class="text-center border-end px-4">#</th>
-                                              <th class="text-center border-end px-4">Giocatore</th>
-                                              <th class="text-center border-end px-4">Punti</th>
-                                              <th class="text-center border-end px-4">Partite Vinte</th>
-                                              <th class="text-center px-4">Partite Giocate</th>
+                                  <table class="table table-hover">
+                                      <thead class="table-dark">
+                                          <tr>
+                                              <th class="text-center">#</th>
+                                              <th class="text-center">Giocatore</th>
+                                              <th class="text-center">Punti</th>
+                                              <th class="text-center">Partite Vinte</th>
+                                              <th class="text-center">Partite Giocate</th>
                                           </tr>
                                       </thead>
-                                      <tbody id="leaderboardList" class="border-top-0">
+                                      <tbody id="leaderboardList">
                                           <!-- Leaderboard will be loaded here dynamically -->
                                       </tbody>
                                   </table>

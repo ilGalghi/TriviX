@@ -398,7 +398,13 @@ router.post('/surrender', (req, res) => {
     match.status = "completed";
     match.winner = opponentPlayer.id;
     match.surrenderedBy = userId; // Aggiungi un campo per tenere traccia di chi si è arreso
-    
+    match.players.forEach(player => {
+      if(player.id == userId){
+        player.score = 0;
+      }else{
+        player.score = 3;
+      }
+    });
     // Aggiorna le statistiche di gioco
     updateUserStats(match);
     match.statsUpdated = true;

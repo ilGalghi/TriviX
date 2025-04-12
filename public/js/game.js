@@ -1323,7 +1323,7 @@ function surrenderGame() {
     }
     
     // Notifica l'utente
-    alert("Ti sei arreso. Hai perso la partita.");
+    //alert("Ti sei arreso. Hai perso la partita.");
   })
   .catch(error => {
     console.error('Error processing surrender:', error);
