@@ -5649,5 +5649,104 @@
     "winner": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
     "surrenderedBy": "da540367-faf4-4b0a-9c93-8db9bcda7149",
     "statsUpdated": true
+  },
+  {
+    "id": "a308ca89-7563-4e53-9e64-810fac921c1a",
+    "matchCode": "BWCWQV",
+    "status": "completed",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 3,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-17T08:46:42.325Z",
+    "updatedAt": "2025-04-17T08:47:05.523Z",
+    "winner": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "surrenderedBy": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "statsUpdated": true
+  },
+  {
+    "id": "1b3470bf-643c-4921-9e82-98a029309fbe",
+    "matchCode": "G8YOLR",
+    "status": "completed",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 3,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-04-17T08:47:33.919Z",
+    "updatedAt": "2025-04-17T08:47:51.291Z",
+    "winner": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "surrenderedBy": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "statsUpdated": true
+  },
+  {
+    "id": "5dff444a-a313-40b2-bc83-101f737347bb",
+    "matchCode": "VJ7Y5I",
+    "status": "completed",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 3,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-04-17T14:24:53.463Z",
+    "updatedAt": "2025-04-17T14:39:24.607Z",
+    "winner": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "surrenderedBy": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "statsUpdated": true
+  },
+  {
+    "id": "854547f4-f06a-4575-9e5f-4ed86fe42605",
+    "matchCode": "0ZXLFN",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-17T14:45:46.346Z",
+    "updatedAt": "2025-04-17T14:45:48.129Z"
   }
 ]

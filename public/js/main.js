@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Set up event listeners
   setupMainListeners();
+
+  // Check if we need to open join game modal
+  const urlParams = new URLSearchParams(window.location.search);
+  const openJoinGame = urlParams.get("openJoinGame");
+  if (openJoinGame === "true") {
+    openJoinGameModal();
+  }
 });
 
 // Initialize main page UI
@@ -61,9 +68,19 @@ function setupMainListeners() {
         // Add a message to the login modal
         const loginMessage = document.getElementById("loginMessage");
         if (loginMessage) {
-          loginMessage.textContent = "Please log in to start a new game";
+          loginMessage.textContent = "Per favore effettua il login per creare una nuova partita";
           loginMessage.classList.remove("d-none");
         }
+
+        // Aggiungi un listener per quando il modal viene chiuso
+        loginModalElement.addEventListener('hidden.bs.modal', function () {
+          // Verifica se l'utente è ora loggato
+          const isLoggedIn = !!localStorage.getItem("currentUser");
+          if (isLoggedIn) {
+            // Apri il modal di creazione partita se l'utente è loggato
+            showCreateGameModal();
+          }
+        });
       }
     });
   }
@@ -78,10 +95,7 @@ function setupMainListeners() {
       const isLoggedIn = !!localStorage.getItem("currentUser");
 
       if (isLoggedIn) {
-        // User is logged in, show join game modal
-        const joinGameModalElement = document.getElementById("joinGameModal");
-        const joinGameModal = new bootstrap.Modal(joinGameModalElement);
-        joinGameModal.show();
+        openJoinGameModal();
       } else {
         // User is not logged in, show login modal
         const loginModalElement = document.getElementById("loginModal");
@@ -91,9 +105,19 @@ function setupMainListeners() {
         // Add a message to the login modal
         const loginMessage = document.getElementById("loginMessage");
         if (loginMessage) {
-          loginMessage.textContent = "Please log in to join a game";
+          loginMessage.textContent = "Per favore effettua il login per unirti a una partita";
           loginMessage.classList.remove("d-none");
         }
+
+        // Aggiungi un listener per quando il modal viene chiuso
+        loginModalElement.addEventListener('hidden.bs.modal', function () {
+          // Verifica se l'utente è ora loggato
+          const isLoggedIn = !!localStorage.getItem("currentUser");
+          if (isLoggedIn) {
+            // Apri il modal di join game se l'utente è loggato
+            openJoinGameModal();
+          }
+        });
       }
     });
   }
@@ -245,11 +269,60 @@ function setupMainListeners() {
 // Show Create Game modal
 function showCreateGameModal() {
   // Reset modal state
-  //document.getElementById("gameCreationSection").classList.remove("d-none");
   document.getElementById("gameLinkSection").classList.add("d-none");
+
+  // Rimuovi eventuali backdrop esistenti
+  const existingBackdrops = document.querySelectorAll('.modal-backdrop');
+  existingBackdrops.forEach(backdrop => backdrop.remove());
+  
+  // Rimuovi la classe modal-open dal body
+  document.body.classList.remove('modal-open');
 
   // Show modal
   const createGameModalElement = document.getElementById("createGameModal");
   const createGameModal = new bootstrap.Modal(createGameModalElement);
   createGameModal.show();
 }
+
+// Function to open join game modal
+function openJoinGameModal() {
+  const joinGameModalElement = document.getElementById("joinGameModal");
+  if (joinGameModalElement) {
+    // Rimuovi eventuali backdrop esistenti
+    const existingBackdrops = document.querySelectorAll('.modal-backdrop');
+    existingBackdrops.forEach(backdrop => backdrop.remove());
+    
+    // Rimuovi la classe modal-open dal body
+    document.body.classList.remove('modal-open');
+    
+    const joinGameModal = new bootstrap.Modal(joinGameModalElement);
+    joinGameModal.show();
+  }
+}
+
+// Aggiungi event listener per la chiusura dei modal
+document.addEventListener('DOMContentLoaded', function() {
+  // Listener per il modal di join game
+  const joinGameModal = document.getElementById('joinGameModal');
+  if (joinGameModal) {
+    joinGameModal.addEventListener('hidden.bs.modal', function () {
+      // Rimuovi il backdrop
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) backdrop.remove();
+      // Rimuovi la classe modal-open dal body
+      document.body.classList.remove('modal-open');
+    });
+  }
+
+  // Listener per il modal di creazione partita
+  const createGameModal = document.getElementById('createGameModal');
+  if (createGameModal) {
+    createGameModal.addEventListener('hidden.bs.modal', function () {
+      // Rimuovi il backdrop
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) backdrop.remove();
+      // Rimuovi la classe modal-open dal body
+      document.body.classList.remove('modal-open');
+    });
+  }
+});
