@@ -215,7 +215,7 @@ async function register(username, email, password, confirmPassword) {
       initAuthUI()
 
       // Show success message or redirect
-      alert("Registration successful! Welcome to Trivia Crack.")
+      alert("Registration successful! Welcome to TriviX.")
 
       // Reload current page to update UI
       window.location.reload()
