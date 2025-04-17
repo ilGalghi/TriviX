@@ -57,12 +57,33 @@ async function checkAuthStatus() {
       console.log("User is not authenticated")
       localStorage.removeItem("currentUser")
 
-      // Redirect from protected pages
+      // Mostra il modal di login per le pagine protette
       const protectedPages = ["profile.html", "matches.html", "game.html"]
       const currentPage = window.location.pathname.split("/").pop()
 
       if (protectedPages.includes(currentPage)) {
-        window.location.href = "index.html"
+        const loginModalElement = document.getElementById("loginModal")
+        if (loginModalElement) {
+          const loginModal = new bootstrap.Modal(loginModalElement, {
+            backdrop: 'static',
+            keyboard: false
+          })
+          
+          // Disabilita il pulsante di chiusura
+          const closeButtons = loginModalElement.querySelectorAll('[data-bs-dismiss="modal"]')
+          closeButtons.forEach(button => {
+            button.disabled = true
+          })
+          
+          // Aggiungi il messaggio di login
+          const loginMessage = document.getElementById("loginMessage")
+          if (loginMessage) {
+            loginMessage.textContent = "Per favore effettua il login per continuare"
+            loginMessage.classList.remove("d-none")
+          }
+          
+          loginModal.show()
+        }
       }
     }
   } catch (error) {
@@ -75,7 +96,7 @@ async function checkAuthStatus() {
 }
 
 // Login function
-async function login(username, password, redirectToGame = false) {
+async function login(username, password, actionType = null) {
   const loginError = document.getElementById("loginError")
 
   // Validate inputs
@@ -114,12 +135,16 @@ async function login(username, password, redirectToGame = false) {
       // Update UI
       initAuthUI()
 
-      // If redirectToGame is true, redirect to game creation
-      if (redirectToGame) {
+      // Handle different action types after login
+      if (actionType === "create") {
         console.log("Redirecting to game creation after login")
-        // Show create game modal
         setTimeout(() => {
           showCreateGameModal()
+        }, 500)
+      } else if (actionType === "join") {
+        console.log("Redirecting to join game after login")
+        setTimeout(() => {
+          openJoinGameModal()
         }, 500)
       } else if (window.location.pathname.includes("login.html")) {
         // Redirect to home page if on login page
@@ -446,17 +471,22 @@ function setupAuthListeners() {
     loginForm.addEventListener("submit", (e) => {
       e.preventDefault()
 
-      const username = document.getElementById("loginUsername").value
-      const password = document.getElementById("loginPassword").value
+      const username = document.getElementById("username").value
+      const password = document.getElementById("password").value
 
-      // Check if there's a login message, which indicates we're trying to start a game
+      // Check if there's a login message and determine the action type
       const loginMessage = document.getElementById("loginMessage")
-      const redirectToGame =
-        loginMessage &&
-        !loginMessage.classList.contains("d-none") &&
-        loginMessage.textContent.includes("start a new game")
+      let actionType = null
+      
+      if (loginMessage && !loginMessage.classList.contains("d-none")) {
+        if (loginMessage.textContent.includes("creare una nuova partita")) {
+          actionType = "create"
+        } else if (loginMessage.textContent.includes("unirti a una partita")) {
+          actionType = "join"
+        }
+      }
 
-      login(username, password, redirectToGame)
+      login(username, password, actionType)
     })
   }
 

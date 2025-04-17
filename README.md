@@ -27,6 +27,7 @@
 - [ ] Separare il file game.js per renderlo più leggero
 - [ ] Sicurezza HTTPS
 - [ ] tradurre tutto in inglese
+- [x] Quando si crea nuovo account in matches dà errore
 
 
 

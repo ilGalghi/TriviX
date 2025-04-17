@@ -97,6 +97,15 @@ router.post("/join", (req, res) => {
     return res.status(400).json({ error: "User ID and game code are required" });
   }
 
+  // Verifica che l'utente sia autenticato
+  if (!req.session.user) {
+    return res.status(401).json({ 
+      error: "Unauthorized",
+      redirect: true,
+      message: "Per favore effettua il login per unirti alla partita"
+    });
+  }
+
   // Leggi le partite esistenti
   const matches = readMatches();
 
@@ -145,14 +154,25 @@ router.post("/join", (req, res) => {
 });
 
 
-// Get game route (già esistente)
+// Get game route
 router.get("/:gameCode", (req, res) => {
   const { gameCode } = req.params;
   const matches = readMatches();
   const game = matches.find((game) => game.matchCode === gameCode);
+  
   if (!game) {
     return res.status(404).json({ error: "Game not found" });
   }
+
+  // Se l'utente non è autenticato, restituisci un errore specifico
+  if (!req.session.user) {
+    return res.status(401).json({ 
+      error: "Unauthorized",
+      redirect: true,
+      message: "Per favore effettua il login per accedere alla partita"
+    });
+  }
+
   res.json({ game });
 });
 
