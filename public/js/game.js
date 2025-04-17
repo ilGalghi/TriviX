@@ -1,6 +1,8 @@
 // Dichiarazione globale del gameState
 let gameState = {
-  pollingInterval: null
+  pollingInterval: null,
+  lastOpponentScore: 0, // Aggiungo tracciamento del punteggio dell'avversario
+  currentUser: null
 };
 
 // Game functionality
@@ -14,6 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   console.log("User authenticated, initializing game")
+  
+  // Salvo l'utente corrente nel gameState
+  gameState.currentUser = JSON.parse(currentUser);
 
   // Initialize game
   initGame()
@@ -566,7 +571,23 @@ function showQuestion(category) {
   // Hide spinner section and show question section
   document.getElementById("spinnerSection").classList.add("d-none")
   document.getElementById("questionSection").classList.remove("d-none")
+  
+  // Aggiorna il testo della categoria
   document.getElementById("questionCategory").textContent = category.toUpperCase();
+  
+  // Imposta il colore dell'header della categoria in base alla categoria
+  const categoryColors = {
+    'science': 'var(--science-color)',      // Colore per scienza
+    'entertainment': 'var(--entertainment-color)',  // Colore per intrattenimento
+    'sports': 'var(--sports-color)',        // Colore per sport
+    'art': 'var(--art-color)',          // Colore per arte
+    'geography': 'var(--geography-color)',     // Colore per geografia
+    'history': 'var(--history-color)'       // Colore per storia
+  };
+  
+  // Applica il colore corrispondente alla categoria
+  const questionCategory = document.getElementById("questionCategory");
+  questionCategory.style.backgroundColor = categoryColors[category] || '#343a40';
 
   // Reset solo del messaggio di stato dei powerup
   const powerupMessage = document.getElementById('powerupMessage');
@@ -741,6 +762,9 @@ function checkAnswer(index, correctIndex, explanation) {
     // Update score display
     const playerScore = document.querySelector("#player1Info .player-score");
     playerScore.textContent = parseInt(playerScore.textContent) + 1;
+    
+    // Mostra l'animazione "+1"
+    showPointAnimation(playerScore);
   }
   
   // Save score to matches.json (sia per risposte corrette che errate)
@@ -751,6 +775,28 @@ function checkAnswer(index, correctIndex, explanation) {
   
   // Switch turn to opponent
   switchTurn();
+}
+
+// Funzione per mostrare l'animazione "+1" quando si guadagna un punto
+function showPointAnimation(targetElement) {
+  // Crea un elemento per l'animazione
+  const pointAnimation = document.createElement('div');
+  pointAnimation.textContent = '+1';
+  pointAnimation.className = 'point-animation';
+  
+  // Posiziona l'animazione vicino al punteggio
+  const rect = targetElement.getBoundingClientRect();
+  pointAnimation.style.position = 'absolute';
+  pointAnimation.style.left = `${rect.left + rect.width/2}px`;
+  pointAnimation.style.top = `${rect.top}px`;
+  
+  // Aggiungi l'elemento al body
+  document.body.appendChild(pointAnimation);
+  
+  // Rimuovi l'elemento dopo che l'animazione è completata
+  setTimeout(() => {
+    document.body.removeChild(pointAnimation);
+  }, 1500);
 }
 
 // Nuova funzione per aggiornare le prestazioni dell'utente per categoria
@@ -998,6 +1044,27 @@ function checkForOpponentMove() {
         }
       }
       
+      // Controlla se l'avversario ha guadagnato punti
+      if (opponent && opponent.score !== undefined) {
+        const opponentScore = opponent.score;
+        
+        // Aggiorna il punteggio dell'avversario nell'UI
+        const player2ScoreElement = document.querySelector("#player2Info .player-score");
+        if (player2ScoreElement) {
+          // Se il punteggio è aumentato, mostra l'animazione +1
+          if (opponentScore > gameState.lastOpponentScore) {
+            player2ScoreElement.textContent = opponentScore;
+            // Mostra l'animazione "+1" sul punteggio dell'avversario
+            showPointAnimation(player2ScoreElement);
+          } else {
+            player2ScoreElement.textContent = opponentScore;
+          }
+          
+          // Aggiorna il punteggio salvato
+          gameState.lastOpponentScore = opponentScore;
+        }
+      }
+      
       // Aggiorniamo lo stato completo della partita, inclusi nomi utente e avatar
       updateGameStateFromMatch(data.match);
       
@@ -1040,27 +1107,28 @@ function checkForOpponentMove() {
         }
         
         if (!opponent) {
-          gameStatusElement.textContent = "Partita terminata";
-          gameStatusElement.className = ""; // Nessuna classe speciale
+          gameStatusElement.textContent = "Match ended";
+          gameStatusElement.className = ""; // No special class
         } else if (data.match.surrenderedBy) {
-          // Verifica se l'avversario si è arreso
+          // Check if the opponent surrendered
           if (data.match.surrenderedBy !== currentUser.id) {
-            gameStatusElement.textContent = "Hai vinto! (L'avversario si è arreso)";
+            gameStatusElement.textContent = "You won! (The opponent surrendered)";
             gameStatusElement.className = "game-status-win";
           } else {
-            gameStatusElement.textContent = "Ti sei arreso! Hai perso la partita.";
+            gameStatusElement.textContent = "You surrendered! You lost the match.";
             gameStatusElement.className = "game-status-lose";
           }
         } else if (currentPlayer.score > opponent.score) {
-          gameStatusElement.textContent = "Hai vinto!";
+          gameStatusElement.textContent = "You won!";
           gameStatusElement.className = "game-status-win";
         } else if (currentPlayer.score < opponent.score) {
-          gameStatusElement.textContent = "Hai perso!";
+          gameStatusElement.textContent = "You lost!";
           gameStatusElement.className = "game-status-lose";
         } else {
-          gameStatusElement.textContent = "È un pareggio!";
-          gameStatusElement.className = "game-status-draw"; // Classe per il pareggio
+          gameStatusElement.textContent = "It's a draw!";
+          gameStatusElement.className = "game-status-draw"; // Class for draw
         }
+        
 
         // Aggiorna le statistiche dell'utente
         if (!data.match.statsUpdated) {
@@ -1124,6 +1192,11 @@ function updateGameStateFromMatch(match) {
         const player2NameElement = document.querySelector("#player2Info .player-name");
         if (player2NameElement) {
           player2NameElement.textContent = `@${opponent.username || "player2"}`;
+        }
+        
+        // Salviamo il punteggio dell'avversario per il confronto futuro
+        if (opponent.score !== undefined) {
+          gameState.lastOpponentScore = opponent.score;
         }
       }
       
@@ -1229,6 +1302,20 @@ function checkForSavedQuestion() {
       
       // Imposta la categoria
       document.getElementById("questionCategory").textContent = questionData.category.toUpperCase();
+      
+      // Imposta il colore dell'header della categoria in base alla categoria salvata
+      const categoryColors = {
+        'science': 'var(--science-color)',      // Colore per scienza
+        'entertainment': 'var(--entertainment-color)',  // Colore per intrattenimento
+        'sports': 'var(--sports-color)',        // Colore per sport
+        'art': 'var(--art-color)',          // Colore per arte
+        'geography': 'var(--geography-color)',     // Colore per geografia
+        'history': 'var(--history-color)'       // Colore per storia
+      };
+      
+      // Applica il colore corrispondente alla categoria
+      const questionCategory = document.getElementById("questionCategory");
+      questionCategory.style.backgroundColor = categoryColors[questionData.category] || '#343a40';
       
       // Imposta la domanda corrente
       window.currentQuestion = questionData.question;

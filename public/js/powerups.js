@@ -222,7 +222,7 @@ class PowerupManager {
         
         // Mostra un messaggio di caricamento
         const powerupMessage = document.getElementById('powerupMessage');
-        powerupMessage.textContent = "Sto chiedendo all'AI un suggerimento...";
+        powerupMessage.textContent = "I am asking AI for a suggestion....";
         powerupMessage.className = 'powerup-message hint-active';
         
         // Richiesta all'API di Gemini
@@ -231,12 +231,12 @@ class PowerupManager {
         this.getAiHint(questionText)
             .then(hint => {
                 // Aggiorna il messaggio con il suggerimento
-                powerupMessage.innerHTML = `<strong>Suggerimento AI:</strong> ${hint}`;
+                powerupMessage.innerHTML = `<strong>AI hint:</strong> ${hint}`;
                 powerupMessage.className = 'powerup-message hint-active';
             })
             .catch(error => {
-                console.error('Errore nel recupero del suggerimento AI:', error);
-                powerupMessage.textContent = "Errore nel recupero del suggerimento. Riprova più tardi.";
+                console.error('Error retrieving AI hint:', error);
+                powerupMessage.textContent = "Error retrieving hint. Try again later.";
                 powerupMessage.className = 'powerup-message warning';
                 
                 // Ripristina il powerup (solo in caso di errore)

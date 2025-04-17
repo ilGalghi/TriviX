@@ -22,18 +22,20 @@
     - [x] Quando un giocatore si arrende e l'altro sta facendo la domanda, la domanda deve essere interrotta e portare a ruota spin
 - [ ] Login direttamente da "Join game" e game.html
 - [x] Fare che non si può uscire dalla pagina (per cercare la risposta)
+- [x] Quando si crea nuovo account in matches dà errore
 - [ ] Alert "inizia nuova partita" quando finisce partita
 - [ ] Separare il file game.js per renderlo più leggero
 - [ ] Sicurezza HTTPS
 - [ ] tradurre tutto in inglese
-- [x] Quando si crea nuovo account in matches dà errore
+
 
 
 #### CSS
 - [x] CSS spin indicatore corrisponde materia domanda indicata dall'aghetto
-- [ ] Abbellire CSS quando partita finisce (vittoria, pareggio, sconfitta)
-- [ ] Animazioni +1 per domanda giusta
+- [x] Colore rettangolo domanda corrisponde colore della materia.
+- [x] CSS classifica e partite recenti
+- [x] Animazioni +1 per domanda giusta
 - [ ] Icona logout
 - [ ] Icone
-- [ ] Colore rettangolo domanda corrisponde colore della materia.
-- [x] CSS classifica e partite recenti
+- [ ] Abbellire CSS quando partita finisce (vittoria, pareggio, sconfitta)
+
