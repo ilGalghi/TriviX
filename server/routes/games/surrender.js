@@ -13,7 +13,7 @@ function readMatchesFile() {
     const data = fs.readFileSync(MATCHES_FILE, 'utf8');
     return JSON.parse(data);
   } catch (error) {
-    console.error('Errore nella lettura del file matches.json:', error);
+    console.error('Error reading matches.json:', error);
     return { matches: [] };
   }
 }
@@ -24,7 +24,7 @@ function writeMatchesFile(data) {
     fs.writeFileSync(MATCHES_FILE, JSON.stringify(data, null, 2), 'utf8');
     return true;
   } catch (error) {
-    console.error('Errore nella scrittura del file matches.json:', error);
+    console.error('Error writing matches.json:', error);
     return false;
   }
 }
@@ -35,7 +35,7 @@ router.post('/surrender', (req, res) => {
     const { userId, gameCode } = req.body;
     
     if (!userId || !gameCode) {
-      return res.status(400).json({ success: false, message: 'Dati mancanti.' });
+      return res.status(400).json({ success: false, message: 'Missing data.' });
     }
     
     // Leggi il file matches.json
@@ -45,7 +45,7 @@ router.post('/surrender', (req, res) => {
     const matchIndex = matchesData.matches.findIndex(match => match.matchCode === gameCode);
     
     if (matchIndex === -1) {
-      return res.status(404).json({ success: false, message: 'Partita non trovata.' });
+      return res.status(404).json({ success: false, message: 'Match not found.' });
     }
     
     const match = matchesData.matches[matchIndex];
@@ -55,7 +55,7 @@ router.post('/surrender', (req, res) => {
     const opponentPlayer = match.players.find(player => player.id !== userId);
     
     if (!surrenderingPlayer || !opponentPlayer) {
-      return res.status(404).json({ success: false, message: 'Giocatore non trovato nella partita.' });
+      return res.status(404).json({ success: false, message: 'Player not found in the match.' });
     }
     
     // Aggiorna lo stato della partita
@@ -68,12 +68,12 @@ router.post('/surrender', (req, res) => {
     
     return res.json({
       success: true,
-      message: 'Partita terminata per resa.',
+      message: 'Match ended by surrender.',
       match: match
     });
   } catch (error) {
-    console.error('Errore durante la gestione della resa:', error);
-    return res.status(500).json({ success: false, message: 'Errore interno del server.' });
+    console.error('Error during surrender handling:', error);
+    return res.status(500).json({ success: false, message: 'Server error.' });
   }
 });
 

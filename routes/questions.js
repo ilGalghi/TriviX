@@ -17,7 +17,7 @@ router.post("/:category", (req, res) => {
     
     // Verifica se la categoria esiste
     if (!qaData[category]) {
-      return res.status(404).json({ error: "Categoria non trovata" });
+      return res.status(404).json({ error: "Category not found" });
     }
     
     // Controlla se la categoria è un array (nuova struttura) o un oggetto (singola domanda)
@@ -73,8 +73,8 @@ router.post("/:category", (req, res) => {
       });
     }
   } catch (error) {
-    console.error("Errore nel recupero della domanda:", error);
-    res.status(500).json({ error: "Errore nel recupero della domanda" });
+    console.error("Error retrieving question:", error);
+    res.status(500).json({ error: "Error retrieving question" });
   }
 });
 
@@ -86,14 +86,14 @@ router.get("/image/:filename", (req, res) => {
     
     // Verifica se il file esiste
     if (!fs.existsSync(imagePath)) {
-      return res.status(404).json({ error: "Immagine non trovata" });
+      return res.status(404).json({ error: "Image not found" });
     }
     
     // Invia il file
     res.sendFile(imagePath);
   } catch (error) {
-    console.error("Errore nel recupero dell'immagine:", error);
-    res.status(500).json({ error: "Errore nel recupero dell'immagine" });
+    console.error("Error retrieving image:", error);
+    res.status(500).json({ error: "Error retrieving image" });
   }
 });
 

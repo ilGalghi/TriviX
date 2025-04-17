@@ -20,11 +20,11 @@ router.post("/register", async (req, res) => {
 
     // Valida l'input
     if (!username || !email || !password) {
-      return res.status(400).json({ success: false, message: "Fornisci tutti i campi richiesti" })
+      return res.status(400).json({ success: false, message: "Provide all required fields" })
     }
 
     if (password !== confirmPassword) {
-      return res.status(400).json({ success: false, message: "Le password non corrispondono" })
+      return res.status(400).json({ success: false, message: "The passwords do not match" })
     }
 
     // Aggiungi l'utente
@@ -40,8 +40,8 @@ router.post("/register", async (req, res) => {
       return res.status(400).json(result)
     }
   } catch (error) {
-    console.error("Errore di registrazione:", error)
-    return res.status(500).json({ success: false, message: "Errore del server" })
+    console.error("Registration error:", error)
+    return res.status(500).json({ success: false, message: "Server error" })
   }
 })
 
@@ -54,7 +54,7 @@ router.post("/login", async (req, res) => {
 
     // Valida l'input
     if (!username || !password) {
-      return res.status(400).json({ success: false, message: "Fornisci username e password" })
+      return res.status(400).json({ success: false, message: "Provide username and password" })
     }
 
     // Autentica l'utente
@@ -70,8 +70,8 @@ router.post("/login", async (req, res) => {
       return res.status(400).json(result)
     }
   } catch (error) {
-    console.error("Errore di login:", error)
-    return res.status(500).json({ success: false, message: "Errore del server" })
+    console.error("Login error:", error)
+    return res.status(500).json({ success: false, message: "Server error" })
   }
 })
 
@@ -81,7 +81,7 @@ router.get("/me", async (req, res) => {
     console.log("Checking current user. Session:", req.session)
 
     if (!req.session || !req.session.userId) {
-      return res.status(401).json({ success: false, message: "Non autenticato" })
+      return res.status(401).json({ success: false, message: "Not authenticated" })
     }
 
     const user = await userModel.findUserById(req.session.userId)
@@ -89,15 +89,15 @@ router.get("/me", async (req, res) => {
     if (!user) {
       // Utente non trovato, cancella la sessione
       req.session.destroy()
-      return res.status(404).json({ success: false, message: "Utente non trovato" })
+      return res.status(404).json({ success: false, message: "User not found" })
     }
 
     // Restituisci i dati dell'utente senza la password
     const { password, ...userWithoutPassword } = user
     return res.status(200).json({ success: true, user: userWithoutPassword })
   } catch (error) {
-    console.error("Errore nel recupero dell'utente:", error)
-    return res.status(500).json({ success: false, message: "Errore del server" })
+    console.error("Error retrieving user:", error)
+    return res.status(500).json({ success: false, message: "Server error" })
   }
 })
 
@@ -109,15 +109,15 @@ router.post("/logout", (req, res) => {
     req.session.destroy((err) => {
       if (err) {
         console.error("Error destroying session:", err)
-        return res.status(500).json({ success: false, message: "Errore durante il logout" })
+        return res.status(500).json({ success: false, message: "Error during logout" })
       }
 
       console.log("Session destroyed successfully")
-      return res.status(200).json({ success: true, message: "Logout effettuato con successo" })
+      return res.status(200).json({ success: true, message: "Logout successful" })
     })
   } catch (error) {
-    console.error("Errore di logout:", error)
-    return res.status(500).json({ success: false, message: "Errore del server" })
+    console.error("Logout error:", error)
+    return res.status(500).json({ success: false, message: "Server error" })
   }
 })
 
@@ -142,8 +142,8 @@ router.put("/profile", isAuthenticated, async (req, res) => {
       return res.status(400).json(result)
     }
   } catch (error) {
-    console.error("Errore nell'aggiornamento del profilo:", error)
-    return res.status(500).json({ success: false, message: "Errore del server" })
+    console.error("Error updating profile:", error)
+    return res.status(500).json({ success: false, message: "Server error" })
   }
 })
 
@@ -168,10 +168,9 @@ router.put("/stats", isAuthenticated, async (req, res) => {
       return res.status(400).json(result)
     }
   } catch (error) {
-    console.error("Errore nell'aggiornamento delle statistiche:", error)
-    return res.status(500).json({ success: false, message: "Errore del server" })
+    console.error("Error updating stats:", error)
+    return res.status(500).json({ success: false, message: "Server error" })
   }
 })
 
 module.exports = router
-

@@ -116,17 +116,19 @@ function displayLeaderboard(users) {
     
     if (index === 0) {
       positionClass = "text-warning"; // Oro
-      position = ""; // Stringa vuota per primi 3 posti, mostrerà solo l'emoji dal CSS
-      tdPositionClass = "position-relative"; // Aggiunge position relative per supportare i pseudo-elementi posizionati absolute
+      position = ""; // Solo l'emoji dal CSS
+      tdPositionClass = "position-relative";
     } else if (index === 1) {
       positionClass = "text-secondary"; // Argento
-      position = ""; // Stringa vuota per primi 3 posti, mostrerà solo l'emoji dal CSS
-      tdPositionClass = "position-relative"; // Aggiunge position relative per supportare i pseudo-elementi posizionati absolute
+      position = ""; // Solo l'emoji dal CSS
+      tdPositionClass = "position-relative";
     } else if (index === 2) {
       positionClass = "text-bronze"; // Bronzo
-      position = ""; // Stringa vuota per primi 3 posti, mostrerà solo l'emoji dal CSS
-      tdPositionClass = "position-relative"; // Aggiunge position relative per supportare i pseudo-elementi posizionati absolute
-    } else {
+      position = ""; // Solo l'emoji dal CSS
+      tdPositionClass = "position-relative";
+    }
+    
+      else {
       position = index + 1; // Numeri dal quarto posto in poi
     }
 
@@ -206,11 +208,11 @@ function createMatchElement(match) {
     statusText = userScore > opponentScore ? "Win" : userScore < opponentScore ? "Lose" : "Draw";
     statusClass = userScore > opponentScore ? "text-success" : userScore < opponentScore ? "text-danger" : "text-warning";
   } else {
-    statusText = isUserTurn ? "Il tuo turno" : "In attesa dell'avversario";
+    statusText = isUserTurn ? "Your turn" : "Waiting for opponent";
     statusClass = isUserTurn ? "text-primary" : "text-muted";
   }
 
-  const opponentName = opponent ? opponent.username || "Avversario" : "In attesa dell'avversario";
+  const opponentName = opponent ? opponent.username || "Opponent" : "Waiting for opponent";
   const userScore = player ? player.score : 0;
   const opponentScore = opponent ? opponent.score : 0;
 

@@ -381,7 +381,7 @@ router.post('/surrender', (req, res) => {
     const matchIndex = matchesData.findIndex(match => match.matchCode === gameCode);
     
     if (matchIndex === -1) {
-      return res.status(404).json({ success: false, message: 'Partita non trovata.' });
+      return res.status(404).json({ success: false, message: 'Match not found.' });
     }
     
     const match = matchesData[matchIndex];
@@ -391,7 +391,7 @@ router.post('/surrender', (req, res) => {
     const opponentPlayer = match.players.find(player => player.id !== userId);
     
     if (!surrenderingPlayer || !opponentPlayer) {
-      return res.status(404).json({ success: false, message: 'Giocatore non trovato nella partita.' });
+      return res.status(404).json({ success: false, message: 'Player not found in the match.' });
     }
     
     // Aggiorna lo stato della partita
@@ -415,12 +415,12 @@ router.post('/surrender', (req, res) => {
     
     return res.json({
       success: true,
-      message: 'Partita terminata per resa.',
+      message: 'Match ended by surrender.',
       match: match
     });
   } catch (error) {
-    console.error('Errore durante la gestione della resa:', error);
-    return res.status(500).json({ success: false, message: 'Errore interno del server.' });
+    console.error('Error during surrender handling:', error);
+    return res.status(500).json({ success: false, message: 'Server error.' });
   }
 });
 

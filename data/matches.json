@@ -5897,5 +5897,32 @@
     "winner": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
     "surrenderedBy": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
     "statsUpdated": true
+  },
+  {
+    "id": "bbb02a7a-adaf-4025-bf36-9d517347ea87",
+    "matchCode": "71UEPP",
+    "status": "completed",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 2,
+    "maxRounds": 5,
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "createdAt": "2025-04-17T13:38:03.968Z",
+    "updatedAt": "2025-04-17T13:38:46.800Z",
+    "winner": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "surrenderedBy": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "statsUpdated": true
   }
 ]

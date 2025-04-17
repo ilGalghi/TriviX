@@ -35,7 +35,7 @@ class ChatManager {
                 this.joinRoom();
             } else if (attempts >= maxAttempts) {
                 clearInterval(checkInterval);
-                console.error('Game ID non trovato dopo diversi tentativi');
+                console.error('Game ID not found after several attempts');
             }
         }, 500);
     }
@@ -54,7 +54,7 @@ class ChatManager {
 
             return gameId;
         } catch (error) {
-            console.error('Errore nel recupero del Game ID:', error);
+            console.error('Error retrieving Game ID:', error);
             return null;
         }
     }

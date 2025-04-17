@@ -16,13 +16,13 @@ router.post("/hint", async (req, res) => {
     const { question } = req.body;
     
     if (!question) {
-      return res.status(400).json({ error: "La domanda è richiesta" });
+      return res.status(400).json({ error: "Question is required" });
     }
     
     // Costruisci il prompt per Gemini
-    const prompt = `Dai un suggerimento utile (ma NON la risposta esatta) alla seguente domanda di trivia: "${question}". 
-                   Il suggerimento deve indirizzare l'utente verso la risposta corretta senza rivelarla direttamente.
-                   Il suggerimento deve essere breve (massimo 2 frasi) e in italiano.`;
+    const prompt = `Give a helpful hint (but NOT the exact answer) to the following trivia question: "${question}". 
+                   The hint should guide the user towards the correct answer without revealing it directly.
+                   The hint should be brief (maximum 2 sentences) and in English.`;
     
     // Chiama l'API di Google Gemini
     const response = await axios.post(
@@ -50,9 +50,9 @@ router.post("/hint", async (req, res) => {
     // Invia il suggerimento al client
     res.json({ hint });
   } catch (error) {
-    console.error("Errore durante la richiesta AI hint:", error.response?.data || error.message);
+    console.error("Error during AI request hint:", error.response?.data || error.message);
     res.status(500).json({
-      error: "Errore nel servizio AI",
+      error: "Error during AI request hint",
       details: error.message
     });
   }
