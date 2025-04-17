@@ -5748,5 +5748,86 @@
     "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
     "createdAt": "2025-04-17T14:45:46.346Z",
     "updatedAt": "2025-04-17T14:45:48.129Z"
+  },
+  {
+    "id": "f2495b76-5a4e-4669-88c4-7b38265ecbb9",
+    "matchCode": "J5CLEW",
+    "status": "completed",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "createdAt": "2025-04-17T15:32:03.736Z",
+    "updatedAt": "2025-04-17T15:36:09.883Z",
+    "winner": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "surrenderedBy": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "statsUpdated": true
+  },
+  {
+    "id": "f2e5cfa4-2634-452c-bee0-9e51bad1b37a",
+    "matchCode": "FC9R4V",
+    "status": "completed",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 2,
+    "maxRounds": 3,
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "createdAt": "2025-04-17T15:37:03.849Z",
+    "updatedAt": "2025-04-17T15:37:46.086Z",
+    "winner": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "surrenderedBy": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "statsUpdated": true
+  },
+  {
+    "id": "21f8fe59-139b-4ff1-baf4-560cec343d38",
+    "matchCode": "3KKL6B",
+    "status": "completed",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 4,
+    "maxRounds": 10,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-17T15:41:26.683Z",
+    "updatedAt": "2025-04-17T15:42:59.026Z",
+    "winner": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "surrenderedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "statsUpdated": true
   }
 ]
