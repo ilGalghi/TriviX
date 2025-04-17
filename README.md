@@ -20,13 +20,14 @@
     - [x] Capire come gestire il +3 della resa (se metterle come risposte giuste o no) + quelle giuste fatte precedentemente nelle "corrected answers".
     - [x] In my ended matches, se uno si arrende, non viene mostrato "sconfitta", ma in base al risultato che si aveva al momento della resa si ha vittoria, pareggio, sconfitta.
     - [x] Quando un giocatore si arrende e l'altro sta facendo la domanda, la domanda deve essere interrotta e portare a ruota spin
-- [ ] Login direttamente da "Join game" e game.html
+- [x] Login direttamente da "Join game" e game.html
 - [x] Fare che non si può uscire dalla pagina (per cercare la risposta)
 - [x] Quando si crea nuovo account in matches dà errore
 - [ ] Alert "inizia nuova partita" quando finisce partita
 - [ ] Separare il file game.js per renderlo più leggero
 - [ ] Sicurezza HTTPS
 - [ ] tradurre tutto in inglese
+- [x] Quando si crea nuovo account in matches dà errore
 
 
 
