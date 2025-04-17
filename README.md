@@ -15,13 +15,12 @@
 - [x] Opzione per scegliere quante domande per partita
 - [x] Domande con immagini: cartella e campo
 - [x] Creare classifica punti vinti per match. aggiungere campo
-- [ ] Match attivi nella home
-- [ ] Per la resa:
-    - [ ] Impostare 3-0 a tavolino
-    - [ ] Capire come gestire il +3 della resa (se metterle come risposte giuste o no) + quelle giuste fatte precedentemente nelle "corrected answers".
-    - [ ] In my ended matches, se uno si arrende, non viene mostrato "sconfitta", ma in base al risultato che si aveva al momento della resa si ha vittoria, pareggio, sconfitta.
+- [x] Per la resa:
+    - [x] Impostare 3-0 a tavolino
+    - [x] Capire come gestire il +3 della resa (se metterle come risposte giuste o no) + quelle giuste fatte precedentemente nelle "corrected answers".
+    - [x] In my ended matches, se uno si arrende, non viene mostrato "sconfitta", ma in base al risultato che si aveva al momento della resa si ha vittoria, pareggio, sconfitta.
     - [ ] Quando un giocatore si arrende e l'altro sta facnedo la domanda, la domanda deve essere interrotta e portare a ruota spin
-- [ ] Login direttamente da "Join game"
+- [ ] Login direttamente da "Join game" e game.html
 - [ ] Fare che non si può uscire dalla pagina (per cercare la risposta)
 - [ ] Alert "inizia nuova partita" quando finisce partita
 - [ ] Separare il file game.js per renderlo più leggero
