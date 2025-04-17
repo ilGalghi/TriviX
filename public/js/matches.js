@@ -111,13 +111,28 @@ function displayLeaderboard(users) {
     
     // Determina la classe per la posizione
     let positionClass = "";
-    if (index === 0) positionClass = "text-warning"; // Oro
-    else if (index === 1) positionClass = "text-secondary"; // Argento
-    else if (index === 2) positionClass = "text-bronze"; // Bronzo
+    let position = "";
+    let tdPositionClass = "";
+    
+    if (index === 0) {
+      positionClass = "text-warning"; // Oro
+      position = ""; // Stringa vuota per primi 3 posti, mostrerà solo l'emoji dal CSS
+      tdPositionClass = "position-relative"; // Aggiunge position relative per supportare i pseudo-elementi posizionati absolute
+    } else if (index === 1) {
+      positionClass = "text-secondary"; // Argento
+      position = ""; // Stringa vuota per primi 3 posti, mostrerà solo l'emoji dal CSS
+      tdPositionClass = "position-relative"; // Aggiunge position relative per supportare i pseudo-elementi posizionati absolute
+    } else if (index === 2) {
+      positionClass = "text-bronze"; // Bronzo
+      position = ""; // Stringa vuota per primi 3 posti, mostrerà solo l'emoji dal CSS
+      tdPositionClass = "position-relative"; // Aggiunge position relative per supportare i pseudo-elementi posizionati absolute
+    } else {
+      position = index + 1; // Numeri dal quarto posto in poi
+    }
 
     row.innerHTML = `
-      <td class="text-center border-end px-4">
-        <span class="fw-bold ${positionClass}">${index + 1}</span>
+      <td class="text-center border-end px-4 ${tdPositionClass}">
+        <span class="fw-bold ${positionClass}">${position}</span>
       </td>
       <td class="text-center border-end px-4">
         <div class="d-flex justify-content-center align-items-center gap-2">

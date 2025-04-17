@@ -559,3 +559,10 @@ body.dark-mode .text-secondary {
   --bs-text-opacity: 1;
   color: rgb(211, 211, 211) !important;
 }
+
+/* Avviso di focus per prevenire il baro in dark mode */
+body.dark-mode .focus-warning {
+  background-color: rgba(255, 193, 7, 0.8);
+  color: #000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}

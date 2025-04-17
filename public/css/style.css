@@ -1545,8 +1545,6 @@ body {
   border: 1px solid #e9ecef;
 }
 
-
-
 .table tbody tr {
   transition: all 0.3s ease;
 }
@@ -1575,8 +1573,12 @@ body {
 }
 
 #leaderboardList tr:first-child td:first-child::before {
-  content: "🥇";
-  margin-right: 8px;
+  content: '\1F947'; /* Emoji medaglia oro Unicode */
+  margin-right: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #leaderboardList tr:nth-child(2) {
@@ -1585,8 +1587,12 @@ body {
 }
 
 #leaderboardList tr:nth-child(2) td:first-child::before {
-  content: "🥈";
-  margin-right: 8px;
+  content: '\1F948'; /* Emoji medaglia argento Unicode */
+  margin-right: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #leaderboardList tr:nth-child(3) {
@@ -1595,8 +1601,12 @@ body {
 }
 
 #leaderboardList tr:nth-child(3) td:first-child::before {
-  content: "🥉";
-  margin-right: 8px;
+  content: '\1F949'; /* Emoji medaglia bronzo Unicode */
+  margin-right: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Styling per partite completate */
@@ -1629,4 +1639,24 @@ body {
 .user-row {
   background-color: rgba(13, 110, 253, 0.05) !important;
   border-left: 3px solid #0d6efd;
+}
+
+/* Avviso di focus per prevenire il baro */
+.focus-warning {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 193, 7, 0.9);
+  color: #000;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

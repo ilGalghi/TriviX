@@ -20,7 +20,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Set up event listeners
   setupGameListeners()
+  
+  // Setup focus/blur detection
+  setupFocusDetection()
 })
+
+// Funzione per rilevare quando l'utente lascia la pagina
+function setupFocusDetection() {
+  // Crea un div per il messaggio di avviso
+  const warningElement = document.createElement('div');
+  warningElement.id = 'focus-warning';
+  warningElement.className = 'focus-warning';
+  warningElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sei uscito dalla pagina, non barare!';
+  warningElement.style.display = 'none';
+  document.body.appendChild(warningElement);
+  
+  // Aggiungi event listeners per visibilitychange e blur
+  document.addEventListener('visibilitychange', () => {
+    const questionSectionVisible = !document.getElementById("questionSection").classList.contains("d-none");
+    
+    // Mostra avviso solo se l'utente sta rispondendo a una domanda
+    if (document.visibilityState === 'hidden' && questionSectionVisible) {
+      warningElement.style.display = 'block';
+    } else {
+      warningElement.style.display = 'none';
+    }
+  });
+  
+  // Evento per la perdita di focus della finestra
+  window.addEventListener('blur', () => {
+    const questionSectionVisible = !document.getElementById("questionSection").classList.contains("d-none");
+    
+    // Mostra avviso solo se l'utente sta rispondendo a una domanda
+    if (questionSectionVisible) {
+      warningElement.style.display = 'block';
+    }
+  });
+  
+  // Evento per il ritorno del focus alla finestra
+  window.addEventListener('focus', () => {
+    warningElement.style.display = 'none';
+  });
+}
 
 // Initialize game
 function initGame() {
@@ -914,7 +955,48 @@ function checkForOpponentMove() {
       const opponent = data.match.players.find(player => player && player.id !== currentUser.id);
       const currentPlayer = data.match.players.find(player => player && player.id === currentUser.id);
       
-     
+      // Verifica se l'avversario si è arreso mentre l'utente stava rispondendo a una domanda
+      if (data.match.surrenderedBy && data.match.surrenderedBy !== currentUser.id) {
+        // L'avversario si è arreso
+        
+        // Verifica se l'utente sta rispondendo a una domanda
+        const questionSectionVisible = !document.getElementById("questionSection").classList.contains("d-none");
+        
+        if (questionSectionVisible) {
+          // Interrompi il timer se attivo
+          stopTimer();
+          
+          // Nascondi sezione domanda e risultato, mostra sezione spinner
+          document.getElementById("questionSection").classList.add("d-none");
+          document.getElementById("resultSection").classList.add("d-none");
+          document.getElementById("spinnerSection").classList.remove("d-none");
+          
+          // Mostra messaggio che l'avversario si è arreso
+          const gameStatusElement = document.getElementById("gameStatus");
+          gameStatusElement.textContent = "L'avversario si è arreso! Hai vinto la partita.";
+          gameStatusElement.className = "game-status-win";
+          
+          // Disabilita pulsante spin
+          document.getElementById("spinButton").disabled = true;
+          
+          // Disabilita pulsante bandiera
+          const flagButton = document.getElementById("flagButton");
+          if (flagButton) {
+            flagButton.disabled = true;
+            flagButton.style.opacity = "0.5";
+            flagButton.style.cursor = "not-allowed";
+          }
+          
+          // Pulisci i dati della domanda
+          localStorage.removeItem(`currentQuestion_${gameCode}`);
+          localStorage.removeItem(`resultData_${gameCode}`);
+          localStorage.removeItem(`timer_${gameCode}`);
+          localStorage.setItem(`gamePhase_${gameCode}`, 'spinner');
+          
+          // Notifica all'utente
+          alert("L'avversario si è arreso! Hai vinto la partita.");
+        }
+      }
       
       // Aggiorniamo lo stato completo della partita, inclusi nomi utente e avatar
       updateGameStateFromMatch(data.match);
