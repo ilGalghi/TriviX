@@ -245,8 +245,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Hero Section */
+/* Modern UI enhancements for hero section */
 .hero-section {
+  backdrop-filter: blur(10px);
   position: relative;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
@@ -257,6 +258,18 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   margin-bottom: 3rem;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top right, rgba(var(--accent-rgb), 0.3), transparent 60%),
+              radial-gradient(circle at bottom left, rgba(var(--primary-rgb), 0.2), transparent 60%);
+  z-index: 0;
 }
 
 .hero-animation {
@@ -273,6 +286,7 @@ h1, h2, h3, h4, h5, h6 {
   color: rgba(255, 255, 255, 0.3);
   font-size: 4rem;
   animation: float 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.5));
 }
 
 .q-icon-1 {
@@ -586,8 +600,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .form-control:focus {
-  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
-  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(var(--success-rgb), 0.25);
+  border-color: rgba(var(--success-rgb), 0.5);
 }
 
 .form-label {
@@ -700,7 +714,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .main-container {
-    padding-bottom: 80px;
+    padding-bottom: 70px;
   }
   
   /* Anche il footer deve avere spazio per la barra di navigazione mobile */
@@ -1052,4 +1066,113 @@ body.dark-mode .stat-item {
 
 body.dark-mode .category-stats .progress {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Modern button styles */
+.btn-primary, .btn-success {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after, .btn-success::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.btn-primary:focus::after, .btn-success:focus::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20, 20);
+    opacity: 0;
+  }
+}
+
+/* Glass morphism effect for join game container */
+.join-game-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 50px;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: auto;
+  max-width: none;
+}
+
+.join-game-container:hover {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.join-code-input {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+  border-top-left-radius: 50px !important;
+  border-bottom-left-radius: 50px !important;
+  font-size: 1rem;
+  color: var(--dark-color);
+}
+
+.join-code-input:focus {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.join-code-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+.join-game-container .btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.join-game-container .btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.join-game-container .btn:focus::after {
+  animation: ripple 1s ease-out;
+}
+
+/* Floating animation for quiz icons */
+.quiz-icon {
+  filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.5));
 } 

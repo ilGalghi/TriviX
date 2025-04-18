@@ -66,10 +66,23 @@
             <h1 class="hero-title">Test your knowledge with <span>TriviX</span>!</h1>
             <p class="hero-subtitle">Challenge your friends in fun quizzes about science, entertainment, sports and much more!</p>
             
-            <!-- Main Call to Action Button -->
-            <button class="btn btn-primary btn-lg create-game-btn pulse-animation" id="newGameBtn">
-              <i class="fas fa-play-circle"></i> Create New Game
-            </button>
+            <!-- Game Actions -->
+            <div class="hero-actions">
+              <!-- Create Game Button -->
+              <button class="btn btn-primary btn-lg create-game-btn pulse-animation" id="newGameBtn">
+                <i class="fas fa-play-circle"></i> Create New Game
+              </button>
+              
+              <!-- Join Game Input/Button Combo -->
+              <div class="join-game-container glow-animation">
+                <div class="input-group">
+                  <input type="text" class="form-control form-control-lg join-code-input" placeholder="Enter game code or link" id="heroGameCode">
+                  <button class="btn btn-success btn-lg" id="joinGameBtn">
+                    <i class="fas fa-sign-in-alt"></i> Join
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -78,39 +91,6 @@
 
   <!-- Main Content -->
   <div class="container main-container">
-    <div class="row">
-      <!-- Join Game Section - Left -->
-      <div class="col-md-6">
-        <div class="feature-card join-game-card">
-          <div class="feature-icon">
-            <i class="fas fa-link"></i>
-          </div>
-          <h2>Join a Game</h2>
-          <p>Do you have an invite code? Join a game created by a friend!</p>
-          <button class="btn btn-success action-btn" id="joinGameBtn">
-            <i class="fas fa-sign-in-alt"></i> Join now
-          </button>
-        </div>
-      </div>
-      
-      <!-- Recent Matches Section - Right -->
-      <div class="col-md-6">
-        <div class="feature-card recent-matches" id="recentMatchesSection">
-          <div class="feature-icon">
-            <i class="fas fa-history"></i>
-          </div>
-          <h2>Recent Matches</h2>
-          <div class="recent-matches-list" id="recentMatchesList">
-            <!-- Matches will be loaded here dynamically -->
-            <p class="text-muted">No recent matches. Start playing!</p>
-          </div>
-          <a href="matches.html" class="btn btn-info action-btn">
-            <i class="fas fa-chart-bar"></i> All stats
-          </a>
-        </div>
-      </div>
-    </div>
-
     <!-- Categories Preview Section -->
     <div class="row mt-5">
       <div class="col-12 text-center">

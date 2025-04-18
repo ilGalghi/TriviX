@@ -6073,5 +6073,23 @@
     "winner": "da540367-faf4-4b0a-9c93-8db9bcda7149",
     "surrenderedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
     "statsUpdated": true
+  },
+  {
+    "id": "48dbc09e-ef55-4d71-a714-6cc7090822da",
+    "matchCode": "0N0ZH8",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "createdAt": "2025-04-18T13:14:39.266Z",
+    "updatedAt": "2025-04-18T13:14:40.633Z"
   }
 ]

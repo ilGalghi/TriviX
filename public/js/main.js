@@ -410,3 +410,127 @@ document.addEventListener('DOMContentLoaded', function() {
         updateMobileUI(e.detail.isAuthenticated);
     });
 });
+
+// Main JavaScript functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Button event listeners
+  const newGameBtn = document.getElementById('newGameBtn');
+  const joinGameBtn = document.getElementById('joinGameBtn');
+  const mobileNewGameBtn = document.getElementById('mobileNewGameBtn');
+  const mobileJoinGameBtn = document.getElementById('mobileJoinGameBtn');
+  const heroGameCodeInput = document.getElementById('heroGameCode');
+  
+  // Modal elements
+  const createGameModal = new bootstrap.Modal(document.getElementById('createGameModal'));
+  const joinGameModal = new bootstrap.Modal(document.getElementById('joinGameModal'));
+  
+  // Open create game modal
+  if (newGameBtn) {
+    newGameBtn.addEventListener('click', function() {
+      createGameModal.show();
+    });
+  }
+  
+  // Open join game modal or use hero input directly
+  if (joinGameBtn) {
+    joinGameBtn.addEventListener('click', function() {
+      const heroCode = heroGameCodeInput ? heroGameCodeInput.value.trim() : '';
+      
+      if (heroCode) {
+        // Use the code from hero input directly
+        joinGame(heroCode);
+      } else {
+        // Open the modal if no code in hero input
+        joinGameModal.show();
+      }
+    });
+  }
+  
+  // Mobile button handlers
+  if (mobileNewGameBtn) {
+    mobileNewGameBtn.addEventListener('click', function() {
+      createGameModal.show();
+    });
+  }
+  
+  if (mobileJoinGameBtn) {
+    mobileJoinGameBtn.addEventListener('click', function() {
+      joinGameModal.show();
+    });
+  }
+  
+  // Join game form handler
+  const joinGameForm = document.getElementById('joinGameForm');
+  if (joinGameForm) {
+    joinGameForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const gameCode = document.getElementById('gameCode').value.trim();
+      joinGame(gameCode);
+    });
+  }
+  
+  // Hero game code input handler - join on Enter key
+  if (heroGameCodeInput) {
+    heroGameCodeInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const code = heroGameCodeInput.value.trim();
+        if (code) {
+          joinGame(code);
+        }
+      }
+    });
+  }
+  
+  // Function to join a game with the given code
+  function joinGame(code) {
+    if (!code) {
+      showJoinGameError('Please enter a valid game code or link');
+      return;
+    }
+    
+    // Handle different code formats
+    if (code.includes('/')) {
+      // Extract code from URL
+      const urlParts = code.split('/');
+      code = urlParts[urlParts.length - 1];
+      
+      // Se il codice è parte di un parametro URL (es. code=ABC123)
+      if (code.includes('code=')) {
+        code = code.split('code=')[1];
+        
+        // Rimuovi eventuali parametri aggiuntivi
+        if (code.includes('&')) {
+          code = code.split('&')[0];
+        }
+      }
+    }
+    
+    // Force uppercase and trim whitespace
+    code = code.toUpperCase().trim();
+    
+    // Validate code length - all game codes are exactly 6 characters
+    if (code.length < 6) {
+      showJoinGameError('Game code must be at least 6 characters');
+      return;
+    }
+    
+    // Redirect to game page with code
+    window.location.href = `game.html?code=${code}`;
+  }
+  
+  function showJoinGameError(message) {
+    const errorElement = document.getElementById('joinGameError');
+    if (errorElement) {
+      errorElement.textContent = message;
+      errorElement.classList.remove('d-none');
+      
+      setTimeout(() => {
+        errorElement.classList.add('d-none');
+      }, 3000);
+    }
+  }
+  
+  // Create game functionality
+  // ... existing code ...
+});
