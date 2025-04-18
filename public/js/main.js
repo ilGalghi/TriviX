@@ -19,6 +19,36 @@ document.addEventListener("DOMContentLoaded", () => {
       showCreateGameModal();
     }
   }
+  
+  // Controlla se c'è un flag per aprire il modal di login
+  const openLoginModal = sessionStorage.getItem("openLoginModal");
+  const loginReason = sessionStorage.getItem("loginReason");
+  
+  if (openLoginModal === "true") {
+    // Rimuovi i flag per evitare aperture multiple
+    sessionStorage.removeItem("openLoginModal");
+    sessionStorage.removeItem("loginReason");
+    
+    // Apri il modal di login
+    const loginModalElement = document.getElementById("loginModal");
+    if (loginModalElement) {
+      const loginModal = new bootstrap.Modal(loginModalElement);
+      loginModal.show();
+      
+      // Aggiungi un messaggio al modal di login in base al motivo
+      const loginMessage = document.getElementById("loginMessage");
+      if (loginMessage) {
+        if (loginReason === "profile") {
+          loginMessage.textContent = "Please log in to access your profile";
+        } else if (loginReason === "stats") {
+          loginMessage.textContent = "Please log in to view your statistics";
+        } else {
+          loginMessage.textContent = "Please log in to continue";
+        }
+        loginMessage.classList.remove("d-none");
+      }
+    }
+  }
 });
 
 // Initialize main page UI
@@ -52,7 +82,7 @@ function loadRecentMatches() {
 
 // Set up event listeners for main page
 function setupMainListeners() {
-  // New Game button
+  // Play Game button
   const newGameBtn = document.getElementById("newGameBtn");
   if (newGameBtn) {
     newGameBtn.addEventListener("click", (e) => {
@@ -75,7 +105,7 @@ function setupMainListeners() {
         // Add a message to the login modal
         const loginMessage = document.getElementById("loginMessage");
         if (loginMessage) {
-          loginMessage.textContent = "Per favore effettua il login per creare una nuova partita";
+          loginMessage.textContent = "Please log in to create a new game";
           loginMessage.classList.remove("d-none");
         }
 
@@ -102,7 +132,14 @@ function setupMainListeners() {
       const isLoggedIn = !!localStorage.getItem("currentUser");
 
       if (isLoggedIn) {
-        openJoinGameModal();
+        // L'utente è loggato, elabora il codice di gioco direttamente
+        const gameCodeInput = document.getElementById("heroGameCode").value.trim();
+        if (gameCodeInput) {
+          joinGame(gameCodeInput);
+        } else {
+          // Se non c'è input, apri il modal
+          openJoinGameModal();
+        }
       } else {
         // User is not logged in, show login modal
         const loginModalElement = document.getElementById("loginModal");
@@ -121,10 +158,61 @@ function setupMainListeners() {
           // Verifica se l'utente è ora loggato
           const isLoggedIn = !!localStorage.getItem("currentUser");
           if (isLoggedIn) {
-            // Apri il modal di join game se l'utente è loggato
-            openJoinGameModal();
+            // Controlla se c'è un codice, altrimenti apri il modal
+            const gameCodeInput = document.getElementById("heroGameCode").value.trim();
+            if (gameCodeInput) {
+              joinGame(gameCodeInput);
+            } else {
+              // Apri il modal di join game se l'utente è loggato
+              openJoinGameModal();
+            }
           }
         });
+      }
+    });
+  }
+
+  // Hero game code input - gestisci pressione tasto Enter
+  const heroGameCodeInput = document.getElementById("heroGameCode");
+  if (heroGameCodeInput) {
+    heroGameCodeInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const gameCodeInput = heroGameCodeInput.value.trim();
+        
+        // Verifica se l'utente è loggato
+        const isLoggedIn = !!localStorage.getItem("currentUser");
+        
+        if (isLoggedIn) {
+          // Utente loggato, procedi con il join
+          if (gameCodeInput) {
+            joinGame(gameCodeInput);
+          }
+        } else {
+          // Utente non loggato, mostra il modal di login
+          const loginModalElement = document.getElementById("loginModal");
+          const loginModal = new bootstrap.Modal(loginModalElement);
+          loginModal.show();
+          
+          // Aggiungi un messaggio al modal di login
+          const loginMessage = document.getElementById("loginMessage");
+          if (loginMessage) {
+            loginMessage.textContent = "Per favore effettua il login per unirti a una partita";
+            loginMessage.classList.remove("d-none");
+          }
+          
+          // Quando il modal viene chiuso, controlla se l'utente si è loggato
+          loginModalElement.addEventListener('hidden.bs.modal', function handler() {
+            // Rimuovi il listener per evitare duplicazioni
+            loginModalElement.removeEventListener('hidden.bs.modal', handler);
+            
+            // Verifica se l'utente è ora loggato
+            const isLoggedIn = !!localStorage.getItem("currentUser");
+            if (isLoggedIn && gameCodeInput) {
+              joinGame(gameCodeInput);
+            }
+          });
+        }
       }
     });
   }
@@ -252,23 +340,7 @@ function setupMainListeners() {
         return;
       }
 
-      // Verifica se l'input è un URL o un codice
-      let gameCode = gameCodeInput;
-      
-      // Regex per controllare se è un URL con parametro code
-      const urlRegex = /^(?:https?:\/\/)?(?:[^\/]+)\/game\.html\?code=([A-Z0-9]+)$/i;
-      const match = gameCodeInput.match(urlRegex);
-      
-      if (match && match[1]) {
-        // Se è un URL, estrai solo il codice
-        gameCode = match[1];
-      }
-
-      // Forza il codice in maiuscolo
-      gameCode = gameCode.toUpperCase();
-
-      // Redirect to game page with code
-      window.location.href = `game.html?code=${gameCode}`;
+      joinGame(gameCodeInput);
     });
   }
 }
@@ -305,6 +377,51 @@ function openJoinGameModal() {
     const joinGameModal = new bootstrap.Modal(joinGameModalElement);
     joinGameModal.show();
   }
+}
+
+// Funzione per unirsi a un gioco
+function joinGame(code) {
+  if (!code) {
+    const joinGameError = document.getElementById("joinGameError");
+    if (joinGameError) {
+      joinGameError.textContent = "Inserisci un codice o link di gioco valido";
+      joinGameError.classList.remove("d-none");
+    }
+    return;
+  }
+  
+  // Gestisci formati diversi del codice
+  if (code.includes('/')) {
+    // Estrai il codice dall'URL
+    const urlParts = code.split('/');
+    code = urlParts[urlParts.length - 1];
+    
+    // Se il codice è parte di un parametro URL (es. code=ABC123)
+    if (code.includes('code=')) {
+      code = code.split('code=')[1];
+      
+      // Rimuovi eventuali parametri aggiuntivi
+      if (code.includes('&')) {
+        code = code.split('&')[0];
+      }
+    }
+  }
+  
+  // Forza maiuscolo e rimuovi spazi
+  code = code.toUpperCase().trim();
+  
+  // Valida la lunghezza del codice - tutti i codici di gioco sono esattamente 6 caratteri
+  if (code.length < 6) {
+    const joinGameError = document.getElementById("joinGameError");
+    if (joinGameError) {
+      joinGameError.textContent = "Il codice di gioco deve essere di almeno 6 caratteri";
+      joinGameError.classList.remove("d-none");
+    }
+    return;
+  }
+  
+  // Redirect alla pagina di gioco con il codice
+  window.location.href = `game.html?code=${code}`;
 }
 
 // Aggiungi event listener per la chiusura dei modal
@@ -385,30 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Update mobile UI when user logs in/out
-    function updateMobileUI(isLoggedIn) {
-        if (mobileProfileLink) {
-            if (isLoggedIn) {
-                mobileProfileLink.classList.remove('d-none');
-            } else {
-                mobileProfileLink.classList.add('d-none');
-            }
-        }
-    }
-
-    // Check auth status on page load
-    if (typeof isAuthenticated === 'function') {
-        updateMobileUI(isAuthenticated());
-    } else {
-        // Fallback se isAuthenticated non è disponibile
-        const isLoggedIn = !!localStorage.getItem('currentUser');
-        updateMobileUI(isLoggedIn);
-    }
-
-    // Listen for auth events
-    document.addEventListener('authStateChanged', function(e) {
-        updateMobileUI(e.detail.isAuthenticated);
-    });
+    // Gestione del link Profile ora affidata a mobile-nav.js
 });
 
 // Main JavaScript functionality

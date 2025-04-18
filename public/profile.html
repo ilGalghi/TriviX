@@ -101,6 +101,10 @@
                       <div class="text-center mt-4">
                           <button class="btn btn-primary" id="editProfileBtn">Edit Profile</button>
                       </div>
+                      <!-- Pulsante Logout Mobile spostato sotto Edit Profile -->
+                      <div class="d-block d-sm-none text-center mt-3">
+                            <button id="mobileLogoutBtn" class="btn btn-danger w-75" style="max-width:320px;">Logout</button>
+                      </div>
                   </div>
               </div>
           </div>
@@ -108,40 +112,43 @@
   </div>
 
   <!-- Edit Profile Modal -->
-  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title">Edit Profile</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="window.location.reload()"></button>
+  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProfileForm">
+            <div class="text-center mb-4">
+              <img src="img/default-avatar.png" alt="Profile Avatar" class="profile-avatar" id="editProfileAvatar">
+              <div class="mt-2">
+                <label for="avatarUpload" class="btn btn-sm btn-outline-primary">
+                  <i class="fas fa-camera me-1"></i> Change avatar</label>
+                <input type="file" id="avatarUpload" class="d-none" accept="image/*">
               </div>
-              <div class="modal-body">
-                  <form id="editProfileForm">
-                      <div class="mb-3 text-center">
-                          <img src="img/default-avatar.png" alt="Profile Avatar" class="profile-avatar mb-2" id="editProfileAvatar">
-                          <div>
-                              <label for="avatarUpload" class="btn btn-sm btn-outline-primary">Change Avatar</label>
-                              <input type="file" id="avatarUpload" class="d-none" accept="image/*">
-                          </div>
-                      </div>
-                      <div class="mb-3">
-                          <label for="editUsername" class="form-label">Username</label>
-                          <input type="text" class="form-control" id="editUsername">
-                      </div>
-                      <div class="mb-3">
-                          <label for="editEmail" class="form-label">Email</label>
-                          <input type="email" class="form-control" id="editEmail">
-                      </div>
-                      <div class="mb-3">
-                          <label for="editPassword" class="form-label">New password (leave blank to keep current)</label>
-                          <input type="password" class="form-control" id="editPassword">
-                      </div>
-                      <div class="alert alert-danger d-none" id="editProfileError"></div>
-                      <button type="submit" class="btn btn-primary w-100">Save Changes</button>
-                  </form>
-              </div>
-          </div>
+            </div>
+            <div class="mb-3">
+              <label for="editUsername" class="form-label">Username</label>
+              <input type="text" class="form-control" id="editUsername" required>
+            </div>
+            <div class="mb-3">
+              <label for="editEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="editEmail" required>
+            </div>
+            <div class="mb-3">
+              <label for="editPassword" class="form-label">New password (leave empty to keep current one)</label>
+              <input type="password" class="form-control" id="editPassword">
+            </div>
+            <div class="alert alert-danger d-none" id="editProfileError"></div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
       </div>
+    </div>
   </div>
 
   <!-- Mobile Navigation Bar -->
@@ -152,7 +159,7 @@
     </a>
     <a href="#" id="mobileNewGameBtn">
       <i class="fas fa-play-circle"></i>
-      <span>New</span>
+      <span>Play</span>
     </a>
     <a href="#" id="mobileJoinGameBtn">
       <i class="fas fa-link"></i>
@@ -190,6 +197,8 @@
   <script src="js/profile.js"></script>
   <!-- Dark Mode JS -->
   <script src="js/dark-mode.js"></script>
+  <!-- Mobile Navigation JS -->
+  <script src="js/mobile-nav.js"></script>
 </body>
 </html>
 

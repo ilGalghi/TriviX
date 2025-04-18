@@ -35,6 +35,23 @@ function initAuthUI() {
   if (isLoggedIn) {
     console.log("Current user:", JSON.parse(localStorage.getItem("currentUser")))
   }
+  
+  // Emetti un evento per informare altri componenti del cambiamento di stato
+  dispatchAuthStateChangedEvent(isLoggedIn)
+}
+
+// Funzione per emettere evento authStateChanged
+function dispatchAuthStateChangedEvent(isAuthenticated) {
+  // Crea e dispatchare un evento personalizzato
+  const authEvent = new CustomEvent("authStateChanged", {
+    detail: { isAuthenticated }
+  })
+  document.dispatchEvent(authEvent)
+  
+  // Se è disponibile la funzione di aggiornamento della navbar mobile, chiamala
+  if (typeof window.updateMobileNavUI === 'function') {
+    window.updateMobileNavUI()
+  }
 }
 
 // Check if user is logged in
@@ -115,9 +132,23 @@ async function login(username, password, actionType = null) {
 
       // Update UI
       initAuthUI()
+      
+      // Notifica esplicitamente del cambio di stato di autenticazione
+      dispatchAuthStateChangedEvent(true)
 
+      // Check if the login was triggered from the mobile profile link
+      const loginReason = sessionStorage.getItem("loginReason")
+      
       // Handle different action types after login
-      if (actionType === "create") {
+      if (loginReason === "profile") {
+        // Redirect to profile page
+        sessionStorage.removeItem("loginReason")
+        window.location.href = "profile.html"
+      } else if (loginReason === "stats") {
+        // Redirect to stats page
+        sessionStorage.removeItem("loginReason")
+        window.location.href = "matches.html"
+      } else if (actionType === "create") {
         console.log("Redirecting to game creation after login")
         setTimeout(() => {
           //showCreateGameModal()
@@ -223,6 +254,9 @@ async function logout() {
 
     // Update UI
     initAuthUI()
+    
+    // Notifica esplicitamente del cambio di stato di autenticazione
+    dispatchAuthStateChangedEvent(false)
 
     // Redirect to home page
     window.location.href = "index.html"
@@ -230,6 +264,8 @@ async function logout() {
     console.error("Logout error:", error)
     // Still clear local storage and redirect even if server request fails
     localStorage.removeItem("currentUser")
+    // Notifica esplicitamente del cambio di stato di autenticazione
+    dispatchAuthStateChangedEvent(false)
     window.location.href = "index.html"
   }
 }
