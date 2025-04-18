@@ -6091,5 +6091,29 @@
     "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
     "createdAt": "2025-04-18T13:14:39.266Z",
     "updatedAt": "2025-04-18T13:14:40.633Z"
+  },
+  {
+    "id": "ad21c4aa-47f2-464d-bfe3-3c507d5cd55a",
+    "matchCode": "8GMNAU",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-18T13:55:05.643Z",
+    "updatedAt": "2025-04-18T13:55:29.715Z"
   }
 ]

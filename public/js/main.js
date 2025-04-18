@@ -424,41 +424,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const createGameModal = new bootstrap.Modal(document.getElementById('createGameModal'));
   const joinGameModal = new bootstrap.Modal(document.getElementById('joinGameModal'));
   
-  // Open create game modal
-  if (newGameBtn) {
-    newGameBtn.addEventListener('click', function() {
-      createGameModal.show();
-    });
-  }
   
-  // Open join game modal or use hero input directly
-  if (joinGameBtn) {
-    joinGameBtn.addEventListener('click', function() {
-      const heroCode = heroGameCodeInput ? heroGameCodeInput.value.trim() : '';
-      
-      if (heroCode) {
-        // Use the code from hero input directly
-        joinGame(heroCode);
-      } else {
-        // Open the modal if no code in hero input
-        joinGameModal.show();
-      }
-    });
-  }
   
-  // Mobile button handlers
-  if (mobileNewGameBtn) {
-    mobileNewGameBtn.addEventListener('click', function() {
-      createGameModal.show();
-    });
-  }
+ 
   
-  if (mobileJoinGameBtn) {
-    mobileJoinGameBtn.addEventListener('click', function() {
-      joinGameModal.show();
-    });
-  }
-  
+ 
   // Join game form handler
   const joinGameForm = document.getElementById('joinGameForm');
   if (joinGameForm) {

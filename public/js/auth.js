@@ -40,59 +40,25 @@ function initAuthUI() {
 // Check if user is logged in
 async function checkAuthStatus() {
   try {
-    const response = await fetch("/api/auth/me")
-    const data = await response.json()
+    const response = await fetch("/api/auth/me", {
+      credentials: "include"
+    });
+    const data = await response.json();
 
     if (data.success) {
       // User is logged in
-      console.log("User is authenticated:", data.user)
-      localStorage.setItem("currentUser", JSON.stringify(data.user))
-
-      // Update UI with user data if needed
-      if (window.location.pathname.includes("profile.html")) {
-        updateProfileUI(data.user)
-      }
+      localStorage.setItem("currentUser", JSON.stringify(data.user));
+      return true;
     } else {
       // User is not logged in
-      console.log("User is not authenticated")
-      localStorage.removeItem("currentUser")
-
-      // Mostra il modal di login per le pagine protette
-      const protectedPages = ["profile.html", "matches.html", "game.html"]
-      const currentPage = window.location.pathname.split("/").pop()
-
-      if (protectedPages.includes(currentPage)) {
-        const loginModalElement = document.getElementById("loginModal")
-        if (loginModalElement) {
-          const loginModal = new bootstrap.Modal(loginModalElement, {
-            backdrop: 'static',
-            keyboard: false
-          })
-          
-          // Disabilita il pulsante di chiusura
-          const closeButtons = loginModalElement.querySelectorAll('[data-bs-dismiss="modal"]')
-          closeButtons.forEach(button => {
-            button.disabled = true
-          })
-          
-          // Aggiungi il messaggio di login
-          const loginMessage = document.getElementById("loginMessage")
-          if (loginMessage) {
-            loginMessage.textContent = "Per favore effettua il login per continuare"
-            loginMessage.classList.remove("d-none")
-          }
-          
-          loginModal.show()
-        }
-      }
+      localStorage.removeItem("currentUser");
+      return false;
     }
   } catch (error) {
-    console.error("Error checking auth status:", error)
-    localStorage.removeItem("currentUser")
+    console.error("Error checking auth status:", error);
+    localStorage.removeItem("currentUser");
+    return false;
   }
-
-  // Update UI based on current auth status
-  initAuthUI()
 }
 
 // Login function
@@ -129,6 +95,21 @@ async function login(username, password, actionType = null) {
       if (loginModalElement) {
         const bootstrap = window.bootstrap
         const loginModal = bootstrap.Modal.getInstance(loginModalElement) || new bootstrap.Modal(loginModalElement)
+        
+        // Nascondi il messaggio di login
+        const loginMessage = document.getElementById("loginMessage")
+        if (loginMessage) {
+          loginMessage.classList.add("d-none")
+        }
+        
+        // Rimuovi eventuali backdrop esistenti
+        const existingBackdrops = document.querySelectorAll('.modal-backdrop')
+        existingBackdrops.forEach(backdrop => backdrop.remove())
+        
+        // Rimuovi la classe modal-open dal body
+        document.body.classList.remove('modal-open')
+        
+        // Chiudi il modal
         loginModal.hide()
       }
 
@@ -139,13 +120,13 @@ async function login(username, password, actionType = null) {
       if (actionType === "create") {
         console.log("Redirecting to game creation after login")
         setTimeout(() => {
-          showCreateGameModal()
-        }, 500)
+          //showCreateGameModal()
+        }, 300)
       } else if (actionType === "join") {
         console.log("Redirecting to join game after login")
         setTimeout(() => {
           openJoinGameModal()
-        }, 500)
+        }, 300)
       } else if (window.location.pathname.includes("login.html")) {
         // Redirect to home page if on login page
         window.location.href = "index.html"
