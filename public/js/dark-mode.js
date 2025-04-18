@@ -1,43 +1,60 @@
-// Dark Mode functionality
-document.addEventListener("DOMContentLoaded", () => {
-    const darkModeToggle = document.getElementById("darkModeToggle")
-  
+// Dark mode toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+    
     // Check for saved theme preference or use preferred color scheme
-    const savedTheme = localStorage.getItem("theme")
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-  
-    // Apply the saved theme or use the preferred color scheme
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      document.body.classList.add("dark-mode")
-      updateToggleButton(true)
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        enableDarkMode();
     } else {
-      document.body.classList.remove("dark-mode")
-      updateToggleButton(false)
+        disableDarkMode();
     }
-  
+    
     // Toggle dark mode when button is clicked
     if (darkModeToggle) {
-      darkModeToggle.addEventListener("click", () => {
-        const isDarkMode = document.body.classList.toggle("dark-mode")
-        localStorage.setItem("theme", isDarkMode ? "dark" : "light")
-        updateToggleButton(isDarkMode)
-      })
+        darkModeToggle.addEventListener('click', function() {
+            if (body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        });
     }
-  
-    // Update button text and icon based on current mode
-    function updateToggleButton(isDarkMode) {
-      if (darkModeToggle) {
-        if (isDarkMode) {
-          darkModeToggle.innerHTML = "☀️ Light Mode"
-          darkModeToggle.classList.remove("btn-dark")
-          darkModeToggle.classList.add("btn-light")
+    
+    // Function to enable dark mode
+    function enableDarkMode() {
+        body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        updateToggleButton(true);
+    }
+    
+    // Function to disable dark mode
+    function disableDarkMode() {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+        updateToggleButton(false);
+    }
+    
+    // Update the toggle button appearance
+    function updateToggleButton(isDark) {
+        if (!darkModeToggle) return;
+        
+        if (isDark) {
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
         } else {
-          darkModeToggle.innerHTML = "🌙 Dark Mode"
-          darkModeToggle.classList.remove("btn-light")
-          darkModeToggle.classList.add("btn-dark")
+            darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
         }
-      }
     }
-  })
+    
+    // Listen for OS theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (e.matches) {
+            enableDarkMode();
+        } else {
+            disableDarkMode();
+        }
+    });
+});
   
   

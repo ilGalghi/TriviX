@@ -36,6 +36,7 @@ function loadProfileData(userData) {
     document.getElementById("gamesPlayed").textContent = stats.gamesPlayed || 0
     document.getElementById("gamesWon").textContent = stats.gamesWon || 0
     document.getElementById("correctAnswers").textContent = stats.correctAnswers || 0
+    document.getElementById("points").textContent = stats.points || 0
   }
 
   // Update category performance

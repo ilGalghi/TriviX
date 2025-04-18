@@ -6,11 +6,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // Set up event listeners
   setupMainListeners();
 
-  // Check if we need to open join game modal
+  // Check if we need to open join game modal or create game modal
   const urlParams = new URLSearchParams(window.location.search);
   const openJoinGame = urlParams.get("openJoinGame");
+  const openCreateGame = urlParams.get("openCreateGame");
+  
   if (openJoinGame === "true") {
     openJoinGameModal();
+  } else if (openCreateGame === "true") {
+    const isLoggedIn = !!localStorage.getItem("currentUser");
+    if (isLoggedIn) {
+      showCreateGameModal();
+    }
   }
 });
 
@@ -325,4 +332,81 @@ document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.remove('modal-open');
     });
   }
+});
+
+// Mobile navigation handlers
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile navigation button handlers
+    const mobileNewGameBtn = document.getElementById('mobileNewGameBtn');
+    const mobileJoinGameBtn = document.getElementById('mobileJoinGameBtn');
+    const mobileProfileLink = document.getElementById('mobileProfileLink');
+
+    // Open new game modal on mobile button click
+    if (mobileNewGameBtn) {
+        mobileNewGameBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.location.pathname.includes('index.html') || window.location.pathname === '/' || window.location.pathname === '') {
+                // Siamo sulla homepage, possiamo usare il pulsante esistente
+                const newGameBtn = document.getElementById('newGameBtn');
+                if (newGameBtn) newGameBtn.click();
+            } else {
+                // Siamo su un'altra pagina, verifichiamo se l'utente è loggato
+                const isLoggedIn = localStorage.getItem('currentUser');
+                if (isLoggedIn) {
+                    // Redirect alla homepage con parametro per aprire il modal
+                    window.location.href = 'index.html?openCreateGame=true';
+                } else {
+                    // Redirect alla homepage normale
+                    window.location.href = 'index.html';
+                }
+            }
+        });
+    }
+
+    // Open join game modal on mobile button click
+    if (mobileJoinGameBtn) {
+        mobileJoinGameBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.location.pathname.includes('index.html') || window.location.pathname === '/' || window.location.pathname === '') {
+                // Siamo sulla homepage, possiamo usare il pulsante esistente
+                const joinGameBtn = document.getElementById('joinGameBtn');
+                if (joinGameBtn) joinGameBtn.click();
+            } else {
+                // Siamo su un'altra pagina, verifichiamo se l'utente è loggato
+                const isLoggedIn = localStorage.getItem('currentUser');
+                if (isLoggedIn) {
+                    // Redirect alla homepage con parametro per aprire il modal
+                    window.location.href = 'index.html?openJoinGame=true';
+                } else {
+                    // Redirect alla homepage normale
+                    window.location.href = 'index.html';
+                }
+            }
+        });
+    }
+
+    // Update mobile UI when user logs in/out
+    function updateMobileUI(isLoggedIn) {
+        if (mobileProfileLink) {
+            if (isLoggedIn) {
+                mobileProfileLink.classList.remove('d-none');
+            } else {
+                mobileProfileLink.classList.add('d-none');
+            }
+        }
+    }
+
+    // Check auth status on page load
+    if (typeof isAuthenticated === 'function') {
+        updateMobileUI(isAuthenticated());
+    } else {
+        // Fallback se isAuthenticated non è disponibile
+        const isLoggedIn = !!localStorage.getItem('currentUser');
+        updateMobileUI(isLoggedIn);
+    }
+
+    // Listen for auth events
+    document.addEventListener('authStateChanged', function(e) {
+        updateMobileUI(e.detail.isAuthenticated);
+    });
 });
