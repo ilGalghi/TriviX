@@ -1,7 +1,7 @@
 class ChatManager {
     constructor() {
         this.hasJoinedRoom = false;
-        this.socket = io('http://localhost:3000', {
+        this.socket = io('/', {
             transports: ['websocket'],
             upgrade: false
         });
@@ -23,8 +23,8 @@ class ChatManager {
                 console.log('Game ID trovato:', this.gameId);
                 
                 // Inizializza la chat
-                this.messageInput = document.querySelector('.chat-input input');
-                this.sendButton = document.querySelector('.chat-input .send-button');
+                this.messageInput = document.querySelector('.message-input');
+                this.sendButton = document.querySelector('.send-button');
                 this.chatMessages = document.querySelector('.chat-messages');
                 
                 // Carica i messaggi salvati
@@ -101,11 +101,21 @@ class ChatManager {
 
         const chatSidebar = document.querySelector('.chat-sidebar');
         const closeButton = document.getElementById('closeChatButton');
+        const chatButton = document.querySelector('.chat-button');
         
         if (closeButton) {
             closeButton.addEventListener('click', () => {
                 if (chatSidebar) {
                     chatSidebar.classList.remove('active');
+                    this.resetUnreadMessages();
+                }
+            });
+        }
+        
+        if (chatButton) {
+            chatButton.addEventListener('click', () => {
+                if (chatSidebar) {
+                    chatSidebar.classList.add('active');
                     this.resetUnreadMessages();
                 }
             });

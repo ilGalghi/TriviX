@@ -109,6 +109,14 @@ function setupProfileListeners() {
     })
   }
 
+  // Reload page when modal is closed with X button
+  const editProfileModalElement = document.getElementById("editProfileModal")
+  if (editProfileModalElement) {
+    editProfileModalElement.addEventListener('hidden.bs.modal', function () {
+      window.location.reload();
+    })
+  }
+
   // Avatar upload
   const avatarUpload = document.getElementById("avatarUpload")
   if (avatarUpload) {
@@ -154,6 +162,22 @@ function setupProfileListeners() {
       const avatar = document.getElementById("editProfileAvatar").src
 
       updateUserProfile(username, email, password, avatar)
+    })
+  }
+
+  // Mobile logout button
+  const mobileLogoutBtn = document.getElementById("mobileLogoutBtn")
+  if (mobileLogoutBtn) {
+    mobileLogoutBtn.addEventListener("click", () => {
+      // Invece di rimuovere solo i dati utente, chiamiamo la funzione di logout completa
+      if (typeof logout === 'function') {
+        // Usa la funzione logout() definita in auth.js
+        logout();
+      } else {
+        // Fallback nel caso la funzione logout non fosse disponibile
+        localStorage.removeItem("currentUser");
+        window.location.href = "index.html";
+      }
     })
   }
 }
