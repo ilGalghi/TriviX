@@ -36,7 +36,7 @@ function setupFocusDetection() {
   const warningElement = document.createElement('div');
   warningElement.id = 'focus-warning';
   warningElement.className = 'focus-warning';
-  warningElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sei uscito dalla pagina, non barare!';
+  warningElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> You left the page, don\'t cheat!';
   warningElement.style.display = 'none';
   document.body.appendChild(warningElement);
   
@@ -413,7 +413,7 @@ function setupGameListeners() {
   if (spinButton) {
     spinButton.addEventListener("click", () => {
       if(spinButton.disabled) {
-        alert("Aspetta, è il turno dell'avversario!");
+        alert("Wait, it's your opponent's turn!");
       } else {
         spinWheel();
       }
@@ -425,7 +425,7 @@ function setupGameListeners() {
   if (flagButton) {
     flagButton.addEventListener("click", () => {
       // Chiedi conferma prima di arrendersi
-      const conferma = confirm("Sei sicuro di volerti arrendere? Perderai automaticamente la partita.");
+      const conferma = confirm("Are you sure you want to surrender? You will automatically lose the match.");
       if (conferma) {
         surrenderGame();
       }
@@ -1019,7 +1019,7 @@ function checkForOpponentMove() {
           
           // Mostra messaggio che l'avversario si è arreso
           const gameStatusElement = document.getElementById("gameStatus");
-          gameStatusElement.textContent = "L'avversario si è arreso! Hai vinto la partita.";
+          gameStatusElement.textContent = "Your opponent surrendered! You won the match.";
           gameStatusElement.className = "game-status-win";
           
           // Disabilita pulsante spin
@@ -1040,7 +1040,7 @@ function checkForOpponentMove() {
           localStorage.setItem(`gamePhase_${gameCode}`, 'spinner');
           
           // Notifica all'utente
-          alert("L'avversario si è arreso! Hai vinto la partita.");
+          alert("Your opponent surrendered! You won the match.");
         }
       }
       
@@ -1502,7 +1502,7 @@ function surrenderGame() {
     
     // Update UI to show surrender
     const gameStatusElement = document.getElementById("gameStatus");
-    gameStatusElement.textContent = "Ti sei arreso! Hai perso la partita.";
+    gameStatusElement.textContent = "You surrendered! You lost the match.";
     gameStatusElement.className = "game-status-lose";
     
     // Disabilita i pulsanti di gioco
@@ -1526,7 +1526,7 @@ function surrenderGame() {
   })
   .catch(error => {
     console.error('Error processing surrender:', error);
-    alert("Si è verificato un errore durante l'elaborazione della resa. Riprova.");
+    alert("An error occurred while processing the surrender. Please try again.");
   });
 }
 
@@ -1540,6 +1540,18 @@ function showGameResultModal(result, player1, player2) {
   const player2ResultScore = document.getElementById('player2ResultScore');
   const newMatchBtn = document.getElementById('newMatchBtn');
   const rematchBtn = document.getElementById('rematchBtn');
+  const rematchNotification = document.getElementById('rematchNotification');
+  const rematchStatus = document.getElementById('rematchStatus');
+  const trophyIcon = document.querySelector('#gameResultModal .trophy-icon');
+
+  // Reset dello stato del modale
+  if (rematchNotification) rematchNotification.style.display = 'none';
+  if (rematchStatus) rematchStatus.style.display = 'none';
+  if (rematchBtn) {
+    rematchBtn.disabled = false;
+    rematchBtn.textContent = 'Rematch';
+    rematchBtn.style.opacity = "1";
+  }
 
   // Imposta i punteggi
   player1ResultName.textContent = player1.name;
@@ -1549,51 +1561,111 @@ function showGameResultModal(result, player1, player2) {
 
   // Imposta il titolo e il messaggio in base al risultato
   if (result === 'win') {
-    resultTitle.textContent = 'Hai Vinto!';
+    resultTitle.textContent = 'You won!';
     resultTitle.className = 'game-status-win';
-    resultMessage.textContent = 'Complimenti! Hai dimostrato di essere un vero campione di TriviX!';
+    resultMessage.textContent = 'Congratulations! You proved to be a true TriviX champion!';
+    // Assicurati che il trofeo sia dorato per i vincitori
+    if (trophyIcon) {
+      trophyIcon.classList.remove('trophy-loser');
+    }
   } else if (result === 'lose') {
-    resultTitle.textContent = 'Hai Perso';
+    resultTitle.textContent = 'You lost';
     resultTitle.className = 'game-status-lose';
-    resultMessage.textContent = 'Non preoccuparti! Puoi sempre migliorare e sfidare di nuovo il tuo avversario.';
+    resultMessage.textContent = 'Don\'t worry! You can always improve and challenge your opponent again.';
+    // Applica lo stile del trofeo grigio per i perdenti
+    if (trophyIcon) {
+      trophyIcon.classList.add('trophy-loser');
+    }
   } else {
-    resultTitle.textContent = 'Pareggio!';
+    resultTitle.textContent = 'Draw!';
     resultTitle.className = 'game-status-draw';
-    resultMessage.textContent = 'Che partita emozionante! Siete stati davvero alla pari.';
+    resultMessage.textContent = 'What an exciting match! You were truly equal.';
+    // Per i pareggi, usa il trofeo dorato
+    if (trophyIcon) {
+      trophyIcon.classList.remove('trophy-loser');
+    }
   }
 
   // Aggiungi l'event listener per il pulsante "Nuova Partita"
   newMatchBtn.onclick = function() {
-    modal.hide();
-    window.location.href = 'index.html';
-  };
-
-  // Aggiungi l'event listener per il pulsante "Rivincita"
-  rematchBtn.onclick = function() {
-    modal.hide();
+    // Ottieni l'utente corrente
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) {
+      console.error("Utente non autenticato");
+      return;
+    }
+    
     // Ottieni il codice della partita corrente
     const urlParams = new URLSearchParams(window.location.search);
     const gameCode = urlParams.get("code");
     
-    // Crea una nuova partita con gli stessi giocatori
+    // Se era stata richiesta una rivincita da qualcuno, invia una richiesta per declinare
+    fetch('/api/games/decline-rematch', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userId: currentUser.id,
+        gameCode: gameCode
+      })
+    })
+    .then(response => response.json())
+    .catch(error => {
+      console.error('Errore nel declinare la rivincita:', error);
+    })
+    .finally(() => {
+      // Cancella l'intervallo di controllo se esiste
+      if (window.rematchCheckIntervalId) {
+        clearInterval(window.rematchCheckIntervalId);
+      }
+      modal.hide();
+      window.location.href = 'index.html';
+    });
+  };
+
+  // Aggiungi l'event listener per il pulsante "Rivincita"
+  rematchBtn.onclick = function() {
     createRematch();
   };
 
- 
-
   // Mostra il modale
   modal.show();
+  
+  // Avvia subito il check per vedere se l'avversario ha già richiesto una rivincita
+  const urlParams = new URLSearchParams(window.location.search);
+  const gameCode = urlParams.get("code");
+  if (gameCode) {
+    // Ottieni l'utente corrente
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) {
+      console.error("Utente non autenticato");
+      return;
+    }
+    
+    // Controlla una volta sola all'inizio
+    fetch(`/api/games/check-rematch/${gameCode}?userId=${currentUser.id}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.opponentRequested && !data.currentUserRequested) {
+        // L'avversario ha già richiesto una rivincita
+        if (rematchNotification) {
+          rematchNotification.textContent = 'Your opponent wants to play again!';
+          rematchNotification.style.display = 'block';
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Errore nel controllo iniziale della rivincita:', error);
+    });
+    
+    // Avvia il polling per controlli continui
+    checkRematchStatus(gameCode);
+  }
 }
 
 // Funzione per creare una rivincita con gli stessi giocatori
 function createRematch() {
-  // Mostra un messaggio di caricamento
-  const loadingMessage = document.createElement('div');
-  loadingMessage.id = 'loading-message';
-  loadingMessage.className = 'loading-message';
-  loadingMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creazione della rivincita...';
-  document.body.appendChild(loadingMessage);
-  
   // Ottieni il codice della partita corrente
   const urlParams = new URLSearchParams(window.location.search);
   const currentGameCode = urlParams.get("code");
@@ -1601,75 +1673,204 @@ function createRematch() {
   // Ottieni il currentUser
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUser) {
-    document.body.removeChild(loadingMessage);
-    alert('Utente non autenticato. Effettua il login.');
+    alert('User not authenticated. Please log in.');
     window.location.href = 'index.html';
     return;
   }
   
-  // Genera un nuovo codice partita
-  const newGameCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+  // Disabilita il pulsante di rivincita per evitare clic multipli
+  const rematchBtn = document.getElementById('rematchBtn');
+  if (rematchBtn) {
+    rematchBtn.disabled = true;
+    rematchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Waiting...';
+  }
   
-  // Ottieni i dati della partita corrente
-  fetch(`/api/games/match/${currentGameCode}`)
+  // Prima controlla se l'avversario ha abbandonato dopo aver richiesto una rivincita
+  fetch(`/api/games/check-rematch/${currentGameCode}?userId=${currentUser.id}`)
   .then(response => {
     if (!response.ok) {
-      throw new Error('Errore nel recupero dei dati della partita');
+      throw new Error('Errore nel controllo dello stato della rivincita');
     }
     return response.json();
   })
-  .then(data => {
-    if (!data.match) {
-      throw new Error('Dati partita non validi');
+  .then(checkData => {
+    // Se l'avversario ha abbandonato dopo aver richiesto una rivincita, mostra un messaggio
+    if (checkData.playerAbandoned) {
+      // Mostra un messaggio
+      const rematchStatus = document.getElementById('rematchStatus');
+      if (rematchStatus) {
+        rematchStatus.textContent = 'Your opponent has abandoned the game.';
+        rematchStatus.style.display = 'block';
+        rematchStatus.className = 'alert alert-warning mb-2';
+      }
+      
+      // Disabilita il pulsante rivincita
+      if (rematchBtn) {
+        rematchBtn.disabled = true;
+        rematchBtn.innerHTML = 'Rematch';
+        rematchBtn.style.opacity = "0.5";
+      }
+      return Promise.reject(new Error('L\'avversario ha abbandonato'));
     }
-
-    // Ottieni i dati dei giocatori dalla partita corrente
-    const currentPlayers = data.match.players;
-    console.log("currentPlayers", currentPlayers);
     
-    // Prepara i dati per la nuova partita
-    const matchData = {
-      userId: currentUser.id,
-      gameCode: newGameCode,
-      maxRounds: data.match.maxRounds,
-      players: currentPlayers.map(player => ({
-        id: player.id,
-        username: player.username
-      }))
-    };
-    
-    // Crea la nuova partita usando l'endpoint recreate
-    return fetch('/api/games/recreate', {
+    // Se non c'è stato abbandono, procedi con la richiesta di rivincita
+    return fetch('/api/games/request-rematch', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(matchData)
+      body: JSON.stringify({
+        userId: currentUser.id,
+        gameCode: currentGameCode
+      })
     });
   })
   .then(response => {
     if (!response.ok) {
-      throw new Error('Errore nella creazione della rivincita');
+      throw new Error('Errore nella richiesta di rivincita');
     }
     return response.json();
   })
   .then(data => {
-    // Rimuovi il messaggio di caricamento
-    if (document.getElementById('loading-message')) {
-      document.body.removeChild(loadingMessage);
-    }
+    console.log('Risposta API rivincita:', data);
     
-    // Reindirizza alla nuova partita
-    window.location.href = `game.html?code=${newGameCode}`;
+    // Controlla se entrambi i giocatori hanno richiesto la rivincita
+    if (data.bothPlayersRequested && data.newGameCode) {
+      // Entrambi i giocatori hanno richiesto la rivincita, reindirizza alla nuova partita
+      const rematchStatus = document.getElementById('rematchStatus');
+      if (rematchStatus) {
+        rematchStatus.textContent = 'Both players have accepted! Redirecting...';
+        rematchStatus.style.display = 'block';
+      }
+      
+      // Breve ritardo per mostrare il messaggio
+      setTimeout(() => {
+        // Cancella l'intervallo di controllo se esiste
+        if (window.rematchCheckIntervalId) {
+          clearInterval(window.rematchCheckIntervalId);
+        }
+        
+        // Reindirizza alla nuova partita
+        window.location.href = `game.html?code=${data.newGameCode}`;
+      }, 1500);
+    } else {
+      // Solo questo giocatore ha richiesto la rivincita, mostra un messaggio
+      const rematchStatus = document.getElementById('rematchStatus');
+      if (rematchStatus) {
+        rematchStatus.textContent = 'Rematch request sent, waiting for opponent...';
+        rematchStatus.style.display = 'block';
+      }
+      
+      // Inizia a controllare periodicamente se l'altro giocatore ha accettato
+      checkRematchStatus(currentGameCode);
+    }
   })
   .catch(error => {
-    console.error('Errore nella creazione della rivincita:', error);
-    // Rimuovi il messaggio di caricamento
-    if (document.getElementById('loading-message')) {
-      document.body.removeChild(loadingMessage);
+    console.error('Errore nella richiesta di rivincita:', error);
+    
+    // Se non è l'errore dell'avversario che ha abbandonato (già gestito sopra)
+    if (error.message !== 'L\'avversario ha abbandonato') {
+      // Riabilita il pulsante di rivincita
+      if (rematchBtn) {
+        rematchBtn.disabled = false;
+        rematchBtn.innerHTML = 'Rematch';
+        rematchBtn.style.opacity = "1";
+      }
+      
+      // Mostra un messaggio di errore
+      alert('An error occurred while requesting a rematch: ' + error.message);
     }
-    // Mostra un messaggio di errore più specifico
-    alert('Si è verificato un errore durante la creazione della rivincita: ' + error.message);
-    window.location.href = 'index.html';
   });
+}
+
+// Funzione per controllare periodicamente lo stato della richiesta di rivincita
+function checkRematchStatus(gameCode) {
+  // Ottieni l'utente corrente
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    console.error("Utente non autenticato");
+    return;
+  }
+
+  const rematchCheckInterval = setInterval(() => {
+    fetch(`/api/games/check-rematch/${gameCode}?userId=${currentUser.id}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Errore nel controllo dello stato della rivincita');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Stato rivincita:', data);
+      
+      // Se c'è un nuovo codice partita e entrambi i giocatori hanno richiesto la rivincita
+      if (data.bothPlayersRequested && data.newGameCode) {
+        // Entrambi i giocatori hanno richiesto la rivincita, interrompi il polling
+        clearInterval(rematchCheckInterval);
+        
+        // Mostra un messaggio
+        const rematchStatus = document.getElementById('rematchStatus');
+        if (rematchStatus) {
+          rematchStatus.textContent = 'Your opponent has also accepted! Redirecting...';
+          rematchStatus.style.display = 'block';
+        }
+        
+        // Breve ritardo per mostrare il messaggio
+        setTimeout(() => {
+          // Reindirizza alla nuova partita
+          window.location.href = `game.html?code=${data.newGameCode}`;
+        }, 1500);
+      }
+      
+      // Controlla se l'avversario ha rifiutato la rivincita o ha abbandonato dopo averla richiesta
+      if ((data.rematchDeclinedByOpponent && data.currentUserRequested) || data.playerAbandoned) {
+        // L'avversario ha declinato la rivincita o ha abbandonato
+        clearInterval(rematchCheckInterval);
+        
+        // Mostra un messaggio appropriato
+        const rematchStatus = document.getElementById('rematchStatus');
+        if (rematchStatus) {
+          if (data.playerAbandoned) {
+            rematchStatus.textContent = 'Your opponent has abandoned the game.';
+          } else {
+            rematchStatus.textContent = 'Your opponent doesn\'t want to play now.';
+          }
+          rematchStatus.style.display = 'block';
+          rematchStatus.className = 'alert alert-warning mb-2';
+        }
+        
+        // Disabilita il pulsante rivincita e rimuovi l'icona di caricamento
+        const rematchBtn = document.getElementById('rematchBtn');
+        if (rematchBtn) {
+          rematchBtn.disabled = true;
+          rematchBtn.style.opacity = "0.5";
+          rematchBtn.innerHTML = 'Rematch'; // Rimuove l'icona di caricamento e ripristina il testo statico
+        }
+      }
+      
+      // Controlla se c'è una richiesta dall'altro giocatore
+      if (data.opponentRequested && !data.currentUserRequested && !data.playerAbandoned) {
+        // L'avversario ha richiesto la rivincita ma l'utente corrente no, e l'avversario non ha abbandonato
+        const rematchNotification = document.getElementById('rematchNotification');
+        if (rematchNotification) {
+          rematchNotification.textContent = 'Your opponent wants to play again!';
+          rematchNotification.style.display = 'block';
+        }
+        
+        // Cambia il testo del pulsante in "Accetta Rivincita"
+        const rematchBtn = document.getElementById('rematchBtn');
+        if (rematchBtn) {
+          rematchBtn.disabled = false; // Assicurati che il pulsante sia abilitato
+          rematchBtn.textContent = 'Accept rematch'; // Imposta il testo su "Accetta Rivincita"
+          rematchBtn.style.opacity = "1"; // Ripristina l'opacità normale
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Errore nel controllo dello stato della rivincita:', error);
+    });
+  }, 3000); // Controlla ogni 3 secondi
+  
+  // Salva l'ID dell'intervallo per poterlo cancellare se necessario
+  window.rematchCheckIntervalId = rematchCheckInterval;
 }

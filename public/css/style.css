@@ -680,11 +680,6 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.result-icon {
-  font-size: 3rem;
-  margin-bottom: 15px;
-}
-
 .result-text {
   font-weight: bold;
   margin-bottom: 10px;
@@ -1362,11 +1357,6 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.result-icon {
-  font-size: 3rem;
-  margin-bottom: 15px;
-}
-
 .result-text {
   font-size: 1.5rem;
   font-weight: bold;
@@ -1884,12 +1874,7 @@ body {
 }
 
 .result-icon {
-  animation: bounce 1s ease infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  
 }
 
 #resultTitle {
@@ -2094,4 +2079,21 @@ body {
 
 #gameResultModal.show .modal-dialog {
   animation: modalFadeIn 0.3s ease-out;
+}
+
+/* Stile specifico per il trofeo dei perdenti */
+#gameResultModal .trophy-loser {
+  color: #555555 !important;
+  text-shadow: 0 0 15px rgba(85, 85, 85, 0.5) !important;
+  opacity: 0.8;
+  animation: none !important;
+}
+
+#gameResultModal .trophy-icon {
+  animation: bounce 1s ease 3;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
 }

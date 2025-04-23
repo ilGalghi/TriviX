@@ -230,12 +230,12 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Risultato Partita</h5>
+          <h5 class="modal-title">Match result</h5>
           
         </div>
         <div class="modal-body text-center">
           <div class="result-icon mb-3">
-            <i class="fas fa-trophy fa-3x text-warning"></i>
+            <i class="fas fa-trophy fa-3x text-warning trophy-icon"></i>
           </div>
           <h3 id="resultTitle" class="mb-3"></h3>
           <div class="score-summary mb-4">
@@ -252,8 +252,12 @@
           <p id="resultMessage" class="mb-4"></p>
         </div>
         <div class="modal-footer justify-content-center">
+          <div class="rematch-info-container w-100 mb-2">
+            <div id="rematchNotification" class="alert alert-info mb-2" style="display: none;">L'avversario vuole rigiocare!</div>
+            <div id="rematchStatus" class="alert alert-secondary mb-2" style="display: none;"></div>
+          </div>
           <button type="button" class="btn btn-primary" id="rematchBtn">Rivincita</button>
-          <button type="button" class="btn btn-success" id="newMatchBtn">Nuova Partita</button>
+          <button type="button" class="btn btn-success" id="newMatchBtn">Exit</button>
         </div>
       </div>
     </div>

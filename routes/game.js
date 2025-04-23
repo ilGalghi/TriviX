@@ -521,12 +521,8 @@ async function updateUserStats(game) {
 
 // Generate a random game code
 function generateGameCode() {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let code = "";
-  for (let i = 0; i < 6; i++) {
-    code += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return code;
+  // Genera un codice partita alfanumerico di 6 caratteri
+  return Math.random().toString(36).substring(2, 8).toUpperCase();
 }
 
 
@@ -705,6 +701,293 @@ router.post("/recreate", (req, res) => {
     success: true,
     game: newGame,
   });
+});
+
+// Richiedi una rivincita per una partita
+router.post('/request-rematch', (req, res) => {
+  const { userId, gameCode } = req.body;
+  
+  if (!userId || !gameCode) {
+    return res.status(400).json({ success: false, message: 'Missing required fields' });
+  }
+  
+  try {
+    // Leggi le partite esistenti
+    const matches = readMatches();
+    
+    // Trova la partita
+    const game = matches.find(game => game.matchCode === gameCode);
+    if (!game) {
+      return res.status(404).json({ success: false, message: 'Game not found' });
+    }
+    
+    // Verifica che l'utente sia un giocatore della partita
+    const isPlayerInGame = game.players.some(player => player && player.id === userId);
+    if (!isPlayerInGame) {
+      return res.status(403).json({ success: false, message: 'User is not a player in this game' });
+    }
+    
+    // Inizializza l'array delle richieste di rivincita se non esiste
+    if (!game.rematchRequests) {
+      game.rematchRequests = [];
+    }
+    
+    // Verifica se l'utente ha già richiesto una rivincita
+    const hasAlreadyRequested = game.rematchRequests.includes(userId);
+    if (!hasAlreadyRequested) {
+      // Aggiungi la richiesta di rivincita
+      game.rematchRequests.push(userId);
+      game.updatedAt = new Date();
+      
+      // Se è il primo giocatore a richiedere la rivincita, genera un nuovo codice partita
+      if (game.rematchRequests.length === 1 && !game.rematchNewGameCode) {
+        // Genera un codice partita univoco
+        const newGameCode = generateGameCode();
+        game.rematchNewGameCode = newGameCode;
+        console.log(`Nuovo codice partita per la rivincita generato: ${newGameCode}`);
+      }
+    }
+    
+    // Verifica se entrambi i giocatori hanno richiesto una rivincita
+    const bothPlayersRequested = game.players.length === 2 && 
+                              game.rematchRequests.length === 2 &&
+                              game.players.every(player => player && game.rematchRequests.includes(player.id));
+    
+    // Se entrambi hanno richiesto, aggiorna lo stato
+    if (bothPlayersRequested) {
+      game.rematchAccepted = true;
+      
+      // Se entrambi hanno accettato e siamo il secondo giocatore a richiedere la rivincita,
+      // creiamo subito la nuova partita
+      if (game.rematchRequests.length === 2 && game.rematchNewGameCode) {
+        // Crea la nuova partita solo se non è già stata creata
+        if (!game.rematchCreated) {
+          // Crea una nuova partita con lo stesso codice
+          const newGame = {
+            id: uuidv4(),
+            matchCode: game.rematchNewGameCode,
+            status: "active",
+            players: game.players.map(player => ({
+              id: player.id,
+              username: player.username,
+              score: 0,
+              characters: []
+            })),
+            currentRound: 0,
+            maxRounds: game.maxRounds || 5,
+            currentTurn: game.players[0].id, // Il primo giocatore inizia
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            isRematch: true,
+            originalGameCode: gameCode
+          };
+          
+          // Aggiungi la nuova partita all'elenco delle partite
+          matches.push(newGame);
+          
+          // Segna che la partita di rivincita è stata creata
+          game.rematchCreated = true;
+          
+          console.log(`Nuova partita di rivincita creata con codice: ${game.rematchNewGameCode}`);
+        }
+      }
+    }
+    
+    // Salva i cambiamenti
+    writeMatches(matches);
+    
+    // Restituisci lo stato della richiesta
+    return res.json({
+      success: true,
+      hasAlreadyRequested,
+      bothPlayersRequested,
+      newGameCode: game.rematchNewGameCode
+    });
+  } catch (error) {
+    console.error('Errore nella richiesta di rivincita:', error);
+    return res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+// Controlla lo stato delle richieste di rivincita per una partita
+router.get('/check-rematch/:gameCode', (req, res) => {
+  const { gameCode } = req.params;
+  const { userId } = req.query; // Prendi l'userId dalla query string
+  
+  if (!gameCode) {
+    return res.status(400).json({ success: false, message: 'Game code is required' });
+  }
+  
+  if (!userId) {
+    return res.status(400).json({ success: false, message: 'User ID is required' });
+  }
+  
+  try {
+    // Leggi le partite esistenti
+    const matches = readMatches();
+    
+    // Trova la partita
+    const game = matches.find(game => game.matchCode === gameCode);
+    if (!game) {
+      return res.status(404).json({ success: false, message: 'Game not found' });
+    }
+    
+    // Verifica che l'utente sia un giocatore della partita
+    const isPlayerInGame = game.players.some(player => player && player.id === userId);
+    if (!isPlayerInGame) {
+      return res.status(403).json({ success: false, message: 'User is not a player in this game' });
+    }
+    
+    // Usa l'userId dalla query invece di req.session.user.id
+    const currentUserId = userId;
+    
+    // Inizializza l'array delle richieste di rivincita se non esiste
+    if (!game.rematchRequests) {
+      game.rematchRequests = [];
+    }
+    
+    // Verifica se l'utente corrente ha già richiesto una rivincita
+    const currentUserRequested = game.rematchRequests.includes(currentUserId);
+    
+    // Trova l'avversario
+    const opponent = game.players.find(player => player && player.id !== currentUserId);
+    
+    // Verifica se l'avversario ha richiesto una rivincita
+    const opponentRequested = opponent && game.rematchRequests.includes(opponent.id);
+    
+    // Verifica se entrambi i giocatori hanno richiesto una rivincita
+    const bothPlayersRequested = game.players.length === 2 && 
+                              game.rematchRequests.length === 2 &&
+                              game.players.every(player => player && game.rematchRequests.includes(player.id));
+    
+    // Verifica se la rivincita è stata declinata e da chi
+    const rematchDeclined = game.rematchDeclined || false;
+    const rematchDeclinedByOpponent = rematchDeclined && game.rematchDeclinedBy !== currentUserId;
+    
+    // Verifica se un giocatore che aveva richiesto la rivincita ha poi abbandonato
+    const playerAbandoned = game.rematchPlayerAbandoned || false;
+    
+    // Restituisci lo stato delle richieste
+    return res.json({
+      success: true,
+      currentUserRequested,
+      opponentRequested,
+      bothPlayersRequested,
+      newGameCode: game.rematchNewGameCode,
+      rematchDeclined,
+      rematchDeclinedByOpponent,
+      playerAbandoned
+    });
+  } catch (error) {
+    console.error('Errore nel controllo delle richieste di rivincita:', error);
+    return res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+// Route per creare nuovamente una partita (usata per le rivincite)
+router.post('/recreate', (req, res) => {
+  const { userId, gameCode, maxRounds, players, isRematch, originalGameCode } = req.body;
+  
+  if (!userId || !gameCode || !players) {
+    return res.status(400).json({ success: false, message: 'Missing required fields' });
+  }
+  
+  try {
+    // Costruisci la nuova partita
+    const newGame = {
+      id: uuidv4(),
+      matchCode: gameCode,
+      status: "waiting",
+      players: players.map(player => ({
+        id: player.id,
+        username: player.username,
+        score: 0,
+        characters: []
+      })),
+      currentRound: 0,
+      maxRounds: maxRounds || 5,
+      currentTurn: players[0].id, // Il primo giocatore inizia
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      isRematch: isRematch || false,
+      originalGameCode: originalGameCode || null
+    };
+    
+    // Leggi le partite esistenti
+    const matches = readMatches();
+    
+    // Se è una rivincita, aggiorna la partita originale
+    if (isRematch && originalGameCode) {
+      const originalGame = matches.find(game => game.matchCode === originalGameCode);
+      if (originalGame) {
+        originalGame.rematchNewGameCode = gameCode;
+        originalGame.updatedAt = new Date();
+      }
+    }
+    
+    // Aggiungi la nuova partita
+    matches.push(newGame);
+    
+    // Salva i cambiamenti
+    writeMatches(matches);
+    
+    // Restituisci la nuova partita
+    return res.json({
+      success: true,
+      game: newGame
+    });
+  } catch (error) {
+    console.error('Errore nella creazione della nuova partita:', error);
+    return res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+// Route per declinare una richiesta di rivincita
+router.post('/decline-rematch', (req, res) => {
+  const { userId, gameCode } = req.body;
+  
+  if (!userId || !gameCode) {
+    return res.status(400).json({ success: false, message: 'Missing required fields' });
+  }
+  
+  try {
+    // Leggi le partite esistenti
+    const matches = readMatches();
+    
+    // Trova la partita
+    const game = matches.find(game => game.matchCode === gameCode);
+    if (!game) {
+      return res.status(404).json({ success: false, message: 'Game not found' });
+    }
+    
+    // Verifica che l'utente sia un giocatore della partita
+    const isPlayerInGame = game.players.some(player => player && player.id === userId);
+    if (!isPlayerInGame) {
+      return res.status(403).json({ success: false, message: 'User is not a player in this game' });
+    }
+    
+    // Controlla se l'utente aveva precedentemente richiesto una rivincita
+    const hadPreviouslyRequested = game.rematchRequests && game.rematchRequests.includes(userId);
+    
+    // Segna che questo giocatore ha declinato la rivincita
+    game.rematchDeclined = true;
+    game.rematchDeclinedBy = userId;
+    game.rematchPlayerAbandoned = hadPreviouslyRequested;
+    game.updatedAt = new Date();
+    
+    // Salva i cambiamenti
+    writeMatches(matches);
+    
+    // Restituisci successo
+    return res.json({
+      success: true,
+      message: 'Rematch declined successfully',
+      hadPreviouslyRequested
+    });
+  } catch (error) {
+    console.error('Errore nel declinare la rivincita:', error);
+    return res.status(500).json({ success: false, message: 'Server error' });
+  }
 });
 
 module.exports = router;

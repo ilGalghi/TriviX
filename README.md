@@ -23,11 +23,15 @@
 - [x] Login direttamente da "Join game" e game.html
 - [x] Fare che non si può uscire dalla pagina (per cercare la risposta)
 - [x] Quando si crea nuovo account in matches dà errore
-- [ ] Alert "inizia nuova partita" quando finisce partita
+- [x] Alert "inizia nuova partita" quando finisce partita
 - [ ] Separare il file game.js per renderlo più leggero
 - [ ] Sicurezza HTTPS
 - [ ] tradurre tutto in inglese
 - [x] Quando si crea nuovo account in matches dà errore
+- [ ] Pulsante selezione lingua EN o IT
+- [ ] Richieste di gioco: amici, giocatori frequenti
+- [ ] Avatar personaggi preimpostati
+- [ ] Mostrare modal finale anche posizione in classifica
 
 
 
@@ -36,7 +40,8 @@
 - [x] Colore rettangolo domanda corrisponde colore della materia.
 - [x] CSS classifica e partite recenti
 - [x] Animazioni +1 per domanda giusta
-- [ ] Icona logout
-- [ ] Icone
-- [ ] Abbellire CSS quando partita finisce (vittoria, pareggio, sconfitta)
+- [x] Icona logout
+- [x] Icone
+- [x] Abbellire CSS quando partita finisce (vittoria, pareggio, sconfitta)
+- [ ] Colore timer diverso
 
