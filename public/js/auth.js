@@ -132,26 +132,12 @@ async function login(username, password, actionType = null) {
 
       // Update UI
       initAuthUI()
-      
-      // Notifica esplicitamente del cambio di stato di autenticazione
-      dispatchAuthStateChangedEvent(true)
 
-      // Check if the login was triggered from the mobile profile link
-      const loginReason = sessionStorage.getItem("loginReason")
-      
       // Handle different action types after login
-      if (loginReason === "profile") {
-        // Redirect to profile page
-        sessionStorage.removeItem("loginReason")
-        window.location.href = "profile.html"
-      } else if (loginReason === "stats") {
-        // Redirect to stats page
-        sessionStorage.removeItem("loginReason")
-        window.location.href = "matches.html"
-      } else if (actionType === "create") {
+      if (actionType === "create") {
         console.log("Redirecting to game creation after login")
         setTimeout(() => {
-          //showCreateGameModal()
+          showCreateGameModal()
         }, 300)
       } else if (actionType === "join") {
         console.log("Redirecting to join game after login")

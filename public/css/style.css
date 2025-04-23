@@ -1860,3 +1860,238 @@ body {
 }
 
 /* Hero Animation styles */
+
+/* Game Result Modal Styles */
+.score-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.player-score-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.score-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.result-icon {
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+#resultTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+#resultMessage {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.game-status-win {
+  color: var(--success-color);
+}
+
+.game-status-lose {
+  color: var(--danger-color);
+}
+
+.game-status-draw {
+  color: var(--warning-color);
+}
+
+/* Stili per il modale di risultato */
+#gameResultModal .modal-content {
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: none;
+  overflow: hidden;
+  background-color: #2b2b2b;
+  color: #ffffff;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#gameResultModal .modal-header {
+  background-color: #1a1a1a;
+  color: white;
+  border-bottom: 1px solid #404040;
+  padding: 1rem;
+}
+
+#gameResultModal .modal-body {
+  padding: 1.5rem;
+  background-color: #2b2b2b;
+}
+
+#gameResultModal .result-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+#gameResultModal .result-icon i {
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+#gameResultModal #resultTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+#gameResultModal #resultMessage {
+  color: #e0e0e0;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+#gameResultModal .score-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #363636;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#gameResultModal .player-score-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  margin: 0.25rem 0;
+  background-color: #404040;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+#gameResultModal .player-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-right: 1rem;
+  flex: 1;
+}
+
+#gameResultModal .score-value {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffd700;
+  padding: 0.25rem 0.75rem;
+  background-color: #1a1a1a;
+  border-radius: 4px;
+  min-width: 50px;
+  text-align: center;
+}
+
+#gameResultModal .vs-badge {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50%;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  align-self: center;
+}
+
+#gameResultModal .modal-footer {
+  border-top: 1px solid #404040;
+  padding: 1rem;
+  justify-content: center;
+  gap: 0.75rem;
+  background-color: #2b2b2b;
+}
+
+#gameResultModal .btn {
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+#gameResultModal .btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: white;
+}
+
+#gameResultModal .btn-secondary {
+  background-color: #6c757d;
+  border: none;
+  color: white;
+}
+
+#gameResultModal .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  filter: brightness(110%);
+}
+
+#gameResultModal .game-status-win,
+#gameResultModal .game-status-lose,
+#gameResultModal .game-status-draw {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Stile per il messaggio di caricamento */
+.loading-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px 40px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  z-index: 9999;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.loading-message i {
+  font-size: 1.5rem;
+}
+
+/* Animazione per il modale di risultato */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#gameResultModal.show .modal-dialog {
+  animation: modalFadeIn 0.3s ease-out;
+}

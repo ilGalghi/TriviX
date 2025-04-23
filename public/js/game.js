@@ -1255,6 +1255,36 @@ function updateGameStateFromMatch(match) {
       if (roundInfoElement && match.currentRound !== undefined && match.maxRounds !== undefined) {
         roundInfoElement.textContent = `ROUND ${match.currentRound}/${match.maxRounds}`;
       }
+
+      if (match.status === 'completed') {
+        // Assicuriamoci che i dati dei giocatori siano completi
+        const player1 = {
+          name: match.players[0]?.username || "Player 1",
+          score: match.players[0]?.score || 0
+        };
+        const player2 = {
+          name: match.players[1]?.username || "Player 2",
+          score: match.players[1]?.score || 0
+        };
+
+        // Determiniamo il risultato
+        let result;
+        if (match.surrenderedBy) {
+          result = match.surrenderedBy === currentUser.id ? 'lose' : 'win';
+        } else if (match.players[0].score > match.players[1].score) {
+          result = currentUser.id === match.players[0].id ? 'win' : 'lose';
+        } else if (match.players[0].score < match.players[1].score) {
+          result = currentUser.id === match.players[1].id ? 'win' : 'lose';
+        } else {
+          result = 'draw';
+        }
+
+        // Mostriamo il modale solo se non è già visibile
+        const existingModal = document.querySelector('#gameResultModal.show');
+        if (!existingModal) {
+          showGameResultModal(result, player1, player2);
+        }
+      }
     }
   } catch (error) {
     console.error("Error updating game state:", error);
@@ -1497,5 +1527,149 @@ function surrenderGame() {
   .catch(error => {
     console.error('Error processing surrender:', error);
     alert("Si è verificato un errore durante l'elaborazione della resa. Riprova.");
+  });
+}
+
+function showGameResultModal(result, player1, player2) {
+  const modal = new bootstrap.Modal(document.getElementById('gameResultModal'));
+  const resultTitle = document.getElementById('resultTitle');
+  const resultMessage = document.getElementById('resultMessage');
+  const player1ResultName = document.getElementById('player1ResultName');
+  const player1ResultScore = document.getElementById('player1ResultScore');
+  const player2ResultName = document.getElementById('player2ResultName');
+  const player2ResultScore = document.getElementById('player2ResultScore');
+  const newMatchBtn = document.getElementById('newMatchBtn');
+  const rematchBtn = document.getElementById('rematchBtn');
+
+  // Imposta i punteggi
+  player1ResultName.textContent = player1.name;
+  player1ResultScore.textContent = player1.score;
+  player2ResultName.textContent = player2.name;
+  player2ResultScore.textContent = player2.score;
+
+  // Imposta il titolo e il messaggio in base al risultato
+  if (result === 'win') {
+    resultTitle.textContent = 'Hai Vinto!';
+    resultTitle.className = 'game-status-win';
+    resultMessage.textContent = 'Complimenti! Hai dimostrato di essere un vero campione di TriviX!';
+  } else if (result === 'lose') {
+    resultTitle.textContent = 'Hai Perso';
+    resultTitle.className = 'game-status-lose';
+    resultMessage.textContent = 'Non preoccuparti! Puoi sempre migliorare e sfidare di nuovo il tuo avversario.';
+  } else {
+    resultTitle.textContent = 'Pareggio!';
+    resultTitle.className = 'game-status-draw';
+    resultMessage.textContent = 'Che partita emozionante! Siete stati davvero alla pari.';
+  }
+
+  // Aggiungi l'event listener per il pulsante "Nuova Partita"
+  newMatchBtn.onclick = function() {
+    modal.hide();
+    window.location.href = 'index.html';
+  };
+
+  // Aggiungi l'event listener per il pulsante "Rivincita"
+  rematchBtn.onclick = function() {
+    modal.hide();
+    // Ottieni il codice della partita corrente
+    const urlParams = new URLSearchParams(window.location.search);
+    const gameCode = urlParams.get("code");
+    
+    // Crea una nuova partita con gli stessi giocatori
+    createRematch();
+  };
+
+ 
+
+  // Mostra il modale
+  modal.show();
+}
+
+// Funzione per creare una rivincita con gli stessi giocatori
+function createRematch() {
+  // Mostra un messaggio di caricamento
+  const loadingMessage = document.createElement('div');
+  loadingMessage.id = 'loading-message';
+  loadingMessage.className = 'loading-message';
+  loadingMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creazione della rivincita...';
+  document.body.appendChild(loadingMessage);
+  
+  // Ottieni il codice della partita corrente
+  const urlParams = new URLSearchParams(window.location.search);
+  const currentGameCode = urlParams.get("code");
+  
+  // Ottieni il currentUser
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    document.body.removeChild(loadingMessage);
+    alert('Utente non autenticato. Effettua il login.');
+    window.location.href = 'index.html';
+    return;
+  }
+  
+  // Genera un nuovo codice partita
+  const newGameCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+  
+  // Ottieni i dati della partita corrente
+  fetch(`/api/games/match/${currentGameCode}`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Errore nel recupero dei dati della partita');
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (!data.match) {
+      throw new Error('Dati partita non validi');
+    }
+
+    // Ottieni i dati dei giocatori dalla partita corrente
+    const currentPlayers = data.match.players;
+    console.log("currentPlayers", currentPlayers);
+    
+    // Prepara i dati per la nuova partita
+    const matchData = {
+      userId: currentUser.id,
+      gameCode: newGameCode,
+      maxRounds: data.match.maxRounds,
+      players: currentPlayers.map(player => ({
+        id: player.id,
+        username: player.username
+      }))
+    };
+    
+    // Crea la nuova partita usando l'endpoint recreate
+    return fetch('/api/games/recreate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(matchData)
+    });
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Errore nella creazione della rivincita');
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Rimuovi il messaggio di caricamento
+    if (document.getElementById('loading-message')) {
+      document.body.removeChild(loadingMessage);
+    }
+    
+    // Reindirizza alla nuova partita
+    window.location.href = `game.html?code=${newGameCode}`;
+  })
+  .catch(error => {
+    console.error('Errore nella creazione della rivincita:', error);
+    // Rimuovi il messaggio di caricamento
+    if (document.getElementById('loading-message')) {
+      document.body.removeChild(loadingMessage);
+    }
+    // Mostra un messaggio di errore più specifico
+    alert('Si è verificato un errore durante la creazione della rivincita: ' + error.message);
+    window.location.href = 'index.html';
   });
 }

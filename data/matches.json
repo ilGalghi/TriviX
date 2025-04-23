@@ -6534,5 +6534,158 @@
     "winner": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
     "surrenderedBy": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
     "statsUpdated": true
+  },
+  {
+    "id": "e6c1fe33-7eae-4cae-8e5b-4c3950de0442",
+    "matchCode": "18MRW8",
+    "status": "completed",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-22T20:00:11.434Z",
+    "updatedAt": "2025-04-22T20:00:40.610Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "46631938-26d5-4326-aeb6-8721776f7e0e",
+    "matchCode": "QHJD5C",
+    "status": "completed",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 3,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-22T20:50:43.302Z",
+    "updatedAt": "2025-04-22T20:51:03.428Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "522c9f6a-2e2f-4c56-a200-9420eed81f16",
+    "matchCode": "BXWPQ7",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-22T21:08:46.793Z",
+    "updatedAt": "2025-04-22T21:08:58.850Z"
+  },
+  {
+    "id": "d193a600-96d0-4ab9-bc63-7f246bb5bd62",
+    "matchCode": "Q57EY2",
+    "status": "completed",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-22T21:10:21.999Z",
+    "updatedAt": "2025-04-23T09:58:56.406Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "014ef35a-ad5c-49c9-82bc-8ee64f42c24a",
+    "matchCode": "SEEXKO",
+    "status": "completed",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 2,
+    "maxRounds": 5,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-23T10:09:18.579Z",
+    "updatedAt": "2025-04-23T10:10:19.896Z",
+    "winner": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "surrenderedBy": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "statsUpdated": true
+  },
+  {
+    "id": "26e1c3ec-65cb-4bc3-b94d-fe374f0bdaa6",
+    "matchCode": "4Y9U8H",
+    "status": "completed",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-04-23T10:10:33.749Z",
+    "updatedAt": "2025-04-23T10:10:33.749Z",
+    "winner": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "surrenderedBy": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "statsUpdated": true
   }
 ]

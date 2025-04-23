@@ -657,4 +657,54 @@ router.get("/user/:userId", (req, res) => {
   res.json({ success: true, games: userMatches });
 });
 
+// Crea una rivincita con gli stessi giocatori
+router.post("/recreate", (req, res) => {
+  const { userId, gameCode, maxRounds, players } = req.body;
+  console.log("API recreate trovata. body:", req.body);
+
+  // Validazione input
+  if (!userId || !gameCode || !players) {
+    return res.status(400).json({ error: "User ID, game code and players are required" });
+  }
+
+  // Trova l'utente
+  const user = userModel.findUserById(userId);
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  // Crea una nuova partita
+  const newGame = {
+    id: uuidv4(),
+    matchCode: gameCode,
+    status: "active",      // La partita è subito attiva perché abbiamo già entrambi i giocatori
+    players: players.map(player => ({
+      id: player.id,
+      username: player.username,
+      score: 0,
+      characters: []
+    })),
+    currentRound: 0,
+    maxRounds: maxRounds || 5,
+    currentTurn: userId,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  // Leggi le partite esistenti
+  const matches = readMatches();
+  
+  // Aggiungi la nuova partita all'elenco
+  matches.push(newGame);
+
+  // Scrivi le partite aggiornate nel file
+  writeMatches(matches);
+
+  // Restituisci i dati della nuova partita
+  res.status(201).json({
+    success: true,
+    game: newGame,
+  });
+});
+
 module.exports = router;
