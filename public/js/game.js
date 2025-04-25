@@ -1536,8 +1536,10 @@ function showGameResultModal(result, player1, player2) {
   const resultMessage = document.getElementById('resultMessage');
   const player1ResultName = document.getElementById('player1ResultName');
   const player1ResultScore = document.getElementById('player1ResultScore');
+  const player1ResultRank = document.getElementById('player1ResultRank');
   const player2ResultName = document.getElementById('player2ResultName');
   const player2ResultScore = document.getElementById('player2ResultScore');
+  const player2ResultRank = document.getElementById('player2ResultRank');
   const newMatchBtn = document.getElementById('newMatchBtn');
   const rematchBtn = document.getElementById('rematchBtn');
   const rematchNotification = document.getElementById('rematchNotification');
@@ -1558,6 +1560,61 @@ function showGameResultModal(result, player1, player2) {
   player1ResultScore.textContent = player1.score;
   player2ResultName.textContent = player2.name;
   player2ResultScore.textContent = player2.score;
+
+  // Recupera la classifica globale per mostrare le posizioni
+  fetch('/api/users/all/public')
+    .then(response => response.json())
+    .then(users => {
+      // Ordina gli utenti per punti in ordine decrescente
+      const sortedUsers = users.sort((a, b) => {
+        return (b.profile?.stats?.points || 0) - (a.profile?.stats?.points || 0);
+      });
+
+      // Trova la posizione di ciascun giocatore
+      const player1Index = sortedUsers.findIndex(user => user.username === player1.name);
+      const player2Index = sortedUsers.findIndex(user => user.username === player2.name);
+
+      // Utilizza la stessa logica della leaderboard per il formato delle posizioni
+      function formatRankPosition(index) {
+        if (index === 0) {
+          // Primo posto (oro)
+          return `<span class="position-relative text-warning">
+                    <i class="fas fa-medal fa-lg"></i> 1°
+                  </span>`;
+        } else if (index === 1) {
+          // Secondo posto (argento)
+          return `<span class="position-relative text-secondary">
+                    <i class="fas fa-medal fa-lg"></i> 2°
+                  </span>`;
+        } else if (index === 2) {
+          // Terzo posto (bronzo)
+          return `<span class="position-relative text-bronze">
+                    <i class="fas fa-medal fa-lg"></i> 3°
+                  </span>`;
+        } else {
+          // Posizioni successive
+          return `<span>${index + 1}°</span>`;
+        }
+      }
+
+      // Imposta le posizioni in classifica
+      if (player1Index !== -1) {
+        player1ResultRank.innerHTML = formatRankPosition(player1Index);
+      } else {
+        player1ResultRank.textContent = "N/A";
+      }
+
+      if (player2Index !== -1) {
+        player2ResultRank.innerHTML = formatRankPosition(player2Index);
+      } else {
+        player2ResultRank.textContent = "N/A";
+      }
+    })
+    .catch(error => {
+      console.error('Errore nel recupero della classifica:', error);
+      player1ResultRank.textContent = "N/A";
+      player2ResultRank.textContent = "N/A";
+    });
 
   // Imposta il titolo e il messaggio in base al risultato
   if (result === 'win') {

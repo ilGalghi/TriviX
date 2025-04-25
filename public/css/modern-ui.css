@@ -1162,4 +1162,26 @@ body.dark-mode .category-stats .progress {
 /* Floating animation for quiz icons */
 .quiz-icon {
   filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.5));
+}
+
+/* Stili per la visualizzazione della posizione in classifica */
+.player-rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.9rem;
+}
+
+.rank-label {
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.rank-position {
+  font-weight: 600;
+}
+
+.text-bronze {
+  color: #cd7f32;
 } 

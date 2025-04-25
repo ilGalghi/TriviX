@@ -24,14 +24,15 @@
 - [x] Fare che non si può uscire dalla pagina (per cercare la risposta)
 - [x] Quando si crea nuovo account in matches dà errore
 - [x] Alert "inizia nuova partita" quando finisce partita
+- [x] Quando si crea nuovo account in matches dà errore
+- [x] Avatar personaggi preimpostati
+- [x] Mostrare modal finale anche posizione in classifica
 - [ ] Separare il file game.js per renderlo più leggero
 - [ ] Sicurezza HTTPS
 - [ ] tradurre tutto in inglese
-- [x] Quando si crea nuovo account in matches dà errore
 - [ ] Pulsante selezione lingua EN o IT
 - [ ] Richieste di gioco: amici, giocatori frequenti
-- [ ] Avatar personaggi preimpostati
-- [ ] Mostrare modal finale anche posizione in classifica
+
 
 
 
