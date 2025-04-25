@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Set up event listeners
   setupProfileListeners()
+  
+  // Load default avatars
+  loadDefaultAvatars()
 })
 
 // Load profile data
@@ -140,8 +143,7 @@ function setupProfileListeners() {
       const reader = new FileReader()
       reader.onload = (e) => {
         const dataURL = e.target.result
-        dataURL = canvas.toDataURL("image/jpeg", 0.4);
-
+        
         // Update avatar preview
         document.getElementById("editProfileAvatar").src = dataURL
       }
@@ -149,6 +151,18 @@ function setupProfileListeners() {
       reader.readAsDataURL(file)
     })
   }
+  
+  // Avatar selection button
+  const selectAvatarBtn = document.getElementById("selectAvatarBtn")
+  if (selectAvatarBtn) {
+    selectAvatarBtn.addEventListener("click", () => {
+      const avatarSelectionModal = new bootstrap.Modal(document.getElementById("avatarSelectionModal"))
+      avatarSelectionModal.show()
+    })
+  }
+  
+  // Set up avatar selection
+  setupAvatarSelection()
 
   // Edit profile form submission
   const editProfileForm = document.getElementById("editProfileForm")
@@ -180,6 +194,68 @@ function setupProfileListeners() {
       }
     })
   }
+}
+
+// Default avatars
+const defaultAvatars = [
+  { name: "Default", path: "img/default-avatar.png" },
+  { name: "Avatar 1", path: "img/avatars/avatar1.png" },
+  { name: "Avatar 2", path: "img/avatars/avatar2.png" },
+  { name: "Avatar 3", path: "img/avatars/avatar3.png" },
+  { name: "Avatar 4", path: "img/avatars/avatar4.png" },
+  { name: "Avatar 5", path: "img/avatars/avatar5.png" },
+  { name: "Avatar 6", path: "img/avatars/avatar6.png" },
+  { name: "Avatar 7", path: "img/avatars/avatar7.png" },
+  { name: "Avatar 8", path: "img/avatars/avatar8.png" },
+  { name: "Avatar 9", path: "img/avatars/avatar9.png" },
+  { name: "Avatar 10", path: "img/avatars/avatar10.png" },
+  { name: "Avatar 11", path: "img/avatars/avatar11.png" }
+];
+
+// Load default avatars into the modal
+function loadDefaultAvatars() {
+  const avatarGrid = document.getElementById("avatarGrid")
+  if (!avatarGrid) return
+  
+  let avatarsHTML = ""
+  
+  defaultAvatars.forEach((avatar, index) => {
+    avatarsHTML += `
+      <div class="col-4 col-sm-3 mb-3">
+        <div class="avatar-item" data-avatar="${avatar.path}">
+          <img src="${avatar.path}" alt="${avatar.name}" class="img-fluid rounded-circle avatar-option">
+          <p class="text-center mt-1 small">${avatar.name}</p>
+        </div>
+      </div>
+    `
+  })
+  
+  avatarGrid.innerHTML = avatarsHTML
+}
+
+// Setup avatar selection
+function setupAvatarSelection() {
+  const avatarGrid = document.getElementById("avatarGrid")
+  if (!avatarGrid) return
+  
+  // Event delegation for avatar selection
+  avatarGrid.addEventListener("click", (e) => {
+    // Find the closest avatar-item element
+    const avatarItem = e.target.closest(".avatar-item")
+    if (!avatarItem) return
+    
+    // Get the avatar path
+    const avatarPath = avatarItem.dataset.avatar
+    
+    // Update avatar preview
+    document.getElementById("editProfileAvatar").src = avatarPath
+    
+    // Close the modal
+    const avatarSelectionModal = bootstrap.Modal.getInstance(document.getElementById("avatarSelectionModal"))
+    if (avatarSelectionModal) {
+      avatarSelectionModal.hide()
+    }
+  })
 }
 
 // Update user profile

@@ -9054,5 +9054,39 @@
     "rematchDeclined": true,
     "rematchDeclinedBy": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
     "rematchPlayerAbandoned": false
+  },
+  {
+    "id": "7b928c3f-c8f5-45db-8b63-a394d0580d6b",
+    "matchCode": "73NXS4",
+    "status": "completed",
+    "players": [
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "createdAt": "2025-04-25T17:00:04.001Z",
+    "updatedAt": "2025-04-25T17:00:47.103Z",
+    "winner": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "surrenderedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "statsUpdated": true,
+    "rematchDeclined": true,
+    "rematchDeclinedBy": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "rematchRequests": [
+      "94c2abe6-42c4-45b6-b8ee-7abd804cb887"
+    ],
+    "rematchNewGameCode": "7XVKI0",
+    "rematchPlayerAbandoned": true
   }
 ]

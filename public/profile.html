@@ -18,6 +18,21 @@
   <link rel="stylesheet" href="css/modern-ui.css">
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/img/favicon/favicon.ico">
+  <style>
+    .avatar-option {
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid transparent;
+    }
+    .avatar-option:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+      border-color: #0d6efd;
+    }
+    .avatar-item {
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation Bar -->
@@ -123,9 +138,12 @@
           <form id="editProfileForm">
             <div class="text-center mb-4">
               <img src="img/default-avatar.png" alt="Profile Avatar" class="profile-avatar" id="editProfileAvatar">
-              <div class="mt-2">
+              <div class="mt-2 d-flex justify-content-center gap-2">
+                <button type="button" id="selectAvatarBtn" class="btn btn-sm btn-outline-primary">
+                  <i class="fas fa-images me-1"></i> Choose avatar
+                </button>
                 <label for="avatarUpload" class="btn btn-sm btn-outline-primary">
-                  <i class="fas fa-camera me-1"></i> Change avatar</label>
+                  <i class="fas fa-upload me-1"></i> Upload image</label>
                 <input type="file" id="avatarUpload" class="d-none" accept="image/*">
               </div>
             </div>
@@ -146,6 +164,26 @@
               <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Avatar Selection Modal -->
+  <div class="modal fade" id="avatarSelectionModal" tabindex="-1" aria-labelledby="avatarSelectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="avatarSelectionModalLabel">Scegli un avatar</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row" id="avatarGrid">
+            <!-- Avatar options will be loaded here dynamically -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
         </div>
       </div>
     </div>
