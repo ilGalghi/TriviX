@@ -281,6 +281,21 @@ function updateUserProfile(username, email, password, avatar) {
     return
   }
 
+  // Converti URL assoluti in percorsi relativi per gli avatar
+  if (avatar) {
+    // Se è un URL assoluto con un host (come https://...)
+    const urlPattern = /^(https?:\/\/[^\/]+)(\/img\/.*)/i;
+    const match = avatar.match(urlPattern);
+    
+    if (match) {
+      // Estrai solo il percorso relativo
+      avatar = match[2];
+    }
+    
+    // Per gli avatar caricati come data URL, mantieni il formato originale
+    // Per i percorsi relativi, mantieni il formato originale
+  }
+
   // Prepare profile data
   const profileData = {
     username,

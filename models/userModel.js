@@ -186,8 +186,20 @@ async function updateUserProfile(userId, profileData) {
   }
 
   // Aggiorna l'avatar se fornito
-  if (profileData.avatar) {
-    users[userIndex].profile.avatar = profileData.avatar
+  if (profileData.profile && profileData.profile.avatar) {
+    let avatar = profileData.profile.avatar;
+    
+    // Converti URL assoluti in percorsi relativi per gli avatar
+    // Se è un URL assoluto con un host (come https://...)
+    const urlPattern = /^(https?:\/\/[^\/]+)(\/img\/.*)/i;
+    const match = avatar.match(urlPattern);
+    
+    if (match) {
+      // Estrai solo il percorso relativo
+      avatar = match[2];
+    }
+    
+    users[userIndex].profile.avatar = avatar;
   }
 
   // Salva le modifiche

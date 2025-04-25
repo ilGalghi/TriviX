@@ -9341,5 +9341,89 @@
     "rematchDeclined": true,
     "rematchDeclinedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
     "rematchPlayerAbandoned": true
+  },
+  {
+    "id": "0c12eeab-d7b0-4db8-97ab-ae752e075fed",
+    "matchCode": "83F08Z",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "createdAt": "2025-04-25T18:19:53.750Z",
+    "updatedAt": "2025-04-25T18:20:36.127Z"
+  },
+  {
+    "id": "61d524e8-bcb8-43bb-bad3-e867b7109d2b",
+    "matchCode": "R23PIV",
+    "status": "completed",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 5,
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "createdAt": "2025-04-25T18:21:52.835Z",
+    "updatedAt": "2025-04-25T18:22:32.839Z",
+    "winner": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "surrenderedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+      "83e143cb-7497-4c35-85f5-f0e2f2eee067"
+    ],
+    "rematchNewGameCode": "O922XL",
+    "rematchAccepted": true,
+    "rematchCreated": true
+  },
+  {
+    "id": "e30f1d37-6ffb-41ca-aa73-2d009f2534ba",
+    "matchCode": "O922XL",
+    "status": "active",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "createdAt": "2025-04-25T18:22:32.839Z",
+    "updatedAt": "2025-04-25T18:22:32.839Z",
+    "isRematch": true,
+    "originalGameCode": "R23PIV"
   }
 ]

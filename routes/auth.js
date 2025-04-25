@@ -133,7 +133,9 @@ router.put("/profile", isAuthenticated, async (req, res) => {
       username,
       email,
       password,
-      avatar,
+      profile: {
+        avatar
+      }
     })
 
     if (result.success) {
