@@ -9233,14 +9233,113 @@
       {
         "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
         "username": "leo",
-        "score": 0,
+        "score": 1,
         "characters": []
       }
     ],
-    "currentRound": 2,
+    "currentRound": 3,
     "maxRounds": 5,
-    "currentTurn": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
     "createdAt": "2025-04-25T17:44:09.805Z",
-    "updatedAt": "2025-04-25T17:45:54.131Z"
+    "updatedAt": "2025-04-25T17:48:49.103Z"
+  },
+  {
+    "id": "35d973aa-b981-48e2-80af-105ada013b55",
+    "matchCode": "2YWIDJ",
+    "status": "completed",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 5,
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "createdAt": "2025-04-25T17:56:49.048Z",
+    "updatedAt": "2025-04-25T18:16:39.959Z",
+    "winner": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "surrenderedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "statsUpdated": true,
+    "rematchDeclined": true,
+    "rematchDeclinedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067"
+  },
+  {
+    "id": "ba6a417d-8b00-4d85-8b5c-2d435d30df68",
+    "matchCode": "5I41TG",
+    "status": "completed",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "createdAt": "2025-04-25T18:16:41.931Z",
+    "updatedAt": "2025-04-25T18:17:25.032Z",
+    "winner": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "surrenderedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+      "94c2abe6-42c4-45b6-b8ee-7abd804cb887"
+    ],
+    "rematchNewGameCode": "5XNR55",
+    "rematchAccepted": true,
+    "rematchCreated": true
+  },
+  {
+    "id": "39ae0c1a-0258-4e87-8514-05e5216d6319",
+    "matchCode": "5XNR55",
+    "status": "completed",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "createdAt": "2025-04-25T18:17:25.032Z",
+    "updatedAt": "2025-04-25T18:17:46.596Z",
+    "isRematch": true,
+    "originalGameCode": "5I41TG",
+    "winner": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "surrenderedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "83e143cb-7497-4c35-85f5-f0e2f2eee067"
+    ],
+    "rematchNewGameCode": "ZPGRJV",
+    "rematchDeclined": true,
+    "rematchDeclinedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "rematchPlayerAbandoned": true
   }
 ]

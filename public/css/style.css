@@ -1892,8 +1892,18 @@ body {
 }
 
 .result-icon {
-  
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
 }
+
+.result-icon i.fa-check-circle,
+.result-icon i.fa-times-circle {
+  font-size: 4rem;
+  transition: all 0.3s ease;
+}
+
+
 
 #resultTitle {
   font-size: 2.5rem;
@@ -1921,25 +1931,25 @@ body {
 /* Stili per il modale di risultato */
 #gameResultModal .modal-content {
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border: none;
   overflow: hidden;
-  background-color: #2b2b2b;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #333333;
   max-width: 400px;
   margin: 0 auto;
 }
 
 #gameResultModal .modal-header {
-  background-color: #1a1a1a;
-  color: white;
-  border-bottom: 1px solid #404040;
+  background-color: #f8f9fa;
+  color: #212529;
+  border-bottom: 1px solid #dee2e6;
   padding: 1rem;
 }
 
 #gameResultModal .modal-body {
   padding: 1.5rem;
-  background-color: #2b2b2b;
+  background-color: #ffffff;
 }
 
 #gameResultModal .result-icon {
@@ -1949,8 +1959,8 @@ body {
 }
 
 #gameResultModal .result-icon i {
-  color: #ffd700;
-  text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+  color: #ffc107;
+  text-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
 }
 
 #gameResultModal #resultTitle {
@@ -1962,7 +1972,7 @@ body {
 }
 
 #gameResultModal #resultMessage {
-  color: #e0e0e0;
+  color: #495057;
   font-size: 1rem;
   text-align: center;
   margin-bottom: 1.5rem;
@@ -1974,9 +1984,9 @@ body {
   gap: 0.5rem;
   margin: 1rem 0;
   padding: 1rem;
-  background-color: #363636;
+  background-color: #f8f9fa;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #gameResultModal .player-score-result {
@@ -1985,16 +1995,16 @@ body {
   justify-content: space-between;
   padding: 0.75rem 1rem;
   margin: 0.25rem 0;
-  background-color: #404040;
+  background-color: #ffffff;
   border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
 
 #gameResultModal .player-name {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #212529;
   margin-right: 1rem;
   flex: 1;
 }
@@ -2002,17 +2012,17 @@ body {
 #gameResultModal .score-value {
   font-size: 1.3rem;
   font-weight: bold;
-  color: #ffd700;
+  color: #ffc107;
   padding: 0.25rem 0.75rem;
-  background-color: #1a1a1a;
+  background-color: #f8f9fa;
   border-radius: 4px;
   min-width: 50px;
   text-align: center;
 }
 
 #gameResultModal .vs-badge {
-  background-color: #1a1a1a;
-  color: #ffffff;
+  background-color: #f8f9fa;
+  color: #212529;
   padding: 0.25rem 0.75rem;
   border-radius: 50%;
   font-weight: bold;
@@ -2022,11 +2032,11 @@ body {
 }
 
 #gameResultModal .modal-footer {
-  border-top: 1px solid #404040;
+  border-top: 1px solid #dee2e6;
   padding: 1rem;
   justify-content: center;
   gap: 0.75rem;
-  background-color: #2b2b2b;
+  background-color: #ffffff;
 }
 
 #gameResultModal .btn {
@@ -2050,15 +2060,32 @@ body {
 
 #gameResultModal .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  filter: brightness(110%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  filter: brightness(105%);
 }
 
 #gameResultModal .game-status-win,
 #gameResultModal .game-status-lose,
 #gameResultModal .game-status-draw {
-  color: #ffffff;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  color: #212529;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Stile specifico per il trofeo dei perdenti */
+#gameResultModal .trophy-loser {
+  color: #aaaaaa !important;
+  text-shadow: 0 0 15px rgba(170, 170, 170, 0.5) !important;
+  opacity: 0.8;
+  animation: none !important;
+}
+
+#gameResultModal .trophy-icon {
+  animation: bounce 1s ease 3;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
 }
 
 /* Stile per il messaggio di caricamento */
@@ -2097,21 +2124,4 @@ body {
 
 #gameResultModal.show .modal-dialog {
   animation: modalFadeIn 0.3s ease-out;
-}
-
-/* Stile specifico per il trofeo dei perdenti */
-#gameResultModal .trophy-loser {
-  color: #555555 !important;
-  text-shadow: 0 0 15px rgba(85, 85, 85, 0.5) !important;
-  opacity: 0.8;
-  animation: none !important;
-}
-
-#gameResultModal .trophy-icon {
-  animation: bounce 1s ease 3;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
 }
