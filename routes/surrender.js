@@ -5,7 +5,7 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 // Path to matches.json
-const MATCHES_FILE = path.join(__dirname, '../../../data/matches.json');
+const MATCHES_FILE = path.join(__dirname, '../data/matches.json');
 
 // Funzione per leggere il file matches.json
 function readMatchesFile() {

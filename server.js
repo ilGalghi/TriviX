@@ -11,6 +11,7 @@ const chatRoutes = require("./routes/chat");
 const questionsRoutes = require("./routes/questions");
 const userRoutes = require("./routes/user");
 const aiRoutes = require("./routes/ai");
+const surrenderRoutes = require("./routes/surrender");
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
@@ -68,6 +69,7 @@ app.use("/api/chat", chatRoutes);
 app.use("/api/questions", questionsRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/games", surrenderRoutes);
 
 // Gestione delle connessioni Socket.IO
 io.on('connection', (socket) => {

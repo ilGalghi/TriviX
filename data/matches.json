@@ -8916,5 +8916,143 @@
     "statsUpdated": true,
     "rematchDeclined": true,
     "rematchDeclinedBy": "94c2abe6-42c4-45b6-b8ee-7abd804cb887"
+  },
+  {
+    "id": "7fe3f20a-02cf-46ac-8bb6-709ae90f112e",
+    "matchCode": "9JA7EE",
+    "status": "completed",
+    "players": [
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "createdAt": "2025-04-23T16:50:24.846Z",
+    "updatedAt": "2025-04-23T16:50:47.363Z",
+    "winner": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "surrenderedBy": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "94c2abe6-42c4-45b6-b8ee-7abd804cb887"
+    ],
+    "rematchNewGameCode": "HYTWJT",
+    "rematchDeclined": true,
+    "rematchDeclinedBy": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "rematchPlayerAbandoned": false
+  },
+  {
+    "id": "0c9589be-c36e-41d1-a6f2-b69f2a674f6b",
+    "matchCode": "MMRENF",
+    "status": "completed",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-25T16:06:29.197Z",
+    "updatedAt": "2025-04-25T16:06:54.976Z",
+    "winner": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "surrenderedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "63cf86af-764e-477b-b01f-bfb1eab5fb51"
+    ],
+    "rematchNewGameCode": "NYJT77",
+    "rematchDeclined": true,
+    "rematchDeclinedBy": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "rematchPlayerAbandoned": true
+  },
+  {
+    "id": "58e8245c-9eeb-414e-b07c-64285822d019",
+    "matchCode": "HWE5EF",
+    "status": "completed",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 5,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-25T16:06:57.852Z",
+    "updatedAt": "2025-04-25T16:07:23.994Z",
+    "winner": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "surrenderedBy": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+      "83e143cb-7497-4c35-85f5-f0e2f2eee067"
+    ],
+    "rematchNewGameCode": "4737AE",
+    "rematchAccepted": true,
+    "rematchCreated": true
+  },
+  {
+    "id": "944d7d8b-995e-41eb-ba64-7baf8b56faf9",
+    "matchCode": "4737AE",
+    "status": "completed",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 5,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-04-25T16:07:23.995Z",
+    "updatedAt": "2025-04-25T16:07:49.524Z",
+    "isRematch": true,
+    "originalGameCode": "HWE5EF",
+    "winner": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "surrenderedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "83e143cb-7497-4c35-85f5-f0e2f2eee067"
+    ],
+    "rematchNewGameCode": "FXXXJ2",
+    "rematchDeclined": true,
+    "rematchDeclinedBy": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "rematchPlayerAbandoned": false
   }
 ]
