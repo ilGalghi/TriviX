@@ -683,7 +683,15 @@ function startTimer(initialTime = 30) {
   
   // Funzione per aggiornare il timer
   function updateTimer() {
-    document.getElementById("timerValue").textContent = timeLeft;
+    const timerElement = document.getElementById("timerValue");
+    timerElement.textContent = timeLeft;
+    
+    // Aggiungi o rimuovi la classe low-time in base al tempo rimasto
+    if (timeLeft <= 10) {
+      timerElement.classList.add("low-time");
+    } else {
+      timerElement.classList.remove("low-time");
+    }
     
     // Salva lo stato attuale del timer
     const gameCode = new URLSearchParams(window.location.search).get("code");

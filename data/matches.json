@@ -9191,12 +9191,43 @@
   {
     "id": "687c5a11-c852-451f-8165-ce3142a4666d",
     "matchCode": "WRFKC1",
-    "status": "active",
+    "status": "completed",
     "players": [
       {
         "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
         "username": "gigi",
         "score": 0,
+        "characters": []
+      },
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 3,
+        "characters": []
+      }
+    ],
+    "currentRound": 5,
+    "maxRounds": 5,
+    "currentTurn": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "createdAt": "2025-04-25T17:32:42.623Z",
+    "updatedAt": "2025-04-25T17:44:08.313Z",
+    "isRematch": true,
+    "originalGameCode": "N26ST2",
+    "winner": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "surrenderedBy": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+    "statsUpdated": true,
+    "rematchDeclined": true,
+    "rematchDeclinedBy": "94c2abe6-42c4-45b6-b8ee-7abd804cb887"
+  },
+  {
+    "id": "9cc4e62f-4e50-4004-a659-6d5bc232aac2",
+    "matchCode": "PJEAC1",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "83e143cb-7497-4c35-85f5-f0e2f2eee067",
+        "username": "gigi",
+        "score": 1,
         "characters": []
       },
       {
@@ -9209,9 +9240,7 @@
     "currentRound": 2,
     "maxRounds": 5,
     "currentTurn": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
-    "createdAt": "2025-04-25T17:32:42.623Z",
-    "updatedAt": "2025-04-25T17:34:59.245Z",
-    "isRematch": true,
-    "originalGameCode": "N26ST2"
+    "createdAt": "2025-04-25T17:44:09.805Z",
+    "updatedAt": "2025-04-25T17:45:54.131Z"
   }
 ]

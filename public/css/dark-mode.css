@@ -331,6 +331,24 @@ body.dark-mode #timerValue {
   color: #ffffff;
 }
 
+/* Timer Dark Mode quando il tempo è sotto i 10 secondi */
+body.dark-mode #timerValue.low-time {
+  color: #ff6347;
+  animation: pulseDark 1s infinite;
+}
+
+@keyframes pulseDark {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 /* Footer Dark Mode */
 body.dark-mode .footer {
   background-color: #2d2d2d;

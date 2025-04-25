@@ -44,5 +44,5 @@
 - [x] Icona logout
 - [x] Icone
 - [x] Abbellire CSS quando partita finisce (vittoria, pareggio, sconfitta)
-- [ ] Colore timer diverso
+- [x] Colore timer diverso
 
