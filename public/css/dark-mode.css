@@ -473,8 +473,26 @@ body.dark-mode .table tbody tr:hover>* {
 
 body.dark-mode .table td, 
 body.dark-mode .table th {
-  border-color: #404040;
-  padding: 12px 15px;
+  border-right: 1px solid #404040 !important;
+  border-bottom: 1px solid #404040 !important;
+  background-clip: padding-box;
+}
+
+body.dark-mode .table thead th {
+  border-bottom: 1px solid #505050 !important;
+}
+
+body.dark-mode .table tr:last-child td {
+  border-bottom: none !important;
+}
+
+body.dark-mode .table td:last-child,
+body.dark-mode .table th:last-child {
+  border-right: none !important;
+}
+
+body.dark-mode .table td.text-center, body.dark-mode .table th.text-center {
+  vertical-align: middle !important;
 }
 
 /* Leaderboard Dark Mode */
@@ -489,9 +507,9 @@ body.dark-mode #leaderboardList tr:nth-child(-n+3)>* {
 }
 
 body.dark-mode #leaderboardList tr:first-child {
-  background-color: #3a2800;
+  background-color: #6d5a1a;
   position: relative;
-  --bs-table-accent-bg: #3a2800;
+  --bs-table-accent-bg: #6d5a1a;
 }
 
 body.dark-mode #leaderboardList tr:first-child>* {
@@ -504,9 +522,9 @@ body.dark-mode #leaderboardList tr:first-child td:first-child::before {
 }
 
 body.dark-mode #leaderboardList tr:nth-child(2) {
-  background-color: #383838;
+  background-color: #535353;
   position: relative;
-  --bs-table-accent-bg: #383838;
+  --bs-table-accent-bg: #444444;
 }
 
 body.dark-mode #leaderboardList tr:nth-child(2)>* {
@@ -519,18 +537,13 @@ body.dark-mode #leaderboardList tr:nth-child(2) td:first-child::before {
 }
 
 body.dark-mode #leaderboardList tr:nth-child(3) {
-  background-color: #3a2519;
+  background-color: #5a3926;
   position: relative;
-  --bs-table-accent-bg: #3a2519;
+  --bs-table-accent-bg: #5a3926;
 }
 
 body.dark-mode #leaderboardList tr:nth-child(3)>* {
   background-color: transparent;
-}
-
-body.dark-mode #leaderboardList tr:nth-child(3) td:first-child::before {
-  content: "🥉";
-  margin-right: 8px;
 }
 
 body.dark-mode #completedMatchesList tr {
@@ -705,4 +718,18 @@ body.dark-mode #gameResultModal .game-status-draw {
 body.dark-mode #gameResultModal .trophy-loser {
   color: #555555 !important;
   text-shadow: 0 0 15px rgba(85, 85, 85, 0.5) !important;
+}
+
+body.dark-mode .user-row-highlight {
+  background: linear-gradient(90deg, #223a5e 0%, #1a2a40 100%) !important;
+  color: #8ecaff !important;
+  border-left: 4px solid #8ecaff !important;
+  box-shadow: 0 2px 8px rgba(30, 80, 180, 0.10) !important;
+  --bs-table-accent-bg: transparent !important;
+}
+
+body.dark-mode .user-row-highlight > td {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
 }

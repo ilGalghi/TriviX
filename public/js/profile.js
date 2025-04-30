@@ -262,6 +262,9 @@ function setupAvatarSelection() {
 function updateUserProfile(username, email, password, avatar) {
   const editProfileError = document.getElementById("editProfileError")
   const currentUser = JSON.parse(localStorage.getItem("currentUser"))
+  
+  console.log("Current user data:", currentUser); // Log dei dati utente
+  console.log("editProfileError element:", editProfileError); // Verifica elemento DOM
 
   if (!currentUser) {
     showError(editProfileError, "You must be logged in to update your profile")
@@ -311,68 +314,59 @@ function updateUserProfile(username, email, password, avatar) {
     profileData.password = password
   }
 
-  // Mock DB and bootstrap for demonstration purposes
-  const DB = {
-    updateUserProfile: (id, data) => {
-      // Simulate updating user profile in a database
-      const users = JSON.parse(localStorage.getItem("users")) || []
-      const userIndex = users.findIndex((user) => user.id === id)
+  console.log("Profile data to update:", profileData); // Log dei dati da aggiornare
 
-      if (userIndex !== -1) {
-        users[userIndex] = { ...users[userIndex], ...data }
-        localStorage.setItem("users", JSON.stringify(users))
-        localStorage.setItem("currentUser", JSON.stringify(users[userIndex]))
-        return { success: true, user: users[userIndex] }
-      } else {
-        return { success: false, message: "User not found. Reload the page." }
-      }
-    },
-  }
-
-  const bootstrap = {
-    Modal: class Modal {
-      constructor(element) {
-        this._element = element
-      }
-      show() {
-        // Simulate showing the modal
-        this._element.style.display = "block"
-      }
-      hide() {
-        // Simulate hiding the modal
-        this._element.style.display = "none"
-      }
-      static getInstance(element) {
-        return new Modal(element)
-      }
-    },
-  }
-
-  // Update profile
-  const result = DB.updateUserProfile(currentUser.id, profileData)
-
-  if (result.success) {
-    // Update stored user data
-    localStorage.setItem("currentUser", JSON.stringify(result.user))
-
-    // Close modal
-    const editProfileModal = bootstrap.Modal.getInstance(document.getElementById("editProfileModal"))
-    if (editProfileModal) {
-      editProfileModal.hide()
-    }
-
-    // Reload profile data
-    loadProfileData(result.user)
-
-    // Show success message
-    alert("Profile updated successfully!")
+  // Aggiorna direttamente l'utente corrente
+  const updatedUser = { ...currentUser, ...profileData };
+  
+  // Salva l'utente aggiornato
+  localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+  
+  // Aggiorna anche l'array degli utenti se esiste
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const userIndex = users.findIndex((user) => user.id === currentUser.id);
+  
+  if (userIndex !== -1) {
+    // Se l'utente esiste nell'array, aggiornalo
+    users[userIndex] = updatedUser;
+    localStorage.setItem("users", JSON.stringify(users));
   } else {
-    showError(editProfileError, result.message || "Failed to update profile. Please try again.")
+    // Se l'utente non esiste nell'array ma esiste come currentUser, aggiungilo
+    users.push(updatedUser);
+    localStorage.setItem("users", JSON.stringify(users));
   }
+  
+  // Nascondi eventuali messaggi di errore
+  if (editProfileError) {
+    editProfileError.classList.add("d-none");
+    editProfileError.textContent = "";
+  }
+
+  // Close modal
+  const editProfileModal = document.getElementById("editProfileModal");
+  if (editProfileModal) {
+    const bsModal = bootstrap.Modal.getInstance(editProfileModal);
+    if (bsModal) {
+      bsModal.hide();
+    } else {
+      // Fallback se l'istanza bootstrap non è disponibile
+      editProfileModal.style.display = "none";
+      editProfileModal.classList.remove("show");
+      document.body.classList.remove("modal-open");
+      const modalBackdrops = document.getElementsByClassName("modal-backdrop");
+      while (modalBackdrops.length > 0) {
+        modalBackdrops[0].parentNode.removeChild(modalBackdrops[0]);
+      }
+    }
+  }
+
+  // Reload profile data
+  loadProfileData(updatedUser);
 }
 
 // Helper function to show error messages
 function showError(element, message) {
+  console.log("Showing error:", message, "Element:", element); // Log dell'errore mostrato
   if (element) {
     element.textContent = message
     element.classList.remove("d-none")

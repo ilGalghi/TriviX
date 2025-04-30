@@ -1,5 +1,7 @@
 // matches.js - Handles functionality for the matches page
 
+const DEFAULT_AVATAR = "img/default-avatar.png";
+
 // Utilizzo checkAuthStatus direttamente
 checkAuthStatus();
 
@@ -105,6 +107,8 @@ function displayLeaderboard(users) {
   noLeaderboardData.classList.add("d-none");
   leaderboardList.innerHTML = "";
 
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
   users.forEach((user, index) => {
     const stats = user.profile?.stats || {};
     const row = document.createElement("tr");
@@ -132,13 +136,18 @@ function displayLeaderboard(users) {
       position = index + 1; // Numeri dal quarto posto in poi
     }
 
+    if (currentUser && user.id === currentUser.id) {
+      row.classList.add("user-row-highlight");
+    }
+
     row.innerHTML = `
       <td class="text-center border-end px-4 ${tdPositionClass}">
         <span class="fw-bold ${positionClass}">${position}</span>
       </td>
       <td class="text-center border-end px-4">
-        <div class="d-flex justify-content-center align-items-center gap-2">
-          <span class="fw-semibold">${user.username}</span>
+        <div class="d-flex justify-content-center align-items-center gap-2" style="min-height: 32px;">
+          <img src="${user.profile?.avatar || DEFAULT_AVATAR}" alt="avatar" class="rounded-circle" style="width: 28px; height: 28px; object-fit: cover; margin-right: 8px; vertical-align: middle; box-shadow: 0 1px 4px rgba(0,0,0,0.12);">
+          <span class="fw-semibold align-middle" style="line-height: 28px;">${user.username}</span>
         </div>
       </td>
       <td class="text-center border-end px-4">
@@ -147,8 +156,11 @@ function displayLeaderboard(users) {
       <td class="text-center border-end px-4">
         <span class="fw-semibold">${stats.gamesWon || 0}</span>
       </td>
-      <td class="text-center px-4">
+      <td class="text-center border-end px-4">
         <span class="fw-semibold">${stats.gamesPlayed || 0}</span>
+      </td>
+      <td class="text-center px-4">
+        <span class="fw-semibold">${stats.gamesPlayed > 0 ? ((stats.gamesWon / stats.gamesPlayed) * 100).toFixed(1) + '%' : '--'}</span>
       </td>
     `;
 

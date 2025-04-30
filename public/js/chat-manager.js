@@ -76,9 +76,18 @@ class ChatManager {
         this.socket.on('new-message', (message) => {
             console.log('Nuovo messaggio ricevuto:', message);
             this.addMessageToChat(message);
-            // Salva il messaggio
             this.saveMessage(message);
-            this.incrementUnreadMessages();
+
+            // Solo incrementa se il messaggio NON è stato inviato dall'utente corrente
+            const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            if (currentUser && message.sender !== currentUser.username) {
+                const chatSidebar = document.querySelector('.chat-sidebar');
+                if (chatSidebar && chatSidebar.classList.contains('active')) {
+                    this.resetUnreadMessages();
+                } else {
+                    this.incrementUnreadMessages();
+                }
+            }
         });
     
         this.socket.on('error', (error) => {

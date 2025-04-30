@@ -27,11 +27,10 @@
 - [x] Quando si crea nuovo account in matches dà errore
 - [x] Avatar personaggi preimpostati
 - [x] Mostrare modal finale anche posizione in classifica
-- [ ] Separare il file game.js per renderlo più leggero
-- [ ] Sicurezza HTTPS
+- [x] Separare il file game.js per renderlo più leggero
 - [ ] tradurre tutto in inglese
-- [ ] Pulsante selezione lingua EN o IT
-- [ ] Richieste di gioco: amici, giocatori frequenti
+- [x] Fixare utente non trovato quando si aggiorna foto profilo
+- [x] Foto profilo leaderboard
 
 
 
@@ -45,4 +44,5 @@
 - [x] Icone
 - [x] Abbellire CSS quando partita finisce (vittoria, pareggio, sconfitta)
 - [x] Colore timer diverso
+- [ ] togliere duplicati
 
