@@ -9700,5 +9700,23 @@
     "statsUpdated": true,
     "rematchDeclined": true,
     "rematchDeclinedBy": "94c2abe6-42c4-45b6-b8ee-7abd804cb887"
+  },
+  {
+    "id": "fef877ca-6454-438b-a26f-8f55fa346448",
+    "matchCode": "71P9V3",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 3,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-05-01T09:05:52.631Z",
+    "updatedAt": "2025-05-01T09:05:54.334Z"
   }
 ]
