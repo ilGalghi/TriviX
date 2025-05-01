@@ -1,4 +1,6 @@
 // Bootstrap utility functions
+//Questa utility è utile per semplificare la gestione dei modali in un'applicazione che utilizza Bootstrap,
+//consentendo di mostrare e nascondere i modali in modo coerente e gestendo anche il backdrop associato (schermo nero che si alza dietro il modale)
 const BootstrapUtil = {
     // Get Bootstrap modal instance
     getModalInstance(modalElement) {
