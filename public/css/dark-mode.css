@@ -217,6 +217,56 @@ body.dark-mode .player-score {
   color: #e0e0e0;
 }
 
+/* Stile per il giocatore in vantaggio in dark mode */
+body.dark-mode .player-winning {
+  border: 2px solid #2bb94e;
+  box-shadow: 0 0 15px rgba(43, 185, 78, 0.3);
+  background-color: rgba(43, 185, 78, 0.1);
+}
+
+body.dark-mode .player-winning .player-score {
+  color: #4ed963;
+  text-shadow: 0 0 8px rgba(78, 217, 99, 0.4);
+}
+
+@keyframes winningPulseDark {
+  0% {
+    box-shadow: 0 0 15px rgba(43, 185, 78, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(43, 185, 78, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(43, 185, 78, 0.3);
+  }
+}
+
+body.dark-mode .player-winning {
+  animation: winningPulseDark 2s 3;
+}
+
+/* Stile per il giocatore di cui è il turno in dark mode */
+body.dark-mode .player-current-turn {
+  border: 2px solid #0d6efd;
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.3);
+  background-color: rgba(13, 110, 253, 0.1);
+}
+
+@keyframes currentTurnPulseDark {
+  0% {
+    box-shadow: 0 0 15px rgba(13, 110, 253, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(13, 110, 253, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(13, 110, 253, 0.3);
+  }
+}
+
+body.dark-mode .player-current-turn {
+  animation: currentTurnPulseDark 2s 3;
+}
 
 body.dark-mode .recent-matches {
   background-color: #2d2d2d;

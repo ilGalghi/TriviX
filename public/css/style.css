@@ -578,7 +578,8 @@ body {
   box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
 }
 
-@media (max-width: 768px) {
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
   .game-actions {
     flex-direction: column;
     align-items: center;
@@ -593,15 +594,6 @@ body {
     height: 250px;
   }
 
-  .player-vs-container {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .player-info {
-    width: 100%;
-  }
-
   .powerups-container {
     flex-wrap: wrap;
     gap: 10px;
@@ -612,6 +604,41 @@ body {
     width: 70px;
     height: 60px;
     margin: 0 5px;
+  }
+}
+
+/* Media query per schermi tra 401px e 767.98px */
+@media (max-width: 767.98px) and (min-width: 401px) {
+  .player-vs-container {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .player-info {
+    width: calc(50% - 10px);
+  }
+}
+
+/* Media query per schermi molto piccoli (sotto i 400px) */
+@media (max-width: 400px) {
+  .player-vs-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .player-info {
+    width: 100%;
+  }
+  
+  .spinner-container {
+    width: 230px;
+    height: 230px;
+  }
+  
+  .powerup {
+    width: 65px;
+    height: 55px;
+    font-size: 0.85rem;
   }
 }
 
@@ -1058,6 +1085,33 @@ body {
   color: var(--primary-color);
 }
 
+/* Stile per il giocatore di cui è il turno */
+.player-current-turn {
+  border: 2px solid rgb(108, 92, 231);
+  box-shadow: 0 0 15px rgba(108, 92, 231, 0.3);
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+  position: relative;
+  background-color: rgba(108, 92, 231, 0.07);
+}
+
+/* Animazione per il turno corrente */
+@keyframes currentTurnPulse {
+  0% {
+    box-shadow: 0 0 15px rgba(108, 92, 231, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(108, 92, 231, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(108, 92, 231, 0.3);
+  }
+}
+
+.player-current-turn {
+  animation: currentTurnPulse 2s 3;
+}
+
 /* Turn Indicator */
 .turn-indicator {
   position: absolute;
@@ -1071,44 +1125,6 @@ body {
   font-size: 0.8rem;
   font-weight: bold;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .game-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .action-btn {
-    width: 100%;
-  }
-
-  .spinner-container {
-    width: 250px;
-    height: 250px;
-  }
-
-  .player-vs-container {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .player-info {
-    width: 100%;
-  }
-
-  .powerups-container {
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-  }
-
-  .powerup {
-    width: 70px;
-    height: 60px;
-    margin: 0 5px;
-  }
 }
 
 /* Add this to your existing CSS file if not already present */

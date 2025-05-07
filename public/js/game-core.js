@@ -502,6 +502,23 @@ function checkForOpponentMove() {
           }
         }
         
+        // Aggiorna l'evidenziazione del turno corrente
+        if (data.match.currentTurn) {
+          const player1Container = document.getElementById("player1Info");
+          const player2Container = document.getElementById("player2Info");
+          
+          // Rimuovi la classe da entrambi i container prima di riassegnarla
+          player1Container.classList.remove("player-current-turn");
+          player2Container.classList.remove("player-current-turn");
+          
+          // Evidenzia il giocatore di cui è il turno corrente
+          if (currentPlayer && data.match.currentTurn === currentPlayer.id) {
+            player1Container.classList.add("player-current-turn");
+          } else if (opponent && data.match.currentTurn === opponent.id) {
+            player2Container.classList.add("player-current-turn");
+          }
+        }
+        
         // Aggiorniamo lo stato completo della partita, inclusi nomi utente e avatar
         updateGameStateFromMatch(data.match);
         
@@ -651,6 +668,23 @@ function updateGameStateFromMatch(match) {
           const player2ScoreElement = document.querySelector("#player2Info .player-score");
           if (player2ScoreElement) {
             player2ScoreElement.textContent = opponent.score || 0;
+          }
+        }
+        
+        // Evidenzia il giocatore di cui è il turno
+        if (match.currentTurn) {
+          const player1Container = document.getElementById("player1Info");
+          const player2Container = document.getElementById("player2Info");
+          
+          // Rimuovi la classe da entrambi i container prima di riassegnarla
+          player1Container.classList.remove("player-current-turn");
+          player2Container.classList.remove("player-current-turn");
+          
+          // Evidenzia il giocatore di cui è il turno corrente
+          if (currentPlayer && match.currentTurn === currentPlayer.id) {
+            player1Container.classList.add("player-current-turn");
+          } else if (opponent && match.currentTurn === opponent.id) {
+            player2Container.classList.add("player-current-turn");
           }
         }
         
