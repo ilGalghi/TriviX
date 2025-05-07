@@ -72,7 +72,7 @@ class TrainingManager {
             
             if (!data || !data.question) {
                 console.error('Dati mancanti o invalidi:', data);
-                alert('Nessuna domanda disponibile per questa categoria.');
+                alert('No questions available for this category.');
                 window.location.href = 'index.html';
                 return;
             }
@@ -90,7 +90,7 @@ class TrainingManager {
                 stack: error.stack,
                 category: this.category
             });
-            alert('Errore nel caricamento delle domande. Riprova più tardi.');
+            alert('Error loading questions. Please try again later.');
             window.location.href = 'index.html';
         }
     }
@@ -110,7 +110,7 @@ class TrainingManager {
     showQuestion() {
         const question = this.currentQuestion;
         this.questionText.textContent = question.text;
-        this.questionCounter.textContent = `Domanda ${this.questionNumber}/5`;
+        this.questionCounter.textContent = `Question ${this.questionNumber}/5`;
 
         // Gestisci l'immagine della domanda
         const questionCard = document.querySelector('.question-card');
@@ -157,7 +157,7 @@ class TrainingManager {
         // Update score
         if (isCorrect) {
             this.score++;
-            this.scoreDisplay.textContent = `Punteggio: ${this.score}`;
+            this.scoreDisplay.textContent = `Score: ${this.score}`;
         }
 
         // Aggiorna le prestazioni dell'utente per categoria
@@ -213,7 +213,7 @@ class TrainingManager {
         this.resultSection.classList.remove('d-none');
 
         // Update result text and icon
-        this.resultText.textContent = isCorrect ? 'Corretto!' : 'Sbagliato!';
+        this.resultText.textContent = isCorrect ? 'Correct!' : 'Wrong!';
         const resultIcon = document.getElementById('resultIcon');
         resultIcon.innerHTML = isCorrect
             ? '<i class="fas fa-check-circle text-success"></i>'
@@ -224,9 +224,9 @@ class TrainingManager {
 
         // Update continue button text based on remaining questions
         if (this.questionNumber < 5) {
-            this.continueButton.textContent = 'Prossima Domanda';
+            this.continueButton.textContent = 'Next Question';
         } else {
-            this.continueButton.textContent = 'Termina Allenamento';
+            this.continueButton.textContent = 'End Training';
         }
     }
 
@@ -272,8 +272,8 @@ class TrainingManager {
 
     async loadNextQuestion() {
         if (this.questionNumber >= 5) {
-            // End training
-            window.location.href = 'index.html';
+            // Mostra il punteggio finale invece di reindirizzare alla home
+            this.showFinalScore();
             return;
         }
 
@@ -301,7 +301,7 @@ class TrainingManager {
             const data = await response.json();
 
             if (!data || !data.question) {
-                alert('Nessuna altra domanda disponibile per questa categoria.');
+                alert('No more questions available for this category.');
                 window.location.href = 'index.html';
                 return;
             }
@@ -319,7 +319,7 @@ class TrainingManager {
             this.showQuestion();
         } catch (error) {
             console.error('Error loading next question:', error);
-            alert('Errore nel caricamento della prossima domanda. Riprova più tardi.');
+            alert('Error loading next question. Please try again later.');
             window.location.href = 'index.html';
         }
     }
@@ -328,15 +328,22 @@ class TrainingManager {
         this.resultSection.classList.add('d-none');
         this.finalScoreSection.classList.remove('d-none');
         this.finalScoreValue.textContent = this.score;
-
+        
+        // Calcola la percentuale di risposte corrette
+        const percentScore = (this.score / 5) * 100;
+        
         // Set message based on score
+        let message = '';
         if (this.score === 5) {
-            this.finalScoreMessage.textContent = 'Perfetto! Hai risposto correttamente a tutte le domande!';
+            message = 'Perfect! You answered all questions correctly!';
         } else if (this.score >= 3) {
-            this.finalScoreMessage.textContent = 'Ottimo lavoro! Continua ad allenarti per migliorare!';
+            message = 'Great job! Keep training to improve!';
         } else {
-            this.finalScoreMessage.textContent = 'Non preoccuparti, continua ad allenarti e migliorerai!';
+            message = "Don't worry, keep training and you'll get better!";
         }
+        
+        // Aggiungi la percentuale su una nuova riga
+        this.finalScoreMessage.innerHTML =  percentScore + '% correct answers' + '<br>' + '<br>' + message;
     }
 
     restartTraining() {
