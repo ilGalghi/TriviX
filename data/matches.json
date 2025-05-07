@@ -6631,8 +6631,15 @@
     "maxRounds": 5,
     "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
     "createdAt": "2025-04-22T21:10:21.999Z",
-    "updatedAt": "2025-04-23T09:58:56.406Z",
-    "statsUpdated": true
+    "updatedAt": "2025-05-07T08:45:32.261Z",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "d349a492-43d5-4e35-b1bd-376dfc7cad9e"
+    ],
+    "rematchNewGameCode": "G9OUM4",
+    "rematchDeclined": true,
+    "rematchDeclinedBy": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "rematchPlayerAbandoned": true
   },
   {
     "id": "014ef35a-ad5c-49c9-82bc-8ee64f42c24a",
@@ -9720,72 +9727,21 @@
     "updatedAt": "2025-05-01T09:05:54.334Z"
   },
   {
-    "id": "23371707-af1c-4ced-a7d5-efd0f834249d",
-    "matchCode": "Q7AE5D",
-    "status": "completed",
-    "players": [
-      {
-        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
-        "username": "messi",
-        "score": 2,
-        "characters": []
-      },
-      {
-        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
-        "username": "ronaldo",
-        "score": 3,
-        "characters": []
-      }
-    ],
-    "currentRound": 5,
-    "maxRounds": 5,
-    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
-    "createdAt": "2025-05-07T07:39:46.089Z",
-    "updatedAt": "2025-05-07T07:53:02.962Z",
-    "statsUpdated": true,
-    "rematchDeclined": true,
-    "rematchDeclinedBy": "da540367-faf4-4b0a-9c93-8db9bcda7149"
-  },
-  {
-    "id": "2f46a16c-e266-45cd-8e2b-6b541ebc8ba7",
-    "matchCode": "MGVL0P",
+    "id": "6d684e72-4efc-4e8a-b71a-89af9bf13d41",
+    "matchCode": "EOMQFW",
     "status": "waiting",
     "players": [
       {
-        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
-        "username": "messi",
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
         "score": 0,
         "characters": []
       }
     ],
     "currentRound": 0,
     "maxRounds": 5,
-    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
-    "createdAt": "2025-05-07T07:53:04.808Z",
-    "updatedAt": "2025-05-07T07:53:05.694Z"
-  },
-  {
-    "id": "38cfaeb7-8cf3-450d-a6d7-4db68c3c1666",
-    "matchCode": "44DELK",
-    "status": "waiting",
-    "players": [
-      {
-        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
-        "username": "messi",
-        "score": 4,
-        "characters": []
-      },
-      {
-        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
-        "username": "ronaldo",
-        "score": 4,
-        "characters": []
-      }
-    ],
-    "currentRound": 7,
-    "maxRounds": 10,
-    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
-    "createdAt": "2025-05-07T07:53:11.419Z",
-    "updatedAt": "2025-05-07T08:23:35.515Z"
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-05-07T07:30:24.081Z",
+    "updatedAt": "2025-05-07T07:30:25.544Z"
   }
 ]

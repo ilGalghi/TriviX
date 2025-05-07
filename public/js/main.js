@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Controlla se c'è un flag per aprire il modal di login
   const openLoginModal = sessionStorage.getItem("openLoginModal");
   const loginReason = sessionStorage.getItem("loginReason");
+  const pendingCategory = sessionStorage.getItem("pendingCategory");
   
   if (openLoginModal === "true") {
     // Rimuovi i flag per evitare aperture multiple
@@ -39,12 +40,20 @@ document.addEventListener("DOMContentLoaded", () => {
           loginMessage.textContent = "Please log in to access your profile";
         } else if (loginReason === "stats") {
           loginMessage.textContent = "Please log in to view your statistics";
+        } else if (loginReason === "training") {
+          loginMessage.textContent = "Per favore effettua il login per accedere all'allenamento";
         } else {
           loginMessage.textContent = "Please log in to continue";
         }
         loginMessage.classList.remove("d-none");
       }
     }
+  }
+
+  // Se c'è una categoria in sospeso e l'utente è loggato, reindirizza al training
+  if (pendingCategory && localStorage.getItem("currentUser")) {
+    sessionStorage.removeItem("pendingCategory");
+    window.location.href = `training.html?category=${pendingCategory}`;
   }
 });
 
@@ -391,6 +400,44 @@ function setupMainListeners() {
       joinGame(gameCodeInput);
     });
   }
+
+  // Category cards click handlers
+  const categoryCards = document.querySelectorAll('.category-item');
+  categoryCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Get category from card class (es. 'category-item science' -> 'science')
+      const category = card.classList[1];
+      
+      // Check if user is logged in
+      const isLoggedIn = !!localStorage.getItem("currentUser");
+      
+      if (isLoggedIn) {
+        // User is logged in, proceed to training
+        window.location.href = `training.html?category=${category}`;
+      } else {
+        // User is not logged in, show login modal
+        const loginModalElement = document.getElementById("loginModal");
+        const loginModal = new bootstrap.Modal(loginModalElement);
+        
+        // Save category for later redirect
+        sessionStorage.setItem("pendingCategory", category);
+        
+        // Add a message to the login modal
+        const loginMessage = document.getElementById("loginMessage");
+        if (loginMessage) {
+          loginMessage.textContent = "Per favore effettua il login per accedere all'allenamento";
+          loginMessage.classList.remove("d-none");
+        }
+        
+        // Set login reason
+        sessionStorage.setItem("loginReason", "training");
+        
+        loginModal.show();
+      }
+    });
+  });
 }
 
 // Show Create Game modal
