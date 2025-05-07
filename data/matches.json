@@ -6631,8 +6631,15 @@
     "maxRounds": 5,
     "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
     "createdAt": "2025-04-22T21:10:21.999Z",
-    "updatedAt": "2025-04-23T09:58:56.406Z",
-    "statsUpdated": true
+    "updatedAt": "2025-05-07T08:45:32.261Z",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "d349a492-43d5-4e35-b1bd-376dfc7cad9e"
+    ],
+    "rematchNewGameCode": "G9OUM4",
+    "rematchDeclined": true,
+    "rematchDeclinedBy": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "rematchPlayerAbandoned": true
   },
   {
     "id": "014ef35a-ad5c-49c9-82bc-8ee64f42c24a",
@@ -9718,5 +9725,23 @@
     "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
     "createdAt": "2025-05-01T09:05:52.631Z",
     "updatedAt": "2025-05-01T09:05:54.334Z"
+  },
+  {
+    "id": "6d684e72-4efc-4e8a-b71a-89af9bf13d41",
+    "matchCode": "EOMQFW",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+    "createdAt": "2025-05-07T07:30:24.081Z",
+    "updatedAt": "2025-05-07T07:30:25.544Z"
   }
 ]
