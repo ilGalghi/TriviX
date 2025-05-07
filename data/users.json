@@ -98,33 +98,33 @@
       "stats": {
         "gamesPlayed": 8,
         "gamesWon": 1,
-        "correctAnswers": 7,
+        "correctAnswers": 37,
         "points": 75
       },
       "categoryPerformance": {
         "science": {
-          "correct": 1,
-          "total": 4
+          "correct": 11,
+          "total": 56
         },
         "entertainment": {
-          "correct": 3,
-          "total": 5
+          "correct": 13,
+          "total": 48
         },
         "sports": {
           "correct": 2,
-          "total": 6
+          "total": 12
         },
         "art": {
-          "correct": 1,
-          "total": 2
+          "correct": 2,
+          "total": 3
         },
         "geography": {
-          "correct": 0,
-          "total": 0
+          "correct": 4,
+          "total": 11
         },
         "history": {
-          "correct": 0,
-          "total": 0
+          "correct": 5,
+          "total": 16
         }
       }
     }

@@ -97,12 +97,12 @@ class TrainingManager {
 
     getCategoryTitle(category) {
         const titles = {
-            science: 'Scienza',
-            entertainment: 'Intrattenimento',
-            sports: 'Sport',
-            art: 'Arte',
-            geography: 'Geografia',
-            history: 'Storia'
+            science: 'Science',
+            entertainment: 'Entertainment',
+            sports: 'Sports',
+            art: 'Art',
+            geography: 'Geography',
+            history: 'History'
         };
         return titles[category] || category;
     }
