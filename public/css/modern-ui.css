@@ -257,6 +257,41 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Nuova media query per mantenere i container su una riga fino a 400px */
+@media (max-width: 767.98px) and (min-width: 401px) {
+  /* Manteniamo i container su una riga */
+  .player-vs-container {
+    flex-direction: row;
+    gap: 15px;
+  }
+  
+  .player-info {
+    width: calc(50% - 20px);
+  }
+  
+  .answers-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Solo sotto i 400px mettiamo i container su due righe */
+@media (max-width: 400px) {
+  .player-vs-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .player-info {
+    width: 100%;
+  }
+  
+  .answers-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 /* Modern UI enhancements for hero section */
 .hero-section {
   backdrop-filter: blur(10px);

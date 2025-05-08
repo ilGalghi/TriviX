@@ -33,8 +33,18 @@ router.post("/:category", (req, res) => {
       if (availableIndices.length === 0) {
         console.log("Tutte le domande sono state usate, reset degli indici, categoria:", category);
         const randomIndex = Math.floor(Math.random() * questions.length);
+        const question = questions[randomIndex];
+        
+        // Aggiungi informazioni sull'immagine anche quando si ripropone una domanda già vista
+        if (question.image) {
+          question.hasImage = true;
+          question.imageUrl = `/api/questions/image/${question.image}`;
+        } else {
+          question.hasImage = false;
+        }
+        
         return res.json({
-          question: questions[randomIndex],
+          question: question,
           index: randomIndex
         });
       }

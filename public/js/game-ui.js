@@ -310,7 +310,8 @@ function checkAnswer(index, correctIndex, explanation) {
       
       // Update score display
       const playerScore = document.querySelector("#player1Info .player-score");
-      playerScore.textContent = parseInt(playerScore.textContent) + 1;
+      const currentScore = parseInt(playerScore.textContent) + 1;
+      playerScore.textContent = currentScore;
       
       // Mostra l'animazione "+1"
       showPointAnimation(playerScore);

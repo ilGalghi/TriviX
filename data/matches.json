@@ -9743,5 +9743,87 @@
     "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
     "createdAt": "2025-05-07T07:30:24.081Z",
     "updatedAt": "2025-05-07T07:30:25.544Z"
+  },
+  {
+    "id": "8d3f2729-97a1-4170-add9-b2972f3ba3eb",
+    "matchCode": "SXVWPV",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 5,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-05-07T11:17:25.747Z",
+    "updatedAt": "2025-05-07T11:18:07.339Z"
+  },
+  {
+    "id": "f94f48a1-9faf-40db-ae17-39086d45b836",
+    "matchCode": "AXKR8A",
+    "status": "completed",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 4,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 4,
+        "characters": []
+      }
+    ],
+    "currentRound": 5,
+    "maxRounds": 5,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-05-07T13:07:41.698Z",
+    "updatedAt": "2025-05-07T13:09:14.231Z",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "da540367-faf4-4b0a-9c93-8db9bcda7149",
+      "63cf86af-764e-477b-b01f-bfb1eab5fb51"
+    ],
+    "rematchNewGameCode": "R2U9VX",
+    "rematchAccepted": true,
+    "rematchCreated": true
+  },
+  {
+    "id": "8b473617-13ba-432c-8028-2ae8fff4773c",
+    "matchCode": "R2U9VX",
+    "status": "active",
+    "players": [
+      {
+        "id": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+        "username": "messi",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "63cf86af-764e-477b-b01f-bfb1eab5fb51",
+    "createdAt": "2025-05-07T13:09:14.231Z",
+    "updatedAt": "2025-05-07T13:09:14.231Z",
+    "isRematch": true,
+    "originalGameCode": "AXKR8A"
   }
 ]

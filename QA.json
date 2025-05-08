@@ -66,7 +66,78 @@
         "text": "What is the name of the cell division process that produces gametes?",
         "answers": ["Mitosis", "Meiosis", "Photosynthesis", "Osmosis"],
         "correctIndex": 1,
-        "explanation": "Meiosis is the cell division process that produces gametes (sex cells) with half the number of chromosomes compared to somatic cells."
+        "explanation": "Meiosis is the cell division process that produces gametes (sex cells) with half the number of chromosomes compared to somatic cells.",
+        "image": "gameti.webp"
+      },
+      {
+        "text": "What is the name of the theoretical particle that gives mass to other particles?",
+        "answers": ["Gluon", "Higgs Boson", "Neutrino", "Quark"],
+        "correctIndex": 1,
+        "explanation": "The Higgs Boson, discovered in 2012 at CERN, is the particle associated with the Higgs field that gives mass to other fundamental particles.",
+        "image": "cern.webp"
+      },
+      {
+        "text": "Which quantum number describes the spin of an electron?",
+        "answers": ["Principal", "Azimuthal", "Magnetic", "Spin"],
+        "correctIndex": 3,
+        "explanation": "The spin quantum number describes the intrinsic angular momentum of an electron and can have values of +1/2 or -1/2.",
+        "image": "electron_spin.webp"
+      },
+      {
+        "text": "What is the name of the process by which plants convert light energy into chemical energy?",
+        "answers": ["Cellular Respiration", "Photosynthesis", "Glycolysis", "Fermentation"],
+        "correctIndex": 1,
+        "explanation": "Photosynthesis is the process by which plants convert light energy into chemical energy, producing glucose and oxygen from carbon dioxide and water.",
+        "image": "piante.webp"
+      },
+      {
+        "text": "Which type of RNA carries amino acids to the ribosome during protein synthesis?",
+        "answers": ["mRNA", "tRNA", "rRNA", "snRNA"],
+        "correctIndex": 1,
+        "explanation": "Transfer RNA (tRNA) carries amino acids to the ribosome during protein synthesis, matching them to the appropriate codons on the mRNA.",
+        "image": "rna.webp"
+      },
+      {
+        "text": "What is the name of the force that holds quarks together?",
+        "answers": ["Strong Nuclear Force", "Weak Nuclear Force", "Electromagnetic Force", "Gravitational Force"],
+        "correctIndex": 0,
+        "explanation": "The Strong Nuclear Force is the fundamental force that holds quarks together to form protons and neutrons.",
+        "image": "atomo.webp"
+      },
+      {
+        "text": "Which enzyme is responsible for unwinding DNA during replication?",
+        "answers": ["DNA Polymerase", "Helicase", "Ligase", "Primase"],
+        "correctIndex": 1,
+        "explanation": "Helicase is the enzyme responsible for unwinding the double-stranded DNA molecule during DNA replication.",
+        "image": "unwindingDNA.webp"
+      },
+      {
+        "text": "What is the name of the process by which a star converts hydrogen into helium?",
+        "answers": ["Nuclear Fusion", "Nuclear Fission", "Radioactive Decay", "Chemical Reaction"],
+        "correctIndex": 0,
+        "explanation": "Nuclear fusion is the process by which stars convert hydrogen into helium, releasing enormous amounts of energy.",
+        "image": "intohelium.webp"
+      },
+      {
+        "text": "Which type of bond is formed by the sharing of electron pairs between atoms?",
+        "answers": ["Ionic Bond", "Covalent Bond", "Hydrogen Bond", "Metallic Bond"],
+        "correctIndex": 1,
+        "explanation": "A covalent bond is formed when atoms share electron pairs, creating a strong chemical bond between the atoms.",
+        "image": "atoms.webp"
+      },
+      {
+        "text": "What is the name of the process by which cells break down glucose to produce energy?",
+        "answers": ["Photosynthesis", "Cellular Respiration", "Fermentation", "Glycolysis"],
+        "correctIndex": 1,
+        "explanation": "Cellular respiration is the process by which cells break down glucose to produce ATP, the cell's energy currency.",
+        "image": "ATP.webp"
+      },
+      {
+        "text": "Which type of radiation has the highest energy?",
+        "answers": ["Alpha", "Beta", "Gamma", "Neutron"],
+        "correctIndex": 2,
+        "explanation": "Gamma radiation has the highest energy of all types of radiation, with the ability to penetrate through most materials.",
+        "image": "radiation.webp"
       }
     ],
     "entertainment": [
@@ -134,15 +205,72 @@
         "correctIndex": 1,
         "explanation": "The Beatles released the album 'Abbey Road' in 1969, their eleventh studio album.",
         "image": "abbey_road.webp"
+      },
+      {
+        "text": "Which film won the first Academy Award for Best Picture?",
+        "answers": ["The Jazz Singer", "Wings", "Sunrise", "Metropolis"],
+        "correctIndex": 1,
+        "explanation": "Wings won the first Academy Award for Best Picture in 1929, at the first Academy Awards ceremony.",
+        "image": "oscar.webp"
+      },
+      {
+        "text": "Who composed the soundtrack for 'The Godfather'?",
+        "answers": ["Ennio Morricone", "Nino Rota", "John Williams", "Hans Zimmer"],
+        "correctIndex": 1,
+        "explanation": "Nino Rota composed the iconic soundtrack for 'The Godfather', including the famous main theme.",
+        "image": "thegodfather.webp"
+      },
+      {
+        "text": "Which Broadway musical holds the record for the longest-running show?",
+        "answers": ["Cats", "Les Misérables", "The Phantom of the Opera", "Chicago"],
+        "correctIndex": 2,
+        "explanation": "The Phantom of the Opera holds the record for the longest-running Broadway show, with over 13,000 performances.",
+        "image": "broadway.webp"
+      },
+      {
+        "text": "Who directed the first Star Wars film?",
+        "answers": ["Steven Spielberg", "George Lucas", "Irvin Kershner", "Richard Marquand"],
+        "correctIndex": 1,
+        "explanation": "George Lucas directed the first Star Wars film, 'Star Wars: Episode IV - A New Hope', released in 1977.",
+        "image": "firststarwars.webp"
+      },
+      {
+        "text": "Which actor has won the most Academy Awards for Best Actor?",
+        "answers": ["Jack Nicholson", "Daniel Day-Lewis", "Marlon Brando", "Tom Hanks"],
+        "correctIndex": 1,
+        "explanation": "Daniel Day-Lewis has won three Academy Awards for Best Actor, more than any other actor in history.",
+        "image": "academyawards.webp"
+      },
+      {
+        "text": "Which film was the first to be rated PG-13?",
+        "answers": ["Indiana Jones and the Temple of Doom", "Gremlins", "The Dark Crystal", "Poltergeist"],
+        "correctIndex": 1,
+        "explanation": "Gremlins was one of the first films to be rated PG-13, leading to the creation of the rating in 1984.",
+        "image": "pg13.webp"
+      },
+      {
+        "text": "Which film won the first animated feature Academy Award?",
+        "answers": ["Toy Story", "Beauty and the Beast", "Shrek", "Spirited Away"],
+        "correctIndex": 1,
+        "explanation": "Beauty and the Beast was the first animated film to be nominated for Best Picture and won the first Academy Award for Best Animated Feature in 2002.",
+        "image": "academyawards.webp"
+      },
+      {
+        "text": "Who composed the music for 'The Lord of the Rings' trilogy?",
+        "answers": ["John Williams", "Hans Zimmer", "Howard Shore", "James Horner"],
+        "correctIndex": 2,
+        "explanation": "Howard Shore composed the music for 'The Lord of the Rings' trilogy, winning three Academy Awards for his work.",
+        "image": "lorofrings.webp"
+      },
+      {
+        "text": "Which film was the first to use CGI?",
+        "answers": ["Tron", "Star Wars", "Jurassic Park", "Toy Story"],
+        "correctIndex": 0,
+        "explanation": "Tron (1982) was one of the first films to extensively use computer-generated imagery (CGI) in its production.",
+        "image": "cgi.webp"
       }
     ],
     "sports": [
-      {
-        "text": "In which sport would you perform a slam dunk?",
-        "answers": ["Football", "Basketball", "Tennis", "Golf"],
-        "correctIndex": 1,
-        "explanation": "A slam dunk is a basketball move in which a player jumps high and forcefully puts the ball through the hoop with one or both hands."
-      },
       {
         "text": "In which city were the 2020 Olympics held (which took place in 2021)?",
         "answers": ["Beijing", "Paris", "Tokyo", "Rio de Janeiro"],
@@ -202,6 +330,62 @@
         "answers": ["Germany", "Argentina", "Brazil", "Italy"],
         "correctIndex": 2,
         "explanation": "Brazil has won 5 World Cup titles in football, more than any other country in the history of the competition."
+      },
+      {
+        "text": "Which country has won the most Olympic gold medals in swimming?",
+        "answers": ["Australia", "United States", "Germany", "China"],
+        "correctIndex": 1,
+        "explanation": "The United States has won the most Olympic gold medals in swimming, with over 250 gold medals.",
+        "image": "swimming.webp"
+      },
+      {
+        "text": "Who holds the record for the most goals scored in a single World Cup tournament?",
+        "answers": ["Pelé", "Miroslav Klose", "Just Fontaine", "Ronaldo"],
+        "correctIndex": 2,
+        "explanation": "Just Fontaine scored 13 goals in the 1958 World Cup, a record that still stands today.",
+        "image": "worldcup.webp"
+      },
+      {
+        "text": "Which tennis player has won the most Grand Slam titles in women's singles?",
+        "answers": ["Serena Williams", "Steffi Graf", "Margaret Court", "Martina Navratilova"],
+        "correctIndex": 2,
+        "explanation": "Margaret Court has won 24 Grand Slam titles in women's singles, more than any other player.",
+        "image": "grande_slam.webp"
+      },
+      {
+        "text": "Which country has won the most Rugby World Cup titles?",
+        "answers": ["Australia", "New Zealand", "South Africa", "England"],
+        "correctIndex": 1,
+        "explanation": "New Zealand has won the most Rugby World Cup titles, with three victories.",
+        "image": "rugbycup.webp"
+      },
+      {
+        "text": "Who holds the record for the most points scored in an NBA game?",
+        "answers": ["Kobe Bryant", "Wilt Chamberlain", "Michael Jordan", "LeBron James"],
+        "correctIndex": 1,
+        "explanation": "Wilt Chamberlain scored 100 points in a single NBA game in 1962, a record that still stands.",
+        "image": "nbagames.webp"
+      },
+      {
+        "text": "Which country has won the most Olympic gold medals in athletics?",
+        "answers": ["Jamaica", "Kenya", "United States", "Russia"],
+        "correctIndex": 2,
+        "explanation": "The United States has won the most Olympic gold medals in athletics, with over 300 gold medals.",
+        "image": "athleticomlimpics.webp"
+      },
+      {
+        "text": "Who holds the record for the most goals scored in a single NHL season?",
+        "answers": ["Wayne Gretzky", "Mario Lemieux", "Brett Hull", "Alexander Ovechkin"],
+        "correctIndex": 0,
+        "explanation": "Wayne Gretzky scored 92 goals in the 1981-82 NHL season, a record that still stands.",
+        "image": "NHLseason.webp"
+      },
+      {
+        "text": "Which country has won the most Olympic gold medals in boxing?",
+        "answers": ["Cuba", "United States", "Russia", "Great Britain"],
+        "correctIndex": 0,
+        "explanation": "Cuba has won the most Olympic gold medals in boxing, with over 70 gold medals.",
+        "image": "olimpicboxing.webp"
       }
     ],
     "art": [
@@ -274,6 +458,62 @@
         "correctIndex": 1,
         "explanation": "Salvador Dalí painted 'The Persistence of Memory' in 1931, one of his most famous paintings featuring melting clocks.",
         "image": "persistenza_della_memoria.webp"
+      },
+      {
+        "text": "Who painted 'The Birth of Venus'?",
+        "answers": ["Leonardo da Vinci", "Sandro Botticelli", "Raphael", "Titian"],
+        "correctIndex": 1,
+        "explanation": "Sandro Botticelli painted 'The Birth of Venus' in the 1480s, one of the most famous works of the Italian Renaissance.",
+        "image": "venere.webp"
+      },
+      {
+        "text": "Who painted 'The Scream'?",
+        "answers": ["Vincent van Gogh", "Edvard Munch", "Paul Gauguin", "Henri Matisse"],
+        "correctIndex": 1,
+        "explanation": "Edvard Munch painted 'The Scream' in 1893, one of the most famous works of Expressionism.",
+        "image": "the-scream.webp"
+      },
+      {
+        "text": "Which artist created the 'Campidoglio' in Rome?",
+        "answers": ["Gian Lorenzo Bernini", "Michelangelo", "Donatello", "Raphael"],
+        "correctIndex": 1,
+        "explanation": "Michelangelo designed the 'Campidoglio' (Capitoline Hill) in Rome, including its famous piazza and buildings.",
+        "image": "campidoglio.webp"
+      },
+      {
+        "text": "Who painted 'The Night Watch'?",
+        "answers": ["Rembrandt", "Vermeer", "Rubens", "Van Eyck"],
+        "correctIndex": 0,
+        "explanation": "Rembrandt painted 'The Night Watch' in 1642, one of the most famous works of the Dutch Golden Age.",
+        "image": "nightwatch.webp"
+      },
+      {
+        "text": "Which artist created the 'Gates of Paradise' in Florence?",
+        "answers": ["Donatello", "Lorenzo Ghiberti", "Brunelleschi", "Michelangelo"],
+        "correctIndex": 1,
+        "explanation": "Lorenzo Ghiberti created the 'Gates of Paradise', the bronze doors of the Florence Baptistery, between 1425 and 1452.",
+        "image": "gatesparadise.webp"
+      },
+      {
+        "text": "Who painted 'The Garden of Earthly Delights'?",
+        "answers": ["Hieronymus Bosch", "Pieter Bruegel", "Jan van Eyck", "Rogier van der Weyden"],
+        "correctIndex": 0,
+        "explanation": "Hieronymus Bosch painted 'The Garden of Earthly Delights' between 1490 and 1510, a triptych known for its complex symbolism.",
+        "image": "gardenbosch.webp"
+      },
+      {
+        "text": "Which artist created the 'Ecstasy of Saint Teresa'?",
+        "answers": ["Gian Lorenzo Bernini", "Michelangelo", "Caravaggio", "Raphael"],
+        "correctIndex": 0,
+        "explanation": "Gian Lorenzo Bernini created the 'Ecstasy of Saint Teresa' between 1647 and 1652, a masterpiece of Baroque sculpture.",
+        "image": "Ecstasy_of_Saint_Teresa.webp"
+      },
+      {
+        "text": "Who painted 'The Arnolfini Portrait'?",
+        "answers": ["Jan van Eyck", "Rogier van der Weyden", "Hans Memling", "Pieter Bruegel"],
+        "correctIndex": 0,
+        "explanation": "Jan van Eyck painted 'The Arnolfini Portrait' in 1434, one of the most famous works of the Northern Renaissance.",
+        "image": "arnolfini.webp"
       }
     ],
     "geography": [
@@ -349,6 +589,69 @@
         "answers": ["Paris", "Athens", "Rome", "Jerusalem"],
         "correctIndex": 2,
         "explanation": "Rome is known as 'The Eternal City' for its long history and its fundamental role in Western civilization."
+      },
+      {
+        "text": "Which country has the most time zones?",
+        "answers": ["United States", "Russia", "France", "Australia"],
+        "correctIndex": 2,
+        "explanation": "France has the most time zones (12) due to its overseas territories and departments around the world.",
+        "image": "timezone.webp"
+      },
+      {
+        "text": "What is the deepest point in the Earth's oceans?",
+        "answers": ["Mariana Trench", "Puerto Rico Trench", "Java Trench", "Philippine Trench"],
+        "correctIndex": 0,
+        "explanation": "The Mariana Trench is the deepest point in the Earth's oceans, reaching a depth of about 11,000 meters.",
+        "image": "trench-marine.webp"
+      },
+      {
+        "text": "Which country has the most natural lakes?",
+        "answers": ["Canada", "Finland", "Russia", "United States"],
+        "correctIndex": 0,
+        "explanation": "Canada has the most natural lakes in the world, with over 2 million lakes covering about 7.6% of the country's land area.",
+        "image": "lakes.webp"
+      },
+      {
+        "text": "What is the highest waterfall in the world?",
+        "answers": ["Angel Falls", "Victoria Falls", "Niagara Falls", "Iguazu Falls"],
+        "correctIndex": 0,
+        "explanation": "Angel Falls in Venezuela is the highest waterfall in the world, with a height of 979 meters.",
+        "image": "Angel-Falls.webp"
+      },
+      {
+        "text": "Which country has the most active volcanoes?",
+        "answers": ["Japan", "Indonesia", "United States", "Italy"],
+        "correctIndex": 1,
+        "explanation": "Indonesia has the most active volcanoes in the world, with over 130 active volcanoes.",
+        "image": "vulcanoes.webp"
+      },
+      {
+        "text": "What is the largest coral reef system in the world?",
+        "answers": ["Great Barrier Reef", "Belize Barrier Reef", "Maldives Coral Reef", "Red Sea Coral Reef"],
+        "correctIndex": 0,
+        "explanation": "The Great Barrier Reef is the largest coral reef system in the world, stretching for over 2,300 kilometers along the coast of Australia.",
+        "image": "coralreef.webp"
+      },
+      {
+        "text": "Which country has the most islands?",
+        "answers": ["Sweden", "Finland", "Norway", "Indonesia"],
+        "correctIndex": 0,
+        "explanation": "Sweden has the most islands in the world, with over 267,570 islands.",
+        "image": "islands.webp"
+      },
+      {
+        "text": "What is the largest salt flat in the world?",
+        "answers": ["Salar de Uyuni", "Bonneville Salt Flats", "Etosha Pan", "Makgadikgadi Pan"],
+        "correctIndex": 0,
+        "explanation": "Salar de Uyuni in Bolivia is the largest salt flat in the world, covering over 10,000 square kilometers.",
+        "image": "saltlake.webp"
+      },
+      {
+        "text": "Which country has the most UNESCO World Heritage Sites?",
+        "answers": ["China", "Italy", "Spain", "France"],
+        "correctIndex": 1,
+        "explanation": "Italy has the most UNESCO World Heritage Sites, with 58 sites as of 2023.",
+        "image": "unescoheritage.webp"
       }
     ],
     "history": [
@@ -413,6 +716,55 @@
         "correctIndex": 2,
         "explanation": "The Western Roman Empire fell in 476 AD when the last emperor, Romulus Augustus, was deposed by Odoacer.",
         "image": "impero_romano.webp"
+      },
+      {
+        "text": "Which ancient civilization built the city of Machu Picchu?",
+        "answers": ["Aztecs", "Mayans", "Incas", "Olmecs"],
+        "correctIndex": 2,
+        "explanation": "The Incas built Machu Picchu in the 15th century, high in the Andes Mountains of Peru.",
+        "image": "machu-picchu-ci.webp"
+      },
+      {
+        "text": "In which year did the first successful powered flight take place?",
+        "answers": ["1901", "1903", "1905", "1907"],
+        "correctIndex": 1,
+        "explanation": "The Wright brothers made the first successful powered flight at Kitty Hawk, North Carolina, in 1903.",
+        "image": "wright_brothers.webp"
+      },
+      {
+        "text": "Which ancient wonder of the world was located in Alexandria?",
+        "answers": ["Colossus of Rhodes", "Lighthouse of Alexandria", "Hanging Gardens", "Temple of Artemis"],
+        "correctIndex": 1,
+        "explanation": "The Lighthouse of Alexandria was one of the Seven Wonders of the Ancient World, built in the 3rd century BC.",
+        "image": "alexandria.webp"
+      },
+      {
+        "text": "In which year did the first successful moon landing take place?",
+        "answers": ["1967", "1968", "1969", "1970"],
+        "correctIndex": 2,
+        "explanation": "The first successful moon landing took place in 1969, when Apollo 11 landed on the lunar surface.",
+        "image": "apollo11.webp"
+      },
+      {
+        "text": "Which ancient civilization built the city of Petra?",
+        "answers": ["Egyptians", "Nabataeans", "Phoenicians", "Assyrians"],
+        "correctIndex": 1,
+        "explanation": "The Nabataeans built the city of Petra in what is now Jordan, carving its famous structures into the rock face.",
+        "image": "petra.webp"
+      },
+      {
+        "text": "Which ancient civilization built the city of Tikal?",
+        "answers": ["Aztecs", "Mayans", "Incas", "Olmecs"],
+        "correctIndex": 1,
+        "explanation": "The Mayans built the city of Tikal in what is now Guatemala, with its famous pyramids and temples.",
+        "image": "Tikal.webp"
+      },
+      {
+        "text": "Which ancient civilization built the city of Palmyra?",
+        "answers": ["Romans", "Greeks", "Persians", "Arabs"],
+        "correctIndex": 0,
+        "explanation": "The Romans built the city of Palmyra in what is now Syria, creating a unique blend of Roman and local architectural styles.",
+        "image": "palmyra.webp"
       }
     ]
   }
