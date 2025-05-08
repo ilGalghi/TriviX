@@ -1,4 +1,13 @@
-// home page functionality
+// FUNZIONALITÀ DELLA PAGINA PRINCIPALE - Gestione dell'interfaccia utente della home page di TriviX
+
+/**
+ * Inizializzazione della pagina principale quando il DOM è completamente caricato
+ * Funzionalità:
+ * - Inizializza l'interfaccia utente
+ * - Configura gli event listener
+ * - Gestisce l'apertura automatica dei modal
+ * - Gestisce il reindirizzamento post-login
+ */
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize UI
   initMainUI();
@@ -57,7 +66,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Initialize main page UI
+/**
+ * Inizializza l'interfaccia utente della pagina principale
+ * Funzionalità:
+ * - Verifica lo stato di autenticazione dell'utente
+ * - Gestisce la visualizzazione delle partite recenti
+ * - Carica i dati delle partite recenti se l'utente è autenticato
+ */
 function initMainUI() {
   // Check if user is logged in
   const isLoggedIn = !!localStorage.getItem("currentUser");
@@ -74,7 +89,13 @@ function initMainUI() {
   }
 }
 
-// Load recent matches
+/**
+ * Carica le partite recenti dell'utente
+ * Funzionalità:
+ * - Recupera le partite dal server
+ * - Visualizza un messaggio se non ci sono partite
+ * - Aggiorna la sezione delle partite recenti
+ */
 function loadRecentMatches() {
   // This would typically fetch from the server
   // For now, we'll just show a placeholder
@@ -86,7 +107,15 @@ function loadRecentMatches() {
   }
 }
 
-// Set up event listeners for main page
+/**
+ * Configura gli event listener per la pagina principale
+ * Funzionalità:
+ * - Gestisce il pulsante "Nuova Partita"
+ * - Gestisce il pulsante "Unisciti a Partita"
+ * - Gestisce l'input del codice partita
+ * - Gestisce le card delle categorie
+ * - Gestisce i modal di creazione e join
+ */
 function setupMainListeners() {
   // Play Game button
   const newGameBtn = document.getElementById("newGameBtn");
@@ -440,7 +469,14 @@ function setupMainListeners() {
   });
 }
 
-// Show Create Game modal
+/**
+ * Mostra il modal di creazione partita
+ * Funzionalità:
+ * - Resetta lo stato del modal
+ * - Rimuove eventuali backdrop esistenti
+ * - Rimuove la classe modal-open dal body
+ * - Visualizza il modal
+ */
 function showCreateGameModal() {
   // Reset modal state
   document.getElementById("gameLinkSection").classList.add("d-none");
@@ -458,7 +494,15 @@ function showCreateGameModal() {
   createGameModal.show();
 }
 
-// Funzione per unirsi a un gioco
+/**
+ * Gestisce l'unione a una partita esistente
+ * Funzionalità:
+ * - Normalizza il formato del codice partita
+ * - Valida la lunghezza del codice
+ * - Gestisce gli errori di input
+ * - Reindirizza alla pagina di gioco
+ * @param {string} code - Il codice della partita a cui unirsi
+ */
 function joinGame(code) {
   // Gestisci formati diversi del codice
   if (code.includes('/')) {
@@ -533,7 +577,14 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// Mobile navigation handlers
+/**
+ * Gestisce la navigazione mobile
+ * Funzionalità:
+ * - Gestisce il pulsante nuova partita su mobile
+ * - Gestisce il pulsante unisciti su mobile
+ * - Gestisce il link al profilo su mobile
+ * - Gestisce i reindirizzamenti appropriati
+ */
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile navigation button handlers
     const mobileNewGameBtn = document.getElementById('mobileNewGameBtn');
@@ -587,7 +638,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Gestione del link Profile ora affidata a mobile-nav.js
 });
 
-// Main JavaScript functionality
+/**
+ * Funzionalità JavaScript principale della pagina
+ * Funzionalità:
+ * - Gestisce i pulsanti principali
+ * - Gestisce i modal
+ * - Gestisce il form di join
+ * - Gestisce l'input del codice partita
+ * - Gestisce la creazione di nuove partite
+ */
 document.addEventListener('DOMContentLoaded', function() {
   // Button event listeners
   const newGameBtn = document.getElementById('newGameBtn');

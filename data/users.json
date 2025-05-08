@@ -98,21 +98,21 @@
       "stats": {
         "gamesPlayed": 8,
         "gamesWon": 1,
-        "correctAnswers": 37,
+        "correctAnswers": 40,
         "points": 75
       },
       "categoryPerformance": {
         "science": {
-          "correct": 11,
-          "total": 56
+          "correct": 13,
+          "total": 61
         },
         "entertainment": {
           "correct": 13,
           "total": 48
         },
         "sports": {
-          "correct": 2,
-          "total": 12
+          "correct": 3,
+          "total": 13
         },
         "art": {
           "correct": 2,
