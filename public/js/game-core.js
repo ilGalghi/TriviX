@@ -1,6 +1,10 @@
-// FUNZIONI CORE DEL GIOCO
+// FUNZIONI CORE DEL GIOCO - Gestione della logica principale del gioco TriviX
 
-// Funzione per ottenere gli indici usati per una categoria
+/**
+ * Recupera gli indici delle domande già utilizzate per una specifica categoria
+ * @param {string} category - La categoria delle domande (es. "science", "history", etc.)
+ * @returns {Array} Array di indici delle domande già utilizzate
+ */
 function getUsedIndices(category) {
     const storedIndices = localStorage.getItem(`usedIndices_${category}`);
     
@@ -8,7 +12,11 @@ function getUsedIndices(category) {
     return storedIndices ? JSON.parse(storedIndices) : [];
 }
 
-// Funzione per salvare un nuovo indice usato
+/**
+ * Salva un nuovo indice di domanda utilizzata per una categoria specifica
+ * @param {string} category - La categoria della domanda
+ * @param {number} index - L'indice della domanda da salvare
+ */
 function saveUsedIndex(category, index) {
     const usedIndices = getUsedIndices(category);
     if (!usedIndices.includes(index)) {
@@ -17,8 +25,15 @@ function saveUsedIndex(category, index) {
     }
 }
 
-
-// Initialize game
+/**
+ * Inizializza una nuova partita o ripristina una partita esistente
+ * Gestisce:
+ * - Verifica del codice partita
+ * - Reset dei powerup e indici per nuove partite
+ * - Assegnazione dei giocatori
+ * - Gestione del turno corrente
+ * - Aggiornamento dello stato del gioco
+ */
 function initGame() {
     // Get game code from URL
     const urlParams = new URLSearchParams(window.location.search)
@@ -211,10 +226,15 @@ function initGame() {
     });
 }
 
-
-
-
-// Update player info
+/**
+ * Aggiorna le informazioni dei giocatori nell'interfaccia
+ * Gestisce:
+ * - Nomi dei giocatori
+ * - Punteggi
+ * - Avatar
+ * - Stato della partita
+ * @param {string} gameCode - Il codice univoco della partita
+ */
 function updatePlayerInfo(gameCode) {
     try {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -359,9 +379,11 @@ function updatePlayerInfo(gameCode) {
     }
 }
   
-
-
-// Funzione per rilevare quando l'utente lascia la pagina
+/**
+ * Configura il sistema di rilevamento quando l'utente lascia la pagina
+ * Mostra un avviso se l'utente tenta di cambiare tab durante una domanda
+ * Previene il cheating durante il gioco
+ */
 function setupFocusDetection() {
     // Crea un div per il messaggio di avviso
     const warningElement = document.createElement('div');
@@ -399,18 +421,25 @@ function setupFocusDetection() {
     });
 }
   
-
-
-// Start polling for opponent's move
+/**
+ * Avvia il polling periodico per controllare le mosse dell'avversario
+ * Controlla ogni 2 secondi se l'avversario ha fatto una mossa
+ */
 function startPollingForOpponentMove() {
     // Clear any existing polling interval
     gameState.pollingInterval = setInterval(() => {
       checkForOpponentMove();
-    }, 2000); // Check every 5 seconds
+    }, 2000); // Check every 2 seconds
 }
 
-
-// Check if opponent has made their move
+/**
+ * Verifica se l'avversario ha fatto una mossa
+ * Gestisce:
+ * - Aggiornamento punteggi
+ * - Cambio turno
+ * - Abbandono partita
+ * - Completamento partita
+ */
 function checkForOpponentMove() {
     // Get current user and match data
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -607,9 +636,16 @@ function checkForOpponentMove() {
     });
 }
 
-
-
-// Update game state from match data
+/**
+ * Aggiorna lo stato del gioco basandosi sui dati della partita
+ * Gestisce:
+ * - Informazioni giocatori
+ * - Punteggi
+ * - Avatar
+ * - Stato turno
+ * - Risultato finale
+ * @param {Object} match - Oggetto contenente i dati della partita
+ */
 function updateGameStateFromMatch(match) {
     try {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -730,7 +766,17 @@ function updateGameStateFromMatch(match) {
     }
 }
 
-
+/**
+ * Mostra il modale con il risultato finale della partita
+ * Gestisce:
+ * - Vittoria/Sconfitta/Pareggio
+ * - Punteggi finali
+ * - Classifica globale
+ * - Opzioni per nuova partita o rivincita
+ * @param {string} result - Il risultato della partita ('win', 'lose', 'draw')
+ * @param {Object} player1 - Dati del primo giocatore
+ * @param {Object} player2 - Dati del secondo giocatore
+ */
 function showGameResultModal(result, player1, player2) {
     const modal = new bootstrap.Modal(document.getElementById('gameResultModal'));
     const resultTitle = document.getElementById('resultTitle');
@@ -922,9 +968,14 @@ function showGameResultModal(result, player1, player2) {
     }
 }
 
-
-
-// Funzione per creare una rivincita con gli stessi giocatori
+/**
+ * Crea una richiesta di rivincita con gli stessi giocatori
+ * Gestisce:
+ * - Verifica disponibilità avversario
+ * - Creazione nuova partita
+ * - Gestione stati di attesa
+ * - Reindirizzamento alla nuova partita
+ */
 function createRematch() {
     // Ottieni il codice della partita corrente
     const urlParams = new URLSearchParams(window.location.search);
@@ -1043,9 +1094,14 @@ function createRematch() {
     });
 }
 
-
-
-// Funzione per controllare periodicamente lo stato della richiesta di rivincita
+/**
+ * Controlla periodicamente lo stato della richiesta di rivincita
+ * Gestisce:
+ * - Accettazione/rifiuto rivincita
+ * - Abbandono avversario
+ * - Aggiornamento UI
+ * @param {string} gameCode - Il codice della partita corrente
+ */
 function checkRematchStatus(gameCode) {
     // Ottieni l'utente corrente
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -1137,8 +1193,15 @@ function checkRematchStatus(gameCode) {
     window.rematchCheckIntervalId = rematchCheckInterval;
 }
 
-
-// Pulisce tutti i dati salvati relativi alla partita quando questa termina
+/**
+ * Pulisce tutti i dati salvati relativi alla partita quando questa termina
+ * Rimuove:
+ * - Dati domande
+ * - Timer
+ * - Indici usati
+ * - Chat
+ * @param {string} gameCode - Il codice della partita da pulire
+ */
 function cleanupGameData(gameCode) {
     if (!gameCode) return;
     
@@ -1165,6 +1228,7 @@ function cleanupGameData(gameCode) {
     }
 }
 
+// Esporta le funzioni per l'utilizzo in altri moduli
 export {
   getUsedIndices,
   saveUsedIndex,

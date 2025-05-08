@@ -1,4 +1,4 @@
-// Main page functionality
+// home page functionality
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize UI
   initMainUI();

@@ -1,6 +1,14 @@
-// FUNZIONI PER LA UI DEL GIOCO
+// FUNZIONI PER LA UI DEL GIOCO - Gestione dell'interfaccia utente di TriviX
 
-// Spin the wheel
+/**
+ * Gestisce l'animazione e la logica della ruota delle categorie
+ * Funzionalità:
+ * - Disabilita il pulsante durante l'animazione
+ * - Calcola la rotazione casuale
+ * - Applica l'animazione CSS
+ * - Gestisce il cambio di stato del gioco
+ * - Avvia la domanda dopo l'animazione
+ */
 function spinWheel() {
     // Disable spin button
     document.getElementById("spinButton").disabled = true
@@ -64,8 +72,17 @@ function spinWheel() {
     }, 3000);
 }
 
-
-// Show question for category
+/**
+ * Mostra una domanda per la categoria selezionata
+ * Funzionalità:
+ * - Cambia la vista da spinner a domanda
+ * - Imposta il colore della categoria
+ * - Recupera una domanda non usata dal server
+ * - Gestisce le immagini delle domande
+ * - Crea le opzioni di risposta
+ * - Avvia il timer
+ * @param {string} category - La categoria della domanda da mostrare
+ */
 function showQuestion(category) {
     // Hide spinner section and show question section
     document.getElementById("spinnerSection").classList.add("d-none")
@@ -175,7 +192,16 @@ function showQuestion(category) {
       });
 }
 
-// Start timer
+/**
+ * Avvia il timer per la risposta alla domanda
+ * Funzionalità:
+ * - Gestisce il countdown
+ * - Aggiorna l'UI del timer
+ * - Salva lo stato del timer
+ * - Gestisce il timeout
+ * - Passa il turno all'avversario se scade il tempo
+ * @param {number} initialTime - Tempo iniziale in secondi (default: 30)
+ */
 function startTimer(initialTime = 30) {
     let timeLeft = initialTime;
     let timerInterval;
@@ -234,7 +260,12 @@ function startTimer(initialTime = 30) {
     };
   }
   
-  // Funzione per fermare il timer
+  /**
+   * Ferma il timer della domanda corrente
+   * Funzionalità:
+   * - Interrompe l'intervallo del timer
+   * - Resetta lo stato del timer globale
+   */
   function stopTimer() {
     if (window.questionTimer && window.questionTimer.interval) {
       clearInterval(window.questionTimer.interval);
@@ -242,8 +273,18 @@ function startTimer(initialTime = 30) {
     }
   }
 
-
-// Check answer
+/**
+ * Verifica la risposta selezionata dall'utente
+ * Funzionalità:
+ * - Controlla se la risposta è corretta
+ * - Aggiorna il punteggio
+ * - Mostra l'animazione del punteggio
+ * - Salva il risultato
+ * - Passa il turno all'avversario
+ * @param {number} index - Indice della risposta selezionata
+ * @param {number} correctIndex - Indice della risposta corretta
+ * @param {string} explanation - Spiegazione della risposta
+ */
 function checkAnswer(index, correctIndex, explanation) {
     // Verifica se il tempo è scaduto usando il valore corrente del timer
     if (window.questionTimer && window.questionTimer.getTimeLeft() <= 0) {
@@ -285,8 +326,14 @@ function checkAnswer(index, correctIndex, explanation) {
     switchTurn();
   }
 
-
-// Funzione per mostrare l'animazione "+1" quando si guadagna un punto
+/**
+ * Mostra l'animazione del punteggio quando si guadagna un punto
+ * Funzionalità:
+ * - Crea un elemento animato
+ * - Posiziona l'animazione vicino al punteggio
+ * - Rimuove l'elemento dopo l'animazione
+ * @param {HTMLElement} targetElement - Elemento dove mostrare l'animazione
+ */
 function showPointAnimation(targetElement) {
     // Crea un elemento per l'animazione
     const pointAnimation = document.createElement('div');
@@ -308,8 +355,16 @@ function showPointAnimation(targetElement) {
     }, 1500);
   }
 
-
-// Show result
+/**
+ * Mostra il risultato della risposta
+ * Funzionalità:
+ * - Cambia la vista da domanda a risultato
+ * - Mostra l'icona appropriata
+ * - Visualizza la spiegazione
+ * - Salva il risultato
+ * @param {boolean} isCorrect - Se la risposta era corretta
+ * @param {string} explanation - Spiegazione della risposta
+ */
 function showResult(isCorrect, explanation) {
     // Hide question section and show result section
     document.getElementById("questionSection").classList.add("d-none")
@@ -330,7 +385,15 @@ function showResult(isCorrect, explanation) {
     saveQuestionResult(isCorrect, explanation);
   }
   
-  // Mostra la domanda precedente se si ricarica la pagina
+  /**
+   * Verifica se c'è una domanda salvata da ripristinare
+   * Funzionalità:
+   * - Controlla il localStorage per dati salvati
+   * - Ripristina lo stato della domanda
+   * - Ripristina il timer
+   * - Gestisce le immagini
+   * @returns {boolean} True se una domanda è stata ripristinata
+   */
   function checkForSavedQuestion() {
     const gameCode = new URLSearchParams(window.location.search).get("code");
     if (!gameCode) return;
@@ -453,7 +516,15 @@ function showResult(isCorrect, explanation) {
     return false;
   }
   
-  // Salva lo stato corrente della domanda
+  /**
+   * Salva lo stato corrente della domanda
+   * Funzionalità:
+   * - Salva la domanda nel localStorage
+   * - Salva la categoria
+   * - Imposta la fase del gioco
+   * @param {Object} question - Oggetto domanda da salvare
+   * @param {string} category - Categoria della domanda
+   */
   function saveCurrentQuestion(question, category) {
     const gameCode = new URLSearchParams(window.location.search).get("code");
     if (!gameCode) return;
@@ -467,7 +538,15 @@ function showResult(isCorrect, explanation) {
     localStorage.setItem(`gamePhase_${gameCode}`, 'question');
   }
   
-  // Salva il risultato della risposta
+  /**
+   * Salva il risultato della risposta
+   * Funzionalità:
+   * - Salva il risultato nel localStorage
+   * - Salva la spiegazione
+   * - Imposta la fase del gioco
+   * @param {boolean} isCorrect - Se la risposta era corretta
+   * @param {string} explanation - Spiegazione della risposta
+   */
   function saveQuestionResult(isCorrect, explanation) {
     const gameCode = new URLSearchParams(window.location.search).get("code");
     if (!gameCode) return;
@@ -481,8 +560,15 @@ function showResult(isCorrect, explanation) {
     localStorage.setItem(`gamePhase_${gameCode}`, 'result');
   }
 
-
-// Nuova funzione per aggiornare le prestazioni dell'utente per categoria
+/**
+ * Aggiorna le statistiche dell'utente per categoria
+ * Funzionalità:
+ * - Invia i dati al server
+ * - Aggiorna le prestazioni per categoria
+ * - Gestisce gli errori
+ * @param {string} category - Categoria della domanda
+ * @param {boolean} isCorrect - Se la risposta era corretta
+ */
 function updateUserCategoryPerformance(category, isCorrect) {
     // Ottieni l'utente corrente
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -522,8 +608,15 @@ function updateUserCategoryPerformance(category, isCorrect) {
     });
   }
 
-
-// Set up game event listeners
+/**
+ * Configura gli event listener del gioco
+ * Funzionalità:
+ * - Gestisce il pulsante della ruota
+ * - Gestisce il pulsante di resa
+ * - Gestisce la chat
+ * - Gestisce il pulsante continua
+ * - Avvia il polling per le mosse dell'avversario
+ */
 function setupGameListeners() {
     // Spin button
     const spinButton = document.getElementById("spinButton");
@@ -602,7 +695,14 @@ function setupGameListeners() {
     
   }
 
-// Funzione per arrendersi durante la partita
+/**
+ * Gestisce la resa del giocatore
+ * Funzionalità:
+ * - Invia la richiesta di resa al server
+ * - Aggiorna l'UI
+ * - Disabilita i controlli
+ * - Pulisce i dati
+ */
 function surrenderGame() {
     // Get current user and match data
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -669,7 +769,14 @@ function surrenderGame() {
     });
   }
 
-// Save score to database
+/**
+ * Salva il punteggio nel database
+ * Funzionalità:
+ * - Invia l'aggiornamento al server
+ * - Aggiorna lo stato locale
+ * - Gestisce gli errori
+ * @param {boolean} isCorrect - Se la risposta era corretta
+ */
 function saveScoreToDatabase(isCorrect) {
     // Get current user and match data
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -716,7 +823,14 @@ function saveScoreToDatabase(isCorrect) {
     });
   }
 
-// Switch turn to opponent
+/**
+ * Passa il turno all'avversario
+ * Funzionalità:
+ * - Invia la richiesta al server
+ * - Aggiorna lo stato del gioco
+ * - Gestisce il completamento della partita
+ * - Gestisce gli errori
+ */
 function switchTurn() {
     // Get current user and match data
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
