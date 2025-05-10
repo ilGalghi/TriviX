@@ -9,9 +9,7 @@
  * - Gestisce il reindirizzamento post-login
  */
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize UI
-  initMainUI();
-
+  
   // Set up event listeners
   setupMainListeners();
 
@@ -27,6 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   
   // Controlla se c'è un flag per aprire il modal di login
+  // usiamo il sessionStorage che a differenza del localStorage non persiste dopo la chiusura della pagina
+  // localStorage usato, per esempio, per funzionalità legate al match che può essere riaperto in una nuova sessione
   const openLoginModal = sessionStorage.getItem("openLoginModal");
   const loginReason = sessionStorage.getItem("loginReason");
   const pendingCategory = sessionStorage.getItem("pendingCategory");
@@ -66,46 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/**
- * Inizializza l'interfaccia utente della pagina principale
- * Funzionalità:
- * - Verifica lo stato di autenticazione dell'utente
- * - Gestisce la visualizzazione delle partite recenti
- * - Carica i dati delle partite recenti se l'utente è autenticato
- */
-function initMainUI() {
-  // Check if user is logged in
-  const isLoggedIn = !!localStorage.getItem("currentUser");
-  console.log("Main page - Auth state:", isLoggedIn ? "Logged in" : "Not logged in");
 
-  // Show/hide recent matches section based on login status
-  const recentMatchesSection = document.getElementById("recentMatchesSection");
-  if (recentMatchesSection) {
-    // Only show recent matches if user is logged in
-    if (isLoggedIn) {
-      // Load recent matches (if any)
-      loadRecentMatches();
-    }
-  }
-}
 
-/**
- * Carica le partite recenti dell'utente
- * Funzionalità:
- * - Recupera le partite dal server
- * - Visualizza un messaggio se non ci sono partite
- * - Aggiorna la sezione delle partite recenti
- */
-function loadRecentMatches() {
-  // This would typically fetch from the server
-  // For now, we'll just show a placeholder
-  const recentMatchesList = document.getElementById("recentMatchesList");
-  if (recentMatchesList) {
-    recentMatchesList.innerHTML = `
-      <p class="text-muted">No recent matches found. Start playing!</p>
-    `;
-  }
-}
+
 
 /**
  * Configura gli event listener per la pagina principale
@@ -303,41 +266,7 @@ function setupMainListeners() {
     });
   }
 
-  // Recent Matches button
-  const recentMatchesBtn = document.getElementById("recentMatchesBtn");
-  if (recentMatchesBtn) {
-    recentMatchesBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      // Check if user is logged in
-      const isLoggedIn = !!localStorage.getItem("currentUser");
-
-      if (isLoggedIn) {
-        // User is logged in, toggle recent matches section
-        const recentMatchesSection = document.getElementById("recentMatchesSection");
-        if (recentMatchesSection) {
-          recentMatchesSection.classList.toggle("d-none");
-
-          // Load recent matches if section is visible
-          if (!recentMatchesSection.classList.contains("d-none")) {
-            loadRecentMatches();
-          }
-        }
-      } else {
-        // User is not logged in, show login modal
-        const loginModalElement = document.getElementById("loginModal");
-        const loginModal = new bootstrap.Modal(loginModalElement);
-        loginModal.show();
-
-        // Add a message to the login modal
-        const loginMessage = document.getElementById("loginMessage");
-        if (loginMessage) {
-          loginMessage.textContent = "Please log in to view your recent matches";
-          loginMessage.classList.remove("d-none");
-        }
-      }
-    });
-  }
+  
 
   // Create Game button in modal
   const createGameBtn = document.getElementById("createGameBtn");
