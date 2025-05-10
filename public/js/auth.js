@@ -518,7 +518,7 @@ function setupAuthListeners() {
     })
   }
 
-  // Modulo di modifica profilo
+  // Modulo di modifica profilo per aggiornare server side (su profile.js avviene per la UI solo)
   const editProfileForm = document.getElementById("editProfileForm")
   if (editProfileForm) {
     editProfileForm.addEventListener("submit", (e) => {
