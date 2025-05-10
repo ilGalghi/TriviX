@@ -518,7 +518,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile navigation button handlers
     const mobileNewGameBtn = document.getElementById('mobileNewGameBtn');
     const mobileJoinGameBtn = document.getElementById('mobileJoinGameBtn');
-    const mobileProfileLink = document.getElementById('mobileProfileLink');
 
     // Open new game modal on mobile button click
     if (mobileNewGameBtn) {
@@ -578,21 +577,9 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 document.addEventListener('DOMContentLoaded', function() {
   // Button event listeners
-  const newGameBtn = document.getElementById('newGameBtn');
-  const joinGameBtn = document.getElementById('joinGameBtn');
-  const mobileNewGameBtn = document.getElementById('mobileNewGameBtn');
-  const mobileJoinGameBtn = document.getElementById('mobileJoinGameBtn');
   const heroGameCodeInput = document.getElementById('heroGameCode');
   
-  // Modal elements
-  const createGameModal = new bootstrap.Modal(document.getElementById('createGameModal'));
-  const joinGameModal = new bootstrap.Modal(document.getElementById('joinGameModal'));
   
-  
-  
- 
-  
- 
   // Join game form handler
   const joinGameForm = document.getElementById('joinGameForm');
   if (joinGameForm) {
@@ -665,6 +652,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Create game functionality
-  // ... existing code ...
 });
