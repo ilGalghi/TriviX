@@ -85,5 +85,3 @@ document.addEventListener('authStateChanged', function() {
     updateProfileLoginLink();
 });
 
-// Esporre la funzione updateProfileLoginLink per permettere ad altri script di chiamarla
-window.updateMobileNavUI = updateProfileLoginLink; 
