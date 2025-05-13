@@ -207,12 +207,6 @@ body {
   margin-top: 5px;
 }
 
-.player-characters {
-  display: flex;
-  gap: 5px;
-  margin-top: 10px;
-}
-
 .vs-badge {
   background-color: var(--accent-color);
   color: white;
