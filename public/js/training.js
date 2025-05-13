@@ -1,5 +1,3 @@
-import * as GameCore from './game-core.js'; // Importa il modulo GameCore per la logica di gioco
-import * as GameUI from './game-ui.js'; // Importa il modulo GameUI per la gestione dell'interfaccia utente
 
 // Classe principale per gestire l'allenamento
 class TrainingManager {
