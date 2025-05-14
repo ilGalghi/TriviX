@@ -9825,5 +9825,101 @@
     "updatedAt": "2025-05-07T13:09:14.231Z",
     "isRematch": true,
     "originalGameCode": "AXKR8A"
+  },
+  {
+    "id": "c0c51ad7-b29c-42e4-8b67-0c5dc8888c70",
+    "matchCode": "SY5Y1T",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "e3c94832-780c-4a52-a56d-97250ae9e31c",
+        "username": "user",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 5,
+    "currentTurn": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "createdAt": "2025-05-14T12:39:32.912Z",
+    "updatedAt": "2025-05-14T12:40:29.223Z"
+  },
+  {
+    "id": "0f46066a-f605-4a55-ac29-cdf37aa776f5",
+    "matchCode": "VC6FG9",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "e3c94832-780c-4a52-a56d-97250ae9e31c",
+        "username": "user",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 5,
+    "maxRounds": 5,
+    "currentTurn": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "createdAt": "2025-05-14T12:40:36.441Z",
+    "updatedAt": "2025-05-14T12:43:08.476Z"
+  },
+  {
+    "id": "6c8daa46-33f4-467a-ad71-0d9f4c98d5f1",
+    "matchCode": "J2P6KM",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "e3c94832-780c-4a52-a56d-97250ae9e31c",
+        "username": "user",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 5,
+    "currentTurn": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "createdAt": "2025-05-14T12:43:15.784Z",
+    "updatedAt": "2025-05-14T12:44:28.805Z"
+  },
+  {
+    "id": "ef983690-db06-40b9-a55d-5660d8009486",
+    "matchCode": "3CT21X",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "e3c94832-780c-4a52-a56d-97250ae9e31c",
+        "username": "user",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+        "username": "leo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 5,
+    "currentTurn": "94c2abe6-42c4-45b6-b8ee-7abd804cb887",
+    "createdAt": "2025-05-14T12:53:31.482Z",
+    "updatedAt": "2025-05-14T12:55:21.698Z"
   }
 ]

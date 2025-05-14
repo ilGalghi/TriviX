@@ -186,33 +186,33 @@
       "stats": {
         "gamesPlayed": 18,
         "gamesWon": 16,
-        "correctAnswers": 25,
+        "correctAnswers": 27,
         "points": 480
       },
       "categoryPerformance": {
         "science": {
           "correct": 7,
-          "total": 15
+          "total": 16
         },
         "entertainment": {
           "correct": 2,
-          "total": 5
+          "total": 6
         },
         "sports": {
           "correct": 6,
-          "total": 8
+          "total": 9
         },
         "art": {
           "correct": 6,
-          "total": 6
+          "total": 7
         },
         "geography": {
-          "correct": 1,
-          "total": 4
+          "correct": 2,
+          "total": 6
         },
         "history": {
-          "correct": 3,
-          "total": 3
+          "correct": 4,
+          "total": 5
         }
       }
     }
@@ -297,6 +297,48 @@
         "history": {
           "correct": 0,
           "total": 0
+        }
+      }
+    }
+  },
+  {
+    "id": "e3c94832-780c-4a52-a56d-97250ae9e31c",
+    "username": "user",
+    "email": "user@user.com",
+    "password": "$2a$10$tMZ8p39pClvMaUAIn0LkU.6Z1RJ5F.EnF16i1U7uHsF/B4Jzkjlga",
+    "createdAt": "2025-05-14T12:29:12.692Z",
+    "profile": {
+      "avatar": "/img/avatars/avatar1.png",
+      "stats": {
+        "gamesPlayed": 15,
+        "gamesWon": 9,
+        "correctAnswers": 31,
+        "points": 270
+      },
+      "categoryPerformance": {
+        "science": {
+          "correct": 7,
+          "total": 9
+        },
+        "entertainment": {
+          "correct": 8,
+          "total": 14
+        },
+        "sports": {
+          "correct": 12,
+          "total": 18
+        },
+        "art": {
+          "correct": 2,
+          "total": 5
+        },
+        "geography": {
+          "correct": 6,
+          "total": 8
+        },
+        "history": {
+          "correct": 13,
+          "total": 15
         }
       }
     }

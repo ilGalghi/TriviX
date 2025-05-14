@@ -15,6 +15,13 @@ TriviX è una piattaforma interattiva di quiz tematici ispirata a Trivia Crack, 
 
 Il gioco combina apprendimento e divertimento in un'interfaccia intuitiva e accattivante, accessibile da qualsiasi dispositivo.
 
+
+## 🖼️ Anteprima dell'applicazione
+Disponibile sia in versione desktop che mobile:
+| ![Immagine 1](docs/desktop.png) | ![Immagine 2](docs/mobile.png) |
+|-----------------------------|-----------------------------|
+
+
 ## ✨ Funzionalità principali
 - **Autenticazione utenti**: Registrazione, login e gestione del profilo
 - **Modalità di gioco**: Single player (allenamento) e multiplayer
