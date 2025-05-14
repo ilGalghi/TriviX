@@ -17,7 +17,7 @@ Il gioco combina apprendimento e divertimento in un'interfaccia intuitiva e acca
 
 ## Funzionalità principali
 - **Autenticazione utenti**: Registrazione, login e gestione del profilo
-- **Modalità di gioco**: Single player (allenamento) e multiplayer;
+- **Modalità di gioco**: Single player (allenamento) e multiplayer
 - **Chat in tempo reale**: Comunicazione tra giocatori durante le partite
 - **Sistema di domande e risposte**: Vasto database di domande di diverse categorie
 - **Tracciamento statistiche**: Monitoraggio dei progressi e delle performance del giocatore
