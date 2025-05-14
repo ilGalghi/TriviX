@@ -45,7 +45,7 @@ TriviX/
 ├── models/              # Modelli dati
 ├── data/                # Dati statici dell'applicazione (JSON)
 ├── question_images/     # Immagini per le domande
-├── server.js            # Entry point del server
+├── server.js            # Entry point del server Express
 ├── package.json         # Dipendenze e configurazione npm
 └── README.md            # Questo file README
 ```
