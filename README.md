@@ -53,7 +53,7 @@ TriviX/
 ## Installazione e utilizzo
 1. **Clona il repository**
    ```
-   git clone https://github.com/tuousername/TriviX.git
+   git clone https://github.com/ilGalghi/TriviX
    cd TriviX
    ```
 
