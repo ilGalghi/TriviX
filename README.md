@@ -18,8 +18,11 @@ Il gioco combina apprendimento e divertimento in un'interfaccia intuitiva e acca
 
 ## 🖼️ Anteprima dell'applicazione
 Disponibile sia in versione desktop che mobile:
-| ![Immagine 1](docs/desktop.png) | ![Immagine 2](docs/mobile.png) |
-|-----------------------------|-----------------------------|
+| Versione Desktop | Versione Mobile |
+|------------------|------------------|
+| ![Desktop](docs/desktop.png) | ![Mobile](docs/mobile.png) |
+| ![Profile Desktop](docs/Profile_desktop.png) | ![Profile Mobile](docs/profile_mobile.png) |
+
 
 
 ## ✨ Funzionalità principali
