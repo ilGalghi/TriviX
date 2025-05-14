@@ -1,127 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- Dichiarazione del tipo di documento, indica che si tratta di un documento HTML5 -->
+<html lang="en"> <!-- Inizio del documento HTML, specificando che la lingua è inglese -->
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TriviX - My Matches</title>
-  <!-- Bootstrap CSS -->
+  <meta charset="UTF-8"> <!-- Imposta la codifica dei caratteri su UTF-8, supporta la maggior parte dei caratteri internazionali -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Imposta il viewport per il responsive design, utile per dispositivi mobili -->
+  <title>TriviX - My Matches</title> <!-- Titolo della pagina che appare nella scheda del browser -->
+  
+  <!-- Bootstrap CSS per stili predefiniti e componenti reattivi -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google Fonts -->
+  
+  <!-- Google Fonts per utilizzare il font Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome for icons -->
+  
+  <!-- Font Awesome per le icone utilizzate nel sito -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Custom CSS -->
+  
+  <!-- CSS personalizzato per stili specifici del progetto -->
   <link rel="stylesheet" href="css/style.css">
-  <!-- Dark Mode CSS -->
+  
+  <!-- CSS per la modalità scura -->
   <link rel="stylesheet" href="css/dark-mode.css">
-  <!-- Modern UI CSS -->
+  
+  <!-- CSS per l'interfaccia moderna -->
   <link rel="stylesheet" href="css/modern-ui.css">
-  <!-- Favicon -->
+  
+  <!-- Favicon per il sito, l'icona che appare nella scheda del browser -->
   <link rel="icon" type="image/x-icon" href="/img/favicon/favicon.ico">
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-dark">
-      <div class="container">
-          <a class="navbar-brand" href="index.html">
-              <img src="img/logo.png" alt="TriviX Logo" height="40">
+  <!-- Barra di navigazione principale -->
+  <nav class="navbar navbar-dark"> <!-- Navbar scura -->
+      <div class="container"> <!-- Contenitore per la navbar -->
+          <a class="navbar-brand" href="index.html"> <!-- Logo e nome del sito -->
+              <img src="img/logo.png" alt="TriviX Logo" height="40"> <!-- Logo del sito -->
               TriviX
           </a>
-          <ul class="navbar-nav flex-row gap-3 d-none d-sm-flex">
+          <ul class="navbar-nav flex-row gap-3 d-none d-sm-flex"> <!-- Lista di navigazione -->
               <li class="nav-item">
-                  <a class="nav-link" href="index.html">Home</a>
+                  <a class="nav-link" href="index.html">Home</a> <!-- Link alla home -->
               </li>
               <li class="nav-item">
-                  <a class="nav-link active" href="matches.html">Stats</a>
+                  <a class="nav-link active" href="matches.html">Stats</a> <!-- Link alle statistiche, evidenziato come attivo -->
               </li>
               <li class="nav-item" id="loginNavItem">
-                  <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                  <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a> <!-- Link per aprire il modale di login -->
               </li>
               <li class="nav-item" id="registerNavItem">
-                  <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+                  <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a> <!-- Link per aprire il modale di registrazione -->
               </li>
               <li class="nav-item d-none" id="profileNavItem">
-                  <a class="nav-link" href="profile.html">Profilo</a>
+                  <a class="nav-link" href="profile.html">Profilo</a> <!-- Link al profilo utente, nascosto inizialmente -->
               </li>
               <li class="nav-item d-none" id="logoutNavItem">
-                  <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+                  <a class="nav-link" href="#" id="logoutBtn">Logout</a> <!-- Link per il logout, nascosto inizialmente -->
               </li>
           </ul>
       </div>
   </nav>
 
-  <!-- Main Content -->
-  <div class="container main-container">
-      <div class="row justify-content-center">
-          <div class="col-md-10">
-              <h1 class="mb-4">Stats</h1>
-              
-              <!-- Matches Tabs -->
-              <ul class="nav nav-tabs mb-4" id="matchesTabs">
+  <!-- Contenuto principale -->
+  <div class="container main-container"> <!-- Contenitore principale per il contenuto -->
+      <div class="row justify-content-center"> <!-- Righe centrata -->
+          <div class="col-md-10"> <!-- Colonna centrale -->
+              <h1 class="mb-4">Stats</h1> <!-- Titolo principale della pagina -->
+
+              <!-- Tab delle partite -->
+              <ul class="nav nav-tabs mb-4" id="matchesTabs"> <!-- Lista di tab per le partite -->
                   <li class="nav-item">
-                      <a class="nav-link active" id="completed-tab" data-bs-toggle="tab" href="#completedMatches">My ended matches</a>
+                      <a class="nav-link active" id="completed-tab" data-bs-toggle="tab" href="#completedMatches">My ended matches</a> <!-- Tab per le partite terminate -->
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" id="leaderboard-tab" data-bs-toggle="tab" href="#leaderboard">Global leaderboard</a>
+                      <a class="nav-link" id="leaderboard-tab" data-bs-toggle="tab" href="#leaderboard">Global leaderboard</a> <!-- Tab per la classifica globale -->
                   </li>
               </ul>
               
-              <!-- Tab Content -->
+              <!-- Contenuto dei tab -->
               <div class="tab-content">
                   
-                  <!-- Completed Matches -->
-                  <div class="tab-pane fade show active" id="completedMatches">
-                      <div class="card">
-                          <div class="card-body">
-                              <div class="table-responsive">
-                                  <table class="table table-hover">
-                                      <thead class="table-dark">
+                  <!-- Partite terminate -->
+                  <div class="tab-pane fade show active" id="completedMatches"> <!-- Contenuto del tab per le partite terminate -->
+                      <div class="card"> <!-- Contenitore per le partite terminate -->
+                          <div class="card-body"> <!-- Corpo della scheda -->
+                              <div class="table-responsive"> <!-- Contenitore per la tabella, rende la tabella reattiva -->
+                                  <table class="table table-hover"> <!-- Tabella per visualizzare le partite -->
+                                      <thead class="table-dark"> <!-- Intestazione della tabella con sfondo scuro -->
                                           <tr>
-                                              <th class="text-center">Result</th>
-                                              <th class="text-center">Players</th>
-                                              <th class="text-center">Score</th>
-                                              <th class="text-center">Round</th>
-                                              <th class="text-center">Date</th>
+                                              <th class="text-center">Result</th> <!-- Intestazione per il risultato -->
+                                              <th class="text-center">Players</th> <!-- Intestazione per i giocatori -->
+                                              <th class="text-center">Score</th> <!-- Intestazione per il punteggio -->
+                                              <th class="text-center">Round</th> <!-- Intestazione per il turno -->
+                                              <th class="text-center">Date</th> <!-- Intestazione per la data -->
                                           </tr>
                                       </thead>
-                                      <tbody id="completedMatchesList">
-                                          <!-- Completed matches will be loaded here dynamically -->
+                                      <tbody id="completedMatchesList"> <!-- Corpo della tabella dove verranno caricate le partite terminate -->
+                                          <!-- Le partite terminate verranno caricate qui dinamicamente -->
                                       </tbody>
                                   </table>
                               </div>
-                              <div class="text-center py-5 d-none" id="noCompletedMatches">
-                                  <i class="fas fa-gamepad fa-3x mb-3 text-muted"></i>
-                                  <p class="lead text-muted">You haven't played any games yet.</p>
-                                  <p class="text-muted">Go back to the home page to start playing!</p>
+                              <div class="text-center py-5 d-none" id="noCompletedMatches"> <!-- Messaggio che appare se non ci sono partite terminate -->
+                                  <i class="fas fa-gamepad fa-3x mb-3 text-muted"></i> <!-- Icona per il messaggio -->
+                                  <p class="lead text-muted">You haven't played any games yet.</p> <!-- Messaggio informativo -->
+                                  <p class="text-muted">Go back to the home page to start playing!</p> <!-- Invito a tornare alla home -->
                               </div>
                           </div>
                       </div>
                   </div>
 
-                  <!-- Leaderboard -->
-                  <div class="tab-pane fade" id="leaderboard">
-                      <div class="card">
-                          <div class="card-body">
-                              <div class="table-responsive">
-                                  <table class="table table-hover">
-                                      <thead class="table-dark">
+                  <!-- Classifica -->
+                  <div class="tab-pane fade" id="leaderboard"> <!-- Contenuto del tab per la classifica -->
+                      <div class="card"> <!-- Contenitore per la classifica -->
+                          <div class="card-body"> <!-- Corpo della scheda -->
+                              <div class="table-responsive"> <!-- Contenitore per la tabella, rende la tabella reattiva -->
+                                  <table class="table table-hover"> <!-- Tabella per visualizzare la classifica -->
+                                      <thead class="table-dark"> <!-- Intestazione della tabella con sfondo scuro -->
                                           <tr>
-                                              <th class="text-center">#</th>
-                                              <th class="text-center">Player</th>
-                                              <th class="text-center">Points</th>
-                                              <th class="text-center">Won matches</th>
-                                              <th class="text-center">Played matches</th>
-                                              <th class="text-center">Win percentage</th>
+                                              <th class="text-center">#</th> <!-- Intestazione per la posizione -->
+                                              <th class="text-center">Player</th> <!-- Intestazione per il giocatore -->
+                                              <th class="text-center">Points</th> <!-- Intestazione per i punti -->
+                                              <th class="text-center">Won matches</th> <!-- Intestazione per le partite vinte -->
+                                              <th class="text-center">Played matches</th> <!-- Intestazione per le partite giocate -->
+                                              <th class="text-center">Win percentage</th> <!-- Intestazione per la percentuale di vittorie -->
                                           </tr>
                                       </thead>
-                                      <tbody id="leaderboardList">
-                                          <!-- Leaderboard will be loaded here dynamically -->
+                                      <tbody id="leaderboardList"> <!-- Corpo della tabella dove verranno caricate i dati della classifica -->
+                                          <!-- La classifica verrà caricata qui dinamicamente -->
                                       </tbody>
                                   </table>
                               </div>
-                              <div class="text-center py-5 d-none" id="noLeaderboardData">
-                                  <i class="fas fa-trophy fa-3x mb-3 text-muted"></i>
-                                  <p class="lead text-muted">No data available for the leaderboard.</p>
+                              <div class="text-center py-5 d-none" id="noLeaderboardData"> <!-- Messaggio che appare se non ci sono dati per la classifica -->
+                                  <i class="fas fa-trophy fa-3x mb-3 text-muted"></i> <!-- Icona per il messaggio -->
+                                  <p class="lead text-muted">No data available for the leaderboard.</p> <!-- Messaggio informativo -->
                               </div>
                           </div>
                       </div>
@@ -131,110 +138,110 @@
       </div>
   </div>
 
-  <!-- Login Modal -->
-  <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title">Login</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- Modale di Login -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true"> <!-- Modale per il login -->
+      <div class="modal-dialog modal-dialog-centered"> <!-- Dialogo del modale centrato -->
+          <div class="modal-content"> <!-- Contenuto del modale -->
+              <div class="modal-header"> <!-- Intestazione del modale -->
+                  <h5 class="modal-title">Login</h5> <!-- Titolo della finestra di login -->
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> <!-- Pulsante per chiudere il modale -->
               </div>
-              <div class="modal-body">
-                  <form id="loginForm">
-                      <div class="mb-3">
-                          <label for="loginUsername" class="form-label">Username</label>
-                          <input type="text" class="form-control" id="loginUsername" required>
+              <div class="modal-body"> <!-- Corpo del modale -->
+                  <form id="loginForm"> <!-- Form per il login -->
+                      <div class="mb-3"> <!-- Margine inferiore per il campo -->
+                          <label for="loginUsername" class="form-label">Username</label> <!-- Etichetta per il campo username -->
+                          <input type="text" class="form-control" id="loginUsername" required> <!-- Campo per inserire lo username -->
                       </div>
-                      <div class="mb-3">
-                          <label for="loginPassword" class="form-label">Password</label>
-                          <input type="password" class="form-control" id="loginPassword" required>
+                      <div class="mb-3"> <!-- Margine inferiore per il campo -->
+                          <label for="loginPassword" class="form-label">Password</label> <!-- Etichetta per il campo password -->
+                          <input type="password" class="form-control" id="loginPassword" required> <!-- Campo per inserire la password -->
                       </div>
-                      <div class="alert alert-danger d-none" id="loginError"></div>
-                      <button type="submit" class="btn btn-primary w-100">Login</button>
+                      <div class="alert alert-danger d-none" id="loginError"></div> <!-- Messaggio di errore in caso di login fallito -->
+                      <button type="submit" class="btn btn-primary w-100">Login</button> <!-- Pulsante per inviare il form di login -->
                   </form>
               </div>
-              <div class="modal-footer">
-                  <p>Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">Register</a></p>
+              <div class="modal-footer"> <!-- Parte inferiore del modale -->
+                  <p>Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">Register</a></p> <!-- Link per passare alla registrazione -->
               </div>
           </div>
       </div>
   </div>
 
-  <!-- Register Modal -->
-  <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title">Register</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- Modale di Registrazione -->
+  <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true"> <!-- Modale per la registrazione -->
+      <div class="modal-dialog modal-dialog-centered"> <!-- Dialogo del modale centrato -->
+          <div class="modal-content"> <!-- Contenuto del modale -->
+              <div class="modal-header"> <!-- Intestazione del modale -->
+                  <h5 class="modal-title">Register</h5> <!-- Titolo della finestra di registrazione -->
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> <!-- Pulsante per chiudere il modale -->
               </div>
-              <div class="modal-body">
-                  <form id="registerForm">
-                      <div class="mb-3">
-                          <label for="registerUsername" class="form-label">Username</label>
-                          <input type="text" class="form-control" id="registerUsername" required>
+              <div class="modal-body"> <!-- Corpo del modale -->
+                  <form id="registerForm"> <!-- Form per la registrazione -->
+                      <div class="mb-3"> <!-- Margine inferiore per il campo -->
+                          <label for="registerUsername" class="form-label">Username</label> <!-- Etichetta per il campo username -->
+                          <input type="text" class="form-control" id="registerUsername" required> <!-- Campo per inserire lo username -->
                       </div>
-                      <div class="mb-3">
-                          <label for="registerEmail" class="form-label">Email</label>
-                          <input type="email" class="form-control" id="registerEmail" required>
+                      <div class="mb-3"> <!-- Margine inferiore per il campo -->
+                          <label for="registerEmail" class="form-label">Email</label> <!-- Etichetta per il campo email -->
+                          <input type="email" class="form-control" id="registerEmail" required> <!-- Campo per inserire l'email -->
                       </div>
-                      <div class="mb-3">
-                          <label for="registerPassword" class="form-label">Password</label>
-                          <input type="password" class="form-control" id="registerPassword" required>
+                      <div class="mb-3"> <!-- Margine inferiore per il campo -->
+                          <label for="registerPassword" class="form-label">Password</label> <!-- Etichetta per il campo password -->
+                          <input type="password" class="form-control" id="registerPassword" required> <!-- Campo per la password -->
                       </div>
-                      <div class="mb-3">
-                          <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
-                          <input type="password" class="form-control" id="registerConfirmPassword" required>
+                      <div class="mb-3"> <!-- Margine inferiore per il campo -->
+                          <label for="registerConfirmPassword" class="form-label">Confirm Password</label> <!-- Etichetta per confermare la password -->
+                          <input type="password" class="form-control" id="registerConfirmPassword" required> <!-- Campo per confermare la password -->
                       </div>
-                      <div class="alert alert-danger d-none" id="registerError"></div>
-                      <button type="submit" class="btn btn-primary w-100">Register</button>
+                      <div class="alert alert-danger d-none" id="registerError"></div> <!-- Messaggio di errore in caso di problemi con la registrazione -->
+                      <button type="submit" class="btn btn-primary w-100">Register</button> <!-- Pulsante per inviare il form di registrazione -->
                   </form>
               </div>
-              <div class="modal-footer">
-                  <p>Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Login</a></p>
+              <div class="modal-footer"> <!-- Parte inferiore del modale -->
+                  <p>Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Login</a></p> <!-- Link per tornare al login -->
               </div>
           </div>
       </div>
   </div>
 
-  <!-- Mobile Navigation Bar -->
-  <div class="mobile-nav">
-    <a href="index.html">
-      <i class="fas fa-home"></i>
-      <span>Home</span>
+  <!-- Barra di navigazione mobile in basso -->
+  <div class="mobile-nav"> <!-- Contenitore per la navigazione mobile -->
+    <a href="index.html"> <!-- Link alla home -->
+      <i class="fas fa-home"></i> <!-- Icona per la home -->
+      <span>Home</span> <!-- Testo per la home -->
     </a>
-    <a href="matches.html" class="active">
-      <i class="fas fa-chart-bar"></i>
-      <span>Stats</span>
+    <a href="matches.html" class="active"> <!-- Link alle statistiche, evidenziato come attivo -->
+      <i class="fas fa-chart-bar"></i> <!-- Icona per le statistiche -->
+      <span>Stats</span> <!-- Testo per le statistiche -->
     </a>
-    <a href="profile.html">
-      <i class="fas fa-user"></i>
-      <span>Profilo</span>
+    <a href="profile.html"> <!-- Link al profilo utente -->
+      <i class="fas fa-user"></i> <!-- Icona per il profilo -->
+      <span>Profilo</span> <!-- Testo per il profilo -->
     </a>
   </div>
 
   <!-- Footer -->
-  <footer class="footer mt-auto py-3">
-      <div class="container text-center">
-          <span>© 2025 TriviX Clone | Created by Leonardo Galgano & Daniele D'Alonzo</span>
+  <footer class="footer mt-auto py-3"> <!-- Contenitore per il footer -->
+      <div class="container text-center"> <!-- Contenitore centrale per il testo -->
+          <span>© 2025 TriviX Clone | Created by Leonardo Galgano & Daniele D'Alonzo</span> <!-- Informazioni su chi ha creato il progetto -->
           <br>
-          <button id="darkModeToggle" class="btn btn-sm mt-2">
+          <button id="darkModeToggle" class="btn btn-sm mt-2"> <!-- Pulsante per attivare/disattivare la modalità scura -->
             <i class="fas fa-moon"></i> Dark Mode
           </button>
       </div>
   </footer>
 
-  <!-- Bootstrap JS Bundle with Popper -->
+  <!-- Bootstrap JS Bundle con Popper per le funzionalità dinamiche di Bootstrap (come modali, dropdown, ecc.) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Database Module -->
+  <!-- Modulo per la gestione del database -->
   <script src="js/db.js"></script>
-  <!-- Custom JS -->
+  <!-- Script che gestisce login, logout, registrazione e la logica di autenticazione utente -->
   <script src="js/auth.js"></script>
+  <!-- Script principale per la pagina delle partite, gestisce le interazioni e il caricamento dei dati -->
   <script src="js/matches.js" type="module"></script>
-  <!-- Dark Mode JS -->
+  <!-- Script che permette di attivare/disattivare la modalità scura -->
   <script src="js/dark-mode.js"></script>
-  <!-- Mobile Navigation JS -->
+  <!-- Script che gestisce la navigazione mobile, rendendo la barra in basso interattiva e reattiva -->
   <script src="js/mobile-nav.js"></script>
 </body>
 </html>
-
