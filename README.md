@@ -72,7 +72,11 @@ TriviX/
    ```
 
 3. **Configura le variabili d'ambiente**
+
    Crea un file `.env` nella root del progetto con l'API KEY per Gemini AI
+   ```
+   GEMINI_API_KEY=AIzaS...
+   ```
 
 4. **Avvia il server**
    ```
@@ -80,4 +84,5 @@ TriviX/
    ```
 
 5. **Accedi all'applicazione**
+
    Apri il browser e naviga a `http://localhost:3000`
