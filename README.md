@@ -1,8 +1,19 @@
-# TriviX
-**Progetto di Leonardo Galgano e Daniele D'Alonzo** per il corso di [Tecnologie e Sistemi Web](https://sites.google.com/uniroma1.it/lorenzomarconi/corsi#h.hel2jsy2h8y1). Applicazione web interattiva che permette agli utenti di giocare a quiz tematici in diverse categorie come scienza, intrattenimento, sport, arte, geografia e storia. Gli utenti possono sfidare altri giocatori, rispondere a domande, utilizzare powerup speciali e chattare durante le partite.
+# 🎮 TriviX - Quiz a Sfide
+**Progetto di Leonardo Galgano e Daniele D'Alonzo** per il corso di [Tecnologie e Sistemi Web](https://sites.google.com/uniroma1.it/lorenzomarconi/corsi#h.hel2jsy2h8y1) dell'Università La Sapienza di Roma.
 
-## Descrizione
-TriviX è un gioco di trivia online ispirato a Trivia Crack, dove gli utenti possono mettere alla prova le proprie conoscenze rispondendo a domande di varie categorie. Il gioco offre sia modalità singolo giocatore che multiplayer, permettendo agli utenti di sfidare amici o altri giocatori in tempo reale.
+> *Metti alla prova le tue conoscenze e sfida i tuoi amici in tempo reale!*
+
+## 📝 Descrizione
+TriviX è una piattaforma interattiva di quiz tematici ispirata a Trivia Crack, sviluppata con tecnologie web moderne. Offre un'esperienza di gioco coinvolgente dove gli utenti possono:
+
+- Rispondere a domande in **sei diverse categorie**: scienza, intrattenimento, sport, arte, geografia e storia
+- Sfidarsi in **modalità multiplayer** in tempo reale con amici o altri giocatori online
+- Allenarsi in **modalità singolo giocatore** per migliorare le proprie conoscenze
+- Utilizzare **power-up speciali** per ottenere vantaggi strategici durante le partite
+- **Comunicare tramite chat** con gli avversari mentre si gioca
+- Tenere traccia delle proprie **statistiche e progressi** per ogni categoria
+
+Il gioco combina apprendimento e divertimento in un'interfaccia intuitiva e accattivante, accessibile da qualsiasi dispositivo.
 
 ## Funzionalità principali
 - **Autenticazione utenti**: Registrazione, login e gestione del profilo
