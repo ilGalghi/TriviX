@@ -52,7 +52,7 @@
       "stats": {
         "gamesPlayed": 12,
         "gamesWon": 7,
-        "correctAnswers": 16,
+        "correctAnswers": 15,
         "points": 270
       },
       "categoryPerformance": {
@@ -69,8 +69,8 @@
           "total": 4
         },
         "art": {
-          "correct": 6,
-          "total": 6
+          "correct": 5,
+          "total": 5
         },
         "geography": {
           "correct": 2,
@@ -89,7 +89,7 @@
   },
   {
     "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
-    "username": "dd2",
+    "username": "dd",
     "email": "dd@gmail.com",
     "password": "$2a$10$7v8ADiBoclKvaYdJtQiF5O5HDp88DU5y.gzGAIU/vlPEEoCNUF2aa",
     "createdAt": "2025-03-23T19:22:39.855Z",
@@ -98,25 +98,25 @@
       "stats": {
         "gamesPlayed": 8,
         "gamesWon": 1,
-        "correctAnswers": 42,
+        "correctAnswers": 37,
         "points": 75
       },
       "categoryPerformance": {
         "science": {
-          "correct": 13,
-          "total": 62
+          "correct": 11,
+          "total": 56
         },
         "entertainment": {
           "correct": 13,
-          "total": 49
+          "total": 48
         },
         "sports": {
-          "correct": 3,
-          "total": 13
+          "correct": 2,
+          "total": 12
         },
         "art": {
-          "correct": 4,
-          "total": 6
+          "correct": 2,
+          "total": 3
         },
         "geography": {
           "correct": 4,
