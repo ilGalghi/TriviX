@@ -43,7 +43,7 @@ TriviX/
 │   └── img/             # Immagini e risorse grafiche
 ├── routes/              # Route API dell'applicazione
 ├── models/              # Modelli dati
-├── data/                # Dati statici dell'applicazione
+├── data/                # Dati statici dell'applicazione (JSON)
 ├── question_images/     # Immagini per le domande
 ├── server.js            # Entry point del server
 ├── package.json         # Dipendenze e configurazione npm
@@ -63,7 +63,7 @@ TriviX/
    ```
 
 3. **Configura le variabili d'ambiente**
-   Crea un file `.env` nella root del progetto con le seguenti variabili (API KEY per Gemini)
+   Crea un file `.env` nella root del progetto con l'API KEY per Gemini
 
 4. **Avvia il server**
    ```
