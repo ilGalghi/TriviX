@@ -15,7 +15,7 @@ TriviX è una piattaforma interattiva di quiz tematici ispirata a Trivia Crack, 
 
 Il gioco combina apprendimento e divertimento in un'interfaccia intuitiva e accattivante, accessibile da qualsiasi dispositivo.
 
-## Funzionalità principali
+## ✨ Funzionalità principali
 - **Autenticazione utenti**: Registrazione, login e gestione del profilo
 - **Modalità di gioco**: Single player (allenamento) e multiplayer
 - **Chat in tempo reale**: Comunicazione tra giocatori durante le partite
@@ -23,7 +23,7 @@ Il gioco combina apprendimento e divertimento in un'interfaccia intuitiva e acca
 - **Tracciamento statistiche**: Monitoraggio dei progressi e delle performance del giocatore
 - **Interfaccia responsive**: Esperienza di gioco ottimizzata su diversi dispositivi
 
-## Tecnologie utilizzate
+## 🛠️ Tecnologie utilizzate
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: Node.js, Express.js
 - **Database**: JSON (per utenti, QA, matches), MongoDB con Mongoose (per la chat)
@@ -34,7 +34,7 @@ Il gioco combina apprendimento e divertimento in un'interfaccia intuitiva e acca
   - Dotenv per la gestione delle variabili d'ambiente (API KEY)
   - UUID per la generazione di identificatori unici
 
-## Struttura del progetto
+## 📂 Struttura del progetto
 ```
 TriviX/
 ├── public/              # File statici (HTML, CSS, JavaScript)
@@ -50,7 +50,7 @@ TriviX/
 └── README.md            # Questo file README
 ```
 
-## Installazione e utilizzo
+## 🚀 Installazione e utilizzo
 1. **Clona il repository**
    ```
    git clone https://github.com/ilGalghi/TriviX
