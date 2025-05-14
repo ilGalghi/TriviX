@@ -1,101 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- Dichiarazione del tipo di documento, indica che si tratta di un documento HTML5 -->
+<html lang="en"> <!-- Inizio del documento HTML, specificando che la lingua è inglese -->
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TriviX - Training</title>
-  <!-- Bootstrap CSS -->
+  <meta charset="UTF-8"> <!-- Imposta la codifica dei caratteri su UTF-8, supporta la maggior parte dei caratteri internazionali -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Imposta il viewport per il responsive design, utile per dispositivi mobili -->
+  <title>TriviX - Training</title> <!-- Titolo della pagina che appare nella scheda del browser -->
+  
+  <!-- Bootstrap CSS per stili predefiniti e componenti reattivi -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google Fonts -->
+  
+  <!-- Google Fonts per utilizzare il font Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome for icons -->
+  
+  <!-- Font Awesome per le icone utilizzate nel sito -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Custom CSS -->
+  
+  <!-- CSS personalizzato per stili specifici del progetto -->
   <link rel="stylesheet" href="css/style.css">
-  <!-- Dark Mode CSS -->
+  
+  <!-- CSS per la modalità scura -->
   <link rel="stylesheet" href="css/dark-mode.css">
-  <!-- Modern UI CSS -->
+  
+  <!-- CSS per l'interfaccia moderna -->
   <link rel="stylesheet" href="css/modern-ui.css">
-  <!-- Favicon -->
+  
+  <!-- Favicon per il sito, l'icona che appare nella scheda del browser -->
   <link rel="icon" type="image/x-icon" href="/img/favicon/favicon.ico">
+  
   <script>
-    // Check authentication before page loads
+    // Controlla l'autenticazione prima che la pagina venga caricata
     document.addEventListener('DOMContentLoaded', function() {
-      const currentUser = localStorage.getItem('currentUser');
-      if (!currentUser) {
-        alert('Devi essere loggato per allenarti.');
-        window.location.href = 'index.html';
+      const currentUser = localStorage.getItem('currentUser'); // Recupera l'utente attuale dal local storage
+      if (!currentUser) { // Se non c'è un utente loggato
+        alert('Devi essere loggato per allenarti.'); // Mostra un avviso
+        window.location.href = 'index.html'; // Reindirizza alla pagina principale
       }
     });
   </script>
 </head>
-<body class="training-body">
-  <!-- Training Header -->
-  <div class="game-header">
-      <div class="container">
-          <div class="row align-items-center">
-              <div class="col-2">
-                  <a href="index.html" class="back-button">
-                      <i class="fas fa-arrow-left"></i>
+<body class="training-body"> <!-- Classe per lo stile del corpo della pagina -->
+  <!-- Intestazione del gioco -->
+  <div class="game-header"> <!-- Contenitore per l'intestazione del gioco -->
+      <div class="container"> <!-- Contenitore per il layout -->
+          <div class="row align-items-center"> <!-- Righe per allineare gli elementi -->
+              <div class="col-2"> <!-- Colonna per il pulsante di ritorno -->
+                  <a href="index.html" class="back-button"> <!-- Link per tornare alla home -->
+                      <i class="fas fa-arrow-left"></i> <!-- Icona per tornare indietro -->
                   </a>
               </div>
-              <div class="col-8 text-center">
-                  <h1 id="categoryTitle"></h1>
-                  <p id="questionCounter">Domanda 1/5</p>
+              <div class="col-8 text-center"> <!-- Colonna centrale per il titolo e il contatore delle domande -->
+                  <h1 id="categoryTitle"></h1> <!-- Titolo della categoria, caricato dinamicamente -->
+                  <p id="questionCounter">Domanda 1/5</p> <!-- Contatore delle domande -->
               </div>
-              <div class="col-2 text-end">
-                  <div class="score-display">
-                      <i class="fas fa-star"></i>
-                      <span id="currentScore">0</span>
+              <div class="col-2 text-end"> <!-- Colonna per visualizzare il punteggio -->
+                  <div class="score-display"> <!-- Contenitore per il punteggio -->
+                      <i class="fas fa-star"></i> <!-- Icona per il punteggio -->
+                      <span id="currentScore">0</span> <!-- Punteggio attuale, inizialmente impostato a 0 -->
                   </div>
               </div>
           </div>
       </div>
   </div>
 
-  <!-- Question Section -->
-  <div class="game-content">
-      <div id="questionSection">
-          <div class="timer-container">
-              <span id="timerValue">30</span>
+  <!-- Sezione Domande -->
+  <div class="game-content"> <!-- Contenitore per il contenuto del gioco -->
+      <div id="questionSection"> <!-- Sezione per le domande -->
+          <div class="timer-container"> <!-- Contenitore per il timer -->
+              <span id="timerValue">30</span> <!-- Valore del timer, inizialmente impostato a 30 secondi -->
           </div>
-          <div class="question-card">
-              <div class="question-text" id="questionText">
+          <div class="question-card"> <!-- Contenitore per la scheda della domanda -->
+              <div class="question-text" id="questionText"> <!-- Testo della domanda, caricato dinamicamente -->
                   Caricamento domanda...
               </div>
-              <div class="answers-container" id="answersContainer">
-                  <!-- Answers will be added dynamically -->
+              <div class="answers-container" id="answersContainer"> <!-- Contenitore per le risposte -->
+                  <!-- Le risposte verranno aggiunte dinamicamente -->
               </div>
           </div>
       </div>
 
-      <!-- Result Section (Initially Hidden) -->
-      <div id="resultSection" class="d-none text-center">
-          <div class="result-container">
-              <div id="resultIcon" class="result-icon">
-                  <i class="fas fa-check-circle text-success"></i>
+      <!-- Sezione Risultato (Inizialmente Nascosta) -->
+      <div id="resultSection" class="d-none text-center"> <!-- Contenitore per il risultato, inizialmente nascosto -->
+          <div class="result-container"> <!-- Contenitore per il risultato -->
+              <div id="resultIcon" class="result-icon"> <!-- Icona per il risultato -->
+                  <i class="fas fa-check-circle text-success"></i> <!-- Icona per risultato corretto -->
               </div>
-              <h2 id="resultText" class="result-text">Corretto!</h2>
-              <p id="resultExplanation" class="result-explanation"></p>
-              <button id="continueButton" class="btn btn-primary btn-lg mt-3">Continua</button>
+              <h2 id="resultText" class="result-text">Corretto!</h2> <!-- Testo del risultato -->
+              <p id="resultExplanation" class="result-explanation"></p> <!-- Spiegazione del risultato -->
+              <button id="continueButton" class="btn btn-primary btn-lg mt-3">Continua</button> <!-- Pulsante per continuare -->
           </div>
       </div>
 
-      <!-- Final Score Section (Initially Hidden) -->
-      <div id="finalScoreSection" class="d-none text-center">
-          <div class="final-score-container">
-              <h2>Allenamento Completato!</h2>
-              <div class="final-score">
-                  <i class="fas fa-trophy"></i>
-                  <span id="finalScoreValue">0</span>
-                  <span class="score-label">/ 5</span>
+      <!-- Sezione Punteggio Finale (Inizialmente Nascosta) -->
+      <div id="finalScoreSection" class="d-none text-center"> <!-- Contenitore per il punteggio finale, inizialmente nascosto -->
+          <div class="final-score-container"> <!-- Contenitore per il punteggio finale -->
+              <h2>Allenamento Completato!</h2> <!-- Messaggio di completamento -->
+              <div class="final-score"> <!-- Contenitore per il punteggio finale -->
+                  <i class="fas fa-trophy"></i> <!-- Icona del trofeo -->
+                  <span id="finalScoreValue">0</span> <!-- Valore del punteggio finale, inizialmente impostato a 0 -->
+                  <span class="score-label">/ 5</span> <!-- Etichetta per il punteggio massimo -->
               </div>
-              <p id="finalScoreMessage"></p>
-              <div class="final-score-actions">
-                  <button id="retryButton" class="btn btn-primary">
+              <p id="finalScoreMessage"></p> <!-- Messaggio finale, caricato dinamicamente -->
+              <div class="final-score-actions"> <!-- Contenitore per le azioni finali -->
+                  <button id="retryButton" class="btn btn-primary"> <!-- Pulsante per riprovare -->
                       <i class="fas fa-redo"></i> Riprova
                   </button>
-                  <a href="index.html" class="btn btn-secondary">
+                  <a href="index.html" class="btn btn-secondary"> <!-- Pulsante per tornare alla home -->
                       <i class="fas fa-home"></i> Torna alla Home
                   </a>
               </div>
@@ -104,26 +112,26 @@
   </div>
 
   <!-- Footer -->
-  <footer class="footer mt-auto py-3">
-    <div class="container text-center">
-        <span>© 2025 TriviX Clone | Created by Leonardo Galgano & Daniele D'Alonzo</span>
+  <footer class="footer mt-auto py-3"> <!-- Contenitore per il footer -->
+    <div class="container text-center"> <!-- Contenitore centrale per il testo -->
+        <span>© 2025 TriviX Clone | Created by Leonardo Galgano & Daniele D'Alonzo</span> <!-- Informazioni su chi ha creato il progetto -->
         <br>
-        <button id="darkModeToggle" class="btn btn-sm mt-2">
+        <button id="darkModeToggle" class="btn btn-sm mt-2"> <!-- Pulsante per attivare/disattivare la modalità scura -->
           <i class="fas fa-moon"></i> Dark Mode
         </button>
     </div>  
   </footer>
 
-  <!-- Bootstrap JS Bundle with Popper -->
+  <!-- Bootstrap JS Bundle con Popper per le funzionalità dinamiche di Bootstrap (come modali, dropdown, ecc.) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Bootstrap Utility -->
+  <!-- Script con funzioni di supporto per alcune operazioni legate a Bootstrap -->
   <script src="js/bootstrap-util.js"></script>
-  <!-- API Client must come before auth.js -->
+  <!-- Script che gestisce tutte le chiamate API verso il backend; deve essere caricato prima di auth.js per permettere l'autenticazione -->
   <script src="js/api-client.js"></script>
-  <!-- Custom JS -->
+  <!-- Script che gestisce login, logout, registrazione e la logica di autenticazione utente -->
   <script src="js/auth.js"></script>
-  <script type="module" src="js/training.js"></script>
-  <!-- Dark Mode JS -->
+  <script type="module" src="js/training.js"></script> <!-- Script principale per la logica di allenamento -->
+  <!-- Script che permette di attivare/disattivare la modalità scura -->
   <script src="js/dark-mode.js"></script>
 </body>
-</html> 
+</html>
