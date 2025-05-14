@@ -22,5 +22,29 @@
     "currentTurn": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
     "createdAt": "2025-05-13T17:58:53.032Z",
     "updatedAt": "2025-05-13T18:00:09.611Z"
+  },
+  {
+    "id": "7049306c-ba2c-47f3-b548-3a4b99471831",
+    "matchCode": "9KIKOL",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "d349a492-43d5-4e35-b1bd-376dfc7cad9e",
+        "username": "dd2",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+        "username": "ronaldo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 2,
+    "maxRounds": 5,
+    "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
+    "createdAt": "2025-05-14T09:04:43.326Z",
+    "updatedAt": "2025-05-14T09:10:24.747Z"
   }
 ]
