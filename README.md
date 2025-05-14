@@ -63,7 +63,7 @@ TriviX/
    ```
 
 3. **Configura le variabili d'ambiente**
-   Crea un file `.env` nella root del progetto con l'API KEY per Gemini AI
+   Crea un file `.env` nella root del progetto con l'API KEY per (Gemini AI)[]
 
 4. **Avvia il server**
    ```
