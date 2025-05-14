@@ -1,48 +1,63 @@
-# progetto-tsw-trivia
+# TriviX
+**Progetto di Leonardo Galgano e Daniele D'Alonzo** per il corso di [Tecnologie e Sistemi Web](https://sites.google.com/uniroma1.it/lorenzomarconi/corsi#h.hel2jsy2h8y1). Applicazione web interattiva che permette agli utenti di giocare a quiz tematici in diverse categorie come scienza, intrattenimento, sport, arte, geografia e storia. Gli utenti possono sfidare altri giocatori, rispondere a domande, utilizzare powerup speciali e chattare durante le partite.
 
-## To do
-- [x] Domande su server
-- [x] Aggiornamento statistiche profilo
-- [x] Configurare i powerup in modo che non siano tutti per ogni domanda
-- [x] Chat duratura per la partita, poi eliminata
-- [x] Quando si aggiorna la pagina, non deve permettere di rigenerare la domanda / rigenerare powerups
-- [x] Suggerimento (powerup) AI
-- [x] Bottone arrenditi
-- [x] Spin corretto per categoria di domanda
-- [x] Non far uscire la stessa domanda, almeno durante il match (localStorage)
-- [x] Fixare pulsante join game (se entra link o solo codice)
-- [x] Fixare My matches (stats): passati, classifica, amici
-- [x] Opzione per scegliere quante domande per partita
-- [x] Domande con immagini: cartella e campo
-- [x] Creare classifica punti vinti per match. aggiungere campo
-- [x] Per la resa:
-    - [x] Impostare 3-0 a tavolino
-    - [x] Capire come gestire il +3 della resa (se metterle come risposte giuste o no) + quelle giuste fatte precedentemente nelle "corrected answers".
-    - [x] In my ended matches, se uno si arrende, non viene mostrato "sconfitta", ma in base al risultato che si aveva al momento della resa si ha vittoria, pareggio, sconfitta.
-    - [x] Quando un giocatore si arrende e l'altro sta facendo la domanda, la domanda deve essere interrotta e portare a ruota spin
-- [x] Login direttamente da "Join game" e game.html
-- [x] Fare che non si può uscire dalla pagina (per cercare la risposta)
-- [x] Quando si crea nuovo account in matches dà errore
-- [x] Alert "inizia nuova partita" quando finisce partita
-- [x] Quando si crea nuovo account in matches dà errore
-- [x] Avatar personaggi preimpostati
-- [x] Mostrare modal finale anche posizione in classifica
-- [x] Separare il file game.js per renderlo più leggero
-- [ ] tradurre tutto in inglese
-- [x] Fixare utente non trovato quando si aggiorna foto profilo
-- [x] Foto profilo leaderboard
+## Descrizione
+TriviX è un gioco di trivia online ispirato a Trivia Crack, dove gli utenti possono mettere alla prova le proprie conoscenze rispondendo a domande di varie categorie. Il gioco offre sia modalità singolo giocatore che multiplayer, permettendo agli utenti di sfidare amici o altri giocatori in tempo reale.
 
+## Funzionalità principali
+- **Autenticazione utenti**: Registrazione, login e gestione del profilo
+- **Modalità di gioco**: Single player (allenamento) e multiplayer
+- **Chat in tempo reale**: Comunicazione tra giocatori durante le partite
+- **Sistema di domande e risposte**: Vasto database di domande di diverse categorie
+- **Tracciamento statistiche**: Monitoraggio dei progressi e delle performance del giocatore
+- **Interfaccia responsive**: Esperienza di gioco ottimizzata su diversi dispositivi
 
+## Tecnologie utilizzate
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Node.js, Express.js
+- **Database**: JSON (per utenti, QA, matches), MongoDB con Mongoose (per la chat)
+- **Autenticazione**: Express-session, bcryptjs (hashing della password)
+- **Comunicazione in tempo reale**: Socket.IO
+- **Altri strumenti**: 
+  - Tailwind CSS per lo styling
+  - Dotenv per la gestione delle variabili d'ambiente (API KEY)
+  - UUID per la generazione di identificatori unici
 
+## Struttura del progetto
+```
+TriviX/
+├── public/              # File statici (HTML, CSS, JavaScript)
+│   ├── css/             # Fogli di stile
+│   ├── js/              # Script front-end
+│   └── img/             # Immagini e risorse grafiche
+├── routes/              # Route API dell'applicazione
+├── models/              # Modelli dati Mongoose
+├── data/                # Dati statici dell'applicazione
+├── question_images/     # Immagini per le domande
+├── server.js            # Entry point del server
+├── package.json         # Dipendenze e configurazione npm
+└── README.md            # Questo file
+```
 
-#### CSS
-- [x] CSS spin indicatore corrisponde materia domanda indicata dall'aghetto
-- [x] Colore rettangolo domanda corrisponde colore della materia.
-- [x] CSS classifica e partite recenti
-- [x] Animazioni +1 per domanda giusta
-- [x] Icona logout
-- [x] Icone
-- [x] Abbellire CSS quando partita finisce (vittoria, pareggio, sconfitta)
-- [x] Colore timer diverso
-- [ ] togliere duplicati
+## Installazione e utilizzo
+1. **Clona il repository**
+   ```
+   git clone https://github.com/tuousername/TriviX.git
+   cd TriviX
+   ```
 
+2. **Installa le dipendenze**
+   ```
+   npm install
+   ```
+
+3. **Configura le variabili d'ambiente**
+   Crea un file `.env` nella root del progetto con le seguenti variabili (API KEY per Gemini)
+
+4. **Avvia il server**
+   ```
+   npm start
+   ```
+
+5. **Accedi all'applicazione**
+   Apri il browser e naviga a `http://localhost:3000`
