@@ -6,7 +6,7 @@
 ## 📝 Descrizione
 TriviX è una piattaforma interattiva di quiz tematici ispirata a Trivia Crack, sviluppata con tecnologie web moderne. Offre un'esperienza di gioco coinvolgente dove gli utenti possono:
 
-- Rispondere a domande in **sei diverse categorie**: scienza, intrattenimento, sport, arte, geografia e storia
+- Rispondere a domande in **sei diverse categorie**: scienza, intrattenimento, sport, arte, geografia e storia;
 - Sfidarsi in **modalità multiplayer** in tempo reale con amici o altri giocatori online
 - Allenarsi in **modalità singolo giocatore** per migliorare le proprie conoscenze
 - Utilizzare **power-up speciali** per ottenere vantaggi strategici durante le partite
@@ -63,7 +63,7 @@ TriviX/
    ```
 
 3. **Configura le variabili d'ambiente**
-   Crea un file `.env` nella root del progetto con l'API KEY per (Gemini AI)[]
+   Crea un file `.env` nella root del progetto con l'API KEY per Gemini AI
 
 4. **Avvia il server**
    ```
