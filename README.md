@@ -72,4 +72,3 @@ TriviX/
 
 5. **Accedi all'applicazione**
    Apri il browser e naviga a `http://localhost:3000`
-d
