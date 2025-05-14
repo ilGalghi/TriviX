@@ -292,6 +292,29 @@ async function updateCategoryPerformance(userId, category, isCorrect) {
   }
 }
 
+// Elimina un utente
+async function deleteUser(userId) {
+  try {
+    const users = await readUsers(); // Legge gli utenti esistenti
+    const userIndex = users.findIndex(user => user.id === userId); // Trova l'indice dell'utente nell'array
+    
+    if (userIndex === -1) {
+      return { success: false, message: "Utente non trovato" }; // Restituisce errore se l'utente non esiste
+    }
+    
+    // Rimuove l'utente dall'array
+    users.splice(userIndex, 1);
+    
+    // Salva l'array aggiornato
+    await writeUsers(users);
+    
+    return { success: true, message: "Profilo eliminato con successo" }; // Restituisce successo
+  } catch (error) {
+    console.error("Errore durante l'eliminazione dell'utente:", error); // Log dell'errore
+    return { success: false, message: "Errore del server" }; // Restituisce errore del server
+  }
+}
+
 // Esporta le funzioni per l'uso in altri moduli
 module.exports = {
   readUsers,
@@ -304,5 +327,6 @@ module.exports = {
   updateUserProfile,
   updateGameStats,
   updateCategoryPerformance,
+  deleteUser,
 }
 

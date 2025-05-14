@@ -177,4 +177,33 @@ router.put("/stats", isAuthenticated, async (req, res) => {
   }
 })
 
+// Elimina il profilo dell'utente
+router.delete("/profile/delete", isAuthenticated, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    
+    console.log("Delete profile attempt for user ID:", userId);
+    
+    // Elimina l'utente
+    const result = await userModel.deleteUser(userId);
+    
+    if (result.success) {
+      // Distruggi la sessione
+      req.session.destroy((err) => {
+        if (err) {
+          console.error("Error destroying session:", err);
+        }
+        console.log("User profile deleted and session destroyed");
+      });
+      
+      return res.status(200).json(result);
+    } else {
+      return res.status(400).json(result);
+    }
+  } catch (error) {
+    console.error("Delete profile error:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
 module.exports = router

@@ -77,13 +77,13 @@ function updateCategoryStats(categoryPerformance) {
         <div class="d-flex justify-content-between align-items-center mb-1"> <!-- Righe per il nome e le statistiche -->
           <div>
             <i class="fas fa-${categories[category].icon}" style="color: ${categories[category].color}"></i> <!-- Icona della categoria -->
-            <span class="ms-2">${category.charAt(0).toUpperCase() + category.slice(1)}</span> <!-- Nome della categoria con la prima lettera maiuscola -->
+            <span class="ms-2">${category.charAt(0).toUpperCase() + category.slice(1)}</span> <!-- Nome della categoria with the first letter capitalized -->
           </div>
-          <span>${performance.correct}/${performance.total} (${percentage}%)</span> <!-- Statistiche di performance -->
+          <span>${performance.correct}/${performance.total} (${percentage}%)</span> <!-- Performance statistics -->
         </div>
-        <div class="progress"> <!-- Barra di progresso per la percentuale -->
+        <div class="progress"> <!-- Progress bar for the percentage -->
           <div class="progress-bar" role="progressbar" style="width: ${percentage}%; background-color: ${categories[category].color}" 
-            aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100"></div> <!-- Imposta la larghezza e il colore della barra -->
+            aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100"></div> <!-- Set the width and color of the bar -->
         </div>
       </div>
     `;
@@ -134,13 +134,13 @@ function setupProfileListeners() {
 
       // Controlla il tipo di file
       if (!file.type.match("image.*")) {
-        alert("Seleziona un file immagine"); // Messaggio di errore se non è un'immagine
+        alert("Please select an image file"); // Messaggio di errore se non è un'immagine
         return;
       }
 
       // Controlla la dimensione del file (max 2MB)
       if (file.size > 2 * 1024 * 1024) {
-        alert("La dimensione dell'immagine deve essere inferiore a 2MB"); // Messaggio di errore se il file è troppo grande
+        alert("The image size must be less than 2MB"); // Messaggio di errore se il file è troppo grande
         return;
       }
 
@@ -198,6 +198,17 @@ function setupProfileListeners() {
         // Fallback nel caso la funzione logout non fosse disponibile
         localStorage.removeItem("currentUser"); // Rimuove i dati dell'utente
         window.location.href = "index.html"; // Reindirizza alla pagina di login
+      }
+    });
+  }
+
+  // Bottone per eliminare il profilo
+  const deleteProfileBtn = document.getElementById("deleteProfileBtn");
+  if (deleteProfileBtn) {
+    deleteProfileBtn.addEventListener("click", () => {
+      // Mostra un messaggio di conferma
+      if (confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
+        deleteUserProfile();
       }
     });
   }
@@ -274,20 +285,20 @@ function updateUserProfile(username, email, password, avatar) {
   console.log("Elemento editProfileError:", editProfileError); // Verifica elemento DOM
 
   if (!currentUser) {
-    showError(editProfileError, "Devi essere loggato per aggiornare il tuo profilo"); // Messaggio di errore se non loggato
+    showError(editProfileError, "You must be logged in to update your profile"); // Messaggio di errore se non loggato
     return;
   }
 
   // Validazione degli input
   if (!username || !email) {
-    showError(editProfileError, "Nome utente e email sono obbligatori"); // Messaggio di errore se mancano i dati
+    showError(editProfileError, "Username and email are required"); // Messaggio di errore se mancano i dati
     return;
   }
 
   // Validazione del formato dell'email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex per validare l'email
   if (!emailRegex.test(email)) {
-    showError(editProfileError, "Inserisci un indirizzo email valido"); // Messaggio di errore se l'email non è valida
+    showError(editProfileError, "Please enter a valid email address"); // Messaggio di errore se l'email non è valida
     return;
   }
 
@@ -378,6 +389,66 @@ function showError(element, message) {
   if (element) {
     element.textContent = message; // Imposta il messaggio di errore
     element.classList.remove("d-none"); // Mostra l'elemento di errore
+  }
+}
+
+// Elimina il profilo utente
+function deleteUserProfile() {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  
+  if (!currentUser) {
+    alert("You must be logged in to delete your profile");
+    return;
+  }
+
+  try {
+    // Chiamata all'API per eliminare il profilo
+    if (typeof API !== 'undefined' && API.auth && API.auth.deleteProfile) {
+      API.auth.deleteProfile(currentUser.id)
+        .then(response => {
+          // Se il server risponde con successo
+          console.log("Profilo eliminato con successo:", response);
+          
+          // Ottiene l'array degli utenti dal localStorage
+          const users = JSON.parse(localStorage.getItem("users")) || [];
+          
+          // Trova l'indice dell'utente nell'array
+          const userIndex = users.findIndex((user) => user.id === currentUser.id);
+          
+          if (userIndex !== -1) {
+            // Rimuove l'utente dall'array
+            users.splice(userIndex, 1);
+            localStorage.setItem("users", JSON.stringify(users));
+          }
+          
+          // Effettua il logout
+          logout();
+          
+          // Reindirizza alla home page
+          window.location.href = "index.html";
+        })
+        .catch(error => {
+          console.error("Errore durante l'eliminazione del profilo:", error);
+          alert("An error occurred while deleting your profile");
+        });
+    } else {
+      // Fallback se l'API non è disponibile
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const userIndex = users.findIndex((user) => user.id === currentUser.id);
+      
+      if (userIndex !== -1) {
+        users.splice(userIndex, 1);
+        localStorage.setItem("users", JSON.stringify(users));
+        
+        localStorage.removeItem("currentUser");
+        window.location.href = "index.html";
+      } else {
+        alert("User not found");
+      }
+    }
+  } catch (error) {
+    console.error("Errore durante l'eliminazione del profilo:", error);
+    alert("An error occurred while deleting your profile");
   }
 }
 

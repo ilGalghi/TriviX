@@ -70,6 +70,14 @@ const API = {
       });
     },
 
+    // Delete profile
+    async deleteProfile(userId) {
+      return API.request("auth/profile/delete", { // Richiesta per eliminare il profilo dell'utente
+        method: "DELETE", // Metodo HTTP DELETE
+        body: JSON.stringify({ userId }), // Converte l'ID utente in formato JSON
+      });
+    },
+
     // Update game stats
     async updateStats(statsData) {
       return API.request("auth/stats", { // Richiesta per aggiornare le statistiche di gioco dell'utente

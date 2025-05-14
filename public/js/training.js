@@ -1,4 +1,3 @@
-
 // Classe principale per gestire l'allenamento
 class TrainingManager {
     constructor() {
@@ -334,27 +333,27 @@ class TrainingManager {
         }
     }
 
-    // Funzione per mostrare il punteggio finale
+    // Function to show the final score
     showFinalScore() {
-        this.resultSection.classList.add('d-none'); // Nascondi la sezione dei risultati
-        this.finalScoreSection.classList.remove('d-none'); // Mostra la sezione del punteggio finale
-        this.finalScoreValue.textContent = this.score; // Mostra il punteggio finale
+        this.resultSection.classList.add('d-none'); // Hide the result section
+        this.finalScoreSection.classList.remove('d-none'); // Show the final score section
+        this.finalScoreValue.textContent = this.score; // Show the final score
         
-        // Calcola la percentuale di risposte corrette
+        // Calculate the percentage of correct answers
         const percentScore = (this.score / 5) * 100;
         
-        // Imposta il messaggio in base al punteggio
+        // Set the message based on the score
         let message = '';
         if (this.score === 5) {
-            message = 'Perfetto! Hai risposto correttamente a tutte le domande!';
+            message = 'Perfect! You answered all questions correctly!';
         } else if (this.score >= 3) {
-            message = 'Ottimo lavoro! Continua ad allenarti per migliorare!';
+            message = 'Great job! Keep training to improve!';
         } else {
-            message = 'Non preoccuparti, continua ad allenarti e migliorerai!';
+            message = 'Don\'t worry, keep training and you will improve!';
         }
         
-        // Aggiungi la percentuale su una nuova riga
-        this.finalScoreMessage.innerHTML =  percentScore + '% risposte corrette' + '<br>' + '<br>' + message;
+        // Add the percentage on a new line
+        this.finalScoreMessage.innerHTML = percentScore + '% correct answers' + '<br>' + '<br>' + message;
     }
 
     // Funzione per riavviare l'allenamento
