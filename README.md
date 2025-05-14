@@ -42,12 +42,12 @@ TriviX/
 │   ├── js/              # Script front-end
 │   └── img/             # Immagini e risorse grafiche
 ├── routes/              # Route API dell'applicazione
-├── models/              # Modelli dati Mongoose
+├── models/              # Modelli dati
 ├── data/                # Dati statici dell'applicazione
 ├── question_images/     # Immagini per le domande
 ├── server.js            # Entry point del server
 ├── package.json         # Dipendenze e configurazione npm
-└── README.md            # Questo file
+└── README.md            # Questo file README
 ```
 
 ## Installazione e utilizzo
