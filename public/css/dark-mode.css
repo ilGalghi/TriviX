@@ -1,0 +1,785 @@
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+  
+  /* Navbar */
+  body.dark-mode .navbar {
+    background-color: #2d2d2d;
+  }
+  
+  /* Cards */
+  body.dark-mode .card {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-color: #444;
+  }
+  
+  /* Modals */
+  body.dark-mode .modal-content {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-color: #444;
+  }
+  
+  body.dark-mode .modal-header,
+  body.dark-mode .modal-footer {
+    border-color: #444;
+  }
+  
+  body.dark-mode .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+  }
+  
+  /* Inputs */
+  body.dark-mode .form-control {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+    border-color: #555;
+  }
+  
+  body.dark-mode .form-control:focus {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+  }
+  
+  /* Buttons */
+  body.dark-mode .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+  
+  body.dark-mode .btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+  }
+  
+  body.dark-mode .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #fff;
+  }
+  
+  /* Tabs */
+  body.dark-mode .nav-tabs {
+    border-color: #444;
+  }
+  
+  body.dark-mode .nav-tabs .nav-link {
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .nav-tabs .nav-link.active {
+    background-color: #2d2d2d;
+    color: #fff;
+    border-color: #444 #444 #2d2d2d;
+  }
+  
+  /* Footer */
+  body.dark-mode .footer {
+    background-color: #2d2d2d;
+  }
+  
+  /* Game specific styles */
+  body.dark-mode.game-body {
+    background-color: #121212;
+  }
+  
+  body.dark-mode .game-header {
+    background-color: #2d2d2d;
+  }
+  
+  body.dark-mode .player-info {
+    background-color: #2d2d2d;
+  }
+  
+  body.dark-mode .vs-badge {
+    background-color: #3d3d3d;
+  }
+  
+  body.dark-mode .category-wheel .wheel-section {
+    border-color: #444;
+  }
+  
+  body.dark-mode .wheel-indicator {
+    background-color: #2d2d2d;
+    border-color: #444;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  
+  body.dark-mode .wheel-indicator::before {
+    border-top-color: var(--accent-color);
+  }
+  
+  body.dark-mode .wheel-indicator::after {
+    background-color: #2d2d2d;
+    border-color: #444;
+  }
+  
+  body.dark-mode .question-card {
+    background-color: #2d2d2d;
+  }
+  
+  body.dark-mode .answers-container .answer-option {
+    background-color: #3d3d3d;
+    border-color: #555;
+  }
+  
+  body.dark-mode .chat-sidebar {
+    background-color: #2d2d2d;
+    border-color: #444;
+  }
+  
+  body.dark-mode .chat-header {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  body.dark-mode .game-code {
+    color: #e0e0e0;
+  }
+
+  
+  body.dark-mode .chat-input input {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+    border-color: #555;
+  }
+  
+  /* Profile page */
+  body.dark-mode .profile-card {
+    background-color: #2d2d2d;
+  }
+  
+  body.dark-mode .stat-item h3 {
+    background-color: #3d3d3d;
+    color: #c9c9c9;
+  }
+  
+  
+  body.dark-mode hr {
+    border-color: #444;
+  }
+  
+/* Dark Mode for Welcome Section */
+body.dark-mode .welcome-section {
+    background-color: #2d2d2d; /* Darker background for dark mode */
+    color: #e0e0e0; /* Light text color */
+  }
+
+body.dark-mode .text-muted{
+    --bs-text-opacity: 1;
+    color: rgb(255 255 255 / 75%) !important;
+}
+
+body.dark-mode .result-container {
+  background-color: #2d2d2d;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .powerups-container {
+  background-color: #2d2d2d;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+body.dark-mode .powerup {
+  width: 120px; /* Stessa larghezza del tema chiaro */
+  height: 60px;
+}
+
+body.dark-mode .powerup:hover {
+  background-color: #3d3d3d;
+}
+
+body.dark-mode .profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #191919;
+}
+
+body.dark-mode .chat-message {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #121212;
+  border-radius: 5px;
+}
+
+body.dark-mode .player-score {
+  color: #e0e0e0;
+}
+
+/* Stile per il giocatore in vantaggio in dark mode */
+body.dark-mode .player-winning {
+  border: 2px solid #2bb94e;
+  box-shadow: 0 0 15px rgba(43, 185, 78, 0.3);
+  background-color: rgba(43, 185, 78, 0.1);
+}
+
+body.dark-mode .player-winning .player-score {
+  color: #4ed963;
+  text-shadow: 0 0 8px rgba(78, 217, 99, 0.4);
+}
+
+@keyframes winningPulseDark {
+  0% {
+    box-shadow: 0 0 15px rgba(43, 185, 78, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(43, 185, 78, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(43, 185, 78, 0.3);
+  }
+}
+
+body.dark-mode .player-winning {
+  animation: winningPulseDark 2s 3;
+}
+
+/* Stile per il giocatore di cui è il turno in dark mode */
+body.dark-mode .player-current-turn {
+  border: 2px solid #0d6efd;
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.3);
+  background-color: rgba(13, 110, 253, 0.1);
+}
+
+@keyframes currentTurnPulseDark {
+  0% {
+    box-shadow: 0 0 15px rgba(13, 110, 253, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(13, 110, 253, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(13, 110, 253, 0.3);
+  }
+}
+
+body.dark-mode .player-current-turn {
+  animation: currentTurnPulseDark 2s 3;
+}
+
+body.dark-mode .recent-matches {
+  background-color: #2d2d2d;
+}
+
+body.dark-mode .welcome-section,
+body.dark-mode .recent-matches,
+body.dark-mode .question-card,
+body.dark-mode .result-container {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .answer-option {
+  background-color: #3d3d3d;
+  color: #ffffff;
+  border-color: #4d4d4d;
+}
+
+body.dark-mode .answer-option:hover {
+  background-color: #4d4d4d;
+}
+
+body.dark-mode .answer-option.selected {
+  background-color: #1a4b8c;
+  border-color: #2d6da3;
+}
+
+body.dark-mode .answer-option.correct {
+  background-color: #1b4d2e;
+  border-color: #2d8a5c;
+}
+
+body.dark-mode .answer-option.incorrect {
+  background-color: #4d1b1b;
+  border-color: #8a2d2d;
+}
+
+/* Chat Dark Mode Styles */
+body.dark-mode .chat-sidebar {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .chat-header {
+  background-color: #1a1a1a;
+  border-color: #444;
+}
+
+body.dark-mode .chat-messages {
+  background-color: #222;
+}
+
+body.dark-mode .message.received {
+  background-color: #333;
+  color: #e0e0e0;
+}
+
+body.dark-mode .message.sent {
+  background-color: #2c5282;
+}
+
+body.dark-mode .chat-input-container {
+  background-color: #2a2a2a;
+  border-color: #444;
+}
+
+body.dark-mode .message-input {
+  background-color: #333;
+  color: #e0e0e0;
+  border-color: #555;
+}
+
+body.dark-mode .send-button {
+  background-color: #2c5282;
+}
+
+body.dark-mode .send-button:hover {
+  background-color: #3873b3;
+}
+
+body.dark-mode .close-button {
+  color: #ccc;
+}
+
+body.dark-mode .close-button:hover {
+  color: #fff;
+}
+
+/* Game Header Dark Mode */
+body.dark-mode .game-header {
+  background-color: #2d2d2d;
+}
+
+body.dark-mode .players-container {
+  background-color: #1a1a1a;
+}
+
+body.dark-mode .player-info {
+  background-color: #2d2d2d;
+  border-color: #555;
+}
+
+/* Category Header Dark Mode */
+body.dark-mode .category-header {
+  background-color: #2d2d2d;
+}
+
+/* Timer Dark Mode */
+body.dark-mode #timerValue {
+  background-color: #3d3d3d;
+  color: #ffffff;
+}
+
+/* Timer Dark Mode quando il tempo è sotto i 10 secondi */
+body.dark-mode #timerValue.low-time {
+  color: #ff6347;
+  animation: pulseDark 1s infinite;
+}
+
+@keyframes pulseDark {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Footer Dark Mode */
+body.dark-mode .footer {
+  background-color: #2d2d2d;
+}
+
+/* Match Card Dark Mode */
+body.dark-mode .match-card {
+  background-color: #2d2d2d;
+}
+
+body.dark-mode .match-header {
+  background-color: #1a1a1a;
+}
+
+body.dark-mode .match-players {
+  background-color: #2d2d2d;
+}
+
+body.dark-mode .match-footer {
+  background-color: #1a1a1a;
+  border-top-color: #3d3d3d;
+}
+
+body.dark-mode .match-date {
+  color: #888888;
+}
+
+/* Profile Card Dark Mode */
+body.dark-mode .profile-card {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .stat-item h3 {
+  background-color: #3d3d3d;
+  color: #ffffff;
+}
+
+/* Notification Dark Mode */
+body.dark-mode .notification {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+/* Stili aggiuntivi per powerup nella modalità scura */
+body.dark-mode .powerup[style*="pointer-events: none"] {
+  background-color: #500 !important;
+  border: 2px solid #300 !important;
+  box-shadow: inset 0 0 5px #200 !important;
+}
+
+body.dark-mode .powerup[style*="pointer-events: none"]::before {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(100, 0, 0, 0.4),
+    rgba(100, 0, 0, 0.4) 10px,
+    rgba(150, 0, 0, 0.6) 10px,
+    rgba(150, 0, 0, 0.6) 20px
+  ) !important;
+}
+
+body.dark-mode .powerup[style*="pointer-events: none"] img,
+body.dark-mode .powerup[style*="pointer-events: none"] i {
+  filter: grayscale(100%) brightness(0.8) sepia(1) hue-rotate(-50deg) saturate(3) !important;
+  opacity: 0.8 !important;
+}
+
+body.dark-mode .powerup[style*="pointer-events: none"] span {
+  color: #fcc !important;
+}
+
+/* Table Dark Mode */
+body.dark-mode .table {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #404040;
+  --bs-table-color: #e0e0e0;
+  --bs-table-bg: #2d2d2d;
+  --bs-table-accent-bg: transparent;
+}
+
+body.dark-mode .table>:not(caption)>*>* {
+  padding: 12px 15px;
+  color: #e0e0e0;
+  background-color: transparent;
+  border-bottom-width: 1px;
+  border-bottom-color: #404040;
+  box-shadow: none;
+}
+
+body.dark-mode .table thead.table-dark {
+  background-color: #1a1a1a;
+  
+  border-bottom: 2px solid #505050;
+  --bs-table-bg: #1a1a1a;
+}
+
+body.dark-mode .table thead.table-dark th {
+  color: #ffffff;
+  
+  background-color: #1a1a1a;
+  border-color: #505050;
+}
+
+body.dark-mode .table tbody tr {
+  border-color: #404040;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .table tbody tr:hover {
+  background-color: #363636;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  --bs-table-accent-bg: #363636;
+}
+
+body.dark-mode .table tbody tr:hover>* {
+  background-color: #363636;
+  box-shadow: none;
+}
+
+body.dark-mode .table td, 
+body.dark-mode .table th {
+  border-right: 1px solid #404040 !important;
+  border-bottom: 1px solid #404040 !important;
+  background-clip: padding-box;
+}
+
+body.dark-mode .table thead th {
+  border-bottom: 1px solid #505050 !important;
+}
+
+body.dark-mode .table tr:last-child td {
+  border-bottom: none !important;
+}
+
+body.dark-mode .table td:last-child,
+body.dark-mode .table th:last-child {
+  border-right: none !important;
+}
+
+body.dark-mode .table td.text-center, body.dark-mode .table th.text-center {
+  vertical-align: middle !important;
+}
+
+/* Leaderboard Dark Mode */
+body.dark-mode #leaderboardList tr:nth-child(-n+3) {
+  position: relative;
+  background-color: #333333;
+  --bs-table-accent-bg: #333333;
+}
+
+body.dark-mode #leaderboardList tr:nth-child(-n+3)>* {
+  background-color: transparent;
+}
+
+body.dark-mode #leaderboardList tr:first-child {
+  background-color: #6d5a1a;
+  position: relative;
+  --bs-table-accent-bg: #6d5a1a;
+}
+
+body.dark-mode #leaderboardList tr:first-child>* {
+  background-color: transparent;
+}
+
+body.dark-mode #leaderboardList tr:first-child td:first-child::before {
+  content: "🥇";
+  margin-right: 8px;
+}
+
+body.dark-mode #leaderboardList tr:nth-child(2) {
+  background-color: #535353;
+  position: relative;
+  --bs-table-accent-bg: #444444;
+}
+
+body.dark-mode #leaderboardList tr:nth-child(2)>* {
+  background-color: transparent;
+}
+
+body.dark-mode #leaderboardList tr:nth-child(2) td:first-child::before {
+  content: "🥈";
+  margin-right: 8px;
+}
+
+body.dark-mode #leaderboardList tr:nth-child(3) {
+  background-color: #5a3926;
+  position: relative;
+  --bs-table-accent-bg: #5a3926;
+}
+
+body.dark-mode #leaderboardList tr:nth-child(3)>* {
+  background-color: transparent;
+}
+
+body.dark-mode #completedMatchesList tr {
+  transition: all 0.3s ease;
+}
+
+body.dark-mode #completedMatchesList tr:hover {
+  background-color: #363636;
+  transform: translateY(-2px);
+  --bs-table-accent-bg: #363636;
+}
+
+body.dark-mode #completedMatchesList tr:hover>* {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Styling per il risultato della partita in dark mode */
+body.dark-mode .match-result-win {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+body.dark-mode .match-result-loss {
+  color: #f44336;
+  font-weight: bold;
+}
+
+body.dark-mode .match-result-draw {
+  color: #2196f3;
+  font-weight: bold;
+}
+
+/* Evidenziare la riga quando è relativa all'utente corrente */
+body.dark-mode .user-row {
+  background-color: rgba(25, 118, 210, 0.15) !important;
+  border-left: 3px solid #2196f3;
+  --bs-table-accent-bg: rgba(25, 118, 210, 0.15) !important;
+}
+
+body.dark-mode .user-row>* {
+  background-color: transparent !important;
+}
+
+/* Override per text-secondary in dark mode */
+body.dark-mode .text-secondary {
+  --bs-text-opacity: 1;
+  color: rgb(211, 211, 211) !important;
+}
+
+/* Avviso di focus per prevenire il baro in dark mode */
+body.dark-mode .focus-warning {
+  background-color: rgba(255, 193, 7, 0.8);
+  color: #000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* Join Game Input in Dark Mode */
+body.dark-mode .join-game-container {
+  background: rgba(45, 52, 54, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .join-game-container:hover {
+  background: rgba(45, 52, 54, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .join-code-input {
+  background: rgba(30, 30, 30, 0.8);
+  color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .join-code-input:focus {
+  background: rgba(35, 35, 35, 0.95);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .join-code-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Result Icons Dark Mode */
+body.dark-mode .result-icon i.fa-check-circle,
+body.dark-mode .result-icon i.fa-times-circle {
+  font-size: 4rem;
+  transition: all 0.3s ease;}
+
+
+body.dark-mode .result-icon i.fa-check-circle {
+  color: #4caf50;
+}
+
+body.dark-mode .result-icon i.fa-times-circle {
+  color: #f44336;
+}
+
+/* Dark Mode per Game Result Modal */
+body.dark-mode #gameResultModal .modal-content {
+  background-color: #2b2b2b;
+  color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode #gameResultModal .modal-header {
+  background-color: #1a1a1a;
+  color: white;
+  border-bottom: 1px solid #404040;
+}
+
+body.dark-mode #gameResultModal .modal-body {
+  background-color: #2b2b2b;
+}
+
+body.dark-mode #gameResultModal .result-icon i {
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+body.dark-mode #gameResultModal #resultTitle {
+  color: #ffffff;
+}
+
+body.dark-mode #gameResultModal #resultMessage {
+  color: #e0e0e0;
+}
+
+body.dark-mode #gameResultModal .score-summary {
+  background-color: #363636;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode #gameResultModal .player-score-result {
+  background-color: #404040;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode #gameResultModal .player-name {
+  color: #ffffff;
+}
+
+body.dark-mode #gameResultModal .score-value {
+  color: #ffd700;
+  background-color: #1a1a1a;
+}
+
+body.dark-mode #gameResultModal .vs-badge {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+body.dark-mode #gameResultModal .modal-footer {
+  border-top: 1px solid #404040;
+  background-color: #2b2b2b;
+}
+
+body.dark-mode #gameResultModal .btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  filter: brightness(110%);
+}
+
+body.dark-mode #gameResultModal .game-status-win,
+body.dark-mode #gameResultModal .game-status-lose,
+body.dark-mode #gameResultModal .game-status-draw {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+body.dark-mode #gameResultModal .trophy-loser {
+  color: #555555 !important;
+  text-shadow: 0 0 15px rgba(85, 85, 85, 0.5) !important;
+}
+
+body.dark-mode .user-row-highlight {
+  background: linear-gradient(90deg, #223a5e 0%, #1a2a40 100%) !important;
+  color: #8ecaff !important;
+  border-left: 4px solid #8ecaff !important;
+  box-shadow: 0 2px 8px rgba(30, 80, 180, 0.10) !important;
+  --bs-table-accent-bg: transparent !important;
+}
+
+body.dark-mode .user-row-highlight > td {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}

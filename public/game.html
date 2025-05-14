@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TriviX - Game</title>
+  <!-- Bootstrap CSS per lo stile -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts per i caratteri -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome per le icone -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- CSS personalizzato -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- CSS per la modalità scura -->
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <!-- CSS per l'interfaccia moderna -->
+  <link rel="stylesheet" href="css/modern-ui.css">
+  <!-- Favicon per il sito -->
+  <link rel="icon" type="image/x-icon" href="/img/favicon/favicon.ico">
+  <script>
+    // Controlla l'autenticazione prima che la pagina venga caricata
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = localStorage.getItem('currentUser');
+      if (!currentUser) {
+        alert('Devi essere loggato per giocare.');
+        window.location.href = 'index.html'; // Reindirizza alla pagina di login se non è loggato
+      }
+    });
+  </script>
+</head>
+<body class="game-body">
+  <!-- Intestazione del gioco -->
+  <div class="game-header">
+      <div class="container">
+          <div class="row align-items-center">
+              <div class="col-2">
+                  <a href="index.html" class="back-button">
+                      <i class="fas fa-arrow-left"></i> <!-- Icona per tornare indietro -->
+                  </a>
+              </div>
+              <div class="col-8 text-center">
+                  <h1 id="roundInfo"></h1> <!-- Informazioni sul turno -->
+                  <p id="gameStatus"></p> <!-- Stato del gioco -->
+              </div>
+              <div class="col-2 text-end">
+                  <button class="chat-button" id="chatButton">
+                      <i class="fas fa-comment-dots"></i> <!-- Icona per la chat -->
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Informazioni sui giocatori -->
+  <div class="players-container">
+      <div class="container">
+          <div class="player-vs-container">
+              <div class="player-info" id="player1Info">
+                  <img src="img/default-avatar.png" alt="Player 1" class="player-avatar"> <!-- Avatar del giocatore 1 -->
+                  <span class="player-name">@player1</span> <!-- Nome del giocatore 1 -->
+                  <div class="player-score">0</div> <!-- Punteggio del giocatore 1 -->
+              </div>
+              <div class="vs-badge">VS</div> <!-- Badge per indicare il confronto -->
+              <div class="player-info" id="player2Info">
+                  <img src="img/default-avatar.png" alt="Player 2" class="player-avatar"> <!-- Avatar del giocatore 2 -->
+                  <span class="player-name">@player2</span> <!-- Nome del giocatore 2 -->
+                  <div class="player-score">0</div> <!-- Punteggio del giocatore 2 -->
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Contenuto del gioco -->
+  <div class="game-content">
+      <!-- Sezione Spinner -->
+      <div id="spinnerSection" class="text-center">
+          <div class="spinner-container">
+              <div class="category-wheel" id="categoryWheel">
+                  <!-- Le categorie verranno aggiunte dinamicamente -->
+                  <div class="wheel-section science" data-category="science">
+                      <i class="fas fa-flask"></i> <!-- Icona per la categoria scienza -->
+                  </div>
+                  <div class="wheel-section entertainment" data-category="entertainment">
+                      <i class="fas fa-film"></i> <!-- Icona per la categoria intrattenimento -->
+                  </div>
+                  <div class="wheel-section sports" data-category="sports">
+                      <i class="fas fa-futbol"></i> <!-- Icona per la categoria sport -->
+                  </div>
+                  <div class="wheel-section art" data-category="art">
+                      <i class="fas fa-palette"></i> <!-- Icona per la categoria arte -->
+                  </div>
+                  <div class="wheel-section geography" data-category="geography">
+                      <i class="fas fa-globe-americas"></i> <!-- Icona per la categoria geografia -->
+                  </div>
+                  <div class="wheel-section history" data-category="history">
+                      <i class="fas fa-landmark"></i> <!-- Icona per la categoria storia -->
+                  </div>
+              </div>
+              <div class="wheel-indicator"></div> <!-- Indicatore della ruota -->
+              <button class="spin-button" id="spinButton">SPIN</button> <!-- Pulsante per girare la ruota -->
+          </div>
+          <div class="game-controls">
+              <button class="control-button" id="flagButton">
+                  <i class="fas fa-flag"></i> <!-- Pulsante per segnalare ritiro -->
+              </button>
+          </div>
+      </div>
+
+      <!-- Sezione Domanda (Inizialmente Nascosta) -->
+      <div id="questionSection" class="d-none">
+          <div class="category-header" id="questionCategory">SCIENCE</div> <!-- Categoria della domanda -->
+          <div class="timer-container">
+              <span id="timerValue">30</span> <!-- Timer per la risposta -->
+          </div>
+          <div class="question-card">
+              <div class="question-text" id="questionText">
+                  Quale tipo di roccia si forma in strati, si trova spesso vicino all'acqua e contiene fossili?
+              </div>
+              <div class="answers-container" id="answersContainer">
+                  <!-- Le risposte verranno aggiunte dinamicamente -->
+              </div>
+          </div>
+          <div class="powerup-message" id="powerupMessage"></div> <!-- Messaggio per i potenziamenti -->
+          <div class="powerups-container">
+              <div class="powerup" id="extraTimePowerup">
+                  <i class="fas fa-clock"></i>
+                  <span>EXTRA TIME</span> <!-- Potenziamento per tempo extra -->
+              </div>
+              <div class="powerup" id="bombPowerup">
+                  <i class="fas fa-bomb"></i>
+                  <span>BOMB</span> <!-- Potenziamento bomba -->
+              </div>
+              <div class="powerup" id="doubleChancePowerup">
+                  <i class="fas fa-sync-alt"></i>
+                  <span>DOUBLE CHANCE</span> <!-- Potenziamento doppia possibilità -->
+              </div>
+              <div class="powerup" id="skipPowerup">
+                  <i class="fas fa-forward"></i>
+                  <span>SKIP</span> <!-- Potenziamento per saltare la domanda -->
+              </div>
+              <div class="powerup" id="aiHintPowerup">
+                  <i class="fas fa-robot"></i>
+                  <span>AI HINT</span> <!-- Potenziamento suggerimento AI -->
+              </div>
+          </div>
+      </div>
+
+      <!-- Sezione Risultato (Inizialmente Nascosta) -->
+      <div id="resultSection" class="d-none text-center">
+          <div class="result-container">
+              <div id="resultIcon" class="result-icon">
+                  <i class="fas fa-check-circle text-success"></i> <!-- Icona per risultato corretto -->
+              </div>
+              <h2 id="resultText" class="result-text">Corretto!</h2> <!-- Testo del risultato -->
+              <p id="resultExplanation" class="result-explanation"></p> <!-- Spiegazione del risultato -->
+              <button id="continueButton" class="btn btn-primary btn-lg mt-3">Continua</button> <!-- Pulsante per continuare -->
+          </div>
+      </div>
+  </div>
+
+  <!-- Sidebar Chat (Inizialmente Nascosta) -->
+  <div class="chat-sidebar" id="chatSidebar">
+      <div class="chat-header">
+          <h3>Chat</h3> <!-- Intestazione della chat -->
+          <button id="closeChatButton" class="close-button">
+              <i class="fas fa-times"></i> <!-- Pulsante per chiudere la chat -->
+          </button>
+      </div>
+      <div class="chat-messages">
+          <!-- I messaggi verranno aggiunti dinamicamente -->
+      </div>
+      <div class="chat-input-container">
+          <input type="text" class="message-input" placeholder="Scrivi un messaggio..."> <!-- Input per messaggi -->
+          <button class="send-button">
+              <i class="fas fa-paper-plane"></i> <!-- Pulsante per inviare messaggi -->
+          </button>
+      </div>
+  </div>
+
+  <!-- Modale di Login -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Login</h5> <!-- Titolo della modale di login -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info d-none" id="loginMessage"></div> <!-- Messaggio di login -->
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" required> <!-- Input per username -->
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" required> <!-- Input per password -->
+                    </div>
+                    <div class="alert alert-danger d-none" id="loginError"></div> <!-- Messaggio di errore di login -->
+                    <button type="submit" class="btn btn-primary w-100">Login</button> <!-- Pulsante di login -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <p>Non hai un account? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">Registrati</a></p> <!-- Link per registrazione -->
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span>© 2025 TriviX Clone | Creato da Leonardo Galgano & Daniele D'Alonzo</span> <!-- Informazioni sul copyright -->
+        <br>
+        <button id="darkModeToggle" class="btn btn-sm mt-2">
+          <i class="fas fa-moon"></i> Modalità Scura <!-- Pulsante per attivare la modalità scura -->
+        </button>
+    </div>  
+  </footer>
+
+  <!-- Modale Risultato Gioco -->
+  <div class="modal fade" id="gameResultModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Risultato della partita</h5> <!-- Titolo della modale di risultato -->
+        </div>
+        <div class="modal-body text-center">
+          <div class="result-icon mb-3">
+            <i class="fas fa-trophy fa-3x text-warning trophy-icon"></i> <!-- Icona del trofeo -->
+          </div>
+          <h3 id="resultTitle" class="mb-3"></h3> <!-- Titolo del risultato -->
+          <div class="score-summary mb-4">
+            <div class="player-score-result">
+              <span id="player1ResultName"></span> <!-- Nome del giocatore 1 nel risultato -->
+              <span id="player1ResultScore" class="score-value"></span> <!-- Punteggio del giocatore 1 -->
+              <div class="player-rank mt-2">
+                <span class="rank-label">Classifica: </span>
+                <span id="player1ResultRank" class="rank-position"></span> <!-- Classifica del giocatore 1 -->
+              </div>
+            </div>
+            <div class="vs-badge">VS</div> <!-- Badge per indicare il confronto -->
+            <div class="player-score-result">
+              <span id="player2ResultName"></span> <!-- Nome del giocatore 2 nel risultato -->
+              <span id="player2ResultScore" class="score-value"></span> <!-- Punteggio del giocatore 2 -->
+              <div class="player-rank mt-2">
+                <span class="rank-label">Classifica: </span>
+                <span id="player2ResultRank" class="rank-position"></span> <!-- Classifica del giocatore 2 -->
+              </div>
+            </div>
+          </div>
+          <p id="resultMessage" class="mb-4"></p> <!-- Messaggio del risultato -->
+        </div>
+        <div class="modal-footer justify-content-center">
+          <div class="rematch-info-container w-100 mb-2">
+            <div id="rematchNotification" class="alert alert-info mb-2" style="display: none;">L'avversario vuole rigiocare!</div> <!-- Notifica di rivincita -->
+            <div id="rematchStatus" class="alert alert-secondary mb-2" style="display: none;"></div> <!-- Stato della rivincita -->
+          </div>
+          <button type="button" class="btn btn-primary" id="rematchBtn">Rivincita</button> <!-- Pulsante per rivincita -->
+          <button type="button" class="btn btn-success" id="newMatchBtn">Esci</button> <!-- Pulsante per uscire -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bundle JS di Bootstrap con Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Client Socket.IO -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Utilities di Bootstrap -->
+  <script src="js/bootstrap-util.js"></script>
+  <!-- Client API-->
+  <script src="js/api-client.js"></script>
+  <!-- JS per autenticazione, chat e potenziamenti -->
+  <script src="js/auth.js"></script>
+  <script src="js/chat-manager.js"></script>
+  <script src="js/powerups.js"></script>
+  <!-- JS per il core del gioco -->
+  <script type="module" src="js/game-core.js"></script>
+  <!-- JS per l'interfaccia del gioco -->
+  <script type="module" src="js/game-ui.js"></script>
+  <!-- JS per il gioco generale -->
+  <script type="module" src="js/game.js"></script>
+  <!-- JS per la modalità scura -->
+  <script src="js/dark-mode.js"></script>
+  <!-- JS per la navigazione mobile -->
+  <script src="js/mobile-nav.js"></script>
+</body>
+</html>
+
