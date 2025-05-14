@@ -6,7 +6,7 @@
 ## 📝 Descrizione
 TriviX è una piattaforma interattiva di quiz tematici ispirata a Trivia Crack, sviluppata con tecnologie web moderne. Offre un'esperienza di gioco coinvolgente dove gli utenti possono:
 
-- Rispondere a domande in **sei diverse categorie**: scienza, intrattenimento, sport, arte, geografia e storia;
+- Rispondere a domande in **sei diverse categorie**: scienza, intrattenimento, sport, arte, geografia e storia
 - Sfidarsi in **modalità multiplayer** in tempo reale con amici o altri giocatori online
 - Allenarsi in **modalità singolo giocatore** per migliorare le proprie conoscenze
 - Utilizzare **power-up speciali** per ottenere vantaggi strategici durante le partite
