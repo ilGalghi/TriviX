@@ -16,8 +16,9 @@ TriviX è una piattaforma interattiva di quiz tematici ispirata a Trivia Crack, 
 Il gioco combina apprendimento e divertimento in un'interfaccia intuitiva e accattivante, accessibile da qualsiasi dispositivo.
 
 
-## 🖼️ Anteprima dell'applicazione
+## 🖼️ Anteprima
 Disponibile sia in versione desktop che mobile:
+
 ![Desktop](docs/TOT.png)
 
 
@@ -51,6 +52,7 @@ TriviX/
 ├── routes/              # Route API dell'applicazione
 ├── models/              # Modelli dati
 ├── data/                # Dati statici dell'applicazione (JSON)
+├── docs/                # Documenti e immagini del progetto
 ├── question_images/     # Immagini per le domande
 ├── server.js            # Entry point del server
 ├── package.json         # Dipendenze e configurazione npm
