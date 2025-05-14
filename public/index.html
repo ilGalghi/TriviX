@@ -1,83 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- Dichiarazione del tipo di documento, indica che si tratta di un documento HTML5 -->
+<html lang="en"> <!-- Inizio del documento HTML, specificando che la lingua è inglese -->
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TriviX - Home</title>
-  <!-- Bootstrap CSS -->
+  <meta charset="UTF-8"> <!-- Imposta la codifica dei caratteri su UTF-8, supporta la maggior parte dei caratteri internazionali -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Imposta il viewport per il responsive design, utile per dispositivi mobili -->
+  <title>TriviX - Home</title> <!-- Titolo della pagina che appare nella scheda del browser -->
+  
+  <!-- Bootstrap CSS per stili predefiniti e componenti reattivi -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome for icons -->
+  
+  <!-- Font Awesome per le icone utilizzate nel sito -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts -->
+  
+  <!-- Google Fonts per utilizzare il font Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Custom CSS -->
+  
+  <!-- CSS personalizzato per stili specifici del progetto -->
   <link rel="stylesheet" href="css/style.css">
-  <!-- Dark Mode CSS -->
+  
+  <!-- CSS per la modalità scura -->
   <link rel="stylesheet" href="css/dark-mode.css">
-  <!-- Modern UI CSS -->
+  
+  <!-- CSS per l'interfaccia moderna -->
   <link rel="stylesheet" href="css/modern-ui.css">
-  <!-- Favicon -->
+  
+  <!-- Favicon per il sito, l'icona che appare nella scheda del browser -->
   <link rel="icon" type="image/x-icon" href="/img/favicon/favicon.ico">
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-dark">
-      <div class="container">
-          <a class="navbar-brand" href="index.html">
-              <img src="img/logo.png" alt="TriviX Logo" height="40">
+  <!-- Barra di navigazione principale -->
+  <nav class="navbar navbar-dark"> <!-- Navbar scura -->
+      <div class="container"> <!-- Contenitore per la navbar -->
+          <a class="navbar-brand" href="index.html"> <!-- Logo e nome del sito -->
+              <img src="img/logo.png" alt="TriviX Logo" height="40"> <!-- Logo del sito -->
               TriviX
           </a>
-          <ul class="navbar-nav flex-row gap-3 d-none d-sm-flex">
+          <ul class="navbar-nav flex-row gap-3 d-none d-sm-flex"> <!-- Lista di navigazione -->
               <li class="nav-item">
-                  <a class="nav-link active" href="index.html">Home</a>
+                  <a class="nav-link active" href="index.html">Home</a> <!-- Link alla home -->
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="matches.html">Stats</a>
+                  <a class="nav-link" href="matches.html">Stats</a> <!-- Link alle statistiche -->
               </li>
               <li class="nav-item" id="loginNavItem">
-                  <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                  <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a> <!-- Link per aprire il modale di login -->
               </li>
               <li class="nav-item" id="registerNavItem">
-                  <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+                  <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a> <!-- Link per aprire il modale di registrazione -->
               </li>
               <li class="nav-item d-none" id="profileNavItem">
-                  <a class="nav-link" href="profile.html">Profilo</a>
+                  <a class="nav-link" href="profile.html">Profilo</a> <!-- Link al profilo utente, nascosto inizialmente -->
               </li>
               <li class="nav-item d-none" id="logoutNavItem">
-                  <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+                  <a class="nav-link" href="#" id="logoutBtn">Logout</a> <!-- Link per il logout, nascosto inizialmente -->
               </li>
           </ul>
       </div>
   </nav>
 
-  <!-- Hero Section with Background Animation -->
-  <div class="hero-section">
-    <div class="hero-animation">
-      <div class="quiz-icon q-icon-1"><i class="fas fa-question"></i></div>
-      <div class="quiz-icon q-icon-2"><i class="fas fa-lightbulb"></i></div>
-      <div class="quiz-icon q-icon-3"><i class="fas fa-trophy"></i></div>
-      <div class="quiz-icon q-icon-4"><i class="fas fa-brain"></i></div>
-      <div class="quiz-icon q-icon-5"><i class="fas fa-star"></i></div>
+  <!-- Sezione principale con animazione di sfondo -->
+  <div class="hero-section"> <!-- Sezione principale del sito -->
+    <div class="hero-animation"> <!-- Contenitore per le icone animate -->
+      <div class="quiz-icon q-icon-1"><i class="fas fa-question"></i></div> <!-- Icona per le domande -->
+      <div class="quiz-icon q-icon-2"><i class="fas fa-lightbulb"></i></div> <!-- Icona per le idee -->
+      <div class="quiz-icon q-icon-3"><i class="fas fa-trophy"></i></div> <!-- Icona per i trofei -->
+      <div class="quiz-icon q-icon-4"><i class="fas fa-brain"></i></div> <!-- Icona per la mente -->
+      <div class="quiz-icon q-icon-5"><i class="fas fa-star"></i></div> <!-- Icona per le stelle -->
     </div>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-10 text-center">
-          <div class="hero-content">
-            <h1 class="hero-title">Test your knowledge with <span>TriviX</span>!</h1>
-            <p class="hero-subtitle">Challenge your friends in fun quizzes about science, entertainment, sports and much more!</p>
+    <div class="container"> <!-- Contenitore per il contenuto della sezione -->
+      <div class="row justify-content-center"> <!-- Righe centrata -->
+        <div class="col-lg-10 text-center"> <!-- Colonna centrale -->
+          <div class="hero-content"> <!-- Contenuto della sezione principale -->
+            <h1 class="hero-title">Test your knowledge with <span>TriviX</span>!</h1> <!-- Titolo principale -->
+            <p class="hero-subtitle">Challenge your friends in fun quizzes about science, entertainment, sports and much more!</p> <!-- Sottotitolo che invita a giocare -->
             
-            <!-- Game Actions -->
-            <div class="hero-actions">
-              <!-- Create Game Button -->
+            <!-- Azioni di gioco -->
+            <div class="hero-actions"> <!-- Contenitore per le azioni di gioco -->
+              <!-- Pulsante per creare una nuova partita -->
               <button class="btn btn-primary btn-lg create-game-btn pulse-animation" id="newGameBtn">
                 <i class="fas fa-play-circle"></i> Create New Game
               </button>
               
-              <!-- Join Game Input/Button Combo -->
-              <div class="join-game-container glow-animation">
-                <div class="input-group">
-                  <input type="text" class="form-control form-control-lg join-code-input" placeholder="Enter game code or link" id="heroGameCode">
-                  <button class="btn btn-success btn-lg" id="joinGameBtn">
+              <!-- Contenitore per unirsi a una partita -->
+              <div class="join-game-container glow-animation"> <!-- Contenitore per l'input e il pulsante di unione -->
+                <div class="input-group"> <!-- Gruppo di input -->
+                  <input type="text" class="form-control form-control-lg join-code-input" placeholder="Enter game code or link" id="heroGameCode"> <!-- Campo per inserire il codice della partita -->
+                  <button class="btn btn-success btn-lg" id="joinGameBtn"> <!-- Pulsante per unirsi alla partita -->
                     <i class="fas fa-sign-in-alt"></i> Join
                   </button>
                 </div>
@@ -89,170 +96,170 @@
     </div>
   </div>
 
-  <!-- Main Content -->
+  <!-- Contenuto principale -->
   <div class="container main-container">
-    <!-- Categories Preview Section -->
+    <!-- Sezione anteprima categorie -->
     <div class="row mt-5">
       <div class="col-12 text-center">
-        <h2 class="section-title">Test your knowledge in different areas!</h2>
-        <p class="section-subtitle">Click on one of these cards to start training!</p>
+        <h2 class="section-title">Test your knowledge in different areas!</h2> <!-- Titolo della sezione categorie -->
+        <p class="section-subtitle">Click on one of these cards to start training!</p> <!-- Sottotitolo che invita a scegliere una categoria -->
       </div>
       <div class="category-preview">
         <a href="#" class="category-item science">
-          <div class="category-icon"><i class="fas fa-flask"></i></div>
+          <div class="category-icon"><i class="fas fa-flask"></i></div> <!-- Icona e link per la categoria Scienza -->
           <h3>Science</h3>
         </a>
         <a href="#" class="category-item entertainment">
-          <div class="category-icon"><i class="fas fa-film"></i></div>
+          <div class="category-icon"><i class="fas fa-film"></i></div> <!-- Icona e link per la categoria Intrattenimento -->
           <h3>Entertainment</h3>
         </a>
         <a href="#" class="category-item sports">
-          <div class="category-icon"><i class="fas fa-football-ball"></i></div>
+          <div class="category-icon"><i class="fas fa-football-ball"></i></div> <!-- Icona e link per la categoria Sport -->
           <h3>Sports</h3>
         </a>
         <a href="#" class="category-item art">
-          <div class="category-icon"><i class="fas fa-palette"></i></div>
+          <div class="category-icon"><i class="fas fa-palette"></i></div> <!-- Icona e link per la categoria Arte -->
           <h3>Art</h3>
         </a>
         <a href="#" class="category-item geography">
-          <div class="category-icon"><i class="fas fa-globe-europe"></i></div>
+          <div class="category-icon"><i class="fas fa-globe-europe"></i></div> <!-- Icona e link per la categoria Geografia -->
           <h3>Geography</h3>
         </a>
         <a href="#" class="category-item history">
-          <div class="category-icon"><i class="fas fa-landmark"></i></div>
+          <div class="category-icon"><i class="fas fa-landmark"></i></div> <!-- Icona e link per la categoria Storia -->
           <h3>History</h3>
         </a>
       </div>
     </div>
   </div>
 
-  <!-- Login Modal -->
+  <!-- Modale di Login -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Login</h5>
+                <h5 class="modal-title">Login</h5> <!-- Titolo della finestra di login -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="alert alert-info d-none" id="loginMessage"></div>
+                <div class="alert alert-info d-none" id="loginMessage"></div> <!-- Messaggio informativo per il login -->
                 <form id="loginForm">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" required>
+                        <input type="text" class="form-control" id="username" required> <!-- Campo per inserire lo username -->
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" required>
+                        <input type="password" class="form-control" id="password" required> <!-- Campo per inserire la password -->
                     </div>
-                    <div class="alert alert-danger d-none" id="loginError"></div>
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                    <div class="alert alert-danger d-none" id="loginError"></div> <!-- Messaggio di errore in caso di login fallito -->
+                    <button type="submit" class="btn btn-primary w-100">Login</button> <!-- Pulsante per inviare il form di login -->
                 </form>
             </div>
             <div class="modal-footer">
-                <p>Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">Register</a></p>
+                <p>Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">Register</a></p> <!-- Link per passare alla registrazione -->
             </div>
         </div>
     </div>
   </div>
 
-  <!-- Register Modal -->
+  <!-- Modale di Registrazione -->
   <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title">Register</h5>
+                  <h5 class="modal-title">Register</h5> <!-- Titolo della finestra di registrazione -->
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                   <form id="registerForm">
                       <div class="mb-3">
                           <label for="registerUsername" class="form-label">Username</label>
-                          <input type="text" class="form-control" id="registerUsername" required>
+                          <input type="text" class="form-control" id="registerUsername" required> <!-- Campo per inserire lo username -->
                       </div>
                       <div class="mb-3">
                           <label for="registerEmail" class="form-label">Email</label>
-                          <input type="email" class="form-control" id="registerEmail" required>
+                          <input type="email" class="form-control" id="registerEmail" required> <!-- Campo per inserire l'email -->
                       </div>
                       <div class="mb-3">
                           <label for="registerPassword" class="form-label">Password</label>
-                          <input type="password" class="form-control" id="registerPassword" required>
+                          <input type="password" class="form-control" id="registerPassword" required> <!-- Campo per la password -->
                       </div>
                       <div class="mb-3">
                           <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
-                          <input type="password" class="form-control" id="registerConfirmPassword" required>
+                          <input type="password" class="form-control" id="registerConfirmPassword" required> <!-- Campo per confermare la password -->
                       </div>
-                      <div class="alert alert-danger d-none" id="registerError"></div>
-                      <button type="submit" class="btn btn-primary w-100">Register</button>
+                      <div class="alert alert-danger d-none" id="registerError"></div> <!-- Messaggio di errore in caso di problemi con la registrazione -->
+                      <button type="submit" class="btn btn-primary w-100">Register</button> <!-- Pulsante per inviare il form di registrazione -->
                   </form>
               </div>
               <div class="modal-footer">
-                  <p>Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Login</a></p>
+                  <p>Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Login</a></p> <!-- Link per tornare al login -->
               </div>
           </div>
       </div>
   </div>
 
-  <!-- Join Game Modal -->
+  <!-- Modale per unirsi a una partita esistente -->
   <div class="modal fade" id="joinGameModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title">Join Game</h5>
+                  <h5 class="modal-title">Join Game</h5> <!-- Titolo della finestra per unirsi a una partita -->
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                   <form id="joinGameForm">
                       <div class="mb-3">
                           <label for="gameCode" class="form-label">Enter Game Code or URL</label>
-                          <input type="text" class="form-control" id="gameCode" required>
+                          <input type="text" class="form-control" id="gameCode" required> <!-- Campo per inserire il codice o il link della partita -->
                       </div>
-                      <div class="alert alert-danger d-none" id="joinGameError"></div>
-                      <button type="submit" class="btn btn-primary w-100">Join Game</button>
+                      <div class="alert alert-danger d-none" id="joinGameError"></div> <!-- Messaggio di errore se il codice non è valido -->
+                      <button type="submit" class="btn btn-primary w-100">Join Game</button> <!-- Pulsante per unirsi alla partita -->
                   </form>
               </div>
           </div>
       </div>
   </div>
 
-  <!-- Create Game Modal -->
+  <!-- Modale per creare una nuova partita -->
   <div class="modal fade" id="createGameModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title">Create New Game</h5>
+                  <h5 class="modal-title">Create New Game</h5> <!-- Titolo della finestra per creare una nuova partita -->
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                   <div id="gameCreationSection">
-                      <p>Create a new game and invite a friend to play!</p>
+                      <p>Create a new game and invite a friend to play!</p> <!-- Descrizione della funzionalità -->
                       <div class="mb-3">
                           <label for="matchType" class="form-label">Select Match Type</label>
                           <select class="form-select" id="matchType">
                               <option value="fast">Fast (3 rounds)</option>
                               <option value="normal" selected>Normal (5 rounds)</option>
                               <option value="long">Long (10 rounds)</option>
-                          </select>
+                          </select> <!-- Selezione del tipo di partita (veloce, normale, lunga) -->
                       </div>
-                      <button type="button" class="btn btn-primary w-100" id="createGameBtn">Create Game</button>
+                      <button type="button" class="btn btn-primary w-100" id="createGameBtn">Create Game</button> <!-- Pulsante per creare la partita -->
                   </div>
                   <div id="gameLinkSection" class="d-none">
                       <p>Share this link with your friend:</p>
                       <div class="input-group mb-3">
-                          <input type="text" class="form-control" id="gameLink" readonly>
-                          <button class="btn btn-outline-secondary" type="button" id="copyLinkBtn">Copy</button>
+                          <input type="text" class="form-control" id="gameLink" readonly> <!-- Campo con il link della partita da condividere -->
+                          <button class="btn btn-outline-secondary" type="button" id="copyLinkBtn">Copy</button> <!-- Pulsante per copiare il link -->
                       </div>
-                      <div class="alert alert-success d-none" id="linkCopiedAlert">Link copied to clipboard!</div>
+                      <div class="alert alert-success d-none" id="linkCopiedAlert">Link copied to clipboard!</div> <!-- Messaggio di conferma copia link -->
                       <p>Or share this code:</p>
-                      <div class="game-code" id="gameCodeDisplay"></div>
-                      <button type="button" class="btn btn-success w-100 d-none" id="goToGameBtn">Go to Game</button>
+                      <div class="game-code" id="gameCodeDisplay"></div> <!-- Codice della partita da condividere -->
+                      <button type="button" class="btn btn-success w-100 d-none" id="goToGameBtn">Go to Game</button> <!-- Pulsante per andare direttamente alla partita -->
                   </div>
               </div>
           </div>
       </div>
   </div>
 
-  <!-- Mobile Navigation Bar -->
+  <!-- Barra di navigazione mobile in basso -->
   <div class="mobile-nav">
     <a href="index.html" class="active">
       <i class="fas fa-home"></i>
@@ -271,27 +278,27 @@
   <!-- Footer -->
   <footer class="footer mt-auto py-3">
     <div class="container text-center">
-        <span>© 2025 TriviX Clone | Created by Leonardo Galgano & Daniele D'Alonzo</span>
+        <span>© 2025 TriviX Clone | Created by Leonardo Galgano & Daniele D'Alonzo</span> <!-- Informazioni su chi ha creato il progetto -->
         <br>
         <button id="darkModeToggle" class="btn btn-sm mt-2">
-          <i class="fas fa-moon"></i> Dark Mode
+          <i class="fas fa-moon"></i> Dark Mode <!-- Pulsante per attivare/disattivare la modalità scura -->
         </button>
     </div>  
   </footer>
 
-  <!-- Bootstrap JS Bundle with Popper -->
+  <!-- Bootstrap JS Bundle con Popper per le funzionalità dinamiche di Bootstrap (come modali, dropdown, ecc.) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Bootstrap Utility -->
+  <!-- Script con funzioni di supporto per alcune operazioni legate a Bootstrap -->
   <script src="js/bootstrap-util.js"></script>
-  <!-- API Client must come before auth.js -->
+  <!-- Script che gestisce tutte le chiamate API verso il backend; deve essere caricato prima di auth.js per permettere l'autenticazione -->
   <script src="js/api-client.js"></script>
-  <!-- Custom JS -->
+  <!-- Script che gestisce login, logout, registrazione e la logica di autenticazione utente -->
   <script src="js/auth.js"></script>
+  <!-- Script principale della pagina home, gestisce le interazioni dell'utente come la creazione e l'unione alle partite -->
   <script src="js/main.js"></script>
-  <!-- Dark Mode JS -->
+  <!-- Script che permette di attivare/disattivare la modalità scura -->
   <script src="js/dark-mode.js"></script>
-  <!-- Mobile Navigation JS -->
+  <!-- Script che gestisce la navigazione mobile, rendendo la barra in basso interattiva e reattiva -->
   <script src="js/mobile-nav.js"></script>
 </body>
 </html>
-
