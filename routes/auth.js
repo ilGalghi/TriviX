@@ -5,6 +5,8 @@ const userModel = require("../models/userModel")
 // Middleware per verificare se l'utente è autenticato
 const isAuthenticated = (req, res, next) => {
   console.log("Checking authentication:", req.session)
+  // req.session è un oggetto che memorizza i dati della sessione dell'utente
+  // Può contenere informazioni come l'ID dell'utente per gestire l'autenticazione
   if (req.session && req.session.userId) {
     return next()
   }
