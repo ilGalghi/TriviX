@@ -1,4 +1,5 @@
 # 🛡️ Sicurezza per TriviX
+- [English version](/docs/SECURITY_EN.md)
 Se hai individuato una vulnerabilità o un problema di sicurezza in TriviX, ti chiediamo di seguire le linee guida riportate di seguito.
 
 ## 📢 Segnalazione delle vulnerabilità

@@ -3,6 +3,8 @@
 
 > *Metti alla prova le tue conoscenze e sfida i tuoi amici in tempo reale!*
 
+- [English version](/docs/README_EN.md)
+
 ## 📝 Descrizione
 TriviX è una piattaforma interattiva di quiz tematici ispirata a Trivia Crack, sviluppata con tecnologie web moderne. Offre un'esperienza di gioco coinvolgente dove gli utenti possono:
 
