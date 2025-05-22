@@ -1,5 +1,5 @@
 # 🎮 TriviX - Challenge Quiz
-**Project by Leonardo Galgano and Daniele D'Alonzo** for the [Web Technologies and Systems](https://sites.google.com/uniroma1.it/lorenzomarconi/corsi#h.hel2jsy2h8y1) course at Sapienza University of Rome.
+**Project by Leonardo Galgano and Daniele D'Alonzo** for the [Tecnologie e Sistemi Web](https://sites.google.com/uniroma1.it/lorenzomarconi/corsi#h.hel2jsy2h8y1) course at Sapienza University of Rome.
 
 > *Test your knowledge and challenge your friends in real time!*
 
