@@ -21,7 +21,7 @@ Il gioco combina apprendimento e divertimento in un'interfaccia intuitiva e acca
 ## 🖼️ Anteprima
 Disponibile sia in versione desktop che mobile:
 
-![Desktop](docs/TOT.png)
+![Desktop](/docs/TOT.png)
 
 
 

@@ -19,7 +19,7 @@ The game combines learning and fun in an intuitive and captivating interface, ac
 ## 🖼️ Preview
 Available in both desktop and mobile versions:
 
-![Desktop](docs/TOT.png)
+![Desktop](/docs/TOT.png)
 
 
 
