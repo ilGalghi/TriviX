@@ -6,7 +6,7 @@ Se hai individuato una vulnerabilità o un problema di sicurezza in TriviX, ti c
 Se scopri una vulnerabilità, **non aprire una issue pubblica**. Segui invece questi passaggi:
 
 1. **Invia una segnalazione privata** agli sviluppatori tramite email:
-   - Leonardo Galgano: ilgalghi.developer@gmail.com
+   - Leonardo Galgano: ilgalghi(dot)developer(at)gmail(dot)com
 
 2. Nella segnalazione, includi:
    - Una descrizione dettagliata della vulnerabilità.
