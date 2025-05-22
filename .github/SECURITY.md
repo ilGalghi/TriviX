@@ -34,4 +34,4 @@ Se scopri una vulnerabilità, **non aprire una issue pubblica**. Segui invece qu
 - [Node.js Security Best Practices](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
 - [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html)
 
-Grazie per il tuo contributo alla sicurezza di TriviX!
+Grazie per il tuo contributo alla sicurezza!
