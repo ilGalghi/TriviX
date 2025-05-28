@@ -62,7 +62,7 @@ TriviX/
 ```
 
 ## 🚀 Installazione e utilizzo
-**Nota:** si possono usare strumenti come [ngrok](https://ngrok.com/) per esporre in modo sicuro il programma in esecuzione sul PC locale, rendendolo accessibile anche ad altri dispositivi o utenti esterni.
+**Nota:** si possono utilizzare strumenti come [ngrok](https://ngrok.com/) per esporre in modo sicuro il programma in esecuzione sul PC locale, rendendolo accessibile anche ad altri dispositivi o utenti esterni.
 1. **Clona il repository**
    ```
    git clone https://github.com/ilGalghi/TriviX
