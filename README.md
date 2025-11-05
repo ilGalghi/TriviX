@@ -76,14 +76,43 @@ TriviX/
 
 3. **Configura le variabili d'ambiente**
 
-   Crea un file `.env` nella root del progetto con l'API KEY per Gemini AI
+   Copia il file `.env.example` in `.env` e configura le variabili necessarie:
+   ```bash
+   cp .env.example .env
    ```
-   GEMINI_API_KEY=AIzaS...
+   
+   Modifica il file `.env` con i tuoi valori:
+   ```env
+   # Modalità ambiente (development o production)
+   NODE_ENV=development
+   
+   # Porta del server
+   PORT=3000
+   
+   # Chiave segreta per le sessioni (GENERARE UNA NUOVA IN PRODUZIONE!)
+   SESSION_SECRET=your_random_secret_key_here
+   
+   # Domini autorizzati per CORS (separati da virgola)
+   ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+   
+   # API KEY per Gemini AI (opzionale)
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+   
+   **⚠️ IMPORTANTE per la produzione:**
+   ```bash
+   # Genera una chiave segreta forte:
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
    ```
 
 4. **Avvia il server**
-   ```
+   ```bash
    npm start
+   ```
+   
+   Per sviluppo con auto-reload:
+   ```bash
+   npm run dev
    ```
 
 5. **Accedi all'applicazione**

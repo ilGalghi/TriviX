@@ -10505,5 +10505,32 @@
     "currentTurn": "da540367-faf4-4b0a-9c93-8db9bcda7149",
     "createdAt": "2025-05-28T06:12:04.956Z",
     "updatedAt": "2025-05-28T06:12:06.796Z"
+  },
+  {
+    "id": "10236846-0172-4a60-b09c-1cabb7cb933a",
+    "matchCode": "W3L76D",
+    "status": "completed",
+    "players": [
+      {
+        "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+        "username": "Leonardo",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+        "username": "Gigino01",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 3,
+    "currentTurn": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+    "createdAt": "2025-11-05T10:50:26.528Z",
+    "updatedAt": "2025-11-05T10:51:44.453Z",
+    "statsUpdated": true,
+    "rematchDeclined": true,
+    "rematchDeclinedBy": "6298b94c-070a-40f8-98a7-8ba3e2258bf1"
   }
 ]

@@ -384,5 +384,89 @@
         }
       }
     }
+  },
+  {
+    "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+    "username": "Leonardo",
+    "email": "leo@gmail.com",
+    "password": "$2a$10$VT6sE52uFxooUsmBJlpxreZ9ZmlndiEBLX/35mbZCC29VzN4mO8O.",
+    "createdAt": "2025-11-05T10:43:19.372Z",
+    "profile": {
+      "avatar": "/img/avatars/avatar1.png",
+      "stats": {
+        "gamesPlayed": 1,
+        "gamesWon": 1,
+        "correctAnswers": 2,
+        "points": 30
+      },
+      "categoryPerformance": {
+        "science": {
+          "correct": 1,
+          "total": 1
+        },
+        "entertainment": {
+          "correct": 0,
+          "total": 0
+        },
+        "sports": {
+          "correct": 0,
+          "total": 1
+        },
+        "art": {
+          "correct": 1,
+          "total": 1
+        },
+        "geography": {
+          "correct": 0,
+          "total": 0
+        },
+        "history": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "id": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+    "username": "Gigino01",
+    "email": "gigi@gmail.com",
+    "password": "$2a$10$.4g6H/DM1ltR6Q0QAy59DegHluf.FuvtWCrKhaCG10zmwWqfou322",
+    "createdAt": "2025-11-05T10:50:09.181Z",
+    "profile": {
+      "avatar": "/img/default-avatar.png",
+      "stats": {
+        "gamesPlayed": 1,
+        "gamesWon": 0,
+        "correctAnswers": 0,
+        "points": 0
+      },
+      "categoryPerformance": {
+        "science": {
+          "correct": 0,
+          "total": 1
+        },
+        "entertainment": {
+          "correct": 0,
+          "total": 0
+        },
+        "sports": {
+          "correct": 0,
+          "total": 0
+        },
+        "art": {
+          "correct": 0,
+          "total": 0
+        },
+        "geography": {
+          "correct": 0,
+          "total": 0
+        },
+        "history": {
+          "correct": 0,
+          "total": 2
+        }
+      }
+    }
   }
 ]

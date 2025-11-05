@@ -9,6 +9,12 @@ router.post("/:category", (req, res) => {
     const category = req.params.category;
     const usedIndices = req.body.usedIndices || [];
     
+    // Valida categoria per prevenire injection
+    const allowedCategories = ['science', 'entertainment', 'sports', 'art', 'geography', 'history'];
+    if (!allowedCategories.includes(category)) {
+      return res.status(400).json({ error: "Invalid category" });
+    }
+    
     // Percorso al file QA.json (fuori dalla cartella public)
     const qaFilePath = path.join(__dirname, "..", "QA.json");
     
@@ -92,7 +98,30 @@ router.post("/:category", (req, res) => {
 router.get("/image/:filename", (req, res) => {
   try {
     const filename = req.params.filename;
-    const imagePath = path.join(__dirname, "..", "question_images", filename);
+    
+    // Sanitizza il filename per prevenire path traversal
+    const sanitizedFilename = path.basename(filename);
+    
+    // Verifica che il filename contenga solo caratteri sicuri
+    if (!/^[a-zA-Z0-9_\-\.]+$/.test(sanitizedFilename)) {
+      return res.status(400).json({ error: "Invalid filename" });
+    }
+    
+    // Verifica estensione file (whitelist)
+    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+    const ext = path.extname(sanitizedFilename).toLowerCase();
+    if (!allowedExtensions.includes(ext)) {
+      return res.status(400).json({ error: "File type not allowed" });
+    }
+    
+    const imagePath = path.join(__dirname, "..", "question_images", sanitizedFilename);
+    
+    // Verifica che il path risolto sia effettivamente nella directory question_images
+    const resolvedPath = path.resolve(imagePath);
+    const baseDir = path.resolve(__dirname, "..", "question_images");
+    if (!resolvedPath.startsWith(baseDir)) {
+      return res.status(403).json({ error: "Access denied" });
+    }
     
     // Verifica se il file esiste
     if (!fs.existsSync(imagePath)) {

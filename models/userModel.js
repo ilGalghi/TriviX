@@ -187,6 +187,9 @@ async function updateUserProfile(userId, profileData) {
 
   // Aggiorna l'avatar se fornito
   if (profileData.profile && profileData.profile.avatar) {
+    console.log("UserModel - Updating avatar. Current:", users[userIndex].profile.avatar)
+    console.log("UserModel - New avatar value:", profileData.profile.avatar)
+    
     let avatar = profileData.profile.avatar;
     
     // Converti URL assoluti in percorsi relativi per gli avatar
@@ -197,13 +200,22 @@ async function updateUserProfile(userId, profileData) {
     if (match) {
       // Estrai solo il percorso relativo
       avatar = match[2];
+      console.log("UserModel - Avatar converted from absolute to relative:", avatar)
+    }
+    
+    // Inizializza profile se non esiste
+    if (!users[userIndex].profile) {
+      users[userIndex].profile = { avatar: "/img/default-avatar.png" }
     }
     
     users[userIndex].profile.avatar = avatar; // Aggiorna l'avatar
+    console.log("UserModel - Avatar updated to:", users[userIndex].profile.avatar)
   }
 
   // Salva le modifiche
+  console.log("UserModel - Saving user with avatar:", users[userIndex].profile.avatar)
   await writeUsers(users) // Scrive gli utenti aggiornati nel file
+  console.log("UserModel - Users saved successfully")
 
   // Restituisci l'utente aggiornato senza la password
   const { password, ...userWithoutPassword } = users[userIndex] // Rimuove la password dall'oggetto utente

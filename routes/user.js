@@ -1,9 +1,7 @@
 const express = require("express"); // Importa il modulo express per creare l'applicazione web
 const router = express.Router(); // Crea un router per gestire le rotte
 const userModel = require("../models/userModel"); // Importa il modello utente
-
-// Importa l'array degli utenti dalle rotte di autenticazione
-const { users } = require("./auth"); // Importa l'array degli utenti per l'uso in questo file
+const validator = require("validator"); // Importa validator per sanitizzazione
 
 // Middleware per verificare se l'utente è autenticato
 const isAuthenticated = (req, res, next) => {
@@ -11,130 +9,188 @@ const isAuthenticated = (req, res, next) => {
   if (req.session && req.session.userId) { // Controlla se la sessione esiste e se l'ID utente è presente
     return next(); // Passa al prossimo middleware o alla rotta
   }
-  return res.status(401).json({ success: false, message: "Not authenticated" }); // Restituisce errore se non autenticato
+  return res.status(401).json({ success: false, message: "Non autenticato" }); // Restituisce errore se non autenticato
 }
 
 // Route per ottenere il profilo utente
-router.get("/:userId", (req, res) => {
-  const { userId } = req.params; // Estrae l'ID utente dai parametri della richiesta
+router.get("/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params; // Estrae l'ID utente dai parametri della richiesta
 
-  // Trova l'utente
-  const user = users.find((user) => user.id === userId); // Cerca l'utente nell'array
-  if (!user) {
-    return res.status(404).json({ error: "User not found" }); // Restituisce errore se l'utente non esiste
+    // Valida formato UUID
+    if (!validator.isUUID(userId)) {
+      return res.status(400).json({ error: "ID utente non valido" });
+    }
+
+    // Trova l'utente usando il modello
+    const user = await userModel.findUserById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "Utente non trovato" }); // Restituisce errore se l'utente non esiste
+    }
+    
+    console.log("rispondo con user", user); // Log dell'utente trovato
+    
+    // Restituisce i dati dell'utente (escludendo la password)
+    const { password, ...userWithoutPassword } = user;
+    res.json({
+      user: userWithoutPassword
+    });
+  } catch (error) {
+    console.error("Error retrieving user:", error);
+    res.status(500).json({ error: "Errore del server" });
   }
-  console.log("rispondo con user", user); // Log dell'utente trovato
-  // Restituisce i dati dell'utente (escludendo la password)
-  res.json({
-    user: {
-      id: user.id, // ID dell'utente
-      username: user.username, // Nome utente
-      email: user.email, // Email dell'utente
-      stats: user.stats, // Statistiche dell'utente
-      createdAt: user.createdAt, // Data di creazione dell'utente
-    },
-  });
 });
 
-// Rotta per aggiornare il profilo utente
-router.put("/:userId", (req, res) => {
-  const { userId } = req.params; // Estrae l'ID utente dai parametri della richiesta
-  const { username, email, password } = req.body; // Estrae i dati dal corpo della richiesta
+// Rotta per aggiornare il profilo utente (DEPRECATA - usare /api/auth/profile)
+router.put("/:userId", isAuthenticated, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { username, email, password } = req.body;
 
-  // Trova l'utente
-  const user = users.find((user) => user.id === userId); // Cerca l'utente nell'array
-  if (!user) {
-    return res.status(404).json({ error: "User not found" }); // Restituisce errore se l'utente non esiste
+    // Valida formato UUID
+    if (!validator.isUUID(userId)) {
+      return res.status(400).json({ error: "ID utente non valido" });
+    }
+
+    // Verifica che l'utente possa modificare solo il proprio profilo
+    if (req.session.userId !== userId) {
+      return res.status(403).json({ error: "Non autorizzato a modificare questo profilo" });
+    }
+
+    // Validazione input
+    const updates = {};
+    
+    if (username) {
+      if (!validator.isLength(username, { min: 3, max: 20 }) || !validator.isAlphanumeric(username, 'en-US', { ignore: '_-' })) {
+        return res.status(400).json({ error: "Username deve essere alfanumerico e lungo tra 3 e 20 caratteri" });
+      }
+      updates.username = validator.escape(validator.trim(username));
+    }
+    
+    if (email) {
+      if (!validator.isEmail(email)) {
+        return res.status(400).json({ error: "Formato email non valido" });
+      }
+      updates.email = validator.normalizeEmail(email);
+    }
+    
+    if (password) {
+      if (!validator.isStrongPassword(password, { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 0 })) {
+        return res.status(400).json({ error: "Password deve contenere almeno 8 caratteri, una maiuscola, una minuscola e un numero" });
+      }
+      updates.password = password;
+    }
+
+    // Aggiorna il profilo
+    const result = await userModel.updateUserProfile(userId, updates);
+
+    if (result.success) {
+      const { password, ...userWithoutPassword } = result.user;
+      res.json({ user: userWithoutPassword });
+    } else {
+      res.status(400).json({ error: result.message });
+    }
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ error: "Errore del server" });
   }
-
-  // Aggiorna i dati dell'utente
-  if (username) user.username = username; // Aggiorna il nome utente se fornito
-  if (email) user.email = email; // Aggiorna l'email se fornita
-  if (password) user.password = password; // Aggiorna la password (dovrebbe essere hashata in un'applicazione reale)
-
-  // Restituisce i dati aggiornati dell'utente (escludendo la password)
-  res.json({
-    user: {
-      id: user.id, // ID dell'utente
-      username: user.username, // Nome utente aggiornato
-      email: user.email, // Email aggiornata
-      stats: user.stats, // Statistiche dell'utente
-      createdAt: user.createdAt, // Data di creazione dell'utente
-    },
-  });
 });
 
-// Rotta per aggiornare le statistiche dell'utente
-router.put("/:userId/stats", (req, res) => {
-  const { userId } = req.params; // Estrae l'ID utente dai parametri della richiesta
-  const { gamesPlayed, gamesWon, correctAnswers, categoryStats } = req.body; // Estrae i dati dal corpo della richiesta
+// Rotta per aggiornare le statistiche dell'utente (DEPRECATA - usare /api/auth/stats)
+router.put("/:userId/stats", isAuthenticated, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { gamesPlayed, gamesWon, correctAnswers, categoryStats } = req.body;
 
-  // Trova l'utente
-  const user = users.find((user) => user.id === userId); // Cerca l'utente nell'array
-  if (!user) {
-    return res.status(404).json({ error: "User not found" }); // Restituisce errore se l'utente non esiste
+    // Valida formato UUID
+    if (!validator.isUUID(userId)) {
+      return res.status(400).json({ error: "ID utente non valido" });
+    }
+
+    // Verifica che l'utente possa modificare solo le proprie statistiche
+    if (req.session.userId !== userId) {
+      return res.status(403).json({ error: "Non autorizzato a modificare queste statistiche" });
+    }
+
+    // Validazione dei valori numerici
+    if (gamesPlayed !== undefined && (!Number.isInteger(gamesPlayed) || gamesPlayed < 0)) {
+      return res.status(400).json({ error: "Valore gamesPlayed non valido" });
+    }
+    if (gamesWon !== undefined && (!Number.isInteger(gamesWon) || gamesWon < 0)) {
+      return res.status(400).json({ error: "Valore gamesWon non valido" });
+    }
+    if (correctAnswers !== undefined && (!Number.isInteger(correctAnswers) || correctAnswers < 0)) {
+      return res.status(400).json({ error: "Valore correctAnswers non valido" });
+    }
+
+    // Aggiorna le statistiche
+    const result = await userModel.updateGameStats(userId, {
+      gamesPlayed,
+      gamesWon,
+      correctAnswers,
+      categoryPerformance: categoryStats
+    });
+
+    if (result.success) {
+      const { password, ...userWithoutPassword } = result.user;
+      res.json({ user: userWithoutPassword });
+    } else {
+      res.status(400).json({ error: result.message });
+    }
+  } catch (error) {
+    console.error("Error updating stats:", error);
+    res.status(500).json({ error: "Errore del server" });
   }
-
-  // Inizializza le statistiche se necessario
-  if (!user.stats) {
-    user.stats = {
-      gamesPlayed: 0, // Inizializza il numero di partite giocate
-      gamesWon: 0, // Inizializza il numero di partite vinte
-      correctAnswers: 0, // Inizializza il numero di risposte corrette
-      categoryStats: {}, // Inizializza le statistiche per categoria
-    };
-  }
-
-  // Aggiorna le statistiche dell'utente
-  if (gamesPlayed !== undefined) user.stats.gamesPlayed = gamesPlayed; // Aggiorna le partite giocate se fornito
-  if (gamesWon !== undefined) user.stats.gamesWon = gamesWon; // Aggiorna le partite vinte se fornito
-  if (correctAnswers !== undefined) user.stats.correctAnswers = correctAnswers; // Aggiorna le risposte corrette se fornito
-  if (categoryStats) {
-    user.stats.categoryStats = {
-      ...user.stats.categoryStats, // Mantiene le statistiche esistenti
-      ...categoryStats, // Aggiorna le statistiche per categoria
-    };
-  }
-
-  // Restituisce i dati aggiornati dell'utente
-  res.json({
-    user: {
-      id: user.id, // ID dell'utente
-      username: user.username, // Nome utente
-      email: user.email, // Email dell'utente
-      stats: user.stats, // Statistiche aggiornate dell'utente
-      createdAt: user.createdAt, // Data di creazione dell'utente
-    },
-  });
 });
 
 // Aggiorna le prestazioni dell'utente per una categoria specifica
-router.post("/update-category-performance", async (req, res) => {
+router.post("/update-category-performance", isAuthenticated, async (req, res) => {
   try {
-    const { userId, category, isCorrect } = req.body; // Estrae i dati dal corpo della richiesta
+    const { userId, category, isCorrect } = req.body;
 
-    console.log("Aggiornamento prestazioni per categoria:", { userId, category, isCorrect }); // Log per il debug
+    console.log("Aggiornamento prestazioni per categoria:", { userId, category, isCorrect });
 
     if (!userId || !category) {
       return res.status(400).json({ 
         success: false, 
-        message: "UserId e categoria sono richiesti" // Messaggio di errore se mancano dati
+        message: "UserId e categoria sono richiesti"
       });
     }
 
+    // Valida formato UUID
+    if (!validator.isUUID(userId)) {
+      return res.status(400).json({ success: false, message: "ID utente non valido" });
+    }
+
+    // Verifica che l'utente possa modificare solo le proprie statistiche
+    if (req.session.userId !== userId) {
+      return res.status(403).json({ success: false, message: "Non autorizzato" });
+    }
+
+    // Valida categoria
+    const allowedCategories = ['science', 'entertainment', 'sports', 'art', 'geography', 'history'];
+    if (!allowedCategories.includes(category)) {
+      return res.status(400).json({ success: false, message: "Categoria non valida" });
+    }
+
+    // Valida isCorrect
+    if (typeof isCorrect !== 'boolean') {
+      return res.status(400).json({ success: false, message: "Il valore isCorrect deve essere booleano" });
+    }
+
     // Aggiorna le prestazioni per la categoria
-    const result = await userModel.updateCategoryPerformance(userId, category, isCorrect); // Chiama il metodo per aggiornare le prestazioni
+    const result = await userModel.updateCategoryPerformance(userId, category, isCorrect);
 
     if (result.success) {
-      return res.status(200).json(result); // Restituisce successo se l'aggiornamento ha avuto successo
+      return res.status(200).json(result);
     } else {
-      return res.status(400).json(result); // Restituisce errore se l'aggiornamento fallisce
+      return res.status(400).json(result);
     }
   } catch (error) {
-    console.error("Errore nell'aggiornamento delle prestazioni per categoria:", error); // Log degli errori
+    console.error("Errore nell'aggiornamento delle prestazioni per categoria:", error);
     return res.status(500).json({ 
       success: false, 
-      message: "Errore del server" // Restituisce errore interno del server
+      message: "Errore del server"
     });
   }
 });
