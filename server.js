@@ -70,11 +70,11 @@ app.use(helmet({
 }));
 
 // Rate limiters per prevenire attacchi brute-force
-// In sviluppo: limiti più permissivi per facilitare testing
-// In produzione: limiti più rigidi per sicurezza
+// In sviluppo: limiti molto permissivi per facilitare testing
+// In produzione: limiti rigidi per sicurezza
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minuti
-  max: isProduction ? 5 : 50, // Dev: 50 tentativi, Prod: 5 tentativi
+  max: isProduction ? 5 : 200, // Dev: 200 tentativi, Prod: 5 tentativi
   message: { 
     success: false, 
     message: "Troppi tentativi di accesso. Riprova tra 15 minuti." 
@@ -86,7 +86,7 @@ const authLimiter = rateLimit({
 
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minuti
-  max: isProduction ? 100 : 1000, // Dev: 1000 richieste, Prod: 100 richieste
+  max: isProduction ? 100 : 10000, // Dev: 10000 richieste, Prod: 100 richieste
   message: { 
     success: false, 
     message: "Troppi richieste. Riprova più tardi." 

@@ -10532,5 +10532,112 @@
     "statsUpdated": true,
     "rematchDeclined": true,
     "rematchDeclinedBy": "6298b94c-070a-40f8-98a7-8ba3e2258bf1"
+  },
+  {
+    "id": "28a8a0ed-a91b-4f65-8682-ade5024a1071",
+    "matchCode": "TDI72P",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+        "username": "Leonardo",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+        "username": "Gigino01",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+    "createdAt": "2025-11-05T12:32:28.870Z",
+    "updatedAt": "2025-11-05T12:32:32.214Z"
+  },
+  {
+    "id": "69a6cfdb-ef31-4b36-a774-1a837d827e01",
+    "matchCode": "1UK1LI",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+        "username": "Leonardo",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+        "username": "Gigino01",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 4,
+    "maxRounds": 5,
+    "currentTurn": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+    "createdAt": "2025-11-05T12:32:47.517Z",
+    "updatedAt": "2025-11-05T12:38:14.379Z"
+  },
+  {
+    "id": "9d4fcee0-1936-4560-ae66-47814077f8da",
+    "matchCode": "ZNYYUG",
+    "status": "completed",
+    "players": [
+      {
+        "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+        "username": "Leonardo",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+        "username": "Gigino01",
+        "score": 2,
+        "characters": []
+      }
+    ],
+    "currentRound": 5,
+    "maxRounds": 5,
+    "currentTurn": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+    "createdAt": "2025-11-05T12:46:29.819Z",
+    "updatedAt": "2025-11-05T12:49:11.020Z",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+      "3a5de6e1-60e6-4345-9cf5-210308976b50"
+    ],
+    "rematchNewGameCode": "F12X6O",
+    "rematchAccepted": true,
+    "rematchCreated": true
+  },
+  {
+    "id": "8e216aff-4885-45fa-9360-285bbf896e95",
+    "matchCode": "F12X6O",
+    "status": "completed",
+    "players": [
+      {
+        "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+        "username": "Leonardo",
+        "score": 4,
+        "characters": []
+      },
+      {
+        "id": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+        "username": "Gigino01",
+        "score": 2,
+        "characters": []
+      }
+    ],
+    "currentRound": 5,
+    "maxRounds": 5,
+    "currentTurn": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+    "createdAt": "2025-11-05T12:49:11.020Z",
+    "updatedAt": "2025-11-05T12:50:50.291Z",
+    "isRematch": true,
+    "originalGameCode": "ZNYYUG",
+    "statsUpdated": true
   }
 ]

@@ -394,35 +394,35 @@
     "profile": {
       "avatar": "/img/avatars/avatar1.png",
       "stats": {
-        "gamesPlayed": 1,
-        "gamesWon": 1,
-        "correctAnswers": 2,
-        "points": 30
+        "gamesPlayed": 3,
+        "gamesWon": 3,
+        "correctAnswers": 15,
+        "points": 90
       },
       "categoryPerformance": {
         "science": {
-          "correct": 1,
-          "total": 1
+          "correct": 2,
+          "total": 2
         },
         "entertainment": {
-          "correct": 0,
-          "total": 0
+          "correct": 1,
+          "total": 2
         },
         "sports": {
-          "correct": 0,
-          "total": 1
+          "correct": 3,
+          "total": 16
         },
         "art": {
-          "correct": 1,
-          "total": 1
+          "correct": 4,
+          "total": 4
         },
         "geography": {
-          "correct": 0,
-          "total": 0
+          "correct": 3,
+          "total": 3
         },
         "history": {
-          "correct": 0,
-          "total": 0
+          "correct": 2,
+          "total": 3
         }
       }
     }
@@ -434,33 +434,33 @@
     "password": "$2a$10$.4g6H/DM1ltR6Q0QAy59DegHluf.FuvtWCrKhaCG10zmwWqfou322",
     "createdAt": "2025-11-05T10:50:09.181Z",
     "profile": {
-      "avatar": "/img/default-avatar.png",
+      "avatar": "/img/avatars/avatar7.png",
       "stats": {
-        "gamesPlayed": 1,
+        "gamesPlayed": 3,
         "gamesWon": 0,
-        "correctAnswers": 0,
+        "correctAnswers": 5,
         "points": 0
       },
       "categoryPerformance": {
         "science": {
-          "correct": 0,
-          "total": 1
+          "correct": 2,
+          "total": 3
         },
         "entertainment": {
           "correct": 0,
-          "total": 0
+          "total": 3
         },
         "sports": {
-          "correct": 0,
-          "total": 0
+          "correct": 1,
+          "total": 1
         },
         "art": {
-          "correct": 0,
-          "total": 0
+          "correct": 2,
+          "total": 5
         },
         "geography": {
           "correct": 0,
-          "total": 0
+          "total": 1
         },
         "history": {
           "correct": 0,
