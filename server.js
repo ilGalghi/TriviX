@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, "public"))); // Serve file statici d
 // Configurazione della sessione
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "trivia_crack_secret_key", // Chiave segreta per firmare i cookie di sessione
+    secret: process.env.SESSION_SECRET || "trivix_secret_key", // Chiave segreta per firmare i cookie di sessione
     resave: false, // Non riscrivere la sessione se non è stata modificata
     saveUninitialized: false, // Non salvare sessioni non inizializzate
     cookie: {
@@ -40,7 +40,7 @@ app.use(
       sameSite: isProduction ? "none" : "lax", // Gestione dei cookie cross-site
       httpOnly: true, // Il cookie è accessibile solo dal server
     },
-    name: "trivia_crack_session", // Nome personalizzato per il cookie di sessione
+    name: "trivix_session", // Nome personalizzato per il cookie di sessione
   })
 );
 

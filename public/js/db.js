@@ -9,8 +9,8 @@ const DB = {
         }
 
         // Inizializza il database degli utenti se non esiste
-        if (!localStorage.getItem("triviacrack_users")) {
-            localStorage.setItem("triviacrack_users", JSON.stringify([])); // Imposta un array vuoto
+        if (!localStorage.getItem("trivix_users")) {
+            localStorage.setItem("trivix_users", JSON.stringify([])); // Imposta un array vuoto
         }
 
         return true; // Restituisce true se l'inizializzazione ha successo
@@ -19,7 +19,7 @@ const DB = {
     // Ottiene tutti gli utenti
     getUsers() {
         try {
-            return JSON.parse(localStorage.getItem("triviacrack_users") || "[]"); // Restituisce gli utenti come array
+            return JSON.parse(localStorage.getItem("trivix_users") || "[]"); // Restituisce gli utenti come array
         } catch (error) {
             console.error("Error getting users:", error); // Gestisce eventuali errori
             return []; // Restituisce un array vuoto in caso di errore
@@ -29,7 +29,7 @@ const DB = {
     // Salva gli utenti nel database
     saveUsers(users) {
         try {
-            localStorage.setItem("triviacrack_users", JSON.stringify(users)); // Salva gli utenti nel localStorage
+            localStorage.setItem("trivix_users", JSON.stringify(users)); // Salva gli utenti nel localStorage
             return true; // Restituisce true se il salvataggio ha successo
         } catch (error) {
             console.error("Error saving users:", error); // Gestisce eventuali errori
