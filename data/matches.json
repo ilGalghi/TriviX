@@ -10639,5 +10639,144 @@
     "isRematch": true,
     "originalGameCode": "ZNYYUG",
     "statsUpdated": true
+  },
+  {
+    "id": "05d1c26b-5623-4a51-9580-6a525b5a8226",
+    "matchCode": "WRTFT4",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+        "username": "Leonardo",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+        "username": "Gigino01",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 5,
+    "currentTurn": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+    "createdAt": "2025-11-05T20:28:36.261Z",
+    "updatedAt": "2025-11-05T20:35:55.124Z"
+  },
+  {
+    "id": "cdb3429f-f2fa-493c-a884-ca1eb77eacd2",
+    "matchCode": "QQXRBG",
+    "status": "completed",
+    "players": [
+      {
+        "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+        "username": "Leonardo",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+        "username": "Gigino01",
+        "score": 2,
+        "characters": []
+      }
+    ],
+    "currentRound": 5,
+    "maxRounds": 5,
+    "currentTurn": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+    "createdAt": "2025-11-05T21:13:05.020Z",
+    "updatedAt": "2025-11-05T21:16:21.569Z",
+    "statsUpdated": true
+  },
+  {
+    "id": "c86687ba-774e-45b6-b13c-c8c01e760543",
+    "matchCode": "9TPYR6",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+        "username": "Leonardo",
+        "score": 1,
+        "characters": []
+      },
+      {
+        "id": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+        "username": "Gigino01",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 3,
+    "maxRounds": 5,
+    "currentTurn": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+    "createdAt": "2025-11-06T14:24:49.157Z",
+    "updatedAt": "2025-11-06T14:27:17.577Z"
+  },
+  {
+    "id": "da6c4451-14bb-499f-9bf3-86f53b56113b",
+    "matchCode": "73HEEY",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+        "username": "Leonardo",
+        "score": 2,
+        "characters": []
+      },
+      {
+        "id": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+        "username": "Gigino01",
+        "score": 1,
+        "characters": []
+      }
+    ],
+    "currentRound": 5,
+    "maxRounds": 5,
+    "currentTurn": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+    "createdAt": "2025-11-06T14:27:36.745Z",
+    "updatedAt": "2025-11-06T14:37:14.507Z"
+  },
+  {
+    "id": "ade6d6b8-7d27-4181-a2b7-24af7d01ab60",
+    "matchCode": "TV5KL7",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+        "username": "Leonardo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+    "createdAt": "2025-11-06T15:58:53.716Z",
+    "updatedAt": "2025-11-06T15:58:54.406Z"
+  },
+  {
+    "id": "5f0f1e63-0146-4eb4-acad-58bc059f7bdb",
+    "matchCode": "1P52UX",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "3a5de6e1-60e6-4345-9cf5-210308976b50",
+        "username": "Leonardo",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+        "username": "Gigino01",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 1,
+    "maxRounds": 5,
+    "currentTurn": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
+    "createdAt": "2025-11-06T16:12:06.913Z",
+    "updatedAt": "2025-11-06T16:12:58.640Z"
   }
 ]

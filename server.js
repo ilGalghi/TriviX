@@ -7,7 +7,8 @@ const socketIo = require('socket.io'); // Importa Socket.IO per gestire le comun
 const helmet = require('helmet'); // Importa helmet per la sicurezza degli header HTTP
 const rateLimit = require('express-rate-limit'); // Importa rate limiter per prevenire attacchi brute-force
 const mongoSanitize = require('express-mongo-sanitize'); // Importa sanitizer per prevenire NoSQL injection
-const Message = require('./models/Message'); // Importa il modello per i messaggi (se necessario)
+const mongoose = require('mongoose'); // Importa mongoose per la connessione a MongoDB
+const Message = require('./models/Message'); // Importa il modello per i messaggi
 const authRoutes = require("./routes/auth"); // Importa le rotte per l'autenticazione
 const gameRoutes = require("./routes/game"); // Importa le rotte per il gioco
 const chatRoutes = require("./routes/chat"); // Importa le rotte per la chat
@@ -21,6 +22,30 @@ const server = http.createServer(app); // Crea un server HTTP utilizzando l'app 
 // Variabili di configurazione
 const PORT = process.env.PORT || 3000; // Imposta la porta del server, utilizzando la variabile d'ambiente o 3000 come default
 const isProduction = process.env.NODE_ENV === "production"; // Controlla se l'app è in modalità produzione
+
+// ============================================
+// CONNESSIONE MONGODB
+// ============================================
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/trivix';
+
+mongoose.connect(MONGODB_URI)
+.then(() => {
+  console.log('✅ Connesso a MongoDB con successo');
+  console.log(`📊 Database: ${mongoose.connection.name}`);
+})
+.catch((err) => {
+  console.error('❌ Errore di connessione a MongoDB:', err.message);
+  console.error('⚠️  Assicurati che MongoDB sia in esecuzione');
+});
+
+// Gestione eventi di connessione MongoDB
+mongoose.connection.on('error', (err) => {
+  console.error('❌ Errore MongoDB:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('⚠️  MongoDB disconnesso');
+});
 
 // Configurazione Socket.IO con CORS sicuro
 const socketCorsOptions = isProduction 

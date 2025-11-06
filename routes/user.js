@@ -1,7 +1,8 @@
 const express = require("express"); // Importa il modulo express per creare l'applicazione web
 const router = express.Router(); // Crea un router per gestire le rotte
-const userModel = require("../models/userModel"); // Importa il modello utente
+const User = require("../models/User"); // Importa il modello utente Mongoose
 const validator = require("validator"); // Importa validator per sanitizzazione
+const mongoose = require("mongoose");
 
 // Middleware per verificare se l'utente è autenticato
 const isAuthenticated = (req, res, next) => {
@@ -17,13 +18,13 @@ router.get("/:userId", async (req, res) => {
   try {
     const { userId } = req.params; // Estrae l'ID utente dai parametri della richiesta
 
-    // Valida formato UUID
-    if (!validator.isUUID(userId)) {
+    // Valida formato ObjectId MongoDB
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ error: "ID utente non valido" });
     }
 
     // Trova l'utente usando il modello
-    const user = await userModel.findUserById(userId);
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "Utente non trovato" }); // Restituisce errore se l'utente non esiste
     }
@@ -31,9 +32,8 @@ router.get("/:userId", async (req, res) => {
     console.log("rispondo con user", user); // Log dell'utente trovato
     
     // Restituisce i dati dell'utente (escludendo la password)
-    const { password, ...userWithoutPassword } = user;
     res.json({
-      user: userWithoutPassword
+      user: user.toSafeObject()
     });
   } catch (error) {
     console.error("Error retrieving user:", error);
@@ -47,8 +47,8 @@ router.put("/:userId", isAuthenticated, async (req, res) => {
     const { userId } = req.params;
     const { username, email, password } = req.body;
 
-    // Valida formato UUID
-    if (!validator.isUUID(userId)) {
+    // Valida formato ObjectId MongoDB
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ error: "ID utente non valido" });
     }
 
@@ -82,11 +82,10 @@ router.put("/:userId", isAuthenticated, async (req, res) => {
     }
 
     // Aggiorna il profilo
-    const result = await userModel.updateUserProfile(userId, updates);
+    const result = await User.updateProfile(userId, updates);
 
     if (result.success) {
-      const { password, ...userWithoutPassword } = result.user;
-      res.json({ user: userWithoutPassword });
+      res.json({ user: result.user });
     } else {
       res.status(400).json({ error: result.message });
     }
@@ -102,8 +101,8 @@ router.put("/:userId/stats", isAuthenticated, async (req, res) => {
     const { userId } = req.params;
     const { gamesPlayed, gamesWon, correctAnswers, categoryStats } = req.body;
 
-    // Valida formato UUID
-    if (!validator.isUUID(userId)) {
+    // Valida formato ObjectId MongoDB
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ error: "ID utente non valido" });
     }
 
@@ -124,7 +123,7 @@ router.put("/:userId/stats", isAuthenticated, async (req, res) => {
     }
 
     // Aggiorna le statistiche
-    const result = await userModel.updateGameStats(userId, {
+    const result = await User.updateGameStats(userId, {
       gamesPlayed,
       gamesWon,
       correctAnswers,
@@ -132,8 +131,7 @@ router.put("/:userId/stats", isAuthenticated, async (req, res) => {
     });
 
     if (result.success) {
-      const { password, ...userWithoutPassword } = result.user;
-      res.json({ user: userWithoutPassword });
+      res.json({ user: result.user });
     } else {
       res.status(400).json({ error: result.message });
     }
@@ -157,8 +155,8 @@ router.post("/update-category-performance", isAuthenticated, async (req, res) =>
       });
     }
 
-    // Valida formato UUID
-    if (!validator.isUUID(userId)) {
+    // Valida formato ObjectId MongoDB
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ success: false, message: "ID utente non valido" });
     }
 
@@ -179,7 +177,7 @@ router.post("/update-category-performance", isAuthenticated, async (req, res) =>
     }
 
     // Aggiorna le prestazioni per la categoria
-    const result = await userModel.updateCategoryPerformance(userId, category, isCorrect);
+    const result = await User.updateCategoryPerformance(userId, category, isCorrect);
 
     if (result.success) {
       return res.status(200).json(result);
@@ -198,13 +196,10 @@ router.post("/update-category-performance", isAuthenticated, async (req, res) =>
 // Rotta per ottenere tutti gli utenti (solo informazioni pubbliche)
 router.get("/all/public", async (req, res) => {
   try {
-    const users = await userModel.readUsers(); // Legge gli utenti dal modello
+    const users = await User.find().select('-password -__v'); // Trova tutti gli utenti escludendo password e versione
     
-    // Filtra solo le informazioni pubbliche (rimuovendo password e dati sensibili)
-    const publicUsers = users.map(user => {
-      const { password, ...userWithoutPassword } = user; // Esclude la password
-      return userWithoutPassword; // Restituisce l'utente senza password
-    });
+    // Converti in oggetti sicuri
+    const publicUsers = users.map(user => user.toSafeObject());
     
     res.json(publicUsers); // Restituisce gli utenti pubblici
   } catch (error) {

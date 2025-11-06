@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const userModel = require("../models/userModel")
+const User = require("../models/User") // Nuovo modello Mongoose
 const validator = require("validator")
 
 // Middleware per verificare se l'utente è autenticato
@@ -59,11 +59,18 @@ router.post("/register", async (req, res) => {
     }
 
     // Aggiungi l'utente
-    const result = await userModel.addUser({ 
-      username: sanitizedUsername, 
-      email: sanitizedEmail, 
-      password 
-    })
+    const newUser = new User({
+      username: sanitizedUsername,
+      email: sanitizedEmail,
+      password
+    });
+
+    await newUser.save();
+
+    const result = {
+      success: true,
+      user: newUser.toSafeObject()
+    };
 
     if (result.success) {
       // Rigenera l'ID di sessione per prevenire session fixation
@@ -74,7 +81,7 @@ router.post("/register", async (req, res) => {
         }
         
         // Imposta la sessione
-        req.session.userId = result.user.id
+        req.session.userId = result.user._id.toString()
         console.log("User registered and session regenerated:", req.session)
 
         return res.status(201).json(result)
@@ -104,7 +111,7 @@ router.post("/login", async (req, res) => {
     const sanitizedUsername = validator.escape(validator.trim(username))
 
     // Autentica l'utente
-    const result = await userModel.authenticateUser(sanitizedUsername, password)
+    const result = await User.authenticate(sanitizedUsername, password)
 
     if (result.success) {
       // Rigenera l'ID di sessione per prevenire session fixation
@@ -115,7 +122,7 @@ router.post("/login", async (req, res) => {
         }
         
         // Imposta la sessione
-        req.session.userId = result.user.id
+        req.session.userId = result.user._id.toString()
         console.log("User logged in and session regenerated:", req.session)
 
         return res.status(200).json(result)
@@ -142,7 +149,7 @@ router.get("/me", async (req, res) => {
       return res.status(401).json({ success: false, message: "Non autenticato" })
     }
 
-    const user = await userModel.findUserById(req.session.userId)
+    const user = await User.findById(req.session.userId)
 
     if (!user) {
       // Utente non trovato, cancella la sessione
@@ -151,8 +158,7 @@ router.get("/me", async (req, res) => {
     }
 
     // Restituisci i dati dell'utente senza la password
-    const { password, ...userWithoutPassword } = user
-    return res.status(200).json({ success: true, user: userWithoutPassword })
+    return res.status(200).json({ success: true, user: user.toSafeObject() })
   } catch (error) {
     console.error("Error retrieving user:", error)
     return res.status(500).json({ success: false, message: "Errore del server" })
@@ -250,7 +256,7 @@ router.put("/profile", isAuthenticated, async (req, res) => {
     console.log("Final updates object:", updates)
 
     // Aggiorna il profilo
-    const result = await userModel.updateUserProfile(req.session.userId, updates)
+    const result = await User.updateProfile(req.session.userId, updates)
 
     console.log("Update result:", result)
 
@@ -284,7 +290,7 @@ router.put("/stats", isAuthenticated, async (req, res) => {
     }
 
     // Aggiorna le statistiche
-    const result = await userModel.updateGameStats(req.session.userId, {
+    const result = await User.updateGameStats(req.session.userId, {
       gamesPlayed,
       gamesWon,
       correctAnswers,
@@ -310,7 +316,7 @@ router.delete("/profile/delete", isAuthenticated, async (req, res) => {
     console.log("Delete profile attempt for user ID:", userId);
     
     // Elimina l'utente
-    const result = await userModel.deleteUser(userId);
+    const result = await User.deleteUser(userId);
     
     if (result.success) {
       // Distruggi la sessione

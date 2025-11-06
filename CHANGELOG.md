@@ -1,5 +1,43 @@
 # CHANGELOG
 
+## [Database Migration] - 06 Novembre 2025
+
+### 🗄️ Migrazione a MongoDB
+
+**Implementazione**: Sistema ibrido MongoDB + JSON
+
+#### Modifiche Database:
+- ✅ **MongoDB per Utenti**: Migrato da `data/users.json` a MongoDB/Mongoose
+- ✅ **MongoDB per Chat**: Sistema messaggi già esistente confermato
+- ✅ **JSON mantenuto**: Domande (`QA.json`) e Matches (`data/matches.json`)
+
+#### File Creati:
+- ✅ `models/User.js` - Schema Mongoose completo con validazioni
+- ✅ `migrate-users.js` - Script migrazione dati da JSON a MongoDB
+- ✅ `MONGODB_SETUP.md` - Guida installazione e configurazione
+- ✅ `INSTALL_MONGODB_WINDOWS.md` - Guida specifica Windows
+- ✅ `MIGRATION_SUMMARY.md` - Riepilogo modifiche tecniche
+
+#### File Modificati:
+- ✅ `server.js` - Connessione MongoDB con gestione errori
+- ✅ `routes/auth.js` - Convertito da JSON a Mongoose (register, login, profile, stats)
+- ✅ `routes/user.js` - Aggiornato per MongoDB (validazione ObjectId invece UUID)
+- ✅ `.env` - Aggiunta configurazione `MONGODB_URI`
+
+#### Vantaggi:
+- ⚡ Performance migliorate con indicizzazione automatica
+- 📈 Scalabilità per milioni di utenti
+- ✅ Validazioni a livello database (email, username, password)
+- 🔒 Protezione integrità dati con schema rigido
+- 🔄 100% retrocompatibile con API esistente
+
+#### Note:
+- 🗂️ Vecchio `models/userModel.js` mantenuto come backup
+- 📦 File `data/users.json` preservato (11 utenti esistenti)
+- 🚀 Richiede MongoDB locale o MongoDB Atlas cloud
+
+---
+
 ## [Security Update] - 05 Novembre 2025
 
 ### 🔒 Miglioramenti Critici alla Sicurezza

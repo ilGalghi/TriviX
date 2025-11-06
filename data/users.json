@@ -394,10 +394,10 @@
     "profile": {
       "avatar": "/img/avatars/avatar1.png",
       "stats": {
-        "gamesPlayed": 3,
+        "gamesPlayed": 4,
         "gamesWon": 3,
-        "correctAnswers": 15,
-        "points": 90
+        "correctAnswers": 20,
+        "points": 105
       },
       "categoryPerformance": {
         "science": {
@@ -405,24 +405,24 @@
           "total": 2
         },
         "entertainment": {
-          "correct": 1,
-          "total": 2
+          "correct": 2,
+          "total": 4
         },
         "sports": {
           "correct": 3,
-          "total": 16
+          "total": 18
         },
         "art": {
-          "correct": 4,
-          "total": 4
+          "correct": 7,
+          "total": 9
         },
         "geography": {
           "correct": 3,
           "total": 3
         },
         "history": {
-          "correct": 2,
-          "total": 3
+          "correct": 3,
+          "total": 4
         }
       }
     }
@@ -436,35 +436,35 @@
     "profile": {
       "avatar": "/img/avatars/avatar7.png",
       "stats": {
-        "gamesPlayed": 3,
+        "gamesPlayed": 4,
         "gamesWon": 0,
-        "correctAnswers": 5,
-        "points": 0
+        "correctAnswers": 11,
+        "points": 15
       },
       "categoryPerformance": {
         "science": {
           "correct": 2,
-          "total": 3
+          "total": 4
         },
         "entertainment": {
-          "correct": 0,
-          "total": 3
+          "correct": 3,
+          "total": 10
         },
         "sports": {
-          "correct": 1,
-          "total": 1
+          "correct": 2,
+          "total": 2
         },
         "art": {
           "correct": 2,
           "total": 5
         },
         "geography": {
-          "correct": 0,
-          "total": 1
+          "correct": 1,
+          "total": 2
         },
         "history": {
-          "correct": 0,
-          "total": 2
+          "correct": 1,
+          "total": 5
         }
       }
     }
