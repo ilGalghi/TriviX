@@ -3,10 +3,7 @@ const router = express.Router(); // Crea un router per gestire le rotte
 const { v4: uuidv4 } = require("uuid"); // Importa la funzione per generare UUID
 const fs = require("fs"); // Importa il modulo fs per gestire il file system
 const path = require("path"); // Importa il modulo path per gestire i percorsi dei file
-const userModel = require("../models/userModel"); // Importa il modello utente
-
-// Riferimento per la memorizzazione degli utenti in memoria
-const users = [];
+const User = require("../models/User"); // Importa il modello MongoDB per gli utenti
 
 // Percorso del file JSON per le partite
 const matchesFilePath = path.join(__dirname, '../data/matches.json');
@@ -37,50 +34,62 @@ const writeMatches = (matches) => {
 // Crea un nuovo gioco
 router.post("/create", (req, res) => {
   const { userId, gameCode, maxRounds } = req.body; // Estrae i dati dal corpo della richiesta
-  console.log("api trovata. body :" + req.body); // Log dei dati ricevuti
+  console.log("api trovata. body:", JSON.stringify(req.body)); // Log dei dati ricevuti con JSON stringify
+  console.log("userId ricevuto:", userId); // Log dell'userId specifico
 
   // Validazione input
   if (!userId) {
     return res.status(400).json({ error: "User ID is required" }); // Restituisce errore se manca l'ID utente
   } else {
-    console.log("user id preso"); // Log dell'ID utente ricevuto
+    console.log("user id preso:", userId); // Log dell'ID utente ricevuto
   }
 
   // Imposta il numero di round predefinito se non specificato
   const rounds = maxRounds || 5; // Usa il numero di round specificato o 5 come default
 
   console.log("codice generato"); // Log per indicare che il codice è stato generato
-  // Trova l'utente
-  const user = userModel.findUserById(userId); // Cerca l'utente nel modello
-  if (!user) {
-    return res.status(404).json({ error: "User not found" }); // Restituisce errore se l'utente non esiste
-  }
-  // Crea una nuova partita
-  const newGame = {
-    id: uuidv4(), // Genera un ID unico per la partita
-    matchCode: gameCode, // Codice della partita
-    status: "waiting", // Stato iniziale della partita
-    players: [], // Array per i giocatori
-    currentRound: 0, // Round attuale
-    maxRounds: rounds, // Numero massimo di round
-    currentTurn: userId, // ID dell'utente il cui turno è attuale
-    createdAt: new Date(), // Data di creazione della partita
-    updatedAt: new Date(), // Data di aggiornamento della partita
-  };
+  console.log("Cercando utente con ID:", userId); // Log per la ricerca dell'utente
+  
+  // Trova l'utente da MongoDB
+  User.findById(userId)
+    .then(user => {
+      console.log("Utente trovato:", user ? user.username : "NULL"); // Log dell'utente trovato
+      if (!user) {
+        console.log("Utente NON trovato per ID:", userId);
+        return res.status(404).json({ error: "User not found" }); // Restituisce errore se l'utente non esiste
+      }
+      
+      // Crea una nuova partita
+      const newGame = {
+        id: uuidv4(), // Genera un ID unico per la partita
+        matchCode: gameCode, // Codice della partita
+        status: "waiting", // Stato iniziale della partita
+        players: [], // Array per i giocatori
+        currentRound: 0, // Round attuale
+        maxRounds: rounds, // Numero massimo di round
+        currentTurn: userId, // ID dell'utente il cui turno è attuale
+        createdAt: new Date(), // Data di creazione della partita
+        updatedAt: new Date(), // Data di aggiornamento della partita
+      };
 
-  // Leggi le partite esistenti
-  const matches = readMatches(); // Legge le partite dal file
+      // Leggi le partite esistenti
+      const matches = readMatches(); // Legge le partite dal file
 
-  // Aggiungi la nuova partita all'elenco
-  matches.push(newGame); // Aggiunge la nuova partita all'array delle partite
+      // Aggiungi la nuova partita all'elenco
+      matches.push(newGame); // Aggiunge la nuova partita all'array delle partite
 
-  // Scrivi le partite aggiornate nel file
-  writeMatches(matches); // Salva le partite aggiornate nel file
+      // Scrivi le partite aggiornate nel file
+      writeMatches(matches); // Salva le partite aggiornate nel file
 
-  // Restituisci i dati della nuova partita
-  res.status(201).json({
-    game: newGame, // Restituisce la nuova partita creata
-  });
+      // Restituisci i dati della nuova partita
+      res.status(201).json({
+        game: newGame, // Restituisce la nuova partita creata
+      });
+    })
+    .catch(error => {
+      console.error("Errore nel trovare l'utente:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    });
 });
 
 // Join game route
@@ -121,31 +130,37 @@ router.post("/join", (req, res) => {
     return res.status(400).json({ error: "You are already in this game" }); // Restituisce errore se l'utente è già presente
   }
 
-  // Trova l'utente
-  const user = users.find((user) => user.id === userId); // Cerca l'utente in memoria
-  if (!user) {
-    return res.status(404).json({ error: "User not found" }); // Restituisce errore se l'utente non esiste
-  }
+  // Trova l'utente da MongoDB
+  User.findById(userId)
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({ error: "User not found" }); // Restituisce errore se l'utente non esiste
+      }
 
-  // Aggiungi il giocatore alla partita
-  game.players.push({
-    id: userId, // ID del giocatore
-    username: user.username, // Nome utente del giocatore
-    score: 0, // Punteggio iniziale
-    characters: [], // Array per i personaggi del giocatore
-  });
+      // Aggiungi il giocatore alla partita
+      game.players.push({
+        id: userId, // ID del giocatore
+        username: user.username, // Nome utente del giocatore
+        score: 0, // Punteggio iniziale
+        characters: [], // Array per i personaggi del giocatore
+      });
 
-  // Aggiorna lo stato della partita
-  game.status = "active"; // Imposta lo stato della partita come attivo
-  game.updatedAt = new Date(); // Aggiorna la data di modifica
+      // Aggiorna lo stato della partita
+      game.status = "active"; // Imposta lo stato della partita come attivo
+      game.updatedAt = new Date(); // Aggiorna la data di modifica
 
-  // Scrivi le partite aggiornate nel file
-  writeMatches(matches); // Salva le partite aggiornate nel file
+      // Scrivi le partite aggiornate nel file
+      writeMatches(matches); // Salva le partite aggiornate nel file
 
-  // Restituisci i dati della partita
-  res.json({
-    game, // Restituisce la partita aggiornata
-  });
+      // Restituisci i dati della partita
+      res.json({
+        game, // Restituisce la partita aggiornata
+      });
+    })
+    .catch(error => {
+      console.error("Errore nel trovare l'utente:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    });
 });
 
 // Get game route
@@ -436,8 +451,6 @@ router.post('/surrender', (req, res) => {
 async function updateUserStats(game) {
   if (game.status !== "completed") return; // Esce se la partita non è completata
 
-  const userModel = require('../models/userModel'); // Importa il modello utente
-
   // Determina il vincitore
   let winner = null; // Variabile per il vincitore
   let isDraw = false; // Variabile per il pareggio
@@ -458,8 +471,8 @@ async function updateUserStats(game) {
   // Aggiorna le statistiche per ogni giocatore
   for (const player of game.players) {
     try {
-      // Recupera le statistiche attuali dell'utente
-      const currentUser = await userModel.findUserById(player.id); // Cerca l'utente nel modello
+      // Recupera l'utente da MongoDB
+      const currentUser = await User.findById(player.id); // Cerca l'utente da MongoDB
       if (!currentUser || !currentUser.profile || !currentUser.profile.stats) {
         console.error(`Statistiche non trovate per l'utente ${player.id}`); // Log se le statistiche non sono trovate
         continue; // Salta al prossimo giocatore
@@ -489,18 +502,17 @@ async function updateUserStats(game) {
         }
       }
       
-      const statsData = {
-        gamesPlayed: (currentStats.gamesPlayed || 0) + 1, // Incrementa il numero di partite giocate
-        gamesWon: (currentStats.gamesWon || 0) + ((winner && winner.id === player.id) ? 1 : 0), // Incrementa le vittorie
-        correctAnswers: currentStats.correctAnswers || 0, // Mantiene il numero di risposte corrette
-        points: (currentStats.points || 0) + pointsToAdd // Aggiorna i punti
-      };
-      console.log("aggiorno statistiche per ", player.id, "con dati", statsData); // Log per l'aggiornamento delle statistiche
-
-      // Aggiorna le statistiche dell'utente
-      await userModel.updateGameStats(player.id, statsData); // Aggiorna le statistiche nel modello
+      // Aggiorna le statistiche direttamente nell'oggetto utente
+      currentUser.profile.stats.gamesPlayed = (currentStats.gamesPlayed || 0) + 1;
+      currentUser.profile.stats.gamesWon = (currentStats.gamesWon || 0) + ((winner && winner.id === player.id) ? 1 : 0);
+      currentUser.profile.stats.points = (currentStats.points || 0) + pointsToAdd;
       
-      console.log(`Statistiche aggiornate per giocatore ${player.id}:`, statsData); // Log delle statistiche aggiornate
+      console.log("aggiorno statistiche per ", player.id, "con dati", currentUser.profile.stats); // Log per l'aggiornamento delle statistiche
+
+      // Salva l'utente aggiornato
+      await currentUser.save(); // Salva le modifiche in MongoDB
+      
+      console.log(`Statistiche aggiornate per giocatore ${player.id}:`, currentUser.profile.stats); // Log delle statistiche aggiornate
     } catch (error) {
       console.error(`Errore nell'aggiornamento delle statistiche per il giocatore ${player.id}:`, error); // Log degli errori
     }
@@ -595,7 +607,7 @@ router.post('/update-stats', async (req, res) => {
     writeMatches(matches); // Salva le partite aggiornate nel file
 
     // Recupera l'utente aggiornato per restituirlo al client
-    const updatedUser = await userModel.findUserById(userId); // Cerca l'utente nel modello
+    const updatedUser = await User.findById(userId); // Cerca l'utente da MongoDB
     if (!updatedUser) {
       return res.status(404).json({ success: false, message: 'Utente non trovato' }); // Restituisce errore se l'utente non esiste
     }
@@ -603,7 +615,7 @@ router.post('/update-stats', async (req, res) => {
     return res.json({ 
       success: true, 
       message: 'Statistiche aggiornate con successo', // Messaggio di successo
-      user: updatedUser // Restituisce l'utente aggiornato
+      user: updatedUser.toSafeObject() // Restituisce l'utente aggiornato senza la password
     });
   } catch (error) {
     console.error('Errore durante l\'aggiornamento delle statistiche:', error); // Log degli errori
@@ -641,7 +653,7 @@ router.get("/user/:userId", (req, res) => {
 });
 
 // Crea una rivincita con gli stessi giocatori
-router.post("/recreate", (req, res) => {
+router.post("/recreate", async (req, res) => {
   const { userId, gameCode, maxRounds, players } = req.body; // Estrae i dati dal corpo della richiesta
   console.log("API recreate trovata. body:", req.body); // Log dei dati ricevuti
 
@@ -650,44 +662,49 @@ router.post("/recreate", (req, res) => {
     return res.status(400).json({ error: "User ID, game code and players are required" }); // Restituisce errore se mancano dati
   }
 
-  // Trova l'utente
-  const user = userModel.findUserById(userId); // Cerca l'utente nel modello
-  if (!user) {
-    return res.status(404).json({ error: "User not found" }); // Restituisce errore se l'utente non esiste
+  try {
+    // Trova l'utente da MongoDB
+    const user = await User.findById(userId); // Cerca l'utente da MongoDB
+    if (!user) {
+      return res.status(404).json({ error: "User not found" }); // Restituisce errore se l'utente non esiste
+    }
+
+    // Crea una nuova partita
+    const newGame = {
+      id: uuidv4(), // Genera un ID unico per la partita
+      matchCode: gameCode, // Codice della partita
+      status: "active", // La partita è subito attiva perché abbiamo già entrambi i giocatori
+      players: players.map(player => ({
+        id: player.id, // ID del giocatore
+        username: player.username, // Nome utente del giocatore
+        score: 0, // Punteggio iniziale
+        characters: [] // Array per i personaggi del giocatore
+      })),
+      currentRound: 0, // Round attuale
+      maxRounds: maxRounds || 5, // Numero massimo di round
+      currentTurn: userId, // ID dell'utente il cui turno è attuale
+      createdAt: new Date(), // Data di creazione della partita
+      updatedAt: new Date(), // Data di aggiornamento della partita
+    };
+
+    // Leggi le partite esistenti
+    const matches = readMatches(); // Legge le partite dal file
+    
+    // Aggiungi la nuova partita all'elenco
+    matches.push(newGame); // Aggiunge la nuova partita all'array delle partite
+
+    // Scrivi le partite aggiornate nel file
+    writeMatches(matches); // Salva le partite aggiornate nel file
+
+    // Restituisci i dati della nuova partita
+    res.status(201).json({
+      success: true,
+      game: newGame, // Restituisce la nuova partita creata
+    });
+  } catch (error) {
+    console.error("Errore nella creazione della rivincita:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
-
-  // Crea una nuova partita
-  const newGame = {
-    id: uuidv4(), // Genera un ID unico per la partita
-    matchCode: gameCode, // Codice della partita
-    status: "active", // La partita è subito attiva perché abbiamo già entrambi i giocatori
-    players: players.map(player => ({
-      id: player.id, // ID del giocatore
-      username: player.username, // Nome utente del giocatore
-      score: 0, // Punteggio iniziale
-      characters: [] // Array per i personaggi del giocatore
-    })),
-    currentRound: 0, // Round attuale
-    maxRounds: maxRounds || 5, // Numero massimo di round
-    currentTurn: userId, // ID dell'utente il cui turno è attuale
-    createdAt: new Date(), // Data di creazione della partita
-    updatedAt: new Date(), // Data di aggiornamento della partita
-  };
-
-  // Leggi le partite esistenti
-  const matches = readMatches(); // Legge le partite dal file
-  
-  // Aggiungi la nuova partita all'elenco
-  matches.push(newGame); // Aggiunge la nuova partita all'array delle partite
-
-  // Scrivi le partite aggiornate nel file
-  writeMatches(matches); // Salva le partite aggiornate nel file
-
-  // Restituisci i dati della nuova partita
-  res.status(201).json({
-    success: true,
-    game: newGame, // Restituisce la nuova partita creata
-  });
 });
 
 // Richiedi una rivincita per una partita

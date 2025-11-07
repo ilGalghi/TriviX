@@ -10778,5 +10778,81 @@
     "currentTurn": "6298b94c-070a-40f8-98a7-8ba3e2258bf1",
     "createdAt": "2025-11-06T16:12:06.913Z",
     "updatedAt": "2025-11-06T16:12:58.640Z"
+  },
+  {
+    "id": "8e47c366-c865-427d-9074-f4eaf35afcef",
+    "matchCode": "I8TQX1",
+    "status": "waiting",
+    "players": [
+      {
+        "id": "690cf1f0efaad0fe55944ff8",
+        "username": "Leonardo",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "690cf1f0efaad0fe55944ff8",
+    "createdAt": "2025-11-07T09:14:55.705Z",
+    "updatedAt": "2025-11-07T09:14:56.711Z"
+  },
+  {
+    "id": "07f212d9-366f-4943-be8c-ab86a3190b4e",
+    "matchCode": "ZX0ROR",
+    "status": "completed",
+    "players": [
+      {
+        "id": "690cf1f0efaad0fe55944ff8",
+        "username": "Leonardo",
+        "score": 3,
+        "characters": []
+      },
+      {
+        "id": "690cf1f1efaad0fe55944ffc",
+        "username": "Gigino01",
+        "score": 2,
+        "characters": []
+      }
+    ],
+    "currentRound": 5,
+    "maxRounds": 5,
+    "currentTurn": "690cf1f0efaad0fe55944ff8",
+    "createdAt": "2025-11-07T09:15:31.731Z",
+    "updatedAt": "2025-11-07T09:18:06.631Z",
+    "statsUpdated": true,
+    "rematchRequests": [
+      "690cf1f0efaad0fe55944ff8",
+      "690cf1f1efaad0fe55944ffc"
+    ],
+    "rematchNewGameCode": "5QW7WO",
+    "rematchAccepted": true,
+    "rematchCreated": true
+  },
+  {
+    "id": "9eeb6179-51a8-4f5f-97f7-47c1ee8a5393",
+    "matchCode": "5QW7WO",
+    "status": "active",
+    "players": [
+      {
+        "id": "690cf1f0efaad0fe55944ff8",
+        "username": "Leonardo",
+        "score": 0,
+        "characters": []
+      },
+      {
+        "id": "690cf1f1efaad0fe55944ffc",
+        "username": "Gigino01",
+        "score": 0,
+        "characters": []
+      }
+    ],
+    "currentRound": 0,
+    "maxRounds": 5,
+    "currentTurn": "690cf1f0efaad0fe55944ff8",
+    "createdAt": "2025-11-07T09:18:06.632Z",
+    "updatedAt": "2025-11-07T09:18:06.632Z",
+    "isRematch": true,
+    "originalGameCode": "ZX0ROR"
   }
 ]
